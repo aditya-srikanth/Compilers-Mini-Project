@@ -9,7 +9,7 @@ echo ""
 
 echo "Running Flex"
 lex lexer.l
-ehco ""
+echo ""
 
 echo "Compiling them together"
 gcc y.tab.c lex.yy.c -ly -ll

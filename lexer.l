@@ -20,6 +20,7 @@ DIGIT [0-9]
 (?i:where) return WHERE;
 (?i:and) return AND;
 (?i:or) return OR;
+(?i:not) return NOT;
 (?i:insert) return INSERT;
 (?i:record) return RECORD;
 (?i:into) return INTO;
@@ -32,6 +33,16 @@ DIGIT [0-9]
 /* Special symbols used : Paranthesis */
 '('        return LEFT_PARANTHESES;
 ')'        return RIGHT_PARANTHESES;
+/* Relational Operators */
+<     return LESS_THAN;
+<=    return LESS_THAN_EQUAL;
+>     return GREATER_THAN;
+>=    return GREATER_THAN_EQUAL;
+==    return EQUAL;
+!=    return NOT_EQUAL;
+
+/* String Operators */
+= return STRING_COMPARISON;
 
 /* All the queries are terminated by a semi-colon */
 ; return STMTTERM;

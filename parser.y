@@ -1,3 +1,13 @@
+/*
+ * @authors 
+ * Tanmay Kulkarni
+ * Ch Vishal 
+ * Aditya Srikant
+ * 
+ * Preamble:
+ * The objective of the specification below is to specify the query statements that have been used in the language
+ * Here we are making use of BISON.
+ */
 %{
 	#include <stdio.h>	
 %}

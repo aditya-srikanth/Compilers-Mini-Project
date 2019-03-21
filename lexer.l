@@ -1,3 +1,13 @@
+/*
+ * @authors 
+ * Tanmay Kulkarni
+ * Ch Vishal 
+ * Aditya Srikant
+ * 
+ * Preamble:
+ * The objective of the specification below is to specify the tokens that are used by MQL defined within the assignment.
+ * Here we are making use of FLEX.
+ */
 %{
 	#include "y.tab.h"
 %}

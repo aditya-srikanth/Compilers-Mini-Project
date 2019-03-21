@@ -65,8 +65,12 @@
 #line 11 "parser.y" /* yacc.c:339  */
 
 	#include <stdio.h>
+	int yylex();
+	int yyerror(char* msg){
+		perror("Tatti\n")
+	}
 
-#line 70 "y.tab.c" /* yacc.c:339  */
+#line 74 "y.tab.c" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -166,12 +170,12 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 19 "parser.y" /* yacc.c:355  */
+#line 23 "parser.y" /* yacc.c:355  */
 
 	char* string;
     int integer;
 
-#line 175 "y.tab.c" /* yacc.c:355  */
+#line 179 "y.tab.c" /* yacc.c:355  */
 };
 
 typedef union YYSTYPE YYSTYPE;
@@ -188,7 +192,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 192 "y.tab.c" /* yacc.c:358  */
+#line 196 "y.tab.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -488,11 +492,11 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    25,    25,    27,    29,    31,    34,    37,    40,    43,
-      46,    49,    49,    52,    55,    57,    60,    60,    63,    63,
-      63,    63,    66,    69,    72,    72,    75,    78,    78,    81,
-      81,    81,    81,    81,    81,    84,    87,    88,    91,    91,
-      94
+       0,    29,    29,    31,    33,    35,    38,    41,    44,    47,
+      50,    53,    53,    56,    59,    61,    64,    64,    67,    67,
+      67,    67,    70,    73,    76,    76,    79,    82,    82,    85,
+      85,    85,    85,    85,    85,    88,    91,    92,    95,    95,
+      98
 };
 #endif
 
@@ -1320,7 +1324,7 @@ yyreduce:
   switch (yyn)
     {
       
-#line 1324 "y.tab.c" /* yacc.c:1646  */
+#line 1328 "y.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1548,7 +1552,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 96 "parser.y" /* yacc.c:1906  */
+#line 100 "parser.y" /* yacc.c:1906  */
 
 
 int yyerror(char* msg){

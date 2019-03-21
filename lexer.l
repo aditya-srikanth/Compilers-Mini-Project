@@ -10,19 +10,32 @@ DIGIT [0-9]
 (?i:where) return WHERE;
 (?i:and) return AND;
 (?i:or) return OR;
-(?i:update) return UPDATE;
+(?i:insert) return INSERT;
 (?i:record) return RECORD;
+(?i:into) return INTO;
+(?i:update) return UPDATE;
 (?i:in) return IN;
 (?i:set) return SET;
 (?i:to) return TO;
 (?i:delete) return DELETE;
 
 /* All the queries are terminated by a semi-colon */ 
-; return STMTTERM;
+; return STMTTERM; 
+
+/* Comma to separate the list of fields */
+, return COMMA 
 
 /* This is an identifier */
-([_]|{ALPHA})({ALPHA}|{DIGIT}|[$_])* return yytext[0]; 
+([_]|{ALPHA})({ALPHA}|{DIGIT}|[$_])* 	{	
+											yylval.string=yytext;
+											return ID;
+										} 
 
+/* Ignoring whitespaces */
+[ \t] ; /* ; signifies DO NOTHING */
+
+/* Any other character is invalid */
+. yyerror("This is an invalid character");
 %%
 
 int yywrap(void){

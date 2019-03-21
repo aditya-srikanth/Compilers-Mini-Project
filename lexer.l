@@ -9,12 +9,12 @@
  * Here we are making use of FLEX.
  */
 %{
-	#include "y.tab.h"
+  #include "y.tab.h"
 %}
 ALPHA [a-zA-Z]
 DIGIT [0-9]
 %%
-/* This is a description of all the keywords used */
+  /* This is a description of all the keywords used */
 (?i:get) return GET;
 (?i:from) return FROM;
 (?i:where) return WHERE;
@@ -30,52 +30,54 @@ DIGIT [0-9]
 (?i:to) return TO;
 (?i:delete) return DELETE;
 
-/* Special symbols used : Paranthesis */
-'('        return LEFT_PARANTHESES;
-')'        return RIGHT_PARANTHESES;
-/* Relational Operators */
-<     return LESS_THAN;
-<=    return LESS_THAN_EQUAL;
->     return GREATER_THAN;
->=    return GREATER_THAN_EQUAL;
-==    return EQUAL;
-!=    return NOT_EQUAL;
+  /* Special symbols used : Paranthesis */
+"("        return LEFT_PARANTHESES;
+")"        return RIGHT_PARANTHESES;
+  /* Relational Operators */
+"<"     return LESS_THAN;
+"<="    return LESS_THAN_EQUAL;
+">"     return GREATER_THAN;
+">="    return GREATER_THAN_EQUAL;
+"=="   return EQUAL;
+"!="    return NOT_EQUAL;
 
-/* String Operators */
+  /* String Operators */
 = return STRING_COMPARISON;
 
-/* All the queries are terminated by a semi-colon */
+  /* All the queries are terminated by a semi-colon */
 ; return STMTTERM;
 
-/* Comma to separate the list of fields */
+  /* Comma to separate the list of fields */
 , return COMMA ;
 
-/* This is an identifier */
-([_]|{ALPHA})({ALPHA}|{DIGIT}|[$_])* 	{
-											yylval.string=yytext;
-											return IDENTIFIER;
-										}
+  /* This is an identifier */
+([_]|{ALPHA})({ALPHA}|{DIGIT}|[$_])*   {
+                      yylval.string=yytext;
+                      return IDENTIFIER;
+                    }
 
-/* This is a string */
+  /* This is a string */
 \".+\"                                 {
                                             yylval.string=yytext;
                                             return STRING;
 
                                         }
 
-/*  This is an integer  */
+  /*  This is an integer  */
 {DIGIT}+                                {
                                             yylval.integer = atoi(yytext);
                                             return INTEGER;
                                         }
 
-/* Ignoring whitespaces */
-[ \t] ; /* ; signifies DO NOTHING */
+  /* Ignoring whitespaces */
+[ \t] ;
+  /* ; signifies DO NOTHING */
 
-/* Any other character is invalid */
+  /* Any other character is invalid */
 . yyerror("This is an invalid character");
 %%
 
 int yywrap(void){
-	return 1; // Return 1 when we successfully obtain a token
+  return 1;
+  // Return 1 when we successfully obtain a token
 }

@@ -1,9 +1,9 @@
 /*
- * @authors 
+ * @authors
  * Tanmay Kulkarni
- * Ch Vishal 
+ * Ch Vishal
  * Aditya Srikant
- * 
+ *
  * Preamble:
  * The objective of the specification below is to specify the tokens that are used by MQL defined within the assignment.
  * Here we are making use of FLEX.
@@ -13,7 +13,7 @@
 %}
 ALPHA [a-zA-Z]
 DIGIT [0-9]
-%% 
+%%
 /* This is a description of all the keywords used */
 (?i:get) return GET;
 (?i:from) return FROM;
@@ -29,17 +29,34 @@ DIGIT [0-9]
 (?i:to) return TO;
 (?i:delete) return DELETE;
 
-/* All the queries are terminated by a semi-colon */ 
-; return STMTTERM; 
+/* Special symbols used : Paranthesis */
+'('        return LEFT_PARANTHESES;
+')'        return RIGHT_PARANTHESES;
+
+/* All the queries are terminated by a semi-colon */
+; return STMTTERM;
 
 /* Comma to separate the list of fields */
-, return COMMA 
+, return COMMA ;
 
 /* This is an identifier */
-([_]|{ALPHA})({ALPHA}|{DIGIT}|[$_])* 	{	
+([_]|{ALPHA})({ALPHA}|{DIGIT}|[$_])* 	{
 											yylval.string=yytext;
-											return ID;
-										} 
+											return IDENTIFIER;
+										}
+
+/* This is a string */
+\".+\"                                 {
+                                            yylval.string=yytext;
+                                            return STRING;
+
+                                        }
+
+/*  This is an integer  */
+{DIGIT}+                                {
+                                            yylval.integer = atoi(yytext);
+                                            return INTEGER;
+                                        }
 
 /* Ignoring whitespaces */
 [ \t] ; /* ; signifies DO NOTHING */

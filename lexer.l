@@ -16,7 +16,6 @@ DIGIT [0-9]
 (?i:set) return SET;
 (?i:to) return TO;
 (?i:delete) return DELETE;
-(?i:from) return FROM;
 
 /* All the queries are terminated by a semi-colon */ 
 ; return STMTTERM;

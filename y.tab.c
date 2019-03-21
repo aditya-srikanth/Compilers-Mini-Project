@@ -66,8 +66,9 @@
 
 	#include <stdio.h>
 	int yylex();
+    extern int yyerror(const char* msg);
 
-#line 71 "y.tab.c" /* yacc.c:339  */
+#line 72 "y.tab.c" /* yacc.c:339  */
 
 # ifndef YY_NULLPTR
 #  if defined __cplusplus && 201103L <= __cplusplus
@@ -167,12 +168,12 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 20 "parser.y" /* yacc.c:355  */
+#line 21 "parser.y" /* yacc.c:355  */
 
 	char* string;
     int integer;
 
-#line 176 "y.tab.c" /* yacc.c:355  */
+#line 177 "y.tab.c" /* yacc.c:355  */
 };
 
 typedef union YYSTYPE YYSTYPE;
@@ -189,7 +190,7 @@ int yyparse (void);
 
 /* Copy the second part of user declarations.  */
 
-#line 193 "y.tab.c" /* yacc.c:358  */
+#line 194 "y.tab.c" /* yacc.c:358  */
 
 #ifdef short
 # undef short
@@ -489,11 +490,11 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    26,    26,    28,    30,    32,    35,    38,    41,    44,
-      47,    50,    50,    53,    56,    58,    61,    61,    64,    64,
-      64,    64,    67,    70,    73,    73,    76,    79,    79,    82,
-      82,    82,    82,    82,    82,    85,    88,    89,    92,    92,
-      95
+       0,    27,    27,    29,    31,    33,    36,    39,    42,    45,
+      48,    51,    51,    54,    57,    59,    62,    62,    65,    65,
+      65,    65,    68,    71,    74,    74,    77,    80,    80,    83,
+      83,    83,    83,    83,    83,    86,    89,    90,    93,    93,
+      96
 };
 #endif
 
@@ -1321,7 +1322,7 @@ yyreduce:
   switch (yyn)
     {
       
-#line 1325 "y.tab.c" /* yacc.c:1646  */
+#line 1326 "y.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1549,11 +1550,12 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 97 "parser.y" /* yacc.c:1906  */
+#line 98 "parser.y" /* yacc.c:1906  */
 
 
-int yyerror(char* msg){
-	fprintf(stderr," %s\n",msg);
+int yyerror(const char* msg){
+	fprintf(stderr," %s\n",msg); 
+    return 0;
 }
 
 int main(void){

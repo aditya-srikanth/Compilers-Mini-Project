@@ -11,6 +11,7 @@
 %{
 	#include <stdio.h>
 	int yylex();
+    extern int yyerror(const char* msg);
 %}
 %token GET FROM WHERE INSERT RECORD INTO UPDATE IN SET TO DELETE STMTTERM COMMA LEFT_PARANTHESES RIGHT_PARANTHESES STRING INTEGER IDENTIFIER
 %token NOT
@@ -96,8 +97,9 @@
                 ;
 %%
 
-int yyerror(char* msg){
-	fprintf(stderr," %s\n",msg);
+int yyerror(const char* msg){
+	fprintf(stderr," %s\n",msg); 
+    return 0;
 }
 
 int main(void){

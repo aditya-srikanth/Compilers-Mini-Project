@@ -15,5 +15,5 @@ echo "Compiling them together"
 gcc y.tab.c lex.yy.c -ly -ll
 echo ""
 
-echo "Run the excutable"
-./a.out
+# echo "Run the excutable"
+# ./a.out

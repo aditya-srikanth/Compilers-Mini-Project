@@ -10,6 +10,7 @@
  */
 %{
   #include "y.tab.h"
+  extern int yyerror(const char* msg);
 %}
 ALPHA [a-zA-Z]
 DIGIT [0-9]

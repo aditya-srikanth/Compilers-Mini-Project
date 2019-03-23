@@ -1,4 +1,4 @@
-#! /bin/bash
+#! /usr/bin/bash
 
 echo "!!!WARNING!!! We are using lexer.l and parser.y as the lexer and parser respectively"
 echo ""
@@ -12,8 +12,8 @@ lex lexer.l
 echo ""
 
 echo "Compiling them together"
-gcc y.tab.c lex.yy.c -ly -ll
+gcc y.tab.c lex.yy.c
 echo ""
 
-# echo "Run the excutable"
-# ./a.out
+echo "Run the excutable"
+./a.out

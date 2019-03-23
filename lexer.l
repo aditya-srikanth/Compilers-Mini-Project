@@ -46,7 +46,7 @@ DIGIT [0-9]
 = return STRING_COMPARISON;
 
   /* All the queries are terminated by a semi-colon */
-; return STMTTERM;
+; return 0;
 
   /* Comma to separate the list of fields */
 , return COMMA ;
@@ -65,7 +65,7 @@ DIGIT [0-9]
                                         }
 
   /*  This is an integer  */
-{DIGIT}+                                {
+[-]?{DIGIT}+                                {
                                             yylval.integer = atoi(yytext);
                                             return INTEGER;
                                         }
@@ -75,7 +75,7 @@ DIGIT [0-9]
   /* ; signifies DO NOTHING */
 
   /* Any other character is invalid */
-. yyerror("This is an invalid character");
+. puts(yytext); yyerror("This is an invalid character");
 %%
 
 int yywrap(void){

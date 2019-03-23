@@ -16,7 +16,7 @@ ALPHA [a-zA-Z]
 DIGIT [0-9]
 %%
   /* This is a description of all the keywords used */
-(?i:get) return GET;
+(?i:get) {printf("Get query\n"); return GET;}
 (?i:from) return FROM;
 (?i:where) return WHERE;
 (?i:and) return AND;
@@ -46,7 +46,7 @@ DIGIT [0-9]
 = return STRING_COMPARISON;
 
   /* All the queries are terminated by a semi-colon */
-; return STMTTERM;
+; return 0;
 
   /* Comma to separate the list of fields */
 , return COMMA ;
@@ -65,7 +65,7 @@ DIGIT [0-9]
                                         }
 
   /*  This is an integer  */
-{DIGIT}+                                {
+[-]?{DIGIT}+                                {
                                             yylval.integer = atoi(yytext);
                                             return INTEGER;
                                         }

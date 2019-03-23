@@ -802,7 +802,7 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 YY_RULE_SETUP
 #line 20 "lexer.l"
-return GET;
+{printf("Get query\n"); return GET;}
 	YY_BREAK
 case 2:
 YY_RULE_SETUP

@@ -1315,6 +1315,7 @@ yyreduce:
   switch (yyn)
     {
         case 2:
+<<<<<<< HEAD
 #line 27 "parser.y" /* yacc.c:1645  */
     { printf("Get query\n");}
 #line 1321 "y.tab.c" /* yacc.c:1645  */
@@ -1340,6 +1341,33 @@ yyreduce:
 
 
 #line 1343 "y.tab.c" /* yacc.c:1645  */
+=======
+#line 27 "parser.y" /* yacc.c:1646  */
+    { printf("Get query\n");}
+#line 1326 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 3:
+#line 29 "parser.y" /* yacc.c:1646  */
+    { printf("Insert query\n");}
+#line 1332 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 4:
+#line 31 "parser.y" /* yacc.c:1646  */
+    { printf("Update query\n");}
+#line 1338 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 5:
+#line 33 "parser.y" /* yacc.c:1646  */
+    { printf("Delete query\n");}
+#line 1344 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+
+#line 1348 "y.tab.c" /* yacc.c:1646  */
+>>>>>>> 7e45703c208e77d7840b73ed1b50ca2e9e7fc8b9
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -1570,7 +1598,11 @@ yyreturn:
 
 
 int yyerror(const char* msg){
+<<<<<<< HEAD
   fprintf(stderr," %s\n",msg);
+=======
+	fprintf(stderr," %s\n",msg);
+>>>>>>> 7e45703c208e77d7840b73ed1b50ca2e9e7fc8b9
     return 0;
 }
 

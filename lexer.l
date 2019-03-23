@@ -16,7 +16,7 @@ ALPHA [a-zA-Z]
 DIGIT [0-9]
 %%
   /* This is a description of all the keywords used */
-(?i:get) return GET;
+(?i:get) {printf("Get query\n"); return GET;}
 (?i:from) return FROM;
 (?i:where) return WHERE;
 (?i:and) return AND;

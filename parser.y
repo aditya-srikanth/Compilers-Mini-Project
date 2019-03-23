@@ -24,7 +24,6 @@
 };
 
 %%
-<<<<<<< HEAD
   QUERY :   GET_QRY    { printf("Get query\n");}
         |
         INSERT_QRY  { printf("Insert query\n");}
@@ -38,31 +37,12 @@
         ;
 
     INSERT_QRY:  INSERT RECORD TUPLE INTO FILE_NAME
-=======
-	QUERY : 	GET_QRY		{ printf("Get query\n");}
-				|
-				INSERT_QRY  { printf("Insert query\n");}
-				|
-				UPDATE_QRY  { printf("Update query\n");}
-				|
-				DELETE_QRY  { printf("Delete query\n");}
-				;
-
-	GET_QRY: 	GET FIELD_LIST FROM FILE_NAME WHERE CONDITION_LIST
-				;
-
-	INSERT_QRY:	INSERT RECORD TUPLE INTO FILE_NAME
->>>>>>> 7e45703c208e77d7840b73ed1b50ca2e9e7fc8b9
                 ;
 
     UPDATE_QRY: UPDATE RECORD IN FILE_NAME SET FIELD_LIST TO TUPLE WHERE CONDITION_LIST
                 ;
 
-<<<<<<< HEAD
     DELETE_QRY: DELETE RECORD FROM FILE_NAME WHERE CONDITION_LIST 
-=======
-    DELETE_QRY: DELETE RECORD FROM FILE_NAME WHERE CONDITION_LIST
->>>>>>> 7e45703c208e77d7840b73ed1b50ca2e9e7fc8b9
                 ;
 
     FIELD_LIST: LEFT_PARANTHESES FIELDS RIGHT_PARANTHESES
@@ -118,11 +98,7 @@
 %%
 
 int yyerror(const char* msg){
-<<<<<<< HEAD
   fprintf(stderr," %s\n",msg);
-=======
-	fprintf(stderr," %s\n",msg);
->>>>>>> 7e45703c208e77d7840b73ed1b50ca2e9e7fc8b9
     return 0;
 }
 

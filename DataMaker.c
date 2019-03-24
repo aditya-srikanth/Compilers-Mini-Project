@@ -6,8 +6,9 @@
 #include <dirent.h>
 #include <errno.h>
 #include <stdio.h>
+#include <string.h>
 #include "defaults.h"
-
+#include "datatyes.h"
 
 void databaseMaker(){
     printf("Enter the number of tables you want\n");
@@ -18,12 +19,18 @@ void databaseMaker(){
         char name[MAX_NAME_SIZE];
         memset(name,0,sizeof(name));
         scanf("%s",name);
+
         printf("Enter the number of coloumns in your table\n");
         int cols;
         scanf("%d",&cols);
+
         char attr[cols][MAX_NAME_SIZE];
         char dtype[cols][MAX_NAME_SIZE];
         memset(attr,0,sizeof(attr));
+
+        printf("The currenly supported types are:\n");
+        printf("1.%s\n",STRING);
+        printf("%s\n",INT);
         for(int j=0;j<cols;j++){
             printf("Enter the coloumn name and the datatype(string/int) separated by space");
             char a[MAX_NAME_SIZE],b[MAX_NAME_SIZE];
@@ -31,7 +38,8 @@ void databaseMaker(){
             memset(b,0,sizeof(b));
             scanf("%s",a);
             scanf("%s",b);
-            if(strcmp(b,"string") == 0 || strcmp(b,"int") == 0){
+
+            if(strcmp(strlwr(b),"string") == 0 || strcmp(strlwr(b),"int") == 0){
                 strcat(attr[j],a);
                 strcat(dtype[j],b);
                 continue;
@@ -79,20 +87,18 @@ int main(void){
 
 
             case ENOENT:    printf("Directory does not exist, or name is an empty string.\n");
-                            if(isMaster==1){
-                                char c;
-                                printf("Do you want to create a new master Directory(y/n)\n");
-                                scanf("%c",c);
-                                if(c=='n' || c=='N'){
-                                    printf("Terminating execution\n");
-                                    exit(EXIT_SUCCESS);
-                                }
-                                else{
-                                    // Create the default file locations in the current folder
-                                    mkdir(MASTER_TABLE,DEFFILEMODE); // master files
-                                    mkdir(DATA_PATH,DEFFILEMODE); // all the other database folders
-                                    printf(" Make use of the schema and the data helper utilities to fill the schema details and the input files\n");
-                                }
+                            char c;
+                            printf("Do you want to create a new master Directory(y/n)\n");
+                            scanf("%c",c);
+                            if(c=='n' || c=='N'){
+                                printf("Terminating execution\n");
+                                exit(EXIT_SUCCESS);
+                            }
+                            else{
+                                // Create the default file locations in the current folder
+                                mkdir(MASTER_TABLE,DEFFILEMODE); // master files
+                                mkdir(DATA_PATH,DEFFILEMODE); // all the other database folders
+                                printf(" Make use of the schema and the data helper utilities to fill the schema details and the input files\n");
                             }
                             break;
 

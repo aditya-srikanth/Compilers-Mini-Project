@@ -27,7 +27,8 @@ void databaseMaker(){
         char attr[cols][MAX_NAME_SIZE];
         char dtype[cols][MAX_NAME_SIZE];
         memset(attr,0,sizeof(attr));
-
+        memset(dtype,0,sizeof(dtype));
+        
         printf("The currenly supported types are:\n");
         printf("1.%s\n",STRING);
         printf("%s\n",INT);
@@ -50,10 +51,25 @@ void databaseMaker(){
 
             }
         }
-        int foldercreated = mkdir(name,DEFFILEMODE);
+        char pathToData[MAX_NAME_SIZE*2];
+        memset(pathToData,0,sizeof(pathToData));
+        strcat(pathToData,DATA_PATH)
+        strcat(pathToData,"/");
+        strcar(pathToData,name);
+        int foldercreated = mkdir(pathToData,DEFFILEMODE);
         if(foldercreated == 0){
-            //somehow save the table schema files dtype and attr in the same master folder
             printf("Table created successfully");
+            FILE* fileHandle=NULL;
+            char pathToSchema[MAX_NAME_SIZE*2];
+            memset(pathToSchema,0,sizeof(pathToSchema));    
+            strcat(pathToSchema,MASTER_TABLE);
+            strcat(pathToSchema,"/");
+            strcat(pathToSchema,name)
+            fileHandle=fopen(pathToSchema,"w");
+
+            for(int j=0;j<cols;j++){
+                fprintf(fileHandle, "%s:%s\n",attr[j],dtype[j]);
+            }
         }
         else{
             handleError(/*Tanny fill something here*/);
@@ -100,12 +116,15 @@ int main(void){
                                 mkdir(DATA_PATH,DEFFILEMODE); // all the other database folders
                                 printf(" Make use of the schema and the data helper utilities to fill the schema details and the input files\n");
                             }
+                            databaseMaker();
                             break;
 
            case ENOMEM: perror("Insufficient memory to complete the operation.\n");break;exit(EXIT_FAILURE);
 
 
            case ENOTDIR: perror("name is not a directory.\n");break;exit(EXIT_FAILURE);
+        }
     }
 
+    return 0;
 }

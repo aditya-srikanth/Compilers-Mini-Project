@@ -10,6 +10,29 @@
 #include "defaults.h"
 #include "datatyes.h"
 
+void handleError(){
+    switch(errorno){
+            case EACCES: perror("Permission denied.\n");exit(EXIT_FAILURE);break;
+
+           case EBADF:  perror("fd is not a valid file descriptor opened for reading.\n");exit(EXIT_FAILURE);break;
+
+           case EMFILE: perror("The per-process limit on the number of open file descriptors has been reached.\n");exit(EXIT_FAILURE);break;
+
+
+           case ENFILE: perror("The system-wide limit on the total number of open files has been reached.\n");exit(EXIT_FAILURE);break;
+
+
+
+            case ENOENT:    printf("Directory does not exist, or name is an empty string.\n");exit(EXIT_FAILURE);break;
+                            
+
+           case ENOMEM: perror("Insufficient memory to complete the operation.\n");break;exit(EXIT_FAILURE);
+
+
+           case ENOTDIR: perror("name is not a directory.\n");break;exit(EXIT_FAILURE);
+        }
+}
+
 void databaseMaker(){
     printf("Enter the number of tables you want\n");
     int n;
@@ -28,7 +51,7 @@ void databaseMaker(){
         char dtype[cols][MAX_NAME_SIZE];
         memset(attr,0,sizeof(attr));
         memset(dtype,0,sizeof(dtype));
-        
+
         printf("The currenly supported types are:\n");
         printf("1.%s\n",STRING);
         printf("%s\n",INT);
@@ -65,18 +88,23 @@ void databaseMaker(){
             strcat(pathToSchema,MASTER_TABLE);
             strcat(pathToSchema,"/");
             strcat(pathToSchema,name)
+            
             fileHandle=fopen(pathToSchema,"w");
 
             for(int j=0;j<cols;j++){
                 fprintf(fileHandle, "%s:%s\n",attr[j],dtype[j]);
             }
+
+            fclose(fileHandle);
+
         }
         else{
-            handleError(/*Tanny fill something here*/);
+            handleError();
         }
     }
 
 }
+
 
 int main(void){
     printf("Welocome to the database maker utility\n");

@@ -24,7 +24,7 @@ void handleError(){
 
 
             case ENOENT:    printf("Directory does not exist, or name is an empty string.\n");exit(EXIT_FAILURE);break;
-                            
+
 
            case ENOMEM: perror("Insufficient memory to complete the operation.\n");break;exit(EXIT_FAILURE);
 
@@ -55,6 +55,7 @@ void databaseMaker(){
         printf("The currenly supported types are:\n");
         printf("1.%s\n",STRING);
         printf("%s\n",INT);
+        printf("%s\n", "Make sure that the first attribute is the primary key, only single primary keys are supported");
         for(int j=0;j<cols;j++){
             printf("Enter the coloumn name and the datatype(string/int) separated by space");
             char a[MAX_NAME_SIZE],b[MAX_NAME_SIZE];
@@ -84,11 +85,11 @@ void databaseMaker(){
             printf("Table created successfully");
             FILE* fileHandle=NULL;
             char pathToSchema[MAX_NAME_SIZE*2];
-            memset(pathToSchema,0,sizeof(pathToSchema));    
+            memset(pathToSchema,0,sizeof(pathToSchema));
             strcat(pathToSchema,MASTER_TABLE);
             strcat(pathToSchema,"/");
             strcat(pathToSchema,name)
-            
+
             fileHandle=fopen(pathToSchema,"w");
 
             for(int j=0;j<cols;j++){
@@ -109,7 +110,7 @@ void databaseMaker(){
 int main(void){
     printf("Welocome to the database maker utility\n");
     printf("This utility allows you to define schemas for your data\n");
-    
+
     DIR* masterDirectory = opendir(MASTER_TABLE);
     if(masterDirectory){
         printf("%s\n","The master directory exists\n");

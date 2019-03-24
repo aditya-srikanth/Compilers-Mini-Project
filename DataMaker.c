@@ -55,7 +55,7 @@ void databaseMaker(){
         printf("The currenly supported types are:\n");
         printf("1.%s\n",STRING);
         printf("%s\n",INT);
-        printf("%s\n", "Make sure that the first attribute is the primary key, only single primary keys are supported");
+        printf("%s\n", "Make sure that the first attribute is the primary key!!!\n");
         for(int j=0;j<cols;j++){
             printf("Enter the coloumn name and the datatype(string/int) separated by space");
             char a[MAX_NAME_SIZE],b[MAX_NAME_SIZE];

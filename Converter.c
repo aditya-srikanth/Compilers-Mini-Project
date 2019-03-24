@@ -70,9 +70,9 @@ int main(void)
         struct stat buffer;
         int exist = stat(pathToSchema,&buffer);
         printf("Enter the location of the database.txt file\n");
-        char db[MAX_NAME_SIZE];
+        char db_source[MAX_NAME_SIZE];
         scanf("%s",db);
-        FILE* db = fopen(db,"r+");
+        FILE* db = fopen(db_source,"r+"); // create a handle to the file that needs to be converted
         if(db==NULL){
             printf("Unable to find the file, check if the path given: %s , is correct",db);
             exit(EXIT_FAILURE);
@@ -82,24 +82,26 @@ int main(void)
             if(exist == 0){
 
                 printf("Schema found, in the master folder\n");
-                FILE* dbschema = fopen(pathToSchema,"r");
+                FILE* dbschema = fopen(pathToSchema,"r"); // create a handle to the schema file
 
                 printf("Enter the delimiting character\n");
                 char delim[2];
                 scanf("%s",delim);
                 //preliminary sanity checks for the txt file, checking if it matches the schema
                 char testinput[RECORD_LENGTH];
-                fgets(testinput,RECORD_LENGTH,db);
+                fgets(testinput,RECORD_LENGTH,db);// read a line from the file to be converted
 
-                char* token = strtok(testinput,delim);
+                char* token = strtok(testinput,delim);//tokenize the line by delimiter
                 char * line = NULL;
-                size_t len = 0;
-                size_t read;
+                size_t len = 0; // since the line pointer is NULL and the len value is zero, the system allocates a buffer
+                size_t read; // obtained from the docs
+                // A successful call to getline gives the address of the buffer and the number of bytes allocated
 
-                while(token != NULL && (read = getline(&line,&len,dbschema)) != -1){
-                    char* datatype = strtok(line,SCHEMA_DELIM);//ADD schema_delim to defaults
-                    datatype = strtok(NULL,SCHEMA_DELIM);
-                    char* tempptr;
+                while(token != NULL && (read = getline(&line,&len,dbschema)) != -1){ // -1 is returned both on failure and for EOF
+                    char* datatype = strtok(line,SCHEMA_DELIM); // points to the attr
+                    datatype = strtok(NULL,SCHEMA_DELIM); // points to the data type
+                    char* tempptr; //Holds the last char to not be converted to an int
+
                     if(strcmp(datatype,INT) == 0){
                         long val = strtol(token,&tempptr,10);
                         switch(errno){
@@ -107,7 +109,7 @@ int main(void)
 
                             ERANGE: perror("The resulting value was out of range.\n");break;
 
-                           EINVAL: perror("No conversion performed\n");break;
+                            EINVAL: perror("No conversion performed\n");break;
                         }
                         if(*tempptr!=0){
                             printf("Conversion failed\n");
@@ -125,7 +127,7 @@ int main(void)
 
                 //reading the txt file
                 fclose(db);
-                fopen(db,"r");
+                fdb = open(db_source,"r");
                 while((read = getline(&line,&len,db)) != -1){
                     //assuming the first attribute is the pkey
                     token = strtok(line,delim);
@@ -136,10 +138,10 @@ int main(void)
                     strcat(tempfilename,tablename);
                     strcat(tempfilename,"/");
                     strcat(tempfilename,token);
-                    strcat(tempfilename,".txt");
+                    strcat(tempfilename,".txt"); //DATA_PATH/tablename/firstattr.txt
                     FILE* tempfp = fopen(tempfilename,"w");
 
-                    fprintf(fp,line);
+                    fprintf(fp,line); // NOT CORRECT
                     fclose(tempfp);
                 }
                 fclose(db);

@@ -7,11 +7,15 @@
 #include <errno.h>
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/stat.h>
+#include <sys/types.h>
 #include "defaults.h"
-#include "datatyes.h"
+#include "datatypes.h"
 
 void handleError(){
-    switch(errorno){
+    switch(errno){
             case EACCES: perror("Permission denied.\n");exit(EXIT_FAILURE);break;
 
            case EBADF:  perror("fd is not a valid file descriptor opened for reading.\n");exit(EXIT_FAILURE);break;
@@ -64,7 +68,7 @@ void databaseMaker(){
             scanf("%s",a);
             scanf("%s",b);
 
-            if(strcmp(strlwr(b),"string") == 0 || strcmp(strlwr(b),"int") == 0){
+            if(strcmp(b,"string") == 0 || strcmp(b,"int") == 0){
                 strcat(attr[j],a);
                 strcat(dtype[j],b);
                 continue;
@@ -77,9 +81,9 @@ void databaseMaker(){
         }
         char pathToData[MAX_NAME_SIZE*2];
         memset(pathToData,0,sizeof(pathToData));
-        strcat(pathToData,DATA_PATH)
+        strcat(pathToData,DATA_PATH);
         strcat(pathToData,"/");
-        strcar(pathToData,name);
+        strcat(pathToData,name);
         int foldercreated = mkdir(pathToData,DEFFILEMODE);
         if(foldercreated == 0){
             printf("Table created successfully");
@@ -88,7 +92,7 @@ void databaseMaker(){
             memset(pathToSchema,0,sizeof(pathToSchema));
             strcat(pathToSchema,MASTER_TABLE);
             strcat(pathToSchema,"/");
-            strcat(pathToSchema,name)
+            strcat(pathToSchema,name);
 
             fileHandle=fopen(pathToSchema,"w");
 
@@ -119,7 +123,7 @@ int main(void){
     else{
         printf("Encountered an issue\n");
 
-        switch(errorno){
+        switch(errno){
             case EACCES: perror("Permission denied.\n");exit(EXIT_FAILURE);break;
 
            case EBADF:  perror("fd is not a valid file descriptor opened for reading.\n");exit(EXIT_FAILURE);break;
@@ -134,7 +138,7 @@ int main(void){
             case ENOENT:    printf("Directory does not exist, or name is an empty string.\n");
                             char c;
                             printf("Do you want to create a new master Directory(y/n)\n");
-                            scanf("%c",c);
+                            scanf("%c",&c);
                             if(c=='n' || c=='N'){
                                 printf("Terminating execution\n");
                                 exit(EXIT_SUCCESS);

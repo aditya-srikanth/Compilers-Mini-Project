@@ -3,58 +3,13 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <errno.h>
+#include <dirent.h>
+#include <unistd.h>
+#include <sys/stat.h>
 #include "defaults.h"
-int main(void)
-{
-    printf("Welcome to the converter utility\n");
-    printf("Verifying the presence of the master and data folders\n");
-    //TODO add the code of checking the presence of the folder here
-    DIR* masterDirectory = opendir(MASTER_TABLE);
-    if(masterDirectory){
-        printf("%s\n","The master directory exists\n");
-        dataKruncher();
-    }
-    else{
-        printf("Encountered an issue\n");
+#include "datatypes.h"
 
-        switch(errorno){
-            case EACCES: perror("Permission denied.\n");exit(EXIT_FAILURE);break;
-
-           case EBADF:  perror("fd is not a valid file descriptor opened for reading.\n");exit(EXIT_FAILURE);break;
-
-           case EMFILE: perror("The per-process limit on the number of open file descriptors has been reached.\n");exit(EXIT_FAILURE);break;
-
-
-           case ENFILE: perror("The system-wide limit on the total number of open files has been reached.\n");exit(EXIT_FAILURE);break;
-
-
-
-            case ENOENT:    printf("Directory does not exist, or name is an empty string.\n");
-                            char c;
-                            printf("Do you want to create a new master Directory(y/n)\n");
-                            scanf("%c",c);
-                            if(c=='n' || c=='N'){
-                                printf("Terminating execution\n");
-                                exit(EXIT_SUCCESS);
-                            }
-                            else{
-                                // Create the default file locations in the current folder
-                                mkdir(MASTER_TABLE,DEFFILEMODE); // master files
-                                mkdir(DATA_PATH,DEFFILEMODE); // all the other database folders
-                                printf(" Make use of the schema and the data helper utilities to fill the schema details and the input files\n");
-                            }
-                            break;
-
-           case ENOMEM: perror("Insufficient memory to complete the operation.\n");break;exit(EXIT_FAILURE);
-
-
-           case ENOTDIR: perror("name is not a directory.\n");break;exit(EXIT_FAILURE);
-        }
-    }
-
-
-    return 0;
-}
     void dataKruncher(){
 
         printf("Enter the name of the table\n");
@@ -71,10 +26,10 @@ int main(void)
         int exist = stat(pathToSchema,&buffer);
         printf("Enter the location of the database.txt file\n");
         char db_source[MAX_NAME_SIZE];
-        scanf("%s",db);
+        scanf("%s",db_source);
         FILE* db = fopen(db_source,"r+"); // create a handle to the file that needs to be converted
         if(db==NULL){
-            printf("Unable to find the file, check if the path given: %s , is correct",db);
+            printf("Unable to find the file, check if the path given: %s , is correct",db_source);
             exit(EXIT_FAILURE);
         }
         else{
@@ -105,11 +60,10 @@ int main(void)
                     if(strcmp(datatype,INT) == 0){
                         long val = strtol(token,&tempptr,10);
                         switch(errno){
-                            EINVAL: perror("The given base contains an unsupported value.\n");break;
+                            case EINVAL: perror("The given base contains an unsupported value.\n or No conversion performed\n");break;
 
-                            ERANGE: perror("The resulting value was out of range.\n");break;
+                            case ERANGE: perror("The resulting value was out of range.\n");break;
 
-                            EINVAL: perror("No conversion performed\n");break;
                         }
                         if(*tempptr!=0){
                             printf("Conversion failed\n");
@@ -127,7 +81,7 @@ int main(void)
 
                 //reading the txt file
                 fclose(db);
-                fdb = open(db_source,"r");
+                db = fopen(db_source,"r");
                 while((read = getline(&line,&len,db)) != -1){
                     //assuming the first attribute is the pkey
                     token = strtok(line,delim);
@@ -135,13 +89,13 @@ int main(void)
                     memset(tempfilename,0,sizeof(tempfilename));
                     strcat(tempfilename,DATA_PATH);
                     strcat(tempfilename,"/");
-                    strcat(tempfilename,tablename);
+                    strcat(tempfilename,tableName);
                     strcat(tempfilename,"/");
                     strcat(tempfilename,token);
                     strcat(tempfilename,".txt"); //DATA_PATH/tablename/firstattr.txt
                     FILE* tempfp = fopen(tempfilename,"w");
 
-                    fprintf(fp,line); // NOT CORRECT
+                    fprintf(tempfp,"%s",line); // NOT CORRECT
                     fclose(tempfp);
                 }
                 fclose(db);
@@ -152,3 +106,54 @@ int main(void)
             }
         }
     }
+
+int main(void)
+{
+    printf("Welcome to the converter utility\n");
+    printf("Verifying the presence of the master and data folders\n");
+    //TODO add the code of checking the presence of the folder here
+    DIR* masterDirectory = opendir(MASTER_TABLE);
+    if(masterDirectory){
+        printf("%s\n","The master directory exists\n");
+        dataKruncher();
+    }
+    else{
+        printf("Encountered an issue\n");
+
+        switch(errno){
+            case EACCES: perror("Permission denied.\n");exit(EXIT_FAILURE);break;
+
+           case EBADF:  perror("fd is not a valid file descriptor opened for reading.\n");exit(EXIT_FAILURE);break;
+
+           case EMFILE: perror("The per-process limit on the number of open file descriptors has been reached.\n");exit(EXIT_FAILURE);break;
+
+
+           case ENFILE: perror("The system-wide limit on the total number of open files has been reached.\n");exit(EXIT_FAILURE);break;
+
+
+
+            case ENOENT:    printf("Directory does not exist, or name is an empty string.\n");
+                            char c;
+                            printf("Do you want to create a new master Directory(y/n)\n");
+                            scanf("%c",&c);
+                            if(c=='n' || c=='N'){
+                                printf("Terminating execution\n");
+                                exit(EXIT_SUCCESS);
+                            }
+                            else{
+                                // Create the default file locations in the current folder
+                                mkdir(MASTER_TABLE,DEFFILEMODE); // master files
+                                mkdir(DATA_PATH,DEFFILEMODE); // all the other database folders
+                                printf(" Make use of the schema and the data helper utilities to fill the schema details and the input files\n");
+                            }
+                            break;
+
+           case ENOMEM: perror("Insufficient memory to complete the operation.\n");break;exit(EXIT_FAILURE);
+
+
+           case ENOTDIR: perror("name is not a directory.\n");break;exit(EXIT_FAILURE);
+        }
+    }
+
+    return 0;
+}

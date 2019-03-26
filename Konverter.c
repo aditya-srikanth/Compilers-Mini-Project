@@ -12,6 +12,20 @@
 
     void dataKruncher(){
 
+        printf("!!!WARNING!!! Any files with the same primary key will be overwritten\n");
+        DIR* dir =  opendir(DATA_PATH);
+        if(dir == NULL){
+            printf("Data folder does not exist, make use of the schema utility\n");
+            exit(EXIT_FAILURE);
+        }
+        struct dirent* dirHandle;
+        int count=1;
+        while( (dirHandle=readdir(dir) ) !=NULL ){
+            printf("%d. %s\n",count++,dirHandle->d_name);
+        }
+        closedir(dir);
+
+
         printf("Enter the name of the table\n");
         char tableName[MAX_NAME_SIZE];
         scanf("%s",tableName);
@@ -34,9 +48,10 @@
         }
         else{
 
+            printf("Found the database file. Checking for the schema file\n");
             if(exist == 0){
 
-                printf("Schema found, in the master folder\n");
+                printf("Schema found, in the master folder\n\n");
                 FILE* dbschema = fopen(pathToSchema,"r"); // create a handle to the schema file
 
                 printf("Enter the delimiting character\n");
@@ -46,19 +61,35 @@
                 char testinput[RECORD_LENGTH];
                 fgets(testinput,RECORD_LENGTH,db);// read a line from the file to be converted
 
+                int numOfDelims=0;
+                for (int i=0;i<strlen(testinput);i++){
+                  if(testinput[i]==delim[0]){
+                      numOfDelims++;
+                  }
+                }
+
+                char** tokenizedTestInput=(char**)calloc(numOfDelims+1,sizeof(char*)); // Delims is one less than the number of records
+                int numOfFields=0;// Number of records in the line extractedexist
+
                 char* token = strtok(testinput,delim);//tokenize the line by delimiter
                 char * line = NULL;
                 size_t len = 0; // since the line pointer is NULL and the len value is zero, the system allocates a buffer
                 size_t read; // obtained from the docs
                 // A successful call to getline gives the address of the buffer and the number of bytes allocated
 
-                while(token != NULL && (read = getline(&line,&len,dbschema)) != -1){ // -1 is returned both on failure and for EOF
+                while(token != NULL){
+                    tokenizedTestInput[numOfFields++]=token;
+                    token = strtok(NULL,delim);
+                }
+
+                int fieldNumber = 0;
+                while((read = getline(&line,&len,dbschema)) != -1){ // -1 is returned both on failure and for EOF
                     char* datatype = strtok(line,SCHEMA_DELIM); // points to the attr
                     datatype = strtok(NULL,SCHEMA_DELIM); // points to the data type
                     char* tempptr; //Holds the last char to not be converted to an int
 
                     if(strcmp(datatype,INT) == 0){
-                        long val = strtol(token,&tempptr,10);
+                        long val = strtol(tokenizedTestInput[fieldNumber++],&tempptr,10);
                         switch(errno){
                             case EINVAL: perror("The given base contains an unsupported value.\n or No conversion performed\n");break;
 
@@ -71,12 +102,11 @@
                         }
                     }
                     else if(strcmp(datatype,STRING)==0){
-                        long val = strtol(token,&tempptr,10);
+                        long val = strtol(tokenizedTestInput[fieldNumber++],&tempptr,10);
                         if(val != 0){
                             printf("WARNING!!: probably incorrect data, Integer found in place of string\n");
                         }
                     }
-                    token = strtok(NULL,delim);
                 }
 
                 //reading the txt file
@@ -95,10 +125,14 @@
                     strcat(tempfilename,".txt"); //DATA_PATH/tablename/firstattr.txt
                     FILE* tempfp = fopen(tempfilename,"w");
 
-                    fprintf(tempfp,"%s",line); // NOT CORRECT
+                    while(token != NULL){
+                        fprintf(tempfp,"%s%s",token,FILE_DELIM); // NOT CORRECT
+                        token = strtok(NULL,delim);
+                    }
                     fclose(tempfp);
                 }
                 fclose(db);
+                printf("The data has been Konverted successfully!!\n");
             }
 
             else{

@@ -22,15 +22,25 @@
     void deleteQuery(conditions_list);
     void updateQuery(fields_list,tuple,conditions_list);
 %}
+%union{
+    char* string;
+    int integer;
+    struct Field field;
+    bool boolean;
+};
 %token GET FROM WHERE INSERT RECORD INTO UPDATE IN SET TO DELETE STMTTERM COMMA LEFT_PARANTHESES RIGHT_PARANTHESES STRING INTEGER IDENTIFIER
 %token NOT
 %token AND OR
 %token LESS_THAN LESS_THAN_EQUAL GREATER_THAN GREATER_THAN_EQUAL EQUAL NOT_EQUAL STRING_COMPARISON
-
-%union{
-  char* string;
-    int integer;
-};
+ 
+%type <field> DATA_UNIT
+%type <string> FILE_NAME
+%type <integer> NUMERICAL_OPERAND
+%type <string> STRING_OPERAND
+%type <bool> STRING_CONDITION
+%type <bool> NUMERICAL_CONDITION
+%type <bool> CONDITION
+%type <bool> CONDITION_LIST
 
 %%
   QUERY :   GET_QRY    { printf("Get query\n");}
@@ -99,10 +109,10 @@
                 |
                 ;
 
-    DATA_UNIT: STRING | INTEGER
+    DATA_UNIT: STRING | INTEGER 
                ;
 
-    FILE_NAME: IDENTIFIER
+    FILE_NAME: IDENTIFIER  
                 ;
 %%
 
@@ -183,31 +193,7 @@ void updateQuery(fields_list,tuple,conditions_list){
 int initFunction(char *tableName){
     DIR* masterDirectory = opendir(MASTER_TABLE);
     if(masterDirectory){
-        DIR* table = opendir(tableName);
-        if(table){
-            if(mode == 0){
-                //get
-                void getQuery(fields_list,conditions_list);
-
-
-            }
-            else if(mode == 1){
-                //insert
-                    void insertQuery(tuple);
-
-            }
-            else if(mode == 2){
-                //update
-                void updateQuery(fields_list,tuple,conditions_list);
-            }
-            else{
-                //delete
-                  void deleteQuery(conditions_list);
-
-            }
-        else {
-            handleError();
-        }
+        printf("The master diretory is initialized.\n>>\n")
     else{
          handleError();
     }
@@ -215,8 +201,8 @@ int initFunction(char *tableName){
 
 int main(int argc, char* argv[]){
     initFunction();
-    while(1){
-      yyparse();
+    while(yyparse()==0){
+     // This will make it run till we get an error
     }
   return 0;
 }

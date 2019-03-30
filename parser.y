@@ -23,7 +23,6 @@
     void updateQuery(fields_list,tuple,conditions_list);
 %}
 %union{
-    #define STRING_LENGTH 30
     char string[STRING_LENGTH];
     int integer;
     struct Field field;

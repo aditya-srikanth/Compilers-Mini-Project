@@ -9,6 +9,8 @@
  * Here we are making use of FLEX.
  */
 %{
+  //The first is to make sure all the user defined types are defined
+  #include "datatypes.h"
   #include "y.tab.h"
   #include <string.h>
   extern int yyerror(const char* msg);

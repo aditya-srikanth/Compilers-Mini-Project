@@ -4,6 +4,7 @@
 #define STRING "string"
 #define INT "int"
 #define ARRAY_SIZE 100
+#define STRING_LENGTH 30
 //Datatypes
 struct Field{
 	enum {

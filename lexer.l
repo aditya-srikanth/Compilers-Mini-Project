@@ -10,6 +10,7 @@
  */
 %{
   #include "y.tab.h"
+  #include <string.h>
   extern int yyerror(const char* msg);
 %}
 ALPHA [a-zA-Z]
@@ -59,14 +60,16 @@ DIGIT [0-9]
 
   /* This is a string */
 \".+\"                                 {
-                                            yylval.string=yytext;
+                                            yylval.type = VAL_STRING;
+                                            strcpy(yylval.value,yytext);
                                             return STRING;
 
                                         }
 
   /*  This is an integer  */
 [-]?{DIGIT}+                                {
-                                            yylval.integer = atoi(yytext);
+                                            yylval.type = VAL_INT;
+                                            yylval.value = atoi(yytext);
                                             return INTEGER;
                                         }
 

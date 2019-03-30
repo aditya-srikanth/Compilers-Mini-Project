@@ -30,15 +30,4 @@ char* strupr(char* input){
     return input;
 }
 
-//Datatypes
-struct Field{
-	enum {
-		VAL_INT;
-		VAL_STRING;
-	}type;
-	union Types{
-		int integer;
-		char string[RECORD_LENGTH];
-	}value;
-};
 #endif

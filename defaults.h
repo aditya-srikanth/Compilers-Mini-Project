@@ -16,7 +16,7 @@
 //Defaults for variables
 char* masterPath=MASTER_TABLE;
 char* dataPath=DATA_PATH;
-FILE* file_handle = NULL;
+FILE* schema_file_handle = NULL;
 
 //functions
 char* strlwr(char* input){

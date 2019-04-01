@@ -26,7 +26,7 @@ struct Field_List{
 	int length;
 };
 
-struct  Node_Type{
+struct  Condition_Operator_Type{
 	enum {
 		OPERTR,
 		INT_TYPE,
@@ -39,9 +39,4 @@ struct  Node_Type{
 	bool bool_val;
 };
 
-struct Node{
-	struct Node_Type data;
-	struct Node* left;
-	struct Node* right;
-};
 #endif

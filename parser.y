@@ -10,9 +10,10 @@
  */
 %{
     #include "headers.h"
-
+    #include "datatypes.h"
     #include "defaults.h"
 
+    
     int yylex();
     extern int yyerror(const char* msg);
     int initFunction();
@@ -27,6 +28,7 @@
     int integer;
     struct Field field;
     struct Field_List* field_list_ptr;
+    struct Node* node_ptr;
     bool boolean;
 };
 %token GET FROM WHERE INSERT RECORD INTO UPDATE IN SET TO DELETE STMTTERM COMMA LEFT_PARANTHESES RIGHT_PARANTHESES STRING INTEGER IDENTIFIER
@@ -39,6 +41,7 @@
 %type <string> FILE_NAME
 %type <field> DATA_UNIT
 %type <field_list_ptr> DATA_LIST;
+%type 
 %%
   QUERY :   GET_QRY    { printf("Get query\n");}
         |
@@ -78,30 +81,142 @@
     LOGICAL_OPERATOR: AND | OR
           ;
 
-    CONDITION : NUMERICAL_CONDITION | STRING_CONDITION | NOT CONDITION | LEFT_PARANTHESES CONDITION_LIST RIGHT_PARANTHESES
+    CONDITION : NUMERICAL_CONDITION                                               {
+                                                                                  
+                                                                                  }
+                | 
+                STRING_CONDITION 
+                | 
+                NOT CONDITION 
+                | 
+                LEFT_PARANTHESES CONDITION_LIST RIGHT_PARANTHESES
           ;
 
-    NUMERICAL_CONDITION: NUMERICAL_OPERAND RELATIONAL_OPERATOR NUMERICAL_OPERAND
+    NUMERICAL_CONDITION: NUMERICAL_OPERAND RELATIONAL_OPERATOR NUMERICAL_OPERAND  {
+                                                                                      $2 -> left = $1;
+                                                                                      $2 -> right = $3;
+                                                                                      // ToDO fill $$
+                                                                                      if($2->type == OPERTR){
+                                                                                        //TODO typecheck
+                                                                                      }
+                                                                                      else{
+                                                                                        printf("this operator is NOT defined\n");
+                                                                                      }
+                                                                                  }
           ;
 
-    STRING_CONDITION: STRING_OPERAND STRING_RELATIONAL_OPERATOR STRING_OPERAND
+    STRING_CONDITION: STRING_OPERAND STRING_RELATIONAL_OPERATOR STRING_OPERAND  {
+                                                                                  $2 -> left = $1;
+                                                                                  $2 -> right = $3;
+                                                                                  // ToDO fill $$
+                                                                                  if($2->type == OPERTR){
+                                                                                    // TODO typecheck
+                                                                                  }
+                                                                                  else{
+                                                                                    printf("this operator is NOT defined\n");
+                                                                                    YYABORT;
+                                                                                  }
+                                                                                }
           ;
 
-    STRING_OPERAND: STRING | IDENTIFIER
+    STRING_OPERAND:   STRING                              {
+                                                            $$ = (struct Node*)calloc(1,struct Node);
+                                                            $$ -> left = NULL;
+                                                            $$ -> right = NULL;
+                                                            $$ -> data.type = STRING_TYPE;
+                                                            strcpy($$ -> string , $1 );
+                                                          } 
+                      | 
+                      IDENTIFIER                          {
+                                                            $$ = (struct Node*)calloc(1,struct Node);
+                                                            $$ -> left = NULL;
+                                                            $$ -> right = NULL;
+                                                            $$ -> data.type = STRING_TYPE;
+                                                            // strcpy($$ -> string , $1 ); // TODO handle identifiers
+                                                          }
           ;
 
-    STRING_RELATIONAL_OPERATOR: STRING_COMPARISON
+    STRING_RELATIONAL_OPERATOR: STRING_COMPARISON       {
+                                                          $$ = (struct Node*)calloc(1,struct Node);
+                                                          $$ -> left = NULL;
+                                                          $$ -> right = NULL;
+                                                          $$ -> data.type = OPERTR;
+                                                          strcpy($$ -> data.opertr, "=");
+                                                        }
           ;
 
-    NUMERICAL_OPERAND:   INTEGER | IDENTIFIER
+    NUMERICAL_OPERAND:  INTEGER                         {
+                                                          $$ = (struct Node*)calloc(1,struct Node);
+                                                          $$ -> left = NULL;
+                                                          $$ -> right = NULL;
+                                                          $$ -> data.type = INT_TYPE;
+                                                          $$ -> integer = $1;
+                                                        } 
+                        | 
+                        IDENTIFIER                      {
+                                                          $$ = (struct Node*)calloc(1,struct Node);
+                                                          $$ -> left = NULL;
+                                                          $$ -> right = NULL;
+                                                          $$ -> data.type = INT_TYPE;
+                                                          // $$ -> integer = $1; // TODO handle identifiers
+                                                        }
           ;
 
-    RELATIONAL_OPERATOR: LESS_THAN | LESS_THAN_EQUAL | GREATER_THAN | GREATER_THAN_EQUAL | EQUAL | NOT_EQUAL
+    RELATIONAL_OPERATOR: LESS_THAN                      {
+                                                          $$ = (struct Node*)calloc(1,struct Node);
+                                                          $$ -> left = NULL;
+                                                          $$ -> right = NULL;
+                                                          $$ -> data.type = OPERTR;
+                                                          strcpy($$ -> data.opertr, "<");
+                                                        } 
+                        | 
+                        LESS_THAN_EQUAL                  {
+                                                          $$ = (struct Node*)calloc(1,struct Node);
+                                                          $$ -> left = NULL;
+                                                          $$ -> right = NULL;
+                                                          $$ -> data.type = OPERTR;
+                                                          strcpy($$ -> data.opertr, "<=");
+                                                        } 
+                        | 
+                        GREATER_THAN                    {
+                                                          $$ = (struct Node*)calloc(1,struct Node);
+                                                          $$ -> left = NULL;
+                                                          $$ -> right = NULL;
+                                                          $$ -> data.type = OPERTR;
+                                                          strcpy($$ -> data.opertr, ">");
+                                                        } 
+                        | 
+                        GREATER_THAN_EQUAL              {
+                                                          $$ = (struct Node*)calloc(1,struct Node);
+                                                          $$ -> left = NULL;
+                                                          $$ -> right = NULL;
+                                                          $$ -> data.type = OPERTR;
+                                                          strcpy($$ -> data.opertr, ">");
+                                                        } 
+                        | 
+                        EQUAL                           {
+                                                          $$ = (struct Node*)calloc(1,struct Node);
+                                                          $$ -> left = NULL;
+                                                          $$ -> right = NULL;
+                                                          $$ -> data.type = OPERTR;
+                                                          strcpy($$ -> data.opertr, "==");
+                                                        }
+                                                        
+                        | 
+                        NOT_EQUAL                       {
+                                                          $$ = (struct Node*)calloc(1,struct Node);
+                                                          $$ -> left = NULL;
+                                                          $$ -> right = NULL;
+                                                          $$ -> data.type = OPERTR;
+                                                          strcpy($$ -> data.opertr, "!=");
+                                                        }
+
+                                                          
           ;
 
   TUPLE:      LEFT_PARANTHESES DATA_UNIT DATA_LIST RIGHT_PARANTHESES {
                                                                         if($3->length == ARRAY_SIZE){
-                                                                          printf("Need more fields\n");
+                                                                          printf("Need more fields in the definition, contact the developer\n");
                                                                           YYABORT;// end as we cannot continue;
                                                                         }
                                                                         else{
@@ -119,7 +234,7 @@
 
   DATA_LIST:  COMMA DATA_UNIT DATA_LIST {
                                           if($2->length == ARRAY_SIZE){
-                                            printf("Need more fields\n");
+                                            printf("Need more fields in the definition, contact the developer\n");
                                             YYABORT;// end as we cannot continue;
                                           }
                                           else{
@@ -135,7 +250,7 @@
                                         }
                 |                       
                                         {
-                /* empty */             $$ = (*Field_List)calloc(1,sizeof(Field_List));
+                /* empty */             $$ = (struct Field_List*)calloc(1,sizeof(struct Field_List));
                                         $$->length = 0;          
                                         }
                 ;
@@ -152,6 +267,23 @@
 
     FILE_NAME: IDENTIFIER   {
                               strcpy($$,$1); 
+                              file_handle = fopen($$,"r");
+                              if(file_handle != NULL){
+                                printf("Table found!\n");
+                              }
+                              else{
+                                switch(errno){
+                                  EINVAL: printf("The mode provided for opening the file is incorrect\n");break;
+                                  ENOMEM: printf("Out of memory as the memory has hit the memory limit set internally\n");break;
+                                  EACCES: printf("Access to the current file is not allowed.Check the permissions set for the file\n");break;
+                                  EFAULT: printf("The path name is outside your accessible address space\n");break;
+                                  ENOENT: printf("This file does not exist\n");break;
+                                  EBADNAME: printf("The file name specified is not valied\n");break;
+                                  EIOERROR: printf("A non recoverable IO error occured\n");break;
+                                  EIORECERR: printf("A recoverable IO error occured\n");break;
+                                }
+                                exit(EXIT_FAILURE);
+                              }
                             }
                 ;
 %%

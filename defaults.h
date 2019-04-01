@@ -13,8 +13,10 @@
 #define RECORD_LENGTH 1000
 #define PERMISSIONS 0777
 #define FILE_DELIM "\t"
+//Defaults for variables
 char* masterPath=MASTER_TABLE;
 char* dataPath=DATA_PATH;
+FILE* file_handle = NULL;
 
 //functions
 char* strlwr(char* input){

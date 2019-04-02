@@ -26,7 +26,24 @@ struct Field_List{
 	int length;
 };
 
-struct  Condition_Operator_Type{
+struct Record{
+	struct Field_List current_field;
+	struct Record* next_record;
+};
+
+bool push_back(){
+	return false;
+}
+
+bool remove(int index){
+	return false;
+}
+
+// struct Field_List get(int index){
+
+// }
+
+struct Condition_Operator_Type{
 	enum {
 		OPERTR,
 		INT_TYPE,

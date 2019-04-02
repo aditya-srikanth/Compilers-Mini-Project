@@ -8,14 +8,13 @@
 #define ARRAY_SIZE 100
 #define STRING_LENGTH 30
 
+typedef enum {VAL_INT, VAL_STRING}Type;
+typedef union {}Types;
 
 //Datatypes
 struct Field{
-	enum {
-		VAL_INT,
-		VAL_STRING
-	}type;
-	union Types{
+	Type type;
+	union Field_Type{
 		int integer;
 		char string[STRING_LENGTH];
 	}value;
@@ -31,7 +30,21 @@ struct Record{
 	struct Record* next_record;
 };
 
-void push_back();
+struct Schema_Attributes{
+	Type type;
+	union Schema_Type{
+		char field_name[STRING_LENGTH];
+	}name;
+};
+
+struct Schema{
+	struct Schema_Attributes* schema_definition;
+	int length;
+};
+
+void push_back(struct Field_List record, struct Record** head);
+
+bool find(struct Record record, struct Record* head);
 
 void remove_element(struct Record record);
 

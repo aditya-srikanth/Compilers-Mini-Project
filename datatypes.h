@@ -46,7 +46,19 @@ struct Schema{
 	int length;
 };
 
-bool push_back(){
+
+struct String{
+	char string[STRING_LENGTH];
+	int string_length;
+};
+
+struct String_List{
+	struct String data;
+	struct String_List* next_str;
+	int length;
+};
+
+bool push_back(struct Record* record,struct Record** head ){
 	return false;
 }
 

@@ -31,6 +31,8 @@
     struct Field field;
     struct Field_List* field_list_ptr;
     struct Condition_Operator_Type;
+    struct Record* record_ptr;
+    struct String_List* string_list_ptr;
     bool boolean;
 };
 %token GET FROM WHERE INSERT RECORD INTO UPDATE IN SET TO DELETE STMTTERM COMMA LEFT_PARANTHESES RIGHT_PARANTHESES STRING INTEGER IDENTIFIER
@@ -40,6 +42,16 @@
 %token <string> STRING
 %token <integer> INTEGER
 
+
+%type <string_list_ptr> FIELD_LIST
+%type <string_list_ptr> FIELDS 
+%type <string> FIELD 
+%type <record_ptr> CONDITION_LIST
+%type <record_ptr> CONDITION
+%type <record_ptr> NUMERICAL_CONDITION
+%type <record_ptr> STRING_CONDITION
+%type <string> NUMERICAL_FIELD
+%type <string> STRING_FIELD
 %type <string> FILE_NAME
 %type <field> DATA_UNIT
 %type <field_list_ptr> DATA_LIST;
@@ -66,97 +78,177 @@
     DELETE_QRY: DELETE RECORD FROM FILE_NAME WHERE CONDITION_LIST
                 ;
 
-    FIELD_LIST: LEFT_PARANTHESES FIELDS RIGHT_PARANTHESES
+    FIELD_LIST: LEFT_PARANTHESES FIELDS RIGHT_PARANTHESES                     {
+                                                                                $$ = $1 ;
+                                                                              }
                 ;
 
-    FIELDS:     FIELD COMMA FIELDS | FIELD
+    FIELDS:     FIELD COMMA FIELDS                                            { 
+                                                                                struct String_List* temp = malloc(sizeof(struct String));
+                                                                                strcpy(temp->data.string,$1);
+                                                                                temp->data.string = strlen($1); 
+                                                                                $3->length += 1;
+                                                                                $$ >next_str = temp;  
+                                                                              }
+                | 
+                FIELD                                                         { 
+                                                                                struct String_List* temp = malloc(sizeof(struct String));
+                                                                                strcpy(temp->data.string,$1);
+                                                                                temp->data.string = strlen($1); 
+                                                                                temp->length = 1;
+                                                                                $$ = temp;
+                                                                              }
                 ;
 
-    FIELD:     IDENTIFIER
+    FIELD:     IDENTIFIER                                                     { strcpy($$,$1); }
                 ;
 
-    CONDITION_LIST: CONDITION_LIST LOGICAL_OPERATOR CONDITION
+    CONDITION_LIST: CONDITION_LIST LOGICAL_OPERATOR CONDITION                  { 
+                                                                                  $$ = NULL;
+                                                                                  Record * iter = $1;
+                                                                                  if($1 == 1)
+                                                                                  { 
+                                                                                    while(iter != NULL){
+                                                                                      if( find(iter,$2)){
+                                                                                        push_back(iter,&$$);
+                                                                                      }
+                                                                                      else{
+                                                                                        continue;
+                                                                                      }
+                                                                                      iter = iter->next_record;
+                                                                                    }
+                                                                                  }
+                                                                                  else{
+                                                                                    // while(iter != NULL){
+                                                                                    //   if( find(iter,$2)){
+                                                                                    //     push_back(iter,&$$);
+                                                                                    //   }
+                                                                                    //   iter = iter->next_record;
+                                                                                    // }
+                                                                                    $$ = $1;
+                                                                                    iter = $3;
+                                                                                    while(iter != NULL){
+                                                                                      if( !find(iter,$$)){
+                                                                                        push_back(iter,&$$);
+                                                                                      }
+                                                                                      iter = iter->next_record;
+                                                                                    }
+                                                                                  }
+                                                                               }
           |
-          CONDITION
+          CONDITION                                                            { $$ = $1; }
           ;
 
-    LOGICAL_OPERATOR: AND | OR
+    LOGICAL_OPERATOR: AND                                                      { $$ = 1; }
+                      | 
+                      OR                                                       { $$ = 0; }
           ;
 
-    CONDITION : NUMERICAL_CONDITION                                               {
-                                                                                  
+    /* this may fuxk titself   */
+    CONDITION : NUMERICAL_CONDITION                                             { $$ = $1; }                                                                                 
+                | 
+                STRING_CONDITION                                                { $$ = $1; }
+                | 
+                NOT CONDITION                                                   { 
+                                                                                  $$ = NULL;
+                                                                                  Record * iter = table_records;
+                                                                                  while(iter != NULL){
+                                                                                    if( find(iter,$2) ){
+                                                                                      continue;
+                                                                                    }
+                                                                                    else{
+                                                                                      push_back(iter,&$$);
+                                                                                    }
                                                                                   }
+                                                                                  iter = iter->next_record;
+                                                                                }
                 | 
-                STRING_CONDITION 
-                | 
-                NOT CONDITION 
-                | 
-                LEFT_PARANTHESES CONDITION_LIST RIGHT_PARANTHESES
-          ;
-
-    NUMERICAL_CONDITION: NUMERICAL_OPERAND RELATIONAL_OPERATOR NUMERICAL_OPERAND  {
-                                                                                      // $$ = (struct Node*)calloc(1,struct Node); 
-                                                                                      // $2 -> left = $1;
-                                                                                      // $2 -> right = $3;                                                                                      
-                                                                                      // if($2->type == OPERTR){
-                                                                                      //   if($1.type == $3.type){
-                                                                                      //     if(strcmp($2->oprtr,"<")){
-                                                                                      //       $$ -> bool_val = $1->data.integer < $1->data.integer ;
-                                                                                      //     }
-                                                                                      //     else if(strcmp($2.oprtr,"<=")){
-                                                                                      //       $$ -> bool_val = $1->data.integer <= $1->data.integer ;
-                                                                                      //     }
-                                                                                      //     else if(strcmp($2.oprtr,">")){
-                                                                                      //       $$ -> bool_val = $1->data.integer > $1->data.integer ;
-                                                                                      //     }
-                                                                                      //     else if(strcmp($2.oprtr,">=")){
-                                                                                      //       $$ -> bool_val = $1->data.integer >= $1->data.integer ;
-                                                                                      //     }
-                                                                                      //     else if(strcmp($2.oprtr,"==")){
-                                                                                      //       $$ -> bool_val = $1->data.integer == $1->data.integer ;
-                                                                                      //     }
-                                                                                      //     else if(strcmp($2.oprtr,"!=")){
-                                                                                      //       $$ -> bool_val = $1->data.integer != $1->data.integer ;
-                                                                                      //     }                                                                                                                                                                     }
-                                                                                      // }
-                                                                                      // else{
-                                                                                      //   printf("this operator is NOT defined\n");
-                                                                                      //   YYABORT;
-                                                                                      // }
-                                                                                  }
-          ;
-
-    STRING_CONDITION: STRING_OPERAND STRING_RELATIONAL_OPERATOR STRING_OPERAND  {
-                                                                                  // $$ = (struct Node*)calloc(1,struct Node); 
-                                                                                  // $2 -> left = $1;
-                                                                                  // $2 -> right = $3;
-                                                                                  // // ToDO fill $$
-                                                                                  // if($2->type == OPERTR){
-                                                                                  //   if(strcmp($2->data.oprtr,"=")){
-                                                                                  //     $$ -> bool_val = strcmp($1->data.string,$3->data.string);
-                                                                                  //   }
-                                                                                  // }
-                                                                                  // else{
-                                                                                  //   printf("this operator is NOT defined\n");
-                                                                                  //   YYABORT;
-                                                                                  // }
+                LEFT_PARANTHESES CONDITION_LIST RIGHT_PARANTHESES               {
+                                                                                  $$ = $2;
                                                                                 }
           ;
 
+    NUMERICAL_CONDITION: NUMERICAL_FIELD RELATIONAL_OPERATOR NUMERICAL_OPERAND  {
+                                                                                  $$= NULL;
+                                                                                  Record* iter = table_records;
+                                                                                  int pos_of_field = 0;
+                                                                                  for(int i = 0; i < schema.length; i++){
+                                                                                    if(strcpy($1,schema.schema_definition[i].name.field_name) == 0){
+                                                                                      pos_of_field = i; 
+                                                                                      break;
+                                                                                    }
+                                                                                  } 
+                                                                                  while(iter != NULL){
+                                                                                    Record* temp  = (Record*)malloc(sizeof(Record));
+                                                                                    if( strcmp($2,"==") == 0){
+                                                                                      if( $3 == iter->current_field.field_array[pos_of_field].value.integer){
+                                                                                        push_back(temp,&$$);
+                                                                                      }
+                                                                                    }
+                                                                                    if( strcmp($2,"!=") == 0){
+                                                                                      if( $3 != iter->current_field.field_array[pos_of_field].value.integer){
+                                                                                        push_back(temp,&$$);
+                                                                                      }
+                                                                                    }
+                                                                                    if( strcmp($2,">") == 0){
+                                                                                      if( $3 < iter->current_field.field_array[pos_of_field].value.integer){
+                                                                                        push_back(temp,&$$);  
+                                                                                      }
+                                                                                    }
+                                                                                    if( strcmp($2,"<") == 0){
+                                                                                      if( $3 > iter->current_field.field_array[pos_of_field].value.integer){
+                                                                                        push_back(temp,&$$);
+                                                                                      }
+                                                                                    }
+                                                                                    if( strcmp($2,">=") == 0){
+                                                                                      if( $3 <= iter->current_field.field_array[pos_of_field].value.integer){
+                                                                                        push_back(temp,&$$);
+                                                                                      }
+                                                                                    }
+                                                                                    if( strcmp($2,"<=") == 0){
+                                                                                      if( $3 >= iter->current_field.field_array[pos_of_field].value.integer){
+                                                                                        push_back(temp,&$$);
+                                                                                      }
+                                                                                    }    
+                                                                                    iter = iter->next_record;
+                                                                                  }
+                                                                                }
+          ;
+
+    STRING_CONDITION: STRING_FIELD STRING_RELATIONAL_OPERATOR STRING_OPERAND  {
+                                                                                $$ = NULL;
+                                                                                Record* iter = table_records;
+                                                                                int pos_of_field = 0;
+                                                                                for(int i = 0; i < schema.length; i++){
+                                                                                  if(strcpy($1,schema.schema_definition[i].name.field_name) == 0){
+                                                                                    pos_of_field = i; 
+                                                                                    break;
+                                                                                  }
+                                                                                } 
+                                                                                while(iter != NULL){
+                                                                                  if( strcmp($2,"=") == 0){
+                                                                                    if(strcmp($3,iter->current_field.field_array[pos_of_field].value.string) == 0){
+                                                                                      Record* temp  = (Record*)malloc(sizeof(Record));
+                                                                                      push_back(temp,&$$);
+                                                                                    }
+                                                                                    iter = iter->next_record;
+                                                                                  }    
+                                                                                }   
+                                                                              }
+          ;
+
     STRING_OPERAND:   STRING                              {
-                                                            // $$ = (struct Node*)calloc(1,struct Node);                                                    
-                                                            // $$ -> data.type = STRING_TYPE;
-                                                            // strcpy($$ -> string , $1 );
+                                                            $$ -> data.type = STRING_TYPE;
+                                                            strcpy($$.value.string , $1);
                                                           } 
-                      | 
-                      IDENTIFIER                          {
+          ; 
+
+    STRING_FIELD:     IDENTIFIER                          {
                                                             $$.data.type = INT_TYPE;
                                                             bool flag = false;
-                                                            int pos = 0;
                                                             for(int i = 0; i < schema.length; i++){
                                                               if(strcmpi($1,schema.schema_definition[i].name.field_name) == 0){
                                                                   flag = true; 
-                                                                  pos = i;
                                                                   break;
                                                                 }
                                                               }
@@ -166,22 +258,7 @@
                                                               printf("FIELD NOT FOUND, CHECK QUERY\n");
                                                               YYABORT;
                                                             }
-                                                            
-                                                            Record* iter = table_records;
-                                                                while(iter != NULL){
-                                                                  switch(iter->field_array[pos].current_field.type){
-                                                                    case VAL_INT:
-                                                                    if(iter->field_array[pos]){
-                                                                      
-                                                                    }
-                                                                    break;
-                                                                    case VAL_STRING:
-                                                                    // TYPE MISMATCH
-                                                                      printf("ERROR: TYPE MISMATCH\n");
-                                                                      YYABORT;
-                                                                    break;
-                                                                  }
-                                                                }
+                                                            strcpy($$,$1);                                                            
                                                           }
           ;
 
@@ -193,17 +270,15 @@
 
     NUMERICAL_OPERAND:  INTEGER                         {
                                                           $$.data.type = INT_TYPE;
-                                                          $$.integer = $1;
-                                                        } 
-                        | 
-                        IDENTIFIER                      {
-                                                          $$.data.type = INT_TYPE;
+                                                          $$.value.integer = $1;
+                                                        }
+            ;
+
+    NUMERICAL_FIELD:   IDENTIFIER                      {
                                                           bool flag = false;
-                                                          int pos = 0;
                                                           for(int i = 0; i < schema.length; i++){
                                                             if(strcmpi($1,schema.schema_definition[i].name.field_name) == 0){
-                                                                flag = true; 
-                                                                pos = i;
+                                                                flag = true;
                                                                 break;
                                                               }
                                                             }
@@ -213,23 +288,8 @@
                                                             printf("FIELD NOT FOUND, CHECK QUERY\n");
                                                             YYABORT;
                                                           }
-                                                          
-                                                          Record* iter = table_records;
-                                                              while(iter != NULL){
-                                                                switch(iter->field_array[pos].current_field.type){
-                                                                  case VAL_INT:
-                                                                  if(iter->field_array[pos]){
-                                                                    $$.
-                                                                  }
-                                                                  break;
-                                                                  case VAL_STRING:
-                                                                  // TYPE MISMATCH
-                                                                    printf("ERROR: TYPE MISMATCH\n");
-                                                                    YYABORT;
-                                                                  break;
-                                                                }
-                                                              }
-                                                          }
+                                                          strcpy($$,$1);  
+                                                        }
           ;
 
     RELATIONAL_OPERATOR: LESS_THAN                      {
@@ -310,8 +370,8 @@
   DATA_UNIT: STRING             {
                                   $$.type = $1.type;
                                   switch($$.type){
-                                    case VAL_INT : $$.value = $1. value; break;
-                                    case VAL_STRING: strcpy($$.value,$1.value); break;
+                                    case VAL_INT : $$.value.integer = $1. value; break;
+                                    case VAL_STRING: strcpy($$.value.string,$1.value); break;
                                     default: printf("Illegal type stopping execution\n");YYABORT;
                                   }//YYABORT stops execution of parser due to error
                                 }
@@ -319,8 +379,8 @@
                 INTEGER         {
                                   $$.type = $1.type;
                                   switch($$.type){
-                                    case VAL_INT : $$.value = $1. value; break;
-                                    case VAL_STRING: strcpy($$.value,$1.value); break;
+                                    case VAL_INT : $$.value.integer = $1. value; break;
+                                    case VAL_STRING: strcpy($$.value.string,$1.value); break;
                                     default: printf("Illegal type stopping execution\n");YYABORT;
                                   }//YYABORT stops execution of parser due to error
                                 }

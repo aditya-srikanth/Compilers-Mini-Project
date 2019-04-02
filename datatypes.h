@@ -31,14 +31,11 @@ struct Record{
 	struct Record* next_record;
 };
 
-bool push_back(){
-	return false;
-}
+void push_back();
 
-bool remove(int index){
-	return false;
-}
+void remove_element(struct Record record);
 
+void remove_index(int index);
 // struct Field_List get(int index){
 
 // }

@@ -14,10 +14,12 @@
     #include "defaults.h"
 
     struct Field_List* schema_list = NULL;
+    struct Field_List* table_records = NULL;
     int yylex();
     extern int yyerror(const char* msg);
     int initFunction();
     void handleError();
+    void handle_query_file_error();
     void getQuery(fields_list,conditions_list);
     void insertQuery(tuple);
     void deleteQuery(conditions_list);
@@ -93,72 +95,72 @@
           ;
 
     NUMERICAL_CONDITION: NUMERICAL_OPERAND RELATIONAL_OPERATOR NUMERICAL_OPERAND  {
-                                                                                      $$ = (struct Node*)calloc(1,struct Node); 
-                                                                                      $2 -> left = $1;
-                                                                                      $2 -> right = $3;                                                                                      
-                                                                                      if($2->type == OPERTR){
-                                                                                        if($1.type == $3.type){
-                                                                                          if(strcmp($2->oprtr,"<")){
-                                                                                            $$ -> bool_val = $1->data.integer < $1->data.integer ;
-                                                                                          }
-                                                                                          else if(strcmp($2.oprtr,"<=")){
-                                                                                            $$ -> bool_val = $1->data.integer <= $1->data.integer ;
-                                                                                          }
-                                                                                          else if(strcmp($2.oprtr,">")){
-                                                                                            $$ -> bool_val = $1->data.integer > $1->data.integer ;
-                                                                                          }
-                                                                                          else if(strcmp($2.oprtr,">=")){
-                                                                                            $$ -> bool_val = $1->data.integer >= $1->data.integer ;
-                                                                                          }
-                                                                                          else if(strcmp($2.oprtr,"==")){
-                                                                                            $$ -> bool_val = $1->data.integer == $1->data.integer ;
-                                                                                          }
-                                                                                          else if(strcmp($2.oprtr,"!=")){
-                                                                                            $$ -> bool_val = $1->data.integer != $1->data.integer ;
-                                                                                          }                                                                                                                                                                     }
-                                                                                      }
-                                                                                      else{
-                                                                                        printf("this operator is NOT defined\n");
-                                                                                        YYABORT;
-                                                                                      }
+                                                                                      // $$ = (struct Node*)calloc(1,struct Node); 
+                                                                                      // $2 -> left = $1;
+                                                                                      // $2 -> right = $3;                                                                                      
+                                                                                      // if($2->type == OPERTR){
+                                                                                      //   if($1.type == $3.type){
+                                                                                      //     if(strcmp($2->oprtr,"<")){
+                                                                                      //       $$ -> bool_val = $1->data.integer < $1->data.integer ;
+                                                                                      //     }
+                                                                                      //     else if(strcmp($2.oprtr,"<=")){
+                                                                                      //       $$ -> bool_val = $1->data.integer <= $1->data.integer ;
+                                                                                      //     }
+                                                                                      //     else if(strcmp($2.oprtr,">")){
+                                                                                      //       $$ -> bool_val = $1->data.integer > $1->data.integer ;
+                                                                                      //     }
+                                                                                      //     else if(strcmp($2.oprtr,">=")){
+                                                                                      //       $$ -> bool_val = $1->data.integer >= $1->data.integer ;
+                                                                                      //     }
+                                                                                      //     else if(strcmp($2.oprtr,"==")){
+                                                                                      //       $$ -> bool_val = $1->data.integer == $1->data.integer ;
+                                                                                      //     }
+                                                                                      //     else if(strcmp($2.oprtr,"!=")){
+                                                                                      //       $$ -> bool_val = $1->data.integer != $1->data.integer ;
+                                                                                      //     }                                                                                                                                                                     }
+                                                                                      // }
+                                                                                      // else{
+                                                                                      //   printf("this operator is NOT defined\n");
+                                                                                      //   YYABORT;
+                                                                                      // }
                                                                                   }
           ;
 
     STRING_CONDITION: STRING_OPERAND STRING_RELATIONAL_OPERATOR STRING_OPERAND  {
-                                                                                  $$ = (struct Node*)calloc(1,struct Node); 
-                                                                                  $2 -> left = $1;
-                                                                                  $2 -> right = $3;
-                                                                                  // ToDO fill $$
-                                                                                  if($2->type == OPERTR){
-                                                                                    if(strcmp($2->data.oprtr,"=")){
-                                                                                      $$ -> bool_val = strcmp($1->data.string,$3->data.string);
-                                                                                    }
-                                                                                  }
-                                                                                  else{
-                                                                                    printf("this operator is NOT defined\n");
-                                                                                    YYABORT;
-                                                                                  }
+                                                                                  // $$ = (struct Node*)calloc(1,struct Node); 
+                                                                                  // $2 -> left = $1;
+                                                                                  // $2 -> right = $3;
+                                                                                  // // ToDO fill $$
+                                                                                  // if($2->type == OPERTR){
+                                                                                  //   if(strcmp($2->data.oprtr,"=")){
+                                                                                  //     $$ -> bool_val = strcmp($1->data.string,$3->data.string);
+                                                                                  //   }
+                                                                                  // }
+                                                                                  // else{
+                                                                                  //   printf("this operator is NOT defined\n");
+                                                                                  //   YYABORT;
+                                                                                  // }
                                                                                 }
           ;
 
     STRING_OPERAND:   STRING                              {
-                                                            $$ = (struct Node*)calloc(1,struct Node);                                                    
-                                                            $$ -> data.type = STRING_TYPE;
-                                                            strcpy($$ -> string , $1 );
+                                                            // $$ = (struct Node*)calloc(1,struct Node);                                                    
+                                                            // $$ -> data.type = STRING_TYPE;
+                                                            // strcpy($$ -> string , $1 );
                                                           } 
                       | 
                       IDENTIFIER                          {
-                                                            $$ = (struct Node*)calloc(1,struct Node);
-                                                            $$ -> data.type = STRING_TYPE;
-                                                            schema_file_handle
+                                                            // $$ = (struct Node*)calloc(1,struct Node);
+                                                            // $$ -> data.type = STRING_TYPE;
+                                                            // schema_file_handle
                                                             // strcpy($$ -> string , $1 ); // TODO handle identifiers
                                                           }
           ;
 
     STRING_RELATIONAL_OPERATOR: STRING_COMPARISON       {
-                                                          $$ = (struct Node*)calloc(1,struct Node);
-                                                          $$ -> data.type = OPERTR;
-                                                          strcpy($$ -> data.opertr, "=");
+                                                          // $$ = (struct Node*)calloc(1,struct Node);
+                                                          // $$ -> data.type = OPERTR;
+                                                          // strcpy($$ -> data.opertr, "=");
                                                         }
           ;
 
@@ -268,35 +270,63 @@
                ;
 
     FILE_NAME: IDENTIFIER   {
+                              // obtain the path to schema and get the data in the schema
                               char path_to_schema[STRING_LENGTH];
                               strcpy($$,$1);
 
                               strcpy(path_to_schema,MASTER_TABLE);
                               strcpy(path_to_schema,"/");
                               strcpy(path_to_schema,$$);
-                              schema_file_handle = fopen($$,"r");
-                              if(schema_file_handle != NULL){
-                                printf("Table found!\n");
-                                schema_list = (Field_List*)calloc(1,sizeof(Field_List));
-                                schema_list -> length = 0;
+                              FILE* schema_file_handle = fopen(path_to_schema,"r+");
+                              
+                              if(schema_file_handle==NULL){
+                                handle_query_file_error();
                               }
-                              else{
-                                switch(errno){
-                                  EINVAL: printf("The mode provided for opening the file is incorrect\n");break;
-                                  ENOMEM: printf("Out of memory as the memory has hit the memory limit set internally\n");break;
-                                  EACCES: printf("Access to the current file is not allowed.Check the permissions set for the file\n");break;
-                                  EFAULT: printf("The path name is outside your accessible address space\n");break;
-                                  ENOENT: printf("This file does not exist\n");break;
-                                  EBADNAME: printf("The file name specified is not valied\n");break;
-                                  EIOERROR: printf("A non recoverable IO error occured\n");break;
-                                  EIORECERR: printf("A recoverable IO error occured\n");break;
+                              printf("Table Schema found!\n");
+                              schema_list = (Field_List*)calloc(1,sizeof(Field_List));
+                              schema_list -> length = 0;
+
+                              // obtain the path to the table and get the data in the table
+                              char path_to_table[STRING_LENGTH];
+                              strcpy($$,$1);
+
+                              strcpy(path_to_table,DATA_PATH);
+                              strcpy(path_to_table,"/");
+                              strcpy(path_to_table,$$);
+                              DIR* table_file_handle = opendir(path_to_table);
+                              
+                              if(table_file_handle==NULL){
+                                handleError(0);
+                              }
+                              printf("The table is found\n");
+                              FILE* file = NULL;
+
+                              while((file=readdir(table_file_handle))!=NULL){
+                                if(file->d_type != DT_REG){// If it is not a regular file
+                                  continue;
                                 }
-                                exit(EXIT_FAILURE);
+                                else{
+                                    
+                                }
                               }
                             }
                 ;
 %%
 
+void handle_query_file_error(){
+
+  switch(errno){
+    EINVAL: printf("The mode provided for opening the file is incorrect\n");break;
+    ENOMEM: printf("Out of memory as the memory has hit the memory limit set internally\n");break;
+    EACCES: printf("Access to the current file is not allowed.Check the permissions set for the file\n");break;
+    EFAULT: printf("The path name is outside your accessible address space\n");break;
+    ENOENT: printf("This file does not exist\n");break;
+    EBADNAME: printf("The file name specified is not valied\n");break;
+    EIOERROR: printf("A non recoverable IO error occured\n");break;
+    EIORECERR: printf("A recoverable IO error occured\n");break;
+  }
+  exit(EXIT_FAILURE);
+}
 int yyerror(const char* msg){
   fprintf(stderr," %s\n",msg);
     return 0;
@@ -333,8 +363,10 @@ void handleError(int isMaster){
                                 mkdir(DATA_PATH,DEFFILEMODE); // all the other database folders
                                 printf(" Make use of the schema and the data helper utilities to fill the schema details and the input files\n");
                             }
+                            exit(EXIT_SUCCESS);
                             break;
                         }
+                        exit(EXIT_SUCCESS);
 
 
        case ENOMEM: perror("Insufficient memory to complete the operation.\n");exit(EXIT_FAILURE);break;

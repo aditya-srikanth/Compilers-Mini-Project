@@ -4,6 +4,7 @@
 //For the functions
 #include <string.h>
 #include <ctype.h>
+#include <dirent.h>
 
  //Default values
 #define MASTER_TABLE "./master"
@@ -17,7 +18,7 @@
 char* masterPath=MASTER_TABLE;
 char* dataPath=DATA_PATH;
 FILE* schema_file_handle = NULL;
-
+DIR* table_file_handle = NULL;
 //functions
 char* strlwr(char* input){
     for(int i=0;i<strlen(input);i++){

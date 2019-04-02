@@ -39,4 +39,6 @@ struct  Condition_Operator_Type{
 	bool bool_val;
 };
 
+
+
 #endif

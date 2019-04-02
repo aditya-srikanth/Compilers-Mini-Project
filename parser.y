@@ -66,16 +66,53 @@
         DELETE_QRY  { printf("Delete query\n");}
         ;
 
-    GET_QRY:   GET FIELD_LIST FROM FILE_NAME WHERE CONDITION_LIST
+    GET_QRY:   GET FIELD_LIST FROM FILE_NAME WHERE CONDITION_LIST   {
+                                                                      //TODO
+                                                                      //Verfify field list
+                                                                      //print according to field list
+                                                                    }
         ;
 
-    INSERT_QRY:  INSERT RECORD TUPLE INTO FILE_NAME
+    INSERT_QRY:  INSERT RECORD TUPLE INTO FILE_NAME                   {
+                                                                        //TODO 
+                                                                        //open file handle
+                                                                        //write to file
+                                                                      }
                 ;
 
-    UPDATE_QRY: UPDATE RECORD IN FILE_NAME SET FIELD_LIST TO TUPLE WHERE CONDITION_LIST
+    UPDATE_QRY: UPDATE RECORD IN FILE_NAME SET FIELD_LIST TO TUPLE WHERE CONDITION_LIST     {
+                                                                                              //TODO
+                                                                                              //Open file handle
+                                                                                              //Update those that appear in condition list
+                                                                                            }
                 ;
 
-    DELETE_QRY: DELETE RECORD FROM FILE_NAME WHERE CONDITION_LIST
+    DELETE_QRY: DELETE RECORD FROM FILE_NAME WHERE CONDITION_LIST             {
+                                                                                $$ = NULL;
+                                                                                Record* iter = $6;
+                                                                                DIR* dir_handle = diropen($4);
+                                                                                struct dirent* dir_entry;
+                                                                                while(dir_entry=diropen(dir_handle)!=NULL){
+                                                                                  while(iter!=NULL){
+                                                                                    switch(iter->current_field.field_array[0].type){
+                                                                                      case VAL_STRING: if(strcmp(iter->current_field.field_array[0].string,dir_entry->d_name)==0){
+                                                                                                        char path[STRING_LENGTH];
+                                                                                                        sprintf(path,"%s/%s.txt",$4,dir_entry->d_name);
+                                                                                                        remove(path);
+                                                                                                      }
+                                                                                                      break;
+                                                                                      case VAL_INT:   char string_format[STRING_LENGTH];
+                                                                                                      sprintf(string_format,"%d.txt",iter->current_field.field_array[0].integer);
+                                                                                                      if(strcmp(string_format,dir_entry->d_name)==0){
+                                                                                                        char path[STRING_LENGTH];
+                                                                                                        sprintf(path,"%s/%s",$4,dir_entry->d_name);
+                                                                                                        remove(path);
+                                                                                                      }
+                                                                                                      break;
+                                                                                    }
+                                                                                  }
+                                                                                }
+                                                                              }
                 ;
 
     FIELD_LIST: LEFT_PARANTHESES FIELDS RIGHT_PARANTHESES                     {
@@ -109,8 +146,8 @@
                                                                                   if($1 == 1)
                                                                                   { 
                                                                                     while(iter != NULL){
-                                                                                      if( find(iter,$2)){
-                                                                                        push_back(iter,&$$);
+                                                                                      if( find(*iter,$2)){
+                                                                                        push_back(iter->field_array,&$$);
                                                                                       }
                                                                                       else{
                                                                                         continue;
@@ -119,17 +156,11 @@
                                                                                     }
                                                                                   }
                                                                                   else{
-                                                                                    // while(iter != NULL){
-                                                                                    //   if( find(iter,$2)){
-                                                                                    //     push_back(iter,&$$);
-                                                                                    //   }
-                                                                                    //   iter = iter->next_record;
-                                                                                    // }
                                                                                     $$ = $1;
                                                                                     iter = $3;
                                                                                     while(iter != NULL){
-                                                                                      if( !find(iter,$$)){
-                                                                                        push_back(iter,&$$);
+                                                                                      if( !find(*iter,$$)){
+                                                                                        push_back(iter->field_array,&$$);
                                                                                       }
                                                                                       iter = iter->next_record;
                                                                                     }
@@ -157,7 +188,7 @@
                                                                                       continue;
                                                                                     }
                                                                                     else{
-                                                                                      push_back(iter,&$$);
+                                                                                      push_back(iter->field_array,&$$);
                                                                                     }
                                                                                   }
                                                                                   iter = iter->next_record;
@@ -182,32 +213,32 @@
                                                                                     Record* temp  = (Record*)malloc(sizeof(Record));
                                                                                     if( strcmp($2,"==") == 0){
                                                                                       if( $3 == iter->current_field.field_array[pos_of_field].value.integer){
-                                                                                        push_back(temp,&$$);
+                                                                                        push_back(temp->field_array,&$$);
                                                                                       }
                                                                                     }
                                                                                     if( strcmp($2,"!=") == 0){
                                                                                       if( $3 != iter->current_field.field_array[pos_of_field].value.integer){
-                                                                                        push_back(temp,&$$);
+                                                                                        push_back(temp->field_array,&$$);
                                                                                       }
                                                                                     }
                                                                                     if( strcmp($2,">") == 0){
                                                                                       if( $3 < iter->current_field.field_array[pos_of_field].value.integer){
-                                                                                        push_back(temp,&$$);  
+                                                                                        push_back(temp->field_array,&$$);  
                                                                                       }
                                                                                     }
                                                                                     if( strcmp($2,"<") == 0){
                                                                                       if( $3 > iter->current_field.field_array[pos_of_field].value.integer){
-                                                                                        push_back(temp,&$$);
+                                                                                        push_back(temp->field_array,&$$);
                                                                                       }
                                                                                     }
                                                                                     if( strcmp($2,">=") == 0){
                                                                                       if( $3 <= iter->current_field.field_array[pos_of_field].value.integer){
-                                                                                        push_back(temp,&$$);
+                                                                                        push_back(temp->field_array,&$$);
                                                                                       }
                                                                                     }
                                                                                     if( strcmp($2,"<=") == 0){
                                                                                       if( $3 >= iter->current_field.field_array[pos_of_field].value.integer){
-                                                                                        push_back(temp,&$$);
+                                                                                        push_back(temp->field_array,&$$);
                                                                                       }
                                                                                     }    
                                                                                     iter = iter->next_record;
@@ -217,7 +248,7 @@
 
     STRING_CONDITION: STRING_FIELD STRING_RELATIONAL_OPERATOR STRING_OPERAND  {
                                                                                 $$ = NULL;
-                                                                                Record* iter = table_records;
+                                                                                struct Record* iter = table_records;
                                                                                 int pos_of_field = 0;
                                                                                 for(int i = 0; i < schema.length; i++){
                                                                                   if(strcpy($1,schema.schema_definition[i].name.field_name) == 0){
@@ -228,8 +259,8 @@
                                                                                 while(iter != NULL){
                                                                                   if( strcmp($2,"=") == 0){
                                                                                     if(strcmp($3,iter->current_field.field_array[pos_of_field].value.string) == 0){
-                                                                                      Record* temp  = (Record*)malloc(sizeof(Record));
-                                                                                      push_back(temp,&$$);
+                                                                                      struct Record* temp  = (struct Record*)malloc(sizeof(struct Record));
+                                                                                      push_back(temp->field_array,&$$);
                                                                                     }
                                                                                     iter = iter->next_record;
                                                                                   }    
@@ -328,7 +359,7 @@
 
   TUPLE:      LEFT_PARANTHESES DATA_UNIT DATA_LIST RIGHT_PARANTHESES {
                                                                         if($3->length == ARRAY_SIZE){
-                                                                          printf("Need more fields in the definition, contact the developer\n");
+                                                                          printf("Need more fields in the definition? contact the developer\n");
                                                                           YYABORT;// end as we cannot continue;
                                                                         }
                                                                         else{
@@ -346,7 +377,7 @@
 
   DATA_LIST:  COMMA DATA_UNIT DATA_LIST {
                                           if($2->length == ARRAY_SIZE){
-                                            printf("Need more fields in the definition, contact the developer\n");
+                                            printf("Need more fields in the definition? contact the developer\n");
                                             YYABORT;// end as we cannot continue;
                                           }
                                           else{
@@ -387,6 +418,8 @@
                ;
 
     FILE_NAME: IDENTIFIER   {
+                              // TODO test.c and return qualified file path 
+                              strcpy($$,/*Address to the folder to which it is to be written*/)
                               // obtain the path to schema and get the data in the schema
                               char path_to_schema[STRING_LENGTH];
                               strcpy($$,$1);

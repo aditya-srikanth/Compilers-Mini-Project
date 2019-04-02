@@ -31,6 +31,21 @@ struct Record{
 	struct Record* next_record;
 };
 
+struct Schema_Attributes{
+	enum {
+		VAL_INT,
+		VAL_STRING
+	}type;
+	union Types{
+	char field_name[STRING_LENGTH];
+	}name;
+};
+
+struct Schema{
+	struct Schema_Attributes* schema_definition;
+	int length;
+};
+
 bool push_back(){
 	return false;
 }

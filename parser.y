@@ -13,8 +13,8 @@
     #include "datatypes.h"
     #include "defaults.h"
 
-    struct Field_List* schema_list = NULL;
-    struct Field_List* table_records = NULL;
+    struct Schema schema;
+    struct Record* table_records = NULL;
     int yylex();
     extern int yyerror(const char* msg);
     int initFunction();
@@ -150,17 +150,44 @@
                                                           } 
                       | 
                       IDENTIFIER                          {
-                                                            // $$ = (struct Node*)calloc(1,struct Node);
-                                                            // $$ -> data.type = STRING_TYPE;
-                                                            // schema_file_handle
-                                                            // strcpy($$ -> string , $1 ); // TODO handle identifiers
+                                                            $$.data.type = INT_TYPE;
+                                                            bool flag = false;
+                                                            int pos = 0;
+                                                            for(int i = 0; i < schema.length; i++){
+                                                              if(strcmpi($1,schema.schema_definition[i].name.field_name) == 0){
+                                                                  flag = true; 
+                                                                  pos = i;
+                                                                  break;
+                                                                }
+                                                              }
+                                                            
+                                                            if(flag == false){
+                                                            // terminating coz field not found
+                                                              printf("FIELD NOT FOUND, CHECK QUERY\n");
+                                                              YYABORT;
+                                                            }
+                                                            
+                                                            Record* iter = table_records;
+                                                                while(iter != NULL){
+                                                                  switch(iter->field_array[pos].current_field.type){
+                                                                    case VAL_INT:
+                                                                    if(iter->field_array[pos]){
+                                                                      
+                                                                    }
+                                                                    break;
+                                                                    case VAL_STRING:
+                                                                    // TYPE MISMATCH
+                                                                      printf("ERROR: TYPE MISMATCH\n");
+                                                                      YYABORT;
+                                                                    break;
+                                                                  }
+                                                                }
                                                           }
           ;
 
     STRING_RELATIONAL_OPERATOR: STRING_COMPARISON       {
-                                                          // $$ = (struct Node*)calloc(1,struct Node);
-                                                          // $$ -> data.type = OPERTR;
-                                                          // strcpy($$ -> data.opertr, "=");
+                                                          $$ -> data.type = OPERTR;
+                                                          strcpy($$ -> data.opertr, "=");
                                                         }
           ;
 
@@ -171,8 +198,38 @@
                         | 
                         IDENTIFIER                      {
                                                           $$.data.type = INT_TYPE;
-                                                          // $$ -> integer = $1; // TODO handle identifiers
-                                                        }
+                                                          bool flag = false;
+                                                          int pos = 0;
+                                                          for(int i = 0; i < schema.length; i++){
+                                                            if(strcmpi($1,schema.schema_definition[i].name.field_name) == 0){
+                                                                flag = true; 
+                                                                pos = i;
+                                                                break;
+                                                              }
+                                                            }
+                                                          
+                                                          if(flag == false){
+                                                          // terminating coz field not found
+                                                            printf("FIELD NOT FOUND, CHECK QUERY\n");
+                                                            YYABORT;
+                                                          }
+                                                          
+                                                          Record* iter = table_records;
+                                                              while(iter != NULL){
+                                                                switch(iter->field_array[pos].current_field.type){
+                                                                  case VAL_INT:
+                                                                  if(iter->field_array[pos]){
+                                                                    $$.
+                                                                  }
+                                                                  break;
+                                                                  case VAL_STRING:
+                                                                  // TYPE MISMATCH
+                                                                    printf("ERROR: TYPE MISMATCH\n");
+                                                                    YYABORT;
+                                                                  break;
+                                                                }
+                                                              }
+                                                          }
           ;
 
     RELATIONAL_OPERATOR: LESS_THAN                      {

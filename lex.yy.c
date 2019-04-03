@@ -519,7 +519,7 @@ char *yytext;
  */
 #line 12 "lexer.l"
   //The first is to make sure all the user defined types are defined
-  #include "datatypes.h"
+  #include "parser.h"
   #include "y.tab.h"
   #include <string.h>
   extern int yyerror(const char* msg);
@@ -937,7 +937,7 @@ case 26:
 YY_RULE_SETUP
 #line 59 "lexer.l"
 {
-                      yylval.string=yytext;
+                      strcpy(yylval.string,yytext);
                       return IDENTIFIER;
                     }
 	YY_BREAK
@@ -946,9 +946,9 @@ case 27:
 YY_RULE_SETUP
 #line 65 "lexer.l"
 {
-                                            yylval.type = VAL_STRING;
-                                            strcpy(yylval.value,yytext);
-                                            return STRING;
+                                            yylval.field.type = VAL_STRING;
+                                            strcpy(yylval.field.value.string,yytext);
+                                            return STRING_LITERAL;
 
                                         }
 	YY_BREAK
@@ -957,9 +957,9 @@ case 28:
 YY_RULE_SETUP
 #line 73 "lexer.l"
 {
-                                            yylval.type = VAL_INT;
-                                            yylval.value = atoi(yytext);
-                                            return INTEGER;
+                                            yylval.field.type = VAL_INT;
+                                            yylval.field.value.integer = atoi(yytext);
+                                            return INTEGER_LITERAL;
                                         }
 	YY_BREAK
 /* Ignoring whitespaces */

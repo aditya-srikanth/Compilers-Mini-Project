@@ -3,7 +3,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <dirent.h>
-#include "datatypes.h"
+#include "parser.h"
 #include "defaults.h"
 
 void push_back(struct Field_List record, struct Record** head){
@@ -96,12 +96,13 @@ int main(){
         return 0;
     }
 
-    int number_of_attributes = 2;
+    int number_of_attributes = 0;
     while((read=getline(&line,&len,fp)) != -1){
         number_of_attributes++;
     }
     schema.length = number_of_attributes;
     schema.schema_definition = (struct Schema_Attributes*)malloc(number_of_attributes*sizeof(struct Schema_Attributes));
+    
     int index = 0;
     while((read = getline(&line,&len,fp)) != -1){
         char* token1 = strtok(line,SCHEMA_DELIM);

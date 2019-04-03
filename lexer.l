@@ -10,7 +10,7 @@
  */
 %{
   //The first is to make sure all the user defined types are defined
-  #include "datatypes.h"
+  #include "parser.h"
   #include "y.tab.h"
   #include <string.h>
   extern int yyerror(const char* msg);
@@ -56,23 +56,23 @@ DIGIT [0-9]
 
   /* This is an identifier */
 ([_]|{ALPHA})({ALPHA}|{DIGIT}|[$_])*   {
-                      yylval.string=yytext;
+                      strcpy(yylval.string,yytext);
                       return IDENTIFIER;
                     }
 
   /* This is a string */
 \".+\"                                 {
-                                            yylval.type = VAL_STRING;
-                                            strcpy(yylval.value,yytext);
-                                            return STRING;
+                                            yylval.field.type = VAL_STRING;
+                                            strcpy(yylval.field.value.string,yytext);
+                                            return STRING_LITERAL;
 
                                         }
 
   /*  This is an integer  */
 [-]?{DIGIT}+                                {
-                                            yylval.type = VAL_INT;
-                                            yylval.value = atoi(yytext);
-                                            return INTEGER;
+                                            yylval.field.type = VAL_INT;
+                                            yylval.field.value.integer = atoi(yytext);
+                                            return INTEGER_LITERAL;
                                         }
 
   /* Ignoring whitespaces */

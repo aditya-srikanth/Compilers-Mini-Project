@@ -12,7 +12,7 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include "defaults.h"
-#include "datatypes.h"
+#include "parser.h"
 
 void handleError(){
     switch(errno){

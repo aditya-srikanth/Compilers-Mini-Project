@@ -4,7 +4,9 @@
 #include <stdlib.h>
 #include <dirent.h>
 #include "parser.h"
-#include "defaults.h"
+#define SCHEMA_DELIM ":"
+#define FILE_DELIM "\t"
+// #include "defaults.h"
 
 void push_back(struct Field_List record, struct Record** head){
 	if(*head == NULL){
@@ -64,12 +66,15 @@ void remove_index(int index){
 void printlist(struct Record* head){
     printf("Now printing\n");
     while(head != NULL){
-        if(head->current_field.field_array[0].type == VAL_INT){
-            printf("%d\n",head->current_field.field_array[0].value.integer);
+        int length = head->current_field.length;
+        for(int i=0;i<length;i++){
+            switch(head->current_field.field_array[i].type){
+                case VAL_INT: printf("%d ",head->current_field.field_array[i].value.integer); break;
+                case VAL_STRING: printf("%s ",head->current_field.field_array[i].value.string);break;
+                default: printf("Invalid Type\n");
+            }
         }
-        else{
-            printf("%s\n",head->current_field.field_array[0].value.string);
-        }
+        printf("\n");
         head = head->next_record;
     }
 }

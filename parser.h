@@ -3,7 +3,7 @@
 
 #include <stdbool.h>
 #include "headers.h"
-#include "defaults.h"
+// #include "defaults.h"
 #define _GNU_SOURCE
 #include <stdio.h>
 #include <string.h>
@@ -60,59 +60,6 @@ struct String_List{
 	int length;
 };
 
-void push_back(struct Field_List record, struct Record** head){
-	if(*head == NULL){
-        *head = (struct Record*)malloc(sizeof(struct Record));
-        (*head)->current_field = record;
-        (*head)->next_record = NULL;
-    }
-    else{
-        struct Record* temp = *head;
-        while(temp->next_record != NULL){
-            temp = temp->next_record;
-        }
-        struct Record* temp_record = (struct Record*)malloc(sizeof(struct Record));
-        temp_record->current_field = record;
-        temp_record->next_record = NULL;
-        temp->next_record = temp_record;
-    }
-}
-
-bool find(struct Record record, struct Record* head){
-    while(head != NULL){
-        bool flag = true;
-        // for(int i=0;i<record.current_field.length;i++){
-
-        //check for just primary key, which is the first element in the array
-        if(record.current_field.field_array[0].type == head->current_field.field_array[0].type){
-            if( record.current_field.field_array[0].type == VAL_STRING){
-                // printf("Matched the type string\n");
-                if(strcmp(record.current_field.field_array[0].value.string,head->current_field.field_array[0].value.string) != 0){
-                    flag = false;
-                }
-            }
-            else{
-                // printf("Matched the type int\n");
-                if(record.current_field.field_array[0].value.integer != head->current_field.field_array[0].value.integer){
-                    flag = false;
-                }
-            }
-        }
-        // }
-        if(flag == true){
-            return true;
-        }
-        head = head->next_record;
-    }
-    return false;
-}
-
-void remove_element(struct Record record);
-
-void remove_index(int index);
-// struct Field_List get(int index){
-
-// }
 
 struct Condition_Operator_Type{
 	enum {

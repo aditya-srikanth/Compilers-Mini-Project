@@ -12,7 +12,7 @@ lex lexer.l
 echo ""
 
 echo "Compiling them together"
-gcc y.tab.c lex.yy.c -ll -ly
+gcc y.tab.c lex.yy.c -ll -ly -save-temps
 echo ""
 
 echo "Run the excutable"

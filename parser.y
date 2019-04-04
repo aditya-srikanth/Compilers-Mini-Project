@@ -10,7 +10,7 @@
  */
 %{
     #include "parser.h"
-    // #include "defaults.h"
+    #include "defaults.h"
     #include <dirent.h>
     struct Schema schema;
     struct Record* table_records = NULL;
@@ -86,22 +86,29 @@
                   struct Record* iter = $6;
                   DIR* dir_handle = opendir($4);
                   struct dirent* dir_entry;
-                  int a = 2;
+                  int Hack = 2;
                   while((dir_entry=readdir(dir_handle))!=NULL){
+                    printf("the dir handle is %p\n",dir_handle);
                     while(iter!=NULL){
+                      printf("the dir handle is %p\n",iter);
+                      printf("the type is %d, STRING %d INT %d\n ",iter->current_field.field_array[0].type,iter->current_field.field_array[0].type == VAL_STRING,iter->current_field.field_array[0].type == VAL_INT );
                       switch(iter->current_field.field_array[0].type){
                         case VAL_STRING: if(strcmp(iter->current_field.field_array[0].value.string,dir_entry->d_name)==0){
                                           char path[STRING_LENGTH];
                                           sprintf(path,"%s/%s.txt",$4,dir_entry->d_name);
+                                          puts("path to deletion");
+                                          puts(path);
                                           remove(path);
                                         }
                                         break;
-                        case VAL_INT:   a = 3;
+                        case VAL_INT:   Hack = 3;
                                         char string_format[STRING_LENGTH];
                                         sprintf(string_format,"%d.txt",iter->current_field.field_array[0].value.integer);
                                         if(strcmp(string_format,dir_entry->d_name)==0){
                                           char path[STRING_LENGTH];
                                           sprintf(path,"%s/%s",$4,dir_entry->d_name);
+                                          puts("path to deletion");
+                                          puts(path);
                                           remove(path);
                                         }
                                         break;
@@ -138,31 +145,31 @@
                 ;
 
     CONDITION_LIST: CONDITION_LIST LOGICAL_OPERATOR CONDITION { 
-            $$ = NULL;
-            struct Record * iter = $1;
-            if($2 == 1)
-            { 
-              while(iter != NULL){
-                if( find(*iter,$3)){
-                  push_back(iter->current_field,&$$);
-                }
-                else{
-                  continue;
-                }
-                iter = iter->next_record;
-              }
-            }
-            else{
-              $$ = $1;
-              iter = $3;
-              while(iter != NULL){
-                if( !find(*iter,$$)){
-                  push_back(iter->current_field,&$$);
-                }
-                iter = iter->next_record;
-              }
-            }
-          }
+                                                                $$ = NULL;
+                                                                struct Record * iter = $1;
+                                                                if($2 == 1)
+                                                                { 
+                                                                  while(iter != NULL){
+                                                                    if( find(*iter,$3)){
+                                                                      push_back(iter->current_field,&$$);
+                                                                    }
+                                                                    else{
+                                                                      continue;
+                                                                    }
+                                                                    iter = iter->next_record;
+                                                                  }
+                                                                }
+                                                                else{
+                                                                  $$ = $1;
+                                                                  iter = $3;
+                                                                  while(iter != NULL){
+                                                                    if( !find(*iter,$$)){
+                                                                      push_back(iter->current_field,&$$);
+                                                                    }
+                                                                    iter = iter->next_record;
+                                                                  }
+                                                                }
+                                                              }
           |
           CONDITION                                                            { $$ = $1; }
           ;
@@ -198,42 +205,54 @@
 
     NUMERICAL_CONDITION: NUMERICAL_FIELD RELATIONAL_OPERATOR NUMERICAL_OPERAND  {
             $$= NULL;
+            puts("entered NUMERICAL_CONDITION");
             struct Record* iter = table_records;
             int pos_of_field = 0;
             for(int i = 0; i < schema.length; i++){
-              if(strcpy($1,schema.schema_definition[i].name.field_name) == 0){
+              printf("schema field name %s \n",$1);
+              if(strcmp($1,schema.schema_definition[i].name.field_name) == 0){
                 pos_of_field = i; 
                 break;
               }
             } 
+            printf("table record pointer: %p, first record %d\n",iter,iter->current_field.field_array[pos_of_field].value.integer);
+            printf("comparing %d\n",$3.value.integer);
             while(iter != NULL){
+              printf("values in iter %d\n",iter->current_field.field_array[pos_of_field].value.integer);
+
               struct Record* temp  = (struct Record*)malloc(sizeof(struct Record));
               if( strcmp($2.opertr,"==") == 0){
+                puts("eq");
                 if( $3.value.integer == iter->current_field.field_array[pos_of_field].value.integer){
                   push_back(temp->current_field,&$$);
                 }
               }
               if( strcmp($2.opertr,"!=") == 0){
+                puts("neq");
                 if( $3.value.integer != iter->current_field.field_array[pos_of_field].value.integer){
                   push_back(temp->current_field,&$$);
                 }
               }
               if( strcmp($2.opertr,">") == 0){
+                puts("gt");
                 if( $3.value.integer < iter->current_field.field_array[pos_of_field].value.integer){
                   push_back(temp->current_field,&$$);  
                 }
               }
               if( strcmp($2.opertr,"<") == 0){
+                puts("lt");
                 if( $3.value.integer > iter->current_field.field_array[pos_of_field].value.integer){
                   push_back(temp->current_field,&$$);
                 }
               }
               if( strcmp($2.opertr,">=") == 0){
+                puts("geq");
                 if( $3.value.integer <= iter->current_field.field_array[pos_of_field].value.integer){
                   push_back(temp->current_field,&$$);
                 }
               }
               if( strcmp($2.opertr,"<=") == 0){
+                puts("leq");
                 if( $3.value.integer >= iter->current_field.field_array[pos_of_field].value.integer){
                   push_back(temp->current_field,&$$);
                 }
@@ -418,12 +437,14 @@
                   // TODO test.c and return qualified file path 
                   // strcpy($$,/*Address to the folder to which it is to be written*/);
                   // obtain the path to schema and get the data in the schema
+        
                   char path_to_schema[STRING_LENGTH];
                   strcpy($$,$1);
 
                   strcpy(path_to_schema,MASTER_TABLE);
-                  strcpy(path_to_schema,"/");
-                  strcpy(path_to_schema,$$);
+                  strcat(path_to_schema,"/");
+                  strcat(path_to_schema,$$);
+                  printf("path to schema is %s\n",path_to_schema);
                   FILE* schema_file_handle = fopen(path_to_schema,"r+");
                   
                   if(schema_file_handle==NULL){
@@ -438,8 +459,8 @@
                   // strcpy($$,$1);
 
                   strcpy(path_to_table,DATA_PATH);
-                  strcpy(path_to_table,"/");
-                  strcpy(path_to_table,$$);
+                  strcat(path_to_table,"/");
+                  strcat(path_to_table,$$);
 
                   DIR* table_file_handle = opendir(path_to_table);
                   if(table_file_handle==NULL){
@@ -456,9 +477,14 @@
                   while((read=getline(&line,&len,schema_file_handle)) != -1){
                       number_of_attributes++;
                   }
+
+                  fclose(schema_file_handle);
+                  
                   schema.length = number_of_attributes;
                   schema.schema_definition = (struct Schema_Attributes*)malloc(number_of_attributes*sizeof(struct Schema_Attributes));
-
+                  
+                  schema_file_handle = fopen(path_to_schema,"r+");
+                  
                   //fill the schema
                   int index = 0;
                   while((read = getline(&line,&len,schema_file_handle)) != -1){
@@ -473,12 +499,13 @@
                       }
                       // strcpy(schema.schema_definition[index++].type,token1);
                   }
-
+                  
                   //for debug, print the schema obtained
+                  printf("Number of  Attributes: %d\n",number_of_attributes);
                   for(int i=0;i<number_of_attributes;i++){
-                      printf("%s\n",schema.schema_definition[i].name.field_name);
+                      printf("%s\t",schema.schema_definition[i].name.field_name);
                   }
-
+                  printf("\n");
                   //go through the 'records'/txt files inside the data folder and fill the linked list of records
                   while((file=readdir(table_file_handle))!=NULL){
                     if(file->d_type != DT_REG){// If it is not a regular file
@@ -487,7 +514,7 @@
                     else{
                         struct Field_List record;
                         char filenames[1000];
-                        sprintf(filenames,"%s%s",path_to_table,file->d_name);
+                        sprintf(filenames,"%s/%s",path_to_table,file->d_name);
                         FILE* ffile = fopen(filenames,"r");
                         read = getline(&line,&len,ffile);
                         if(read == -1){
@@ -508,9 +535,13 @@
                             token = strtok(NULL,FILE_DELIM);
                         }
                         push_back(record,&table_records);
+                        
                     }
                   }
+                  print_list(table_records);
                   strcpy($$,path_to_table);
+                  puts("THE PATH TO THE TABLE IS");
+                  puts($$);
                 }
                 ;
 %%

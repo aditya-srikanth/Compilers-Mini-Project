@@ -937,14 +937,15 @@ case 26:
 YY_RULE_SETUP
 #line 59 "lexer.l"
 {
-                      strcpy(yylval.string,yytext);
-                      return IDENTIFIER;
-                    }
+                                          strlwr(yytext);
+                                          strcpy(yylval.string,yytext);
+                                          return IDENTIFIER;
+                                        }
 	YY_BREAK
 /* This is a string */
 case 27:
 YY_RULE_SETUP
-#line 65 "lexer.l"
+#line 66 "lexer.l"
 {
                                             yylval.field.type = VAL_STRING;
                                             strcpy(yylval.field.value.string,yytext);
@@ -955,7 +956,7 @@ YY_RULE_SETUP
 /*  This is an integer  */
 case 28:
 YY_RULE_SETUP
-#line 73 "lexer.l"
+#line 74 "lexer.l"
 {
                                             yylval.field.type = VAL_INT;
                                             yylval.field.value.integer = atoi(yytext);
@@ -965,22 +966,22 @@ YY_RULE_SETUP
 /* Ignoring whitespaces */
 case 29:
 YY_RULE_SETUP
-#line 80 "lexer.l"
+#line 81 "lexer.l"
 ;
 	YY_BREAK
 /* ; signifies DO NOTHING */
 /* Any other character is invalid */
 case 30:
 YY_RULE_SETUP
-#line 84 "lexer.l"
+#line 85 "lexer.l"
 puts(yytext); yyerror("This is an invalid character");
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 85 "lexer.l"
+#line 86 "lexer.l"
 ECHO;
 	YY_BREAK
-#line 984 "lex.yy.c"
+#line 985 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1985,7 +1986,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 85 "lexer.l"
+#line 86 "lexer.l"
 
 
 int yywrap(void){

@@ -56,9 +56,10 @@ DIGIT [0-9]
 
   /* This is an identifier */
 ([_]|{ALPHA})({ALPHA}|{DIGIT}|[$_])*   {
-                      strcpy(yylval.string,yytext);
-                      return IDENTIFIER;
-                    }
+                                          strlwr(yytext);
+                                          strcpy(yylval.string,yytext);
+                                          return IDENTIFIER;
+                                        }
 
   /* This is a string */
 \".+\"                                 {

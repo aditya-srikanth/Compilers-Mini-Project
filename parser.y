@@ -9,10 +9,9 @@
  * Here we are making use of BISON.
  */
 %{
-    #include "headers.h"
     #include "parser.h"
     // #include "defaults.h"
-
+    #include <dirent.h>
     struct Schema schema;
     struct Record* table_records = NULL;
     struct String_List* string_list_ptr = NULL;
@@ -85,9 +84,10 @@
     DELETE_QRY: DELETE RECORD FROM FILE_NAME WHERE CONDITION_LIST  {
                   // $$ = NULL;
                   struct Record* iter = $6;
-                  DIR* dir_handle = diropen($4);
+                  DIR* dir_handle = opendir($4);
                   struct dirent* dir_entry;
-                  while(dir_entry=diropen(dir_handle)!=NULL){
+                  int a = 2;
+                  while((dir_entry=readdir(dir_handle))!=NULL){
                     while(iter!=NULL){
                       switch(iter->current_field.field_array[0].type){
                         case VAL_STRING: if(strcmp(iter->current_field.field_array[0].value.string,dir_entry->d_name)==0){
@@ -96,7 +96,8 @@
                                           remove(path);
                                         }
                                         break;
-                        case VAL_INT:   char string_format[STRING_LENGTH];
+                        case VAL_INT:   a = 3;
+                                        char string_format[STRING_LENGTH];
                                         sprintf(string_format,"%d.txt",iter->current_field.field_array[0].value.integer);
                                         if(strcmp(string_format,dir_entry->d_name)==0){
                                           char path[STRING_LENGTH];
@@ -118,15 +119,16 @@
     FIELDS:     FIELD COMMA FIELDS { 
                   struct String_List* temp = malloc(sizeof(struct String));
                   strcpy(temp->data.string,$1);
-                  temp->data.string = strlen($1); 
+                  temp->data.string_length = strlen($1); 
                   $3->length += 1;
-                  $$ >next_str = temp;  
+                  $$ ->next_str = temp;
+                  //TODO ADD API FOR STRING LIST  
                 }
                 | 
                 FIELD { 
                   struct String_List* temp = malloc(sizeof(struct String));
                   strcpy(temp->data.string,$1);
-                  temp->data.string = strlen($1); 
+                  temp->data.string_length = strlen($1); 
                   temp->length = 1;
                   $$ = temp;
                 }
@@ -137,12 +139,12 @@
 
     CONDITION_LIST: CONDITION_LIST LOGICAL_OPERATOR CONDITION { 
             $$ = NULL;
-            Record * iter = $1;
-            if($1 == 1)
+            struct Record * iter = $1;
+            if($2 == 1)
             { 
               while(iter != NULL){
-                if( find(*iter,$2)){
-                  push_back(iter->field_array,&$$);
+                if( find(*iter,$3)){
+                  push_back(iter->current_field,&$$);
                 }
                 else{
                   continue;
@@ -155,7 +157,7 @@
               iter = $3;
               while(iter != NULL){
                 if( !find(*iter,$$)){
-                  push_back(iter->field_array,&$$);
+                  push_back(iter->current_field,&$$);
                 }
                 iter = iter->next_record;
               }
@@ -179,11 +181,11 @@
                   $$ = NULL;
                   struct Record * iter = table_records;
                   while(iter != NULL){
-                    if( find(iter,$2) ){
+                    if( find(*iter,$2) ){
                       continue;
                     }
                     else{
-                      push_back(iter->field_array,&$$);
+                      push_back(iter->current_field,&$$);
                     }
                   }
                   iter = iter->next_record;
@@ -196,7 +198,7 @@
 
     NUMERICAL_CONDITION: NUMERICAL_FIELD RELATIONAL_OPERATOR NUMERICAL_OPERAND  {
             $$= NULL;
-            Record* iter = table_records;
+            struct Record* iter = table_records;
             int pos_of_field = 0;
             for(int i = 0; i < schema.length; i++){
               if(strcpy($1,schema.schema_definition[i].name.field_name) == 0){
@@ -205,35 +207,35 @@
               }
             } 
             while(iter != NULL){
-              Record* temp  = (Record*)malloc(sizeof(Record));
-              if( strcmp($2,"==") == 0){
-                if( $3 == iter->current_field.field_array[pos_of_field].value.integer){
-                  push_back(temp->field_array,&$$);
+              struct Record* temp  = (struct Record*)malloc(sizeof(struct Record));
+              if( strcmp($2.opertr,"==") == 0){
+                if( $3.value.integer == iter->current_field.field_array[pos_of_field].value.integer){
+                  push_back(temp->current_field,&$$);
                 }
               }
-              if( strcmp($2,"!=") == 0){
-                if( $3 != iter->current_field.field_array[pos_of_field].value.integer){
-                  push_back(temp->field_array,&$$);
+              if( strcmp($2.opertr,"!=") == 0){
+                if( $3.value.integer != iter->current_field.field_array[pos_of_field].value.integer){
+                  push_back(temp->current_field,&$$);
                 }
               }
-              if( strcmp($2,">") == 0){
-                if( $3 < iter->current_field.field_array[pos_of_field].value.integer){
-                  push_back(temp->field_array,&$$);  
+              if( strcmp($2.opertr,">") == 0){
+                if( $3.value.integer < iter->current_field.field_array[pos_of_field].value.integer){
+                  push_back(temp->current_field,&$$);  
                 }
               }
-              if( strcmp($2,"<") == 0){
-                if( $3 > iter->current_field.field_array[pos_of_field].value.integer){
-                  push_back(temp->field_array,&$$);
+              if( strcmp($2.opertr,"<") == 0){
+                if( $3.value.integer > iter->current_field.field_array[pos_of_field].value.integer){
+                  push_back(temp->current_field,&$$);
                 }
               }
-              if( strcmp($2,">=") == 0){
-                if( $3 <= iter->current_field.field_array[pos_of_field].value.integer){
-                  push_back(temp->field_array,&$$);
+              if( strcmp($2.opertr,">=") == 0){
+                if( $3.value.integer <= iter->current_field.field_array[pos_of_field].value.integer){
+                  push_back(temp->current_field,&$$);
                 }
               }
-              if( strcmp($2,"<=") == 0){
-                if( $3 >= iter->current_field.field_array[pos_of_field].value.integer){
-                  push_back(temp->field_array,&$$);
+              if( strcmp($2.opertr,"<=") == 0){
+                if( $3.value.integer >= iter->current_field.field_array[pos_of_field].value.integer){
+                  push_back(temp->current_field,&$$);
                 }
               }    
               iter = iter->next_record;
@@ -252,10 +254,10 @@
               }
             } 
             while(iter != NULL){
-              if( strcmp($2,"=") == 0){
-                if(strcmp($3,iter->current_field.field_array[pos_of_field].value.string) == 0){
+              if( strcmp($2.string,"=") == 0){
+                if(strcmp($3.value.string,iter->current_field.field_array[pos_of_field].value.string) == 0){
                   struct Record* temp  = (struct Record*)malloc(sizeof(struct Record));
-                  push_back(temp->field_array,&$$);
+                  push_back(temp->current_field,&$$);
                 }
                 iter = iter->next_record;
               }    

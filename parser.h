@@ -5,10 +5,10 @@
 #include "headers.h"
 #include "defaults.h"
 #define _GNU_SOURCE
-// #include <stdio.h>
-// #include <string.h>
-// #include <stdlib.h>
-// #include <dirent.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <dirent.h>
 #define STRING "string"
 #define INT "int"
 #define ARRAY_SIZE 100

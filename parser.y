@@ -72,6 +72,9 @@
                                                                         //TODO 
                                                                         //open file handle
                                                                         //write to file
+                FILE* file_handle = NULL;
+                
+                file_handle = fopen($5);                                               
                 }
                 ;
 
@@ -202,14 +205,11 @@
                   $$ = NULL;
                   struct Record * iter = table_records;
                   while(iter != NULL){
-                    if( find(*iter,$2) ){
-                      continue;
-                    }
-                    else{
+                    if( find(*iter,$2) == false){
                       push_back(iter->current_field,&$$);
                     }
+                    iter = iter->next_record;
                   }
-                  iter = iter->next_record;
                 }
                 | 
                 LEFT_PARANTHESES CONDITION_LIST RIGHT_PARANTHESES  {
@@ -480,6 +480,10 @@
                   // strcpy($$,/*Address to the folder to which it is to be written*/);
                   // obtain the path to schema and get the data in the schema
         
+                  // Refresh the buffer for each time a query is called
+                  table_records = NULL;
+                  memset(&schema,0,sizeof(schema));
+
                   char path_to_schema[STRING_LENGTH];
                   strcpy($$,$1);
 

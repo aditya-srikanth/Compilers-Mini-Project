@@ -1,1839 +1,3706 @@
 # 1 "y.tab.c"
-# 1 "<built-in>" 1
-# 1 "<built-in>" 3
-# 365 "<built-in>" 3
-# 1 "<command line>" 1
-# 1 "<built-in>" 2
-# 1 "y.tab.c" 2
+# 1 "<built-in>"
+# 1 "<command-line>"
+# 31 "<command-line>"
+# 1 "/usr/include/stdc-predef.h" 1 3 4
+# 32 "<command-line>" 2
+# 1 "y.tab.c"
 # 11 "parser.y"
 
-# 1 "./parser.h" 1
+# 1 "parser.h" 1
 
 
 
-# 1 "/data/data/com.termux/files/usr/lib/clang/7.0.0/include/stdbool.h" 1 3
-# 5 "./parser.h" 2
-# 1 "./headers.h" 1
+# 1 "/usr/lib/gcc/x86_64-linux-gnu/7/include/stdbool.h" 1 3 4
+# 5 "parser.h" 2
+# 1 "headers.h" 1
 
 
 
-# 1 "/data/data/com.termux/files/usr/include/stdio.h" 1 3 4
-# 41 "/data/data/com.termux/files/usr/include/stdio.h" 3 4
-# 1 "/data/data/com.termux/files/usr/include/sys/cdefs.h" 1 3 4
-# 40 "/data/data/com.termux/files/usr/include/sys/cdefs.h" 3 4
-# 1 "/data/data/com.termux/files/usr/include/android/api-level.h" 1 3 4
-# 32 "/data/data/com.termux/files/usr/include/android/api-level.h" 3 4
-# 1 "/data/data/com.termux/files/usr/include/sys/cdefs.h" 1 3 4
-# 33 "/data/data/com.termux/files/usr/include/android/api-level.h" 2 3 4
-# 41 "/data/data/com.termux/files/usr/include/sys/cdefs.h" 2 3 4
-# 1 "/data/data/com.termux/files/usr/include/android/versioning.h" 1 3 4
-# 42 "/data/data/com.termux/files/usr/include/sys/cdefs.h" 2 3 4
-# 42 "/data/data/com.termux/files/usr/include/stdio.h" 2 3 4
-# 1 "/data/data/com.termux/files/usr/include/sys/types.h" 1 3 4
-# 32 "/data/data/com.termux/files/usr/include/sys/types.h" 3 4
-# 1 "/data/data/com.termux/files/usr/lib/clang/7.0.0/include/stddef.h" 1 3 4
-# 51 "/data/data/com.termux/files/usr/lib/clang/7.0.0/include/stddef.h" 3 4
-typedef long int ptrdiff_t;
-# 62 "/data/data/com.termux/files/usr/lib/clang/7.0.0/include/stddef.h" 3 4
+# 1 "/usr/include/stdio.h" 1 3 4
+# 27 "/usr/include/stdio.h" 3 4
+# 1 "/usr/include/x86_64-linux-gnu/bits/libc-header-start.h" 1 3 4
+# 33 "/usr/include/x86_64-linux-gnu/bits/libc-header-start.h" 3 4
+# 1 "/usr/include/features.h" 1 3 4
+# 424 "/usr/include/features.h" 3 4
+# 1 "/usr/include/x86_64-linux-gnu/sys/cdefs.h" 1 3 4
+# 427 "/usr/include/x86_64-linux-gnu/sys/cdefs.h" 3 4
+# 1 "/usr/include/x86_64-linux-gnu/bits/wordsize.h" 1 3 4
+# 428 "/usr/include/x86_64-linux-gnu/sys/cdefs.h" 2 3 4
+# 1 "/usr/include/x86_64-linux-gnu/bits/long-double.h" 1 3 4
+# 429 "/usr/include/x86_64-linux-gnu/sys/cdefs.h" 2 3 4
+# 425 "/usr/include/features.h" 2 3 4
+# 448 "/usr/include/features.h" 3 4
+# 1 "/usr/include/x86_64-linux-gnu/gnu/stubs.h" 1 3 4
+# 10 "/usr/include/x86_64-linux-gnu/gnu/stubs.h" 3 4
+# 1 "/usr/include/x86_64-linux-gnu/gnu/stubs-64.h" 1 3 4
+# 11 "/usr/include/x86_64-linux-gnu/gnu/stubs.h" 2 3 4
+# 449 "/usr/include/features.h" 2 3 4
+# 34 "/usr/include/x86_64-linux-gnu/bits/libc-header-start.h" 2 3 4
+# 28 "/usr/include/stdio.h" 2 3 4
+
+
+
+
+
+# 1 "/usr/lib/gcc/x86_64-linux-gnu/7/include/stddef.h" 1 3 4
+# 216 "/usr/lib/gcc/x86_64-linux-gnu/7/include/stddef.h" 3 4
+
+# 216 "/usr/lib/gcc/x86_64-linux-gnu/7/include/stddef.h" 3 4
 typedef long unsigned int size_t;
-# 90 "/data/data/com.termux/files/usr/lib/clang/7.0.0/include/stddef.h" 3 4
-typedef unsigned int wchar_t;
-# 118 "/data/data/com.termux/files/usr/lib/clang/7.0.0/include/stddef.h" 3 4
-# 1 "/data/data/com.termux/files/usr/lib/clang/7.0.0/include/__stddef_max_align_t.h" 1 3 4
-# 35 "/data/data/com.termux/files/usr/lib/clang/7.0.0/include/__stddef_max_align_t.h" 3 4
-typedef struct {
-  long long __clang_max_align_nonce1
-      __attribute__((__aligned__(__alignof__(long long))));
-  long double __clang_max_align_nonce2
-      __attribute__((__aligned__(__alignof__(long double))));
-} max_align_t;
-# 119 "/data/data/com.termux/files/usr/lib/clang/7.0.0/include/stddef.h" 2 3 4
-# 33 "/data/data/com.termux/files/usr/include/sys/types.h" 2 3 4
-# 1 "/data/data/com.termux/files/usr/lib/clang/7.0.0/include/stdint.h" 1 3 4
-# 63 "/data/data/com.termux/files/usr/lib/clang/7.0.0/include/stdint.h" 3 4
-# 1 "/data/data/com.termux/files/usr/include/stdint.h" 1 3 4
-# 32 "/data/data/com.termux/files/usr/include/stdint.h" 3 4
-# 1 "/data/data/com.termux/files/usr/include/bits/wchar_limits.h" 1 3 4
-# 33 "/data/data/com.termux/files/usr/include/stdint.h" 2 3 4
-# 1 "/data/data/com.termux/files/usr/lib/clang/7.0.0/include/stddef.h" 1 3 4
-# 34 "/data/data/com.termux/files/usr/include/stdint.h" 2 3 4
+# 34 "/usr/include/stdio.h" 2 3 4
+
+# 1 "/usr/include/x86_64-linux-gnu/bits/types.h" 1 3 4
+# 27 "/usr/include/x86_64-linux-gnu/bits/types.h" 3 4
+# 1 "/usr/include/x86_64-linux-gnu/bits/wordsize.h" 1 3 4
+# 28 "/usr/include/x86_64-linux-gnu/bits/types.h" 2 3 4
+
+
+typedef unsigned char __u_char;
+typedef unsigned short int __u_short;
+typedef unsigned int __u_int;
+typedef unsigned long int __u_long;
 
 
 typedef signed char __int8_t;
 typedef unsigned char __uint8_t;
-typedef short __int16_t;
-typedef unsigned short __uint16_t;
-typedef int __int32_t;
+typedef signed short int __int16_t;
+typedef unsigned short int __uint16_t;
+typedef signed int __int32_t;
 typedef unsigned int __uint32_t;
 
-typedef long __int64_t;
-typedef unsigned long __uint64_t;
+typedef signed long int __int64_t;
+typedef unsigned long int __uint64_t;
 
 
 
 
 
 
-typedef long __intptr_t;
-typedef unsigned long __uintptr_t;
 
+typedef long int __quad_t;
+typedef unsigned long int __u_quad_t;
 
 
 
 
-typedef __int8_t int8_t;
-typedef __uint8_t uint8_t;
 
-typedef __int16_t int16_t;
-typedef __uint16_t uint16_t;
 
-typedef __int32_t int32_t;
-typedef __uint32_t uint32_t;
 
-typedef __int64_t int64_t;
-typedef __uint64_t uint64_t;
+typedef long int __intmax_t;
+typedef unsigned long int __uintmax_t;
+# 130 "/usr/include/x86_64-linux-gnu/bits/types.h" 3 4
+# 1 "/usr/include/x86_64-linux-gnu/bits/typesizes.h" 1 3 4
+# 131 "/usr/include/x86_64-linux-gnu/bits/types.h" 2 3 4
 
-typedef __intptr_t intptr_t;
-typedef __uintptr_t uintptr_t;
 
-typedef int8_t int_least8_t;
-typedef uint8_t uint_least8_t;
+typedef unsigned long int __dev_t;
+typedef unsigned int __uid_t;
+typedef unsigned int __gid_t;
+typedef unsigned long int __ino_t;
+typedef unsigned long int __ino64_t;
+typedef unsigned int __mode_t;
+typedef unsigned long int __nlink_t;
+typedef long int __off_t;
+typedef long int __off64_t;
+typedef int __pid_t;
+typedef struct { int __val[2]; } __fsid_t;
+typedef long int __clock_t;
+typedef unsigned long int __rlim_t;
+typedef unsigned long int __rlim64_t;
+typedef unsigned int __id_t;
+typedef long int __time_t;
+typedef unsigned int __useconds_t;
+typedef long int __suseconds_t;
 
-typedef int16_t int_least16_t;
-typedef uint16_t uint_least16_t;
+typedef int __daddr_t;
+typedef int __key_t;
 
-typedef int32_t int_least32_t;
-typedef uint32_t uint_least32_t;
 
-typedef int64_t int_least64_t;
-typedef uint64_t uint_least64_t;
+typedef int __clockid_t;
 
-typedef int8_t int_fast8_t;
-typedef uint8_t uint_fast8_t;
 
-typedef int64_t int_fast64_t;
-typedef uint64_t uint_fast64_t;
+typedef void * __timer_t;
 
 
-typedef int64_t int_fast16_t;
-typedef uint64_t uint_fast16_t;
-typedef int64_t int_fast32_t;
-typedef uint64_t uint_fast32_t;
+typedef long int __blksize_t;
 
 
 
 
+typedef long int __blkcnt_t;
+typedef long int __blkcnt64_t;
 
 
+typedef unsigned long int __fsblkcnt_t;
+typedef unsigned long int __fsblkcnt64_t;
 
-typedef uint64_t uintmax_t;
-typedef int64_t intmax_t;
-# 64 "/data/data/com.termux/files/usr/lib/clang/7.0.0/include/stdint.h" 2 3 4
-# 34 "/data/data/com.termux/files/usr/include/sys/types.h" 2 3 4
 
+typedef unsigned long int __fsfilcnt_t;
+typedef unsigned long int __fsfilcnt64_t;
 
-# 1 "/data/data/com.termux/files/usr/include/linux/types.h" 1 3 4
-# 21 "/data/data/com.termux/files/usr/include/linux/types.h" 3 4
-# 1 "/data/data/com.termux/files/usr/include/asm/types.h" 1 3 4
-# 19 "/data/data/com.termux/files/usr/include/asm/types.h" 3 4
-# 1 "/data/data/com.termux/files/usr/include/asm-generic/types.h" 1 3 4
-# 21 "/data/data/com.termux/files/usr/include/asm-generic/types.h" 3 4
-# 1 "/data/data/com.termux/files/usr/include/asm-generic/int-ll64.h" 1 3 4
-# 21 "/data/data/com.termux/files/usr/include/asm-generic/int-ll64.h" 3 4
-# 1 "/data/data/com.termux/files/usr/include/asm/bitsperlong.h" 1 3 4
-# 22 "/data/data/com.termux/files/usr/include/asm/bitsperlong.h" 3 4
-# 1 "/data/data/com.termux/files/usr/include/asm-generic/bitsperlong.h" 1 3 4
-# 23 "/data/data/com.termux/files/usr/include/asm/bitsperlong.h" 2 3 4
-# 22 "/data/data/com.termux/files/usr/include/asm-generic/int-ll64.h" 2 3 4
 
-typedef __signed__ char __s8;
-typedef unsigned char __u8;
-typedef __signed__ short __s16;
-typedef unsigned short __u16;
-typedef __signed__ int __s32;
-typedef unsigned int __u32;
+typedef long int __fsword_t;
 
-__extension__ typedef __signed__ long long __s64;
-__extension__ typedef unsigned long long __u64;
-# 22 "/data/data/com.termux/files/usr/include/asm-generic/types.h" 2 3 4
-# 20 "/data/data/com.termux/files/usr/include/asm/types.h" 2 3 4
-# 22 "/data/data/com.termux/files/usr/include/linux/types.h" 2 3 4
+typedef long int __ssize_t;
 
-# 1 "/data/data/com.termux/files/usr/include/linux/posix_types.h" 1 3 4
-# 21 "/data/data/com.termux/files/usr/include/linux/posix_types.h" 3 4
-# 1 "/data/data/com.termux/files/usr/include/linux/stddef.h" 1 3 4
-# 19 "/data/data/com.termux/files/usr/include/linux/stddef.h" 3 4
-# 1 "/data/data/com.termux/files/usr/include/linux/compiler_types.h" 1 3 4
 
+typedef long int __syscall_slong_t;
 
+typedef unsigned long int __syscall_ulong_t;
 
 
-# 1 "/data/data/com.termux/files/usr/include/linux/compiler.h" 1 3 4
-# 6 "/data/data/com.termux/files/usr/include/linux/compiler_types.h" 2 3 4
-# 20 "/data/data/com.termux/files/usr/include/linux/stddef.h" 2 3 4
-# 22 "/data/data/com.termux/files/usr/include/linux/posix_types.h" 2 3 4
 
+typedef __off64_t __loff_t;
+typedef char *__caddr_t;
 
-typedef struct {
-  unsigned long fds_bits[1024 / (8 * sizeof(long))];
-} __kernel_fd_set;
-typedef void(* __kernel_sighandler_t) (int);
-typedef int __kernel_key_t;
-typedef int __kernel_mqd_t;
 
-# 1 "/data/data/com.termux/files/usr/include/asm/posix_types.h" 1 3 4
-# 21 "/data/data/com.termux/files/usr/include/asm/posix_types.h" 3 4
-typedef unsigned short __kernel_old_uid_t;
-typedef unsigned short __kernel_old_gid_t;
+typedef long int __intptr_t;
 
 
-# 1 "/data/data/com.termux/files/usr/include/asm-generic/posix_types.h" 1 3 4
-# 23 "/data/data/com.termux/files/usr/include/asm-generic/posix_types.h" 3 4
-typedef long __kernel_long_t;
-typedef unsigned long __kernel_ulong_t;
+typedef unsigned int __socklen_t;
 
 
-typedef __kernel_ulong_t __kernel_ino_t;
 
 
-typedef unsigned int __kernel_mode_t;
+typedef int __sig_atomic_t;
+# 36 "/usr/include/stdio.h" 2 3 4
+# 1 "/usr/include/x86_64-linux-gnu/bits/types/__FILE.h" 1 3 4
 
 
-typedef int __kernel_pid_t;
 
+struct _IO_FILE;
+typedef struct _IO_FILE __FILE;
+# 37 "/usr/include/stdio.h" 2 3 4
+# 1 "/usr/include/x86_64-linux-gnu/bits/types/FILE.h" 1 3 4
 
-typedef int __kernel_ipc_pid_t;
 
 
-typedef unsigned int __kernel_uid_t;
-typedef unsigned int __kernel_gid_t;
+struct _IO_FILE;
 
 
-typedef __kernel_long_t __kernel_suseconds_t;
+typedef struct _IO_FILE FILE;
+# 38 "/usr/include/stdio.h" 2 3 4
 
 
-typedef int __kernel_daddr_t;
 
+# 1 "/usr/include/x86_64-linux-gnu/bits/libio.h" 1 3 4
+# 35 "/usr/include/x86_64-linux-gnu/bits/libio.h" 3 4
+# 1 "/usr/include/x86_64-linux-gnu/bits/_G_config.h" 1 3 4
+# 19 "/usr/include/x86_64-linux-gnu/bits/_G_config.h" 3 4
+# 1 "/usr/lib/gcc/x86_64-linux-gnu/7/include/stddef.h" 1 3 4
+# 20 "/usr/include/x86_64-linux-gnu/bits/_G_config.h" 2 3 4
 
-typedef unsigned int __kernel_uid32_t;
-typedef unsigned int __kernel_gid32_t;
+# 1 "/usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h" 1 3 4
+# 13 "/usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h" 3 4
+typedef struct
+{
+  int __count;
+  union
+  {
+    unsigned int __wch;
+    char __wchb[4];
+  } __value;
+} __mbstate_t;
+# 22 "/usr/include/x86_64-linux-gnu/bits/_G_config.h" 2 3 4
 
 
 
 
+typedef struct
+{
+  __off_t __pos;
+  __mbstate_t __state;
+} _G_fpos_t;
+typedef struct
+{
+  __off64_t __pos;
+  __mbstate_t __state;
+} _G_fpos64_t;
+# 36 "/usr/include/x86_64-linux-gnu/bits/libio.h" 2 3 4
+# 53 "/usr/include/x86_64-linux-gnu/bits/libio.h" 3 4
+# 1 "/usr/lib/gcc/x86_64-linux-gnu/7/include/stdarg.h" 1 3 4
+# 40 "/usr/lib/gcc/x86_64-linux-gnu/7/include/stdarg.h" 3 4
+typedef __builtin_va_list __gnuc_va_list;
+# 54 "/usr/include/x86_64-linux-gnu/bits/libio.h" 2 3 4
+# 149 "/usr/include/x86_64-linux-gnu/bits/libio.h" 3 4
+struct _IO_jump_t; struct _IO_FILE;
 
 
-typedef unsigned int __kernel_old_dev_t;
 
 
+typedef void _IO_lock_t;
 
 
 
 
 
-typedef __kernel_ulong_t __kernel_size_t;
-typedef __kernel_long_t __kernel_ssize_t;
-typedef __kernel_long_t __kernel_ptrdiff_t;
+struct _IO_marker {
+  struct _IO_marker *_next;
+  struct _IO_FILE *_sbuf;
 
 
 
-typedef struct {
-  int val[2];
-} __kernel_fsid_t;
+  int _pos;
+# 177 "/usr/include/x86_64-linux-gnu/bits/libio.h" 3 4
+};
 
-typedef __kernel_long_t __kernel_off_t;
-typedef long long __kernel_loff_t;
-typedef __kernel_long_t __kernel_time_t;
-typedef __kernel_long_t __kernel_clock_t;
-typedef int __kernel_timer_t;
-typedef int __kernel_clockid_t;
-typedef char * __kernel_caddr_t;
-typedef unsigned short __kernel_uid16_t;
-typedef unsigned short __kernel_gid16_t;
-# 25 "/data/data/com.termux/files/usr/include/asm/posix_types.h" 2 3 4
-# 31 "/data/data/com.termux/files/usr/include/linux/posix_types.h" 2 3 4
-# 24 "/data/data/com.termux/files/usr/include/linux/types.h" 2 3 4
 
+enum __codecvt_result
+{
+  __codecvt_ok,
+  __codecvt_partial,
+  __codecvt_error,
+  __codecvt_noconv
+};
+# 245 "/usr/include/x86_64-linux-gnu/bits/libio.h" 3 4
+struct _IO_FILE {
+  int _flags;
 
-typedef __u16 __le16;
-typedef __u16 __be16;
-typedef __u32 __le32;
-typedef __u32 __be32;
-typedef __u64 __le64;
-typedef __u64 __be64;
-typedef __u16 __sum16;
-typedef __u32 __wsum;
 
 
 
+  char* _IO_read_ptr;
+  char* _IO_read_end;
+  char* _IO_read_base;
+  char* _IO_write_base;
+  char* _IO_write_ptr;
+  char* _IO_write_end;
+  char* _IO_buf_base;
+  char* _IO_buf_end;
 
+  char *_IO_save_base;
+  char *_IO_backup_base;
+  char *_IO_save_end;
 
+  struct _IO_marker *_markers;
 
-typedef unsigned __poll_t;
-# 37 "/data/data/com.termux/files/usr/include/sys/types.h" 2 3 4
+  struct _IO_FILE *_chain;
 
+  int _fileno;
 
-# 1 "/data/data/com.termux/files/usr/include/bits/pthread_types.h" 1 3 4
-# 33 "/data/data/com.termux/files/usr/include/bits/pthread_types.h" 3 4
-# 1 "/data/data/com.termux/files/usr/include/sys/types.h" 1 3 4
-# 34 "/data/data/com.termux/files/usr/include/bits/pthread_types.h" 2 3 4
 
-typedef struct {
-  uint32_t flags;
-  void* stack_base;
-  size_t stack_size;
-  size_t guard_size;
-  int32_t sched_policy;
-  int32_t sched_priority;
 
-  char __reserved[16];
+  int _flags2;
 
-} pthread_attr_t;
-# 61 "/data/data/com.termux/files/usr/include/bits/pthread_types.h" 3 4
-typedef struct {
+  __off_t _old_offset;
 
-  int32_t __private[12];
 
 
+  unsigned short _cur_column;
+  signed char _vtable_offset;
+  char _shortbuf[1];
 
-} pthread_cond_t;
 
-typedef long pthread_condattr_t;
 
-typedef int pthread_key_t;
+  _IO_lock_t *_lock;
+# 293 "/usr/include/x86_64-linux-gnu/bits/libio.h" 3 4
+  __off64_t _offset;
 
-typedef struct {
 
-  int32_t __private[10];
 
 
 
-} pthread_mutex_t;
 
-typedef long pthread_mutexattr_t;
 
-typedef int pthread_once_t;
+  void *__pad1;
+  void *__pad2;
+  void *__pad3;
+  void *__pad4;
 
-typedef struct {
+  size_t __pad5;
+  int _mode;
 
-  int32_t __private[14];
+  char _unused2[15 * sizeof (int) - 4 * sizeof (void *) - sizeof (size_t)];
 
+};
 
 
-} pthread_rwlock_t;
+typedef struct _IO_FILE _IO_FILE;
 
-typedef long pthread_rwlockattr_t;
-# 105 "/data/data/com.termux/files/usr/include/bits/pthread_types.h" 3 4
-typedef long pthread_t;
-# 40 "/data/data/com.termux/files/usr/include/sys/types.h" 2 3 4
 
+struct _IO_FILE_plus;
 
-typedef __kernel_gid32_t __gid_t;
+extern struct _IO_FILE_plus _IO_2_1_stdin_;
+extern struct _IO_FILE_plus _IO_2_1_stdout_;
+extern struct _IO_FILE_plus _IO_2_1_stderr_;
+# 337 "/usr/include/x86_64-linux-gnu/bits/libio.h" 3 4
+typedef __ssize_t __io_read_fn (void *__cookie, char *__buf, size_t __nbytes);
+
+
+
+
+
+
+
+typedef __ssize_t __io_write_fn (void *__cookie, const char *__buf,
+     size_t __n);
+
+
+
+
+
+
+
+typedef int __io_seek_fn (void *__cookie, __off64_t *__pos, int __w);
+
+
+typedef int __io_close_fn (void *__cookie);
+# 389 "/usr/include/x86_64-linux-gnu/bits/libio.h" 3 4
+extern int __underflow (_IO_FILE *);
+extern int __uflow (_IO_FILE *);
+extern int __overflow (_IO_FILE *, int);
+# 433 "/usr/include/x86_64-linux-gnu/bits/libio.h" 3 4
+extern int _IO_getc (_IO_FILE *__fp);
+extern int _IO_putc (int __c, _IO_FILE *__fp);
+extern int _IO_feof (_IO_FILE *__fp) __attribute__ ((__nothrow__ , __leaf__));
+extern int _IO_ferror (_IO_FILE *__fp) __attribute__ ((__nothrow__ , __leaf__));
+
+extern int _IO_peekc_locked (_IO_FILE *__fp);
+
+
+
+
+
+extern void _IO_flockfile (_IO_FILE *) __attribute__ ((__nothrow__ , __leaf__));
+extern void _IO_funlockfile (_IO_FILE *) __attribute__ ((__nothrow__ , __leaf__));
+extern int _IO_ftrylockfile (_IO_FILE *) __attribute__ ((__nothrow__ , __leaf__));
+# 462 "/usr/include/x86_64-linux-gnu/bits/libio.h" 3 4
+extern int _IO_vfscanf (_IO_FILE * __restrict, const char * __restrict,
+   __gnuc_va_list, int *__restrict);
+extern int _IO_vfprintf (_IO_FILE *__restrict, const char *__restrict,
+    __gnuc_va_list);
+extern __ssize_t _IO_padn (_IO_FILE *, int, __ssize_t);
+extern size_t _IO_sgetn (_IO_FILE *, void *, size_t);
+
+extern __off64_t _IO_seekoff (_IO_FILE *, __off64_t, int, int);
+extern __off64_t _IO_seekpos (_IO_FILE *, __off64_t, int);
+
+extern void _IO_free_backup_area (_IO_FILE *) __attribute__ ((__nothrow__ , __leaf__));
+# 42 "/usr/include/stdio.h" 2 3 4
+
+
+
+
+typedef __gnuc_va_list va_list;
+# 57 "/usr/include/stdio.h" 3 4
+typedef __off_t off_t;
+# 71 "/usr/include/stdio.h" 3 4
+typedef __ssize_t ssize_t;
+
+
+
+
+
+
+typedef _G_fpos_t fpos_t;
+# 131 "/usr/include/stdio.h" 3 4
+# 1 "/usr/include/x86_64-linux-gnu/bits/stdio_lim.h" 1 3 4
+# 132 "/usr/include/stdio.h" 2 3 4
+
+
+
+extern struct _IO_FILE *stdin;
+extern struct _IO_FILE *stdout;
+extern struct _IO_FILE *stderr;
+
+
+
+
+
+
+extern int remove (const char *__filename) __attribute__ ((__nothrow__ , __leaf__));
+
+extern int rename (const char *__old, const char *__new) __attribute__ ((__nothrow__ , __leaf__));
+
+
+
+extern int renameat (int __oldfd, const char *__old, int __newfd,
+       const char *__new) __attribute__ ((__nothrow__ , __leaf__));
+
+
+
+
+
+
+
+extern FILE *tmpfile (void) ;
+# 173 "/usr/include/stdio.h" 3 4
+extern char *tmpnam (char *__s) __attribute__ ((__nothrow__ , __leaf__)) ;
+
+
+
+
+extern char *tmpnam_r (char *__s) __attribute__ ((__nothrow__ , __leaf__)) ;
+# 190 "/usr/include/stdio.h" 3 4
+extern char *tempnam (const char *__dir, const char *__pfx)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__malloc__)) ;
+
+
+
+
+
+
+
+extern int fclose (FILE *__stream);
+
+
+
+
+extern int fflush (FILE *__stream);
+# 213 "/usr/include/stdio.h" 3 4
+extern int fflush_unlocked (FILE *__stream);
+# 232 "/usr/include/stdio.h" 3 4
+extern FILE *fopen (const char *__restrict __filename,
+      const char *__restrict __modes) ;
+
+
+
+
+extern FILE *freopen (const char *__restrict __filename,
+        const char *__restrict __modes,
+        FILE *__restrict __stream) ;
+# 265 "/usr/include/stdio.h" 3 4
+extern FILE *fdopen (int __fd, const char *__modes) __attribute__ ((__nothrow__ , __leaf__)) ;
+# 278 "/usr/include/stdio.h" 3 4
+extern FILE *fmemopen (void *__s, size_t __len, const char *__modes)
+  __attribute__ ((__nothrow__ , __leaf__)) ;
+
+
+
+
+extern FILE *open_memstream (char **__bufloc, size_t *__sizeloc) __attribute__ ((__nothrow__ , __leaf__)) ;
+
+
+
+
+
+extern void setbuf (FILE *__restrict __stream, char *__restrict __buf) __attribute__ ((__nothrow__ , __leaf__));
+
+
+
+extern int setvbuf (FILE *__restrict __stream, char *__restrict __buf,
+      int __modes, size_t __n) __attribute__ ((__nothrow__ , __leaf__));
+
+
+
+
+extern void setbuffer (FILE *__restrict __stream, char *__restrict __buf,
+         size_t __size) __attribute__ ((__nothrow__ , __leaf__));
+
+
+extern void setlinebuf (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__));
+
+
+
+
+
+
+
+extern int fprintf (FILE *__restrict __stream,
+      const char *__restrict __format, ...);
+
+
+
+
+extern int printf (const char *__restrict __format, ...);
+
+extern int sprintf (char *__restrict __s,
+      const char *__restrict __format, ...) __attribute__ ((__nothrow__));
+
+
+
+
+
+extern int vfprintf (FILE *__restrict __s, const char *__restrict __format,
+       __gnuc_va_list __arg);
+
+
+
+
+extern int vprintf (const char *__restrict __format, __gnuc_va_list __arg);
+
+extern int vsprintf (char *__restrict __s, const char *__restrict __format,
+       __gnuc_va_list __arg) __attribute__ ((__nothrow__));
+
+
+
+extern int snprintf (char *__restrict __s, size_t __maxlen,
+       const char *__restrict __format, ...)
+     __attribute__ ((__nothrow__)) __attribute__ ((__format__ (__printf__, 3, 4)));
+
+extern int vsnprintf (char *__restrict __s, size_t __maxlen,
+        const char *__restrict __format, __gnuc_va_list __arg)
+     __attribute__ ((__nothrow__)) __attribute__ ((__format__ (__printf__, 3, 0)));
+# 365 "/usr/include/stdio.h" 3 4
+extern int vdprintf (int __fd, const char *__restrict __fmt,
+       __gnuc_va_list __arg)
+     __attribute__ ((__format__ (__printf__, 2, 0)));
+extern int dprintf (int __fd, const char *__restrict __fmt, ...)
+     __attribute__ ((__format__ (__printf__, 2, 3)));
+
+
+
+
+
+
+
+extern int fscanf (FILE *__restrict __stream,
+     const char *__restrict __format, ...) ;
+
+
+
+
+extern int scanf (const char *__restrict __format, ...) ;
+
+extern int sscanf (const char *__restrict __s,
+     const char *__restrict __format, ...) __attribute__ ((__nothrow__ , __leaf__));
+# 395 "/usr/include/stdio.h" 3 4
+extern int fscanf (FILE *__restrict __stream, const char *__restrict __format, ...) __asm__ ("" "__isoc99_fscanf")
+
+                               ;
+extern int scanf (const char *__restrict __format, ...) __asm__ ("" "__isoc99_scanf")
+                              ;
+extern int sscanf (const char *__restrict __s, const char *__restrict __format, ...) __asm__ ("" "__isoc99_sscanf") __attribute__ ((__nothrow__ , __leaf__))
+
+                      ;
+# 420 "/usr/include/stdio.h" 3 4
+extern int vfscanf (FILE *__restrict __s, const char *__restrict __format,
+      __gnuc_va_list __arg)
+     __attribute__ ((__format__ (__scanf__, 2, 0))) ;
+
+
+
+
+
+extern int vscanf (const char *__restrict __format, __gnuc_va_list __arg)
+     __attribute__ ((__format__ (__scanf__, 1, 0))) ;
+
+
+extern int vsscanf (const char *__restrict __s,
+      const char *__restrict __format, __gnuc_va_list __arg)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__format__ (__scanf__, 2, 0)));
+# 443 "/usr/include/stdio.h" 3 4
+extern int vfscanf (FILE *__restrict __s, const char *__restrict __format, __gnuc_va_list __arg) __asm__ ("" "__isoc99_vfscanf")
+
+
+
+     __attribute__ ((__format__ (__scanf__, 2, 0))) ;
+extern int vscanf (const char *__restrict __format, __gnuc_va_list __arg) __asm__ ("" "__isoc99_vscanf")
+
+     __attribute__ ((__format__ (__scanf__, 1, 0))) ;
+extern int vsscanf (const char *__restrict __s, const char *__restrict __format, __gnuc_va_list __arg) __asm__ ("" "__isoc99_vsscanf") __attribute__ ((__nothrow__ , __leaf__))
+
+
+
+     __attribute__ ((__format__ (__scanf__, 2, 0)));
+# 477 "/usr/include/stdio.h" 3 4
+extern int fgetc (FILE *__stream);
+extern int getc (FILE *__stream);
+
+
+
+
+
+extern int getchar (void);
+# 495 "/usr/include/stdio.h" 3 4
+extern int getc_unlocked (FILE *__stream);
+extern int getchar_unlocked (void);
+# 506 "/usr/include/stdio.h" 3 4
+extern int fgetc_unlocked (FILE *__stream);
+# 517 "/usr/include/stdio.h" 3 4
+extern int fputc (int __c, FILE *__stream);
+extern int putc (int __c, FILE *__stream);
+
+
+
+
+
+extern int putchar (int __c);
+# 537 "/usr/include/stdio.h" 3 4
+extern int fputc_unlocked (int __c, FILE *__stream);
+
+
+
+
+
+
+
+extern int putc_unlocked (int __c, FILE *__stream);
+extern int putchar_unlocked (int __c);
+
+
+
+
+
+
+extern int getw (FILE *__stream);
+
+
+extern int putw (int __w, FILE *__stream);
+
+
+
+
+
+
+
+extern char *fgets (char *__restrict __s, int __n, FILE *__restrict __stream)
+     ;
+# 603 "/usr/include/stdio.h" 3 4
+extern __ssize_t __getdelim (char **__restrict __lineptr,
+          size_t *__restrict __n, int __delimiter,
+          FILE *__restrict __stream) ;
+extern __ssize_t getdelim (char **__restrict __lineptr,
+        size_t *__restrict __n, int __delimiter,
+        FILE *__restrict __stream) ;
+
+
+
+
+
+
+
+extern __ssize_t getline (char **__restrict __lineptr,
+       size_t *__restrict __n,
+       FILE *__restrict __stream) ;
+
+
+
+
+
+
+
+extern int fputs (const char *__restrict __s, FILE *__restrict __stream);
+
+
+
+
+
+extern int puts (const char *__s);
+
+
+
+
+
+
+extern int ungetc (int __c, FILE *__stream);
+
+
+
+
+
+
+extern size_t fread (void *__restrict __ptr, size_t __size,
+       size_t __n, FILE *__restrict __stream) ;
+
+
+
+
+extern size_t fwrite (const void *__restrict __ptr, size_t __size,
+        size_t __n, FILE *__restrict __s);
+# 673 "/usr/include/stdio.h" 3 4
+extern size_t fread_unlocked (void *__restrict __ptr, size_t __size,
+         size_t __n, FILE *__restrict __stream) ;
+extern size_t fwrite_unlocked (const void *__restrict __ptr, size_t __size,
+          size_t __n, FILE *__restrict __stream);
+
+
+
+
+
+
+
+extern int fseek (FILE *__stream, long int __off, int __whence);
+
+
+
+
+extern long int ftell (FILE *__stream) ;
+
+
+
+
+extern void rewind (FILE *__stream);
+# 707 "/usr/include/stdio.h" 3 4
+extern int fseeko (FILE *__stream, __off_t __off, int __whence);
+
+
+
+
+extern __off_t ftello (FILE *__stream) ;
+# 731 "/usr/include/stdio.h" 3 4
+extern int fgetpos (FILE *__restrict __stream, fpos_t *__restrict __pos);
+
+
+
+
+extern int fsetpos (FILE *__stream, const fpos_t *__pos);
+# 757 "/usr/include/stdio.h" 3 4
+extern void clearerr (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__));
+
+extern int feof (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__)) ;
+
+extern int ferror (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__)) ;
+
+
+
+extern void clearerr_unlocked (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__));
+extern int feof_unlocked (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__)) ;
+extern int ferror_unlocked (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__)) ;
+
+
+
+
+
+
+
+extern void perror (const char *__s);
+
+
+
+
+
+# 1 "/usr/include/x86_64-linux-gnu/bits/sys_errlist.h" 1 3 4
+# 26 "/usr/include/x86_64-linux-gnu/bits/sys_errlist.h" 3 4
+extern int sys_nerr;
+extern const char *const sys_errlist[];
+# 782 "/usr/include/stdio.h" 2 3 4
+
+
+
+
+extern int fileno (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__)) ;
+
+
+
+
+extern int fileno_unlocked (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__)) ;
+# 800 "/usr/include/stdio.h" 3 4
+extern FILE *popen (const char *__command, const char *__modes) ;
+
+
+
+
+
+extern int pclose (FILE *__stream);
+
+
+
+
+
+extern char *ctermid (char *__s) __attribute__ ((__nothrow__ , __leaf__));
+# 840 "/usr/include/stdio.h" 3 4
+extern void flockfile (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__));
+
+
+
+extern int ftrylockfile (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__)) ;
+
+
+extern void funlockfile (FILE *__stream) __attribute__ ((__nothrow__ , __leaf__));
+# 868 "/usr/include/stdio.h" 3 4
+
+# 5 "headers.h" 2
+# 1 "/usr/include/stdlib.h" 1 3 4
+# 25 "/usr/include/stdlib.h" 3 4
+# 1 "/usr/include/x86_64-linux-gnu/bits/libc-header-start.h" 1 3 4
+# 26 "/usr/include/stdlib.h" 2 3 4
+
+
+
+
+
+# 1 "/usr/lib/gcc/x86_64-linux-gnu/7/include/stddef.h" 1 3 4
+# 328 "/usr/lib/gcc/x86_64-linux-gnu/7/include/stddef.h" 3 4
+typedef int wchar_t;
+# 32 "/usr/include/stdlib.h" 2 3 4
+
+
+
+
+
+
+
+# 1 "/usr/include/x86_64-linux-gnu/bits/waitflags.h" 1 3 4
+# 52 "/usr/include/x86_64-linux-gnu/bits/waitflags.h" 3 4
+typedef enum
+{
+  P_ALL,
+  P_PID,
+  P_PGID
+} idtype_t;
+# 40 "/usr/include/stdlib.h" 2 3 4
+# 1 "/usr/include/x86_64-linux-gnu/bits/waitstatus.h" 1 3 4
+# 41 "/usr/include/stdlib.h" 2 3 4
+# 55 "/usr/include/stdlib.h" 3 4
+# 1 "/usr/include/x86_64-linux-gnu/bits/floatn.h" 1 3 4
+# 120 "/usr/include/x86_64-linux-gnu/bits/floatn.h" 3 4
+# 1 "/usr/include/x86_64-linux-gnu/bits/floatn-common.h" 1 3 4
+# 24 "/usr/include/x86_64-linux-gnu/bits/floatn-common.h" 3 4
+# 1 "/usr/include/x86_64-linux-gnu/bits/long-double.h" 1 3 4
+# 25 "/usr/include/x86_64-linux-gnu/bits/floatn-common.h" 2 3 4
+# 121 "/usr/include/x86_64-linux-gnu/bits/floatn.h" 2 3 4
+# 56 "/usr/include/stdlib.h" 2 3 4
+
+
+typedef struct
+  {
+    int quot;
+    int rem;
+  } div_t;
+
+
+
+typedef struct
+  {
+    long int quot;
+    long int rem;
+  } ldiv_t;
+
+
+
+
+
+__extension__ typedef struct
+  {
+    long long int quot;
+    long long int rem;
+  } lldiv_t;
+# 97 "/usr/include/stdlib.h" 3 4
+extern size_t __ctype_get_mb_cur_max (void) __attribute__ ((__nothrow__ , __leaf__)) ;
+
+
+
+extern double atof (const char *__nptr)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1))) ;
+
+extern int atoi (const char *__nptr)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1))) ;
+
+extern long int atol (const char *__nptr)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1))) ;
+
+
+
+__extension__ extern long long int atoll (const char *__nptr)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1))) ;
+
+
+
+extern double strtod (const char *__restrict __nptr,
+        char **__restrict __endptr)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+
+
+
+extern float strtof (const char *__restrict __nptr,
+       char **__restrict __endptr) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+
+extern long double strtold (const char *__restrict __nptr,
+       char **__restrict __endptr)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+# 176 "/usr/include/stdlib.h" 3 4
+extern long int strtol (const char *__restrict __nptr,
+   char **__restrict __endptr, int __base)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+
+extern unsigned long int strtoul (const char *__restrict __nptr,
+      char **__restrict __endptr, int __base)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+
+
+
+__extension__
+extern long long int strtoq (const char *__restrict __nptr,
+        char **__restrict __endptr, int __base)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+
+__extension__
+extern unsigned long long int strtouq (const char *__restrict __nptr,
+           char **__restrict __endptr, int __base)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+
+
+
+
+__extension__
+extern long long int strtoll (const char *__restrict __nptr,
+         char **__restrict __endptr, int __base)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+
+__extension__
+extern unsigned long long int strtoull (const char *__restrict __nptr,
+     char **__restrict __endptr, int __base)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+# 385 "/usr/include/stdlib.h" 3 4
+extern char *l64a (long int __n) __attribute__ ((__nothrow__ , __leaf__)) ;
+
+
+extern long int a64l (const char *__s)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1))) ;
+
+
+
+
+# 1 "/usr/include/x86_64-linux-gnu/sys/types.h" 1 3 4
+# 27 "/usr/include/x86_64-linux-gnu/sys/types.h" 3 4
+
+
+
+
+
+
+typedef __u_char u_char;
+typedef __u_short u_short;
+typedef __u_int u_int;
+typedef __u_long u_long;
+typedef __quad_t quad_t;
+typedef __u_quad_t u_quad_t;
+typedef __fsid_t fsid_t;
+
+
+
+
+typedef __loff_t loff_t;
+
+
+
+typedef __ino_t ino_t;
+# 60 "/usr/include/x86_64-linux-gnu/sys/types.h" 3 4
+typedef __dev_t dev_t;
+
+
+
+
 typedef __gid_t gid_t;
-typedef __kernel_uid32_t __uid_t;
-typedef __uid_t uid_t;
-typedef __kernel_pid_t __pid_t;
-typedef __pid_t pid_t;
-typedef uint32_t __id_t;
-typedef __id_t id_t;
 
-typedef unsigned long blkcnt_t;
-typedef unsigned long blksize_t;
-typedef __kernel_caddr_t caddr_t;
-typedef __kernel_clock_t clock_t;
 
-typedef __kernel_clockid_t __clockid_t;
-typedef __clockid_t clockid_t;
 
-typedef __kernel_daddr_t daddr_t;
-typedef unsigned long fsblkcnt_t;
-typedef unsigned long fsfilcnt_t;
 
-typedef __kernel_mode_t __mode_t;
 typedef __mode_t mode_t;
 
-typedef __kernel_key_t __key_t;
-typedef __key_t key_t;
 
-typedef __kernel_ino_t __ino_t;
-typedef __ino_t ino_t;
 
-typedef uint64_t ino64_t;
 
-typedef uint32_t __nlink_t;
 typedef __nlink_t nlink_t;
 
-typedef void* __timer_t;
-typedef __timer_t timer_t;
-
-typedef __kernel_suseconds_t __suseconds_t;
-typedef __suseconds_t suseconds_t;
 
 
-typedef uint32_t __useconds_t;
-typedef __useconds_t useconds_t;
+
+typedef __uid_t uid_t;
+# 98 "/usr/include/x86_64-linux-gnu/sys/types.h" 3 4
+typedef __pid_t pid_t;
 
 
 
 
 
-typedef uint64_t dev_t;
+typedef __id_t id_t;
+# 115 "/usr/include/x86_64-linux-gnu/sys/types.h" 3 4
+typedef __daddr_t daddr_t;
+typedef __caddr_t caddr_t;
 
 
 
-typedef __kernel_time_t __time_t;
+
+
+typedef __key_t key_t;
+
+
+
+
+# 1 "/usr/include/x86_64-linux-gnu/bits/types/clock_t.h" 1 3 4
+
+
+
+
+
+
+typedef __clock_t clock_t;
+# 128 "/usr/include/x86_64-linux-gnu/sys/types.h" 2 3 4
+
+# 1 "/usr/include/x86_64-linux-gnu/bits/types/clockid_t.h" 1 3 4
+
+
+
+
+
+
+typedef __clockid_t clockid_t;
+# 130 "/usr/include/x86_64-linux-gnu/sys/types.h" 2 3 4
+# 1 "/usr/include/x86_64-linux-gnu/bits/types/time_t.h" 1 3 4
+
+
+
+
+
+
 typedef __time_t time_t;
+# 131 "/usr/include/x86_64-linux-gnu/sys/types.h" 2 3 4
+# 1 "/usr/include/x86_64-linux-gnu/bits/types/timer_t.h" 1 3 4
 
 
 
 
-typedef int64_t off_t;
-typedef off_t loff_t;
-typedef loff_t off64_t;
-# 115 "/data/data/com.termux/files/usr/include/sys/types.h" 3 4
-typedef uint32_t __socklen_t;
-
-typedef __socklen_t socklen_t;
-
-typedef __builtin_va_list __va_list;
-# 128 "/data/data/com.termux/files/usr/include/sys/types.h" 3 4
-typedef __kernel_ssize_t ssize_t;
 
 
-typedef unsigned int uint_t;
+typedef __timer_t timer_t;
+# 132 "/usr/include/x86_64-linux-gnu/sys/types.h" 2 3 4
+# 145 "/usr/include/x86_64-linux-gnu/sys/types.h" 3 4
+# 1 "/usr/lib/gcc/x86_64-linux-gnu/7/include/stddef.h" 1 3 4
+# 146 "/usr/include/x86_64-linux-gnu/sys/types.h" 2 3 4
+
+
+
+typedef unsigned long int ulong;
+typedef unsigned short int ushort;
 typedef unsigned int uint;
 
 
-typedef unsigned char u_char;
-typedef unsigned short u_short;
-typedef unsigned int u_int;
-typedef unsigned long u_long;
 
-typedef uint32_t u_int32_t;
-typedef uint16_t u_int16_t;
-typedef uint8_t u_int8_t;
-typedef uint64_t u_int64_t;
-# 43 "/data/data/com.termux/files/usr/include/stdio.h" 2 3 4
 
-# 1 "/data/data/com.termux/files/usr/lib/clang/7.0.0/include/stdarg.h" 1 3 4
-# 30 "/data/data/com.termux/files/usr/lib/clang/7.0.0/include/stdarg.h" 3 4
-typedef __builtin_va_list va_list;
-# 48 "/data/data/com.termux/files/usr/lib/clang/7.0.0/include/stdarg.h" 3 4
-typedef __builtin_va_list __gnuc_va_list;
-# 45 "/data/data/com.termux/files/usr/include/stdio.h" 2 3 4
-# 1 "/data/data/com.termux/files/usr/lib/clang/7.0.0/include/stddef.h" 1 3 4
-# 46 "/data/data/com.termux/files/usr/include/stdio.h" 2 3 4
-
-# 1 "/data/data/com.termux/files/usr/include/string.h" 1 3 4
-# 33 "/data/data/com.termux/files/usr/include/string.h" 3 4
-# 1 "/data/data/com.termux/files/usr/lib/clang/7.0.0/include/stddef.h" 1 3 4
-# 34 "/data/data/com.termux/files/usr/include/string.h" 2 3 4
-# 1 "/data/data/com.termux/files/usr/include/xlocale.h" 1 3 4
-# 35 "/data/data/com.termux/files/usr/include/xlocale.h" 3 4
-struct __locale_t;
-typedef struct __locale_t* locale_t;
-# 35 "/data/data/com.termux/files/usr/include/string.h" 2 3 4
-
-# 1 "/data/data/com.termux/files/usr/include/bits/strcasecmp.h" 1 3 4
-# 38 "/data/data/com.termux/files/usr/include/bits/strcasecmp.h" 3 4
-int strcasecmp(const char* __s1, const char* __s2) __attribute__((__pure__));
-
-
-
-
-
-int strncasecmp(const char* __s1, const char* __s2, size_t __n) __attribute__((__pure__));
-# 37 "/data/data/com.termux/files/usr/include/string.h" 2 3 4
-
-
-
-
-
-
-
-void* memccpy(void* __dst, const void* __src, int __stop_char, size_t __n);
-void* memchr(const void* __s, int __ch, size_t __n) __attribute__((__pure__));
-
-
-
-
-void* memrchr(const void* __s, int __ch, size_t __n) __attribute__((__pure__));
-
-int memcmp(const void* __lhs, const void* __rhs, size_t __n) __attribute__((__pure__));
-void* memcpy(void*, const void*, size_t);
-
-
-
-
-
-
-
-void* memmove(void* __dst, const void* __src, size_t __n);
-void* memset(void* __dst, int __ch, size_t __n);
-void* memmem(const void* __haystack, size_t __haystack_size, const void* __needle, size_t __needle_size) __attribute__((__pure__));
-
-char* strchr(const char* __s, int __ch) __attribute__((__pure__));
-
-
-char* __strchr_chk(const char* __s, int __ch, size_t __n) __attribute__((annotate("introduced_in=" "18")));
-# 88 "/data/data/com.termux/files/usr/include/string.h" 3 4
-char* strrchr(const char* __s, int __ch) __attribute__((__pure__));
-
-
-char* __strrchr_chk(const char* __s, int __ch, size_t __n) __attribute__((annotate("introduced_in=" "18")));
-
-
-
-size_t strlen(const char* __s) __attribute__((__pure__));
-
-
-size_t __strlen_chk(const char* __s, size_t __n) __attribute__((annotate("introduced_in=" "17")));
-
-
-
-int strcmp(const char* __lhs, const char* __rhs) __attribute__((__pure__));
-
-
-char* stpcpy(char* __dst, const char* __src) __attribute__((annotate("introduced_in=" "21")));
-
-
-char* strcpy(char* __dst, const char* __src);
-char* strcat(char* __dst, const char* __src);
-char* strdup(const char* __s);
-
-char* strstr(const char* __haystack, const char* __needle) __attribute__((__pure__));
-
-
-
-
-char* strcasestr(const char* __haystack, const char* __needle) __attribute__((__pure__));
-
-char* strtok(char* __s, const char* __delimiter);
-char* strtok_r(char* __s, const char* __delimiter, char** __pos_ptr);
-
-char* strerror(int __errno_value);
-# 131 "/data/data/com.termux/files/usr/include/string.h" 3 4
-int strerror_r(int __errno_value, char* __buf, size_t __n);
-
-
-size_t strnlen(const char* __s, size_t __n) __attribute__((__pure__));
-char* strncat(char* __dst, const char* __src, size_t __n);
-char* strndup(const char* __s, size_t __n);
-int strncmp(const char* __lhs, const char* __rhs, size_t __n) __attribute__((__pure__));
-
-
-char* stpncpy(char* __dst, const char* __src, size_t __n) __attribute__((annotate("introduced_in=" "21")));
-
-
-char* strncpy(char* __dst, const char* __src, size_t __n);
-
-size_t strlcat(char* __dst, const char* __src, size_t __n);
-size_t strlcpy(char* __dst, const char* __src, size_t __n);
-
-size_t strcspn(const char* __s, const char* __reject) __attribute__((__pure__));
-char* strpbrk(const char* __s, const char* __accept) __attribute__((__pure__));
-char* strsep(char** __s_ptr, const char* __delimiter);
-size_t strspn(const char* __s, const char* __accept);
-
-char* strsignal(int __signal);
-
-int strcoll(const char* __lhs, const char* __rhs) __attribute__((__pure__));
-size_t strxfrm(char* __dst, const char* __src, size_t __n);
-
-
-int strcoll_l(const char* __lhs, const char* __rhs, locale_t __l) __attribute__((__pure__)) __attribute__((annotate("introduced_in=" "21")));
-size_t strxfrm_l(char* __dst, const char* __src, size_t __n, locale_t __l) __attribute__((annotate("introduced_in=" "21")));
-# 48 "/data/data/com.termux/files/usr/include/stdio.h" 2 3 4
-# 1 "/data/data/com.termux/files/usr/include/asm/fcntl.h" 1 3 4
-# 25 "/data/data/com.termux/files/usr/include/asm/fcntl.h" 3 4
-# 1 "/data/data/com.termux/files/usr/include/asm-generic/fcntl.h" 1 3 4
-# 121 "/data/data/com.termux/files/usr/include/asm-generic/fcntl.h" 3 4
-struct f_owner_ex {
-  int type;
-  __kernel_pid_t pid;
-};
-# 148 "/data/data/com.termux/files/usr/include/asm-generic/fcntl.h" 3 4
-struct flock {
-  short l_type;
-  short l_whence;
-  __kernel_off_t l_start;
-  __kernel_off_t l_len;
-  __kernel_pid_t l_pid;
-
-};
-
-
-
-
-
-struct flock64 {
-  short l_type;
-  short l_whence;
-  __kernel_loff_t l_start;
-  __kernel_loff_t l_len;
-  __kernel_pid_t l_pid;
-
-};
-# 26 "/data/data/com.termux/files/usr/include/asm/fcntl.h" 2 3 4
-# 49 "/data/data/com.termux/files/usr/include/stdio.h" 2 3 4
-
-# 1 "/data/data/com.termux/files/usr/include/bits/seek_constants.h" 1 3 4
-# 51 "/data/data/com.termux/files/usr/include/stdio.h" 2 3 4
-
-
-# 1 "/data/data/com.termux/files/usr/include/bits/struct_file.h" 1 3 4
-# 37 "/data/data/com.termux/files/usr/include/bits/struct_file.h" 3 4
-struct __sbuf {
- unsigned char* _base;
- size_t _size;
-};
-# 49 "/data/data/com.termux/files/usr/include/bits/struct_file.h" 3 4
-typedef int64_t _struct_file_off_t;
-
-
-
-
-struct __sFILE {
- unsigned char *_p;
- int _r;
- int _w;
-
- int _flags;
- int _file;
-
-
-
-
- struct __sbuf _bf;
- int _lbfsize;
-
-
- void *_cookie;
- int (*_close)(void *);
- int (*_read)(void *, char *, int);
- _struct_file_off_t (*_seek)(void *, _struct_file_off_t, int);
- int (*_write)(void *, const char *, int);
-
-
- struct __sbuf _ext;
-
- unsigned char *_up;
- int _ur;
-
-
- unsigned char _ubuf[3];
- unsigned char _nbuf[1];
-
-
- struct __sbuf _lb;
-
-
- int _blksize;
- _struct_file_off_t _offset;
-};
-# 54 "/data/data/com.termux/files/usr/include/stdio.h" 2 3 4
-
-
-
-
-typedef off_t fpos_t;
-typedef off64_t fpos64_t;
-
-struct __sFILE;
-typedef struct __sFILE FILE;
-# 75 "/data/data/com.termux/files/usr/include/stdio.h" 3 4
-extern FILE __sF[] __attribute__((annotate("obsoleted_in=" "23")));
-# 109 "/data/data/com.termux/files/usr/include/stdio.h" 3 4
-void clearerr(FILE* __fp);
-int fclose(FILE* __fp);
-int feof(FILE* __fp);
-int ferror(FILE* __fp);
-int fflush(FILE* __fp);
-int fgetc(FILE* __fp);
-char* fgets(char* __buf, int __size, FILE* __fp);
-int fprintf(FILE* __fp , const char* __fmt, ...) __attribute__((__format__(printf, 2, 3)));
-int fputc(int __ch, FILE* __fp);
-int fputs(const char* __s, FILE* __fp);
-size_t fread(void* __buf, size_t __size, size_t __count, FILE* __fp);
-int fscanf(FILE* __fp, const char* __fmt, ...) __attribute__((__format__(scanf, 2, 3)));
-size_t fwrite(const void* __buf, size_t __size, size_t __count, FILE* __fp);
-int getc(FILE* __fp);
-int getchar(void);
-
-
-ssize_t getdelim(char** __line_ptr, size_t* __line_length_ptr, int __delimiter, FILE* __fp) __attribute__((annotate("introduced_in=" "18")));
-ssize_t getline(char** __line_ptr, size_t* __line_length_ptr, FILE* __fp) __attribute__((annotate("introduced_in=" "18")));
-
-
-
-void perror(const char* __msg);
-int printf(const char* __fmt, ...) __attribute__((__format__(printf, 1, 2)));
-int putc(int __ch, FILE* __fp);
-int putchar(int __ch);
-int puts(const char* __s);
-int remove(const char* __path);
-void rewind(FILE* __fp);
-int scanf(const char* __fmt, ...) __attribute__((__format__(scanf, 1, 2)));
-void setbuf(FILE* __fp, char* __buf);
-int setvbuf(FILE* __fp, char* __buf, int __mode, size_t __size);
-int sscanf(const char* __s, const char* __fmt, ...) __attribute__((__format__(scanf, 2, 3)));
-int ungetc(int __ch, FILE* __fp);
-int vfprintf(FILE* __fp, const char* __fmt, va_list __args) __attribute__((__format__(printf, 2, 0)));
-int vprintf(const char* __fp, va_list __args) __attribute__((__format__(printf, 1, 0)));
-
-
-int dprintf(int __fd, const char* __fmt, ...) __attribute__((__format__(printf, 2, 3))) __attribute__((annotate("introduced_in=" "21")));
-int vdprintf(int __fd, const char* __fmt, va_list __args) __attribute__((__format__(printf, 2, 0))) __attribute__((annotate("introduced_in=" "21")));
-# 165 "/data/data/com.termux/files/usr/include/stdio.h" 3 4
-int sprintf(char* __s, const char* __fmt, ...)
-    __attribute__((__format__(printf, 2, 3))) ;
-int vsprintf(char* __s, const char* __fmt, va_list __args)
-    __attribute__((__format__(printf, 2, 0))) ;
-char* tmpnam(char* __s)
-    __attribute__((deprecated("tempnam is unsafe, use mkstemp or tmpfile instead")));
-
-char* tempnam(const char* __dir, const char* __prefix)
-    __attribute__((deprecated("tempnam is unsafe, use mkstemp or tmpfile instead")));
-
-int rename(const char* __old_path, const char* __new_path);
-int renameat(int __old_dir_fd, const char* __old_path, int __new_dir_fd, const char* __new_path);
-
-int fseek(FILE* __fp, long __offset, int __whence);
-long ftell(FILE* __fp);
-# 203 "/data/data/com.termux/files/usr/include/stdio.h" 3 4
-int fgetpos(FILE* __fp, fpos_t* __pos);
-int fsetpos(FILE* __fp, const fpos_t* __pos);
-int fseeko(FILE* __fp, off_t __offset, int __whence);
-off_t ftello(FILE* __fp);
-# 235 "/data/data/com.termux/files/usr/include/stdio.h" 3 4
-FILE* fopen(const char* __path, const char* __mode);
-
-
-
-
-
-FILE* freopen(const char* __path, const char* __mode, FILE* __fp);
-# 252 "/data/data/com.termux/files/usr/include/stdio.h" 3 4
-int snprintf(char* __buf, size_t __size, const char* __fmt, ...) __attribute__((__format__(printf, 3, 4)));
-int vfscanf(FILE* __fp, const char* __fmt, va_list __args) __attribute__((__format__(scanf, 2, 0)));
-int vscanf(const char* __fmt , va_list __args) __attribute__((__format__(scanf, 1, 0)));
-int vsnprintf(char* __buf, size_t __size, const char* __fmt, va_list __args) __attribute__((__format__(printf, 3, 0)));
-int vsscanf(const char* __s, const char* __fmt, va_list __args) __attribute__((__format__(scanf, 2, 0)));
-
-
-
-
-
-
-
-static __inline__ char* ctermid(char* s) {
- if (s == 0) return (char*) "/dev/tty";
- strcpy(s, "/dev/tty");
- return s;
+# 1 "/usr/include/x86_64-linux-gnu/bits/stdint-intn.h" 1 3 4
+# 24 "/usr/include/x86_64-linux-gnu/bits/stdint-intn.h" 3 4
+typedef __int8_t int8_t;
+typedef __int16_t int16_t;
+typedef __int32_t int32_t;
+typedef __int64_t int64_t;
+# 157 "/usr/include/x86_64-linux-gnu/sys/types.h" 2 3 4
+# 178 "/usr/include/x86_64-linux-gnu/sys/types.h" 3 4
+typedef unsigned int u_int8_t __attribute__ ((__mode__ (__QI__)));
+typedef unsigned int u_int16_t __attribute__ ((__mode__ (__HI__)));
+typedef unsigned int u_int32_t __attribute__ ((__mode__ (__SI__)));
+typedef unsigned int u_int64_t __attribute__ ((__mode__ (__DI__)));
+
+typedef int register_t __attribute__ ((__mode__ (__word__)));
+# 194 "/usr/include/x86_64-linux-gnu/sys/types.h" 3 4
+# 1 "/usr/include/endian.h" 1 3 4
+# 36 "/usr/include/endian.h" 3 4
+# 1 "/usr/include/x86_64-linux-gnu/bits/endian.h" 1 3 4
+# 37 "/usr/include/endian.h" 2 3 4
+# 60 "/usr/include/endian.h" 3 4
+# 1 "/usr/include/x86_64-linux-gnu/bits/byteswap.h" 1 3 4
+# 28 "/usr/include/x86_64-linux-gnu/bits/byteswap.h" 3 4
+# 1 "/usr/include/x86_64-linux-gnu/bits/wordsize.h" 1 3 4
+# 29 "/usr/include/x86_64-linux-gnu/bits/byteswap.h" 2 3 4
+
+
+
+
+
+
+# 1 "/usr/include/x86_64-linux-gnu/bits/byteswap-16.h" 1 3 4
+# 36 "/usr/include/x86_64-linux-gnu/bits/byteswap.h" 2 3 4
+# 44 "/usr/include/x86_64-linux-gnu/bits/byteswap.h" 3 4
+static __inline unsigned int
+__bswap_32 (unsigned int __bsx)
+{
+  return __builtin_bswap32 (__bsx);
+}
+# 108 "/usr/include/x86_64-linux-gnu/bits/byteswap.h" 3 4
+static __inline __uint64_t
+__bswap_64 (__uint64_t __bsx)
+{
+  return __builtin_bswap64 (__bsx);
+}
+# 61 "/usr/include/endian.h" 2 3 4
+# 1 "/usr/include/x86_64-linux-gnu/bits/uintn-identity.h" 1 3 4
+# 32 "/usr/include/x86_64-linux-gnu/bits/uintn-identity.h" 3 4
+static __inline __uint16_t
+__uint16_identity (__uint16_t __x)
+{
+  return __x;
 }
 
-FILE* fdopen(int __fd, const char* __mode);
-int fileno(FILE* __fp);
-int pclose(FILE* __fp);
-FILE* popen(const char* __command, const char* __mode);
-void flockfile(FILE* __fp);
-int ftrylockfile(FILE* __fp);
-void funlockfile(FILE* __fp);
-int getc_unlocked(FILE* __fp);
-int getchar_unlocked(void);
-int putc_unlocked(int __ch, FILE* __fp);
-int putchar_unlocked(int __ch);
-# 290 "/data/data/com.termux/files/usr/include/stdio.h" 3 4
-int asprintf(char** __s_ptr, const char* __fmt, ...) __attribute__((__format__(printf, 2, 3)));
-char* fgetln(FILE* __fp, size_t* __length_ptr);
-int fpurge(FILE* __fp);
-void setbuffer(FILE* __fp, char* __buf, int __size);
-int setlinebuf(FILE* __fp);
-int vasprintf(char** __s_ptr, const char* __fmt, va_list __args) __attribute__((__format__(printf, 2, 0)));
-# 337 "/data/data/com.termux/files/usr/include/stdio.h" 3 4
-int open(const char*, int, ...);
-extern pid_t getpid();
-extern int unlink(const char*);
-void free(void* p);
-uint32_t arc4random(void);
-static __inline__ FILE* tmpfile() {
- int p = getpid();
- char* path;
- int i;
- for (i = 0; i < 100; i++) {
-  unsigned int r = arc4random();
-  if (asprintf(&path, "/data/data/com.termux/files/usr/tmp/tmpfile.%d-%u", p, r) == -1) return ((void*)0);
-  int fd = open(path, 00000002 | 00000100 | 00000200 | 0400000, 0600);
-  free(path);
-  if (fd >= 0) {
-   FILE* result = fdopen(fd, "w+");
-   unlink(path);
-   return result;
-  }
- }
- return ((void*)0);
-}
-# 5 "./headers.h" 2
-# 1 "/data/data/com.termux/files/usr/include/stdlib.h" 1 3 4
-# 32 "/data/data/com.termux/files/usr/include/stdlib.h" 3 4
-# 1 "/data/data/com.termux/files/usr/include/alloca.h" 1 3 4
-# 33 "/data/data/com.termux/files/usr/include/stdlib.h" 2 3 4
-# 1 "/data/data/com.termux/files/usr/include/bits/wait.h" 1 3 4
-# 34 "/data/data/com.termux/files/usr/include/bits/wait.h" 3 4
-# 1 "/data/data/com.termux/files/usr/include/linux/wait.h" 1 3 4
-# 35 "/data/data/com.termux/files/usr/include/bits/wait.h" 2 3 4
-# 34 "/data/data/com.termux/files/usr/include/stdlib.h" 2 3 4
-# 1 "/data/data/com.termux/files/usr/include/malloc.h" 1 3 4
-# 21 "/data/data/com.termux/files/usr/include/malloc.h" 3 4
-# 1 "/data/data/com.termux/files/usr/lib/clang/7.0.0/include/stddef.h" 1 3 4
-# 22 "/data/data/com.termux/files/usr/include/malloc.h" 2 3 4
-# 33 "/data/data/com.termux/files/usr/include/malloc.h" 3 4
-void* malloc(size_t __byte_count) __attribute__((__malloc__)) __attribute__((__alloc_size__(1))) __attribute__((__warn_unused_result__));
-void* calloc(size_t __item_count, size_t __item_size) __attribute__((__malloc__)) __attribute__((__alloc_size__(1,2))) __attribute__((__warn_unused_result__));
-void* realloc(void* __ptr, size_t __byte_count) __attribute__((__alloc_size__(2))) __attribute__((__warn_unused_result__));
-void free(void* __ptr);
-
-void* memalign(size_t __alignment, size_t __byte_count) __attribute__((__malloc__)) __attribute__((__alloc_size__(2))) __attribute__((__warn_unused_result__));
-
-
-size_t malloc_usable_size(const void* __ptr) __attribute__((annotate("introduced_in=" "17")));
-
-
-
-
-
-struct mallinfo {
-  size_t arena;
-  size_t ordblks;
-  size_t smblks;
-  size_t hblks;
-  size_t hblkhd;
-  size_t usmblks;
-  size_t fsmblks;
-  size_t uordblks;
-  size_t fordblks;
-  size_t keepcost;
-};
-
-
-struct mallinfo mallinfo(void);
-# 35 "/data/data/com.termux/files/usr/include/stdlib.h" 2 3 4
-# 1 "/data/data/com.termux/files/usr/lib/clang/7.0.0/include/stddef.h" 1 3 4
-# 36 "/data/data/com.termux/files/usr/include/stdlib.h" 2 3 4
-# 45 "/data/data/com.termux/files/usr/include/stdlib.h" 3 4
-__attribute__((__noreturn__)) void abort(void);
-__attribute__((__noreturn__)) void exit(int __status);
-
-__attribute__((__noreturn__)) void _Exit(int __status) __attribute__((annotate("introduced_in=" "21")));
-
-
-
-
-int atexit(void (*__fn)(void));
-
-
-
-int at_quick_exit(void (*__fn)(void)) __attribute__((annotate("introduced_in=" "21")));
-void quick_exit(int __status) __attribute__((__noreturn__)) __attribute__((annotate("introduced_in=" "21")));
-
-
-
-char* getenv(const char* __name);
-int putenv(char* __assignment);
-int setenv(const char* __name, const char* __value, int __overwrite);
-int unsetenv(const char* __name);
-int clearenv(void);
-
-char* mkdtemp(char* __template);
-char* mktemp(char* __template) __attribute__((deprecated("mktemp is unsafe, use mkstemp or tmpfile instead")));
-# 81 "/data/data/com.termux/files/usr/include/stdlib.h" 3 4
-int mkstemp64(char* __template) __attribute__((annotate("introduced_in=" "21")));
-
-
-int mkstemp(char* __template);
-
-
-
-
-
-int mkstemps(char* __template, int __flags);
-
-long strtol(const char* __s, char** __end_ptr, int __base);
-long long strtoll(const char* __s, char** __end_ptr, int __base);
-unsigned long strtoul(const char* __s, char** __end_ptr, int __base);
-unsigned long long strtoull(const char* __s, char** __end_ptr, int __base);
-
-
-
-int posix_memalign(void** __memptr, size_t __alignment, size_t __size) __attribute__((annotate("introduced_in=" "17")));
-# 109 "/data/data/com.termux/files/usr/include/stdlib.h" 3 4
-double strtod(const char* __s, char** __end_ptr);
-long double strtold(const char* __s, char** __end_ptr) __attribute__((annotate("introduced_in=" "21")));
-
-
-
-
-
-
-
-int atoi(const char* __s) __attribute__((__pure__));
-long atol(const char* __s) __attribute__((__pure__));
-long long atoll(const char* __s) __attribute__((__pure__));
-
-char* realpath(const char* __path, char* __resolved);
-int system(const char* __command);
-
-void* bsearch(const void* __key, const void* __base, size_t __nmemb, size_t __size, int (*__comparator)(const void* __lhs, const void* __rhs));
-
-void qsort(void* __base, size_t __nmemb, size_t __size, int (*__comparator)(const void* __lhs, const void* __rhs));
-
-uint32_t arc4random(void);
-uint32_t arc4random_uniform(uint32_t __upper_bound);
-void arc4random_buf(void* __buf, size_t __n);
-
-
-
-
-
-int rand_r(unsigned int* __seed_ptr) __attribute__((annotate("introduced_in=" "21")));
-
-
-
-double drand48(void);
-double erand48(unsigned short __xsubi[3]);
-long jrand48(unsigned short __xsubi[3]);
-
-
-
-
-
-long lrand48(void);
-long mrand48(void);
-long nrand48(unsigned short __xsubi[3]);
-unsigned short* seed48(unsigned short __seed16v[3]);
-void srand48(long __seed);
-
-
-
-char* initstate(unsigned int __seed, char* __state, size_t __n) __attribute__((annotate("introduced_in=" "21")));
-char* setstate(char* __state) __attribute__((annotate("introduced_in=" "21")));
-
-
-
-int getpt(void);
-
-
-int posix_openpt(int __flags) __attribute__((annotate("introduced_in=" "21")));
-
-
-char* ptsname(int __fd);
-int ptsname_r(int __fd, char* __buf, size_t __n);
-int unlockpt(int __fd);
-
-
-
-
-
-
-
-typedef struct {
-  int quot;
-  int rem;
-} div_t;
-
-div_t div(int __numerator, int __denominator) __attribute__((__const__));
-
-typedef struct {
-  long int quot;
-  long int rem;
-} ldiv_t;
-
-ldiv_t ldiv(long __numerator, long __denominator) __attribute__((__const__));
-
-typedef struct {
-  long long int quot;
-  long long int rem;
-} lldiv_t;
-
-lldiv_t lldiv(long long __numerator, long long __denominator) __attribute__((__const__));
-
-
-
-
-const char* getprogname(void) __attribute__((annotate("introduced_in=" "21")));
-void setprogname(const char* __name) __attribute__((annotate("introduced_in=" "21")));
-
-
-
-int mblen(const char* __s, size_t __n) __attribute__((annotate("introduced_in=" "26"))) __attribute__((annotate("versioner_no_guard")));
-size_t mbstowcs(wchar_t* __dst, const char* __src, size_t __n);
-int mbtowc(wchar_t* __wc_ptr, const char* __s, size_t __n) __attribute__((annotate("introduced_in=" "21"))) __attribute__((annotate("versioner_no_guard")));
-int wctomb(char* __dst, wchar_t __wc) __attribute__((annotate("introduced_in=" "21"))) __attribute__((annotate("versioner_no_guard")));
-
-size_t wcstombs(char* __dst, const wchar_t* __src, size_t __n);
-# 230 "/data/data/com.termux/files/usr/include/stdlib.h" 3 4
-int abs(int __x) __attribute__((__const__)) __attribute__((annotate("introduced_in=" "19")));
-long labs(long __x) __attribute__((__const__)) __attribute__((annotate("introduced_in=" "19")));
-long long llabs(long long __x) __attribute__((__const__)) __attribute__((annotate("introduced_in=" "19")));
-
-
-
-
-
-float strtof(const char* __s, char** __end_ptr) __attribute__((annotate("introduced_in=" "21")));
-double atof(const char* __s) __attribute__((__pure__)) __attribute__((annotate("introduced_in=" "21")));
-int rand(void) __attribute__((annotate("introduced_in=" "21")));
-void srand(unsigned int __seed) __attribute__((annotate("introduced_in=" "21")));
-long random(void) __attribute__((annotate("introduced_in=" "21")));
-void srandom(unsigned int __seed) __attribute__((annotate("introduced_in=" "21")));
-int grantpt(int __fd) __attribute__((annotate("introduced_in=" "21")));
-
-long long strtoll_l(const char* __s, char** __end_ptr, int __base, locale_t __l) __attribute__((annotate("introduced_in=" "21")));
-unsigned long long strtoull_l(const char* __s, char** __end_ptr, int __base, locale_t __l) __attribute__((annotate("introduced_in=" "21")));
-long double strtold_l(const char* __s, char** __end_ptr, locale_t __l) __attribute__((annotate("introduced_in=" "21")));
-# 263 "/data/data/com.termux/files/usr/include/stdlib.h" 3 4
-# 1 "/data/data/com.termux/files/usr/include/android/legacy_stdlib_inlines.h" 1 3 4
-# 90 "/data/data/com.termux/files/usr/include/android/legacy_stdlib_inlines.h" 3 4
-# 1 "/data/data/com.termux/files/usr/include/stdlib.h" 1 3 4
-# 91 "/data/data/com.termux/files/usr/include/android/legacy_stdlib_inlines.h" 2 3 4
-
-
-
-
-static __inline double strtod_l(const char* __s, char** __end_ptr, locale_t __l) {
-  return strtod(__s, __end_ptr);
+static __inline __uint32_t
+__uint32_identity (__uint32_t __x)
+{
+  return __x;
 }
 
-static __inline float strtof_l(const char* __s, char** __end_ptr, locale_t __l) {
-  return strtof(__s, __end_ptr);
+static __inline __uint64_t
+__uint64_identity (__uint64_t __x)
+{
+  return __x;
 }
-
-static __inline long strtol_l(const char* __s, char** __end_ptr, int __base, locale_t __l) {
-  return strtol(__s, __end_ptr, __base);
-}
-# 264 "/data/data/com.termux/files/usr/include/stdlib.h" 2 3 4
-# 6 "./headers.h" 2
-
-# 1 "/data/data/com.termux/files/usr/include/unistd.h" 1 3 4
-# 32 "/data/data/com.termux/files/usr/include/unistd.h" 3 4
-# 1 "/data/data/com.termux/files/usr/lib/clang/7.0.0/include/stddef.h" 1 3 4
-# 33 "/data/data/com.termux/files/usr/include/unistd.h" 2 3 4
+# 62 "/usr/include/endian.h" 2 3 4
+# 195 "/usr/include/x86_64-linux-gnu/sys/types.h" 2 3 4
 
 
-# 1 "/data/data/com.termux/files/usr/include/sys/select.h" 1 3 4
-# 35 "/data/data/com.termux/files/usr/include/sys/select.h" 3 4
-# 1 "/data/data/com.termux/files/usr/include/linux/time.h" 1 3 4
-# 24 "/data/data/com.termux/files/usr/include/linux/time.h" 3 4
-struct timespec {
-  __kernel_time_t tv_sec;
-  long tv_nsec;
+# 1 "/usr/include/x86_64-linux-gnu/sys/select.h" 1 3 4
+# 30 "/usr/include/x86_64-linux-gnu/sys/select.h" 3 4
+# 1 "/usr/include/x86_64-linux-gnu/bits/select.h" 1 3 4
+# 22 "/usr/include/x86_64-linux-gnu/bits/select.h" 3 4
+# 1 "/usr/include/x86_64-linux-gnu/bits/wordsize.h" 1 3 4
+# 23 "/usr/include/x86_64-linux-gnu/bits/select.h" 2 3 4
+# 31 "/usr/include/x86_64-linux-gnu/sys/select.h" 2 3 4
+
+
+# 1 "/usr/include/x86_64-linux-gnu/bits/types/sigset_t.h" 1 3 4
+
+
+
+# 1 "/usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h" 1 3 4
+
+
+
+
+typedef struct
+{
+  unsigned long int __val[(1024 / (8 * sizeof (unsigned long int)))];
+} __sigset_t;
+# 5 "/usr/include/x86_64-linux-gnu/bits/types/sigset_t.h" 2 3 4
+
+
+typedef __sigset_t sigset_t;
+# 34 "/usr/include/x86_64-linux-gnu/sys/select.h" 2 3 4
+
+
+
+# 1 "/usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h" 1 3 4
+
+
+
+
+
+
+
+struct timeval
+{
+  __time_t tv_sec;
+  __suseconds_t tv_usec;
+};
+# 38 "/usr/include/x86_64-linux-gnu/sys/select.h" 2 3 4
+
+# 1 "/usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h" 1 3 4
+
+
+
+
+
+
+
+struct timespec
+{
+  __time_t tv_sec;
+  __syscall_slong_t tv_nsec;
+};
+# 40 "/usr/include/x86_64-linux-gnu/sys/select.h" 2 3 4
+
+
+
+typedef __suseconds_t suseconds_t;
+
+
+
+
+
+typedef long int __fd_mask;
+# 59 "/usr/include/x86_64-linux-gnu/sys/select.h" 3 4
+typedef struct
+  {
+
+
+
+
+
+
+    __fd_mask __fds_bits[1024 / (8 * (int) sizeof (__fd_mask))];
+
+
+  } fd_set;
+
+
+
+
+
+
+typedef __fd_mask fd_mask;
+# 91 "/usr/include/x86_64-linux-gnu/sys/select.h" 3 4
+
+# 101 "/usr/include/x86_64-linux-gnu/sys/select.h" 3 4
+extern int select (int __nfds, fd_set *__restrict __readfds,
+     fd_set *__restrict __writefds,
+     fd_set *__restrict __exceptfds,
+     struct timeval *__restrict __timeout);
+# 113 "/usr/include/x86_64-linux-gnu/sys/select.h" 3 4
+extern int pselect (int __nfds, fd_set *__restrict __readfds,
+      fd_set *__restrict __writefds,
+      fd_set *__restrict __exceptfds,
+      const struct timespec *__restrict __timeout,
+      const __sigset_t *__restrict __sigmask);
+# 126 "/usr/include/x86_64-linux-gnu/sys/select.h" 3 4
+
+# 198 "/usr/include/x86_64-linux-gnu/sys/types.h" 2 3 4
+
+
+
+
+
+
+
+# 1 "/usr/include/x86_64-linux-gnu/sys/sysmacros.h" 1 3 4
+# 41 "/usr/include/x86_64-linux-gnu/sys/sysmacros.h" 3 4
+# 1 "/usr/include/x86_64-linux-gnu/bits/sysmacros.h" 1 3 4
+# 42 "/usr/include/x86_64-linux-gnu/sys/sysmacros.h" 2 3 4
+# 71 "/usr/include/x86_64-linux-gnu/sys/sysmacros.h" 3 4
+
+
+extern unsigned int gnu_dev_major (__dev_t __dev) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__const__));
+extern unsigned int gnu_dev_minor (__dev_t __dev) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__const__));
+extern __dev_t gnu_dev_makedev (unsigned int __major, unsigned int __minor) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__const__));
+# 85 "/usr/include/x86_64-linux-gnu/sys/sysmacros.h" 3 4
+
+# 206 "/usr/include/x86_64-linux-gnu/sys/types.h" 2 3 4
+
+
+
+
+
+
+typedef __blksize_t blksize_t;
+
+
+
+
+
+
+typedef __blkcnt_t blkcnt_t;
+
+
+
+typedef __fsblkcnt_t fsblkcnt_t;
+
+
+
+typedef __fsfilcnt_t fsfilcnt_t;
+# 254 "/usr/include/x86_64-linux-gnu/sys/types.h" 3 4
+# 1 "/usr/include/x86_64-linux-gnu/bits/pthreadtypes.h" 1 3 4
+# 23 "/usr/include/x86_64-linux-gnu/bits/pthreadtypes.h" 3 4
+# 1 "/usr/include/x86_64-linux-gnu/bits/thread-shared-types.h" 1 3 4
+# 77 "/usr/include/x86_64-linux-gnu/bits/thread-shared-types.h" 3 4
+# 1 "/usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h" 1 3 4
+# 21 "/usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h" 3 4
+# 1 "/usr/include/x86_64-linux-gnu/bits/wordsize.h" 1 3 4
+# 22 "/usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h" 2 3 4
+# 65 "/usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h" 3 4
+struct __pthread_rwlock_arch_t
+{
+  unsigned int __readers;
+  unsigned int __writers;
+  unsigned int __wrphase_futex;
+  unsigned int __writers_futex;
+  unsigned int __pad3;
+  unsigned int __pad4;
+
+  int __cur_writer;
+  int __shared;
+  signed char __rwelision;
+
+
+
+
+  unsigned char __pad1[7];
+
+
+  unsigned long int __pad2;
+
+
+  unsigned int __flags;
+# 99 "/usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h" 3 4
+};
+# 78 "/usr/include/x86_64-linux-gnu/bits/thread-shared-types.h" 2 3 4
+
+
+
+
+typedef struct __pthread_internal_list
+{
+  struct __pthread_internal_list *__prev;
+  struct __pthread_internal_list *__next;
+} __pthread_list_t;
+# 118 "/usr/include/x86_64-linux-gnu/bits/thread-shared-types.h" 3 4
+struct __pthread_mutex_s
+{
+  int __lock ;
+  unsigned int __count;
+  int __owner;
+
+  unsigned int __nusers;
+
+
+
+  int __kind;
+ 
+
+
+
+
+  short __spins; short __elision;
+  __pthread_list_t __list;
+# 145 "/usr/include/x86_64-linux-gnu/bits/thread-shared-types.h" 3 4
+ 
 };
 
-struct timeval {
-  __kernel_time_t tv_sec;
-  __kernel_suseconds_t tv_usec;
+
+
+
+struct __pthread_cond_s
+{
+  __extension__ union
+  {
+    __extension__ unsigned long long int __wseq;
+    struct
+    {
+      unsigned int __low;
+      unsigned int __high;
+    } __wseq32;
+  };
+  __extension__ union
+  {
+    __extension__ unsigned long long int __g1_start;
+    struct
+    {
+      unsigned int __low;
+      unsigned int __high;
+    } __g1_start32;
+  };
+  unsigned int __g_refs[2] ;
+  unsigned int __g_size[2];
+  unsigned int __g1_orig_size;
+  unsigned int __wrefs;
+  unsigned int __g_signals[2];
 };
-struct timezone {
-  int tz_minuteswest;
-  int tz_dsttime;
+# 24 "/usr/include/x86_64-linux-gnu/bits/pthreadtypes.h" 2 3 4
+
+
+
+typedef unsigned long int pthread_t;
+
+
+
+
+typedef union
+{
+  char __size[4];
+  int __align;
+} pthread_mutexattr_t;
+
+
+
+
+typedef union
+{
+  char __size[4];
+  int __align;
+} pthread_condattr_t;
+
+
+
+typedef unsigned int pthread_key_t;
+
+
+
+typedef int pthread_once_t;
+
+
+union pthread_attr_t
+{
+  char __size[56];
+  long int __align;
 };
 
-
-
-struct itimerspec {
-  struct timespec it_interval;
-  struct timespec it_value;
-};
-struct itimerval {
-  struct timeval it_interval;
-  struct timeval it_value;
-};
-struct __kernel_old_timeval {
-  __kernel_long_t tv_sec;
-  __kernel_long_t tv_usec;
-};
-# 36 "/data/data/com.termux/files/usr/include/sys/select.h" 2 3 4
-# 1 "/data/data/com.termux/files/usr/include/signal.h" 1 3 4
-# 35 "/data/data/com.termux/files/usr/include/signal.h" 3 4
-# 1 "/data/data/com.termux/files/usr/include/asm/sigcontext.h" 1 3 4
-# 23 "/data/data/com.termux/files/usr/include/asm/sigcontext.h" 3 4
-struct sigcontext {
-  __u64 fault_address;
-  __u64 regs[31];
-  __u64 sp;
-  __u64 pc;
-  __u64 pstate;
-  __u8 __reserved[4096] __attribute__((__aligned__(16)));
-};
-struct _aarch64_ctx {
-  __u32 magic;
-  __u32 size;
-};
-
-struct fpsimd_context {
-  struct _aarch64_ctx head;
-  __u32 fpsr;
-  __u32 fpcr;
-  __uint128_t vregs[32];
-};
-
-struct esr_context {
-  struct _aarch64_ctx head;
-  __u64 esr;
-};
-
-struct extra_context {
-  struct _aarch64_ctx head;
-  __u64 datap;
-  __u32 size;
-  __u32 __reserved[3];
-};
-
-struct sve_context {
-  struct _aarch64_ctx head;
-  __u16 vl;
-  __u16 __reserved[3];
-};
-# 36 "/data/data/com.termux/files/usr/include/signal.h" 2 3 4
-
-# 1 "/data/data/com.termux/files/usr/include/bits/signal_types.h" 1 3 4
-# 32 "/data/data/com.termux/files/usr/include/bits/signal_types.h" 3 4
-# 1 "/data/data/com.termux/files/usr/lib/clang/7.0.0/include/limits.h" 1 3 4
-# 37 "/data/data/com.termux/files/usr/lib/clang/7.0.0/include/limits.h" 3 4
-# 1 "/data/data/com.termux/files/usr/include/limits.h" 1 3 4
-# 41 "/data/data/com.termux/files/usr/include/limits.h" 3 4
-# 1 "/data/data/com.termux/files/usr/lib/clang/7.0.0/include/float.h" 1 3 4
-# 42 "/data/data/com.termux/files/usr/include/limits.h" 2 3 4
-
-# 1 "/data/data/com.termux/files/usr/include/linux/limits.h" 1 3 4
-# 44 "/data/data/com.termux/files/usr/include/limits.h" 2 3 4
-# 140 "/data/data/com.termux/files/usr/include/limits.h" 3 4
-# 1 "/data/data/com.termux/files/usr/include/bits/posix_limits.h" 1 3 4
-# 141 "/data/data/com.termux/files/usr/include/limits.h" 2 3 4
-# 38 "/data/data/com.termux/files/usr/lib/clang/7.0.0/include/limits.h" 2 3 4
-# 33 "/data/data/com.termux/files/usr/include/bits/signal_types.h" 2 3 4
-# 42 "/data/data/com.termux/files/usr/include/bits/signal_types.h" 3 4
-# 1 "/data/data/com.termux/files/usr/include/linux/signal.h" 1 3 4
-# 21 "/data/data/com.termux/files/usr/include/linux/signal.h" 3 4
-# 1 "/data/data/com.termux/files/usr/include/asm/signal.h" 1 3 4
-# 24 "/data/data/com.termux/files/usr/include/asm/signal.h" 3 4
-# 1 "/data/data/com.termux/files/usr/include/asm-generic/signal.h" 1 3 4
-# 77 "/data/data/com.termux/files/usr/include/asm-generic/signal.h" 3 4
-typedef struct {
-  unsigned long sig[(64 / 64)];
-} sigset_t;
-typedef unsigned long old_sigset_t;
-
-# 1 "/data/data/com.termux/files/usr/include/asm-generic/signal-defs.h" 1 3 4
-# 32 "/data/data/com.termux/files/usr/include/asm-generic/signal-defs.h" 3 4
-typedef void __signalfn_t(int);
-typedef __signalfn_t * __sighandler_t;
-typedef void __restorefn_t(void);
-typedef __restorefn_t * __sigrestore_t;
-# 82 "/data/data/com.termux/files/usr/include/asm-generic/signal.h" 2 3 4
-
-
-
-struct __kernel_sigaction {
-  __sighandler_t sa_handler;
-  unsigned long sa_flags;
-
-  __sigrestore_t sa_restorer;
-
-  sigset_t sa_mask;
-};
-typedef struct sigaltstack {
-  void * ss_sp;
-  int ss_flags;
-  size_t ss_size;
-} stack_t;
-# 25 "/data/data/com.termux/files/usr/include/asm/signal.h" 2 3 4
-# 22 "/data/data/com.termux/files/usr/include/linux/signal.h" 2 3 4
-# 1 "/data/data/com.termux/files/usr/include/asm/siginfo.h" 1 3 4
-# 22 "/data/data/com.termux/files/usr/include/asm/siginfo.h" 3 4
-# 1 "/data/data/com.termux/files/usr/include/asm-generic/siginfo.h" 1 3 4
-# 23 "/data/data/com.termux/files/usr/include/asm-generic/siginfo.h" 3 4
-typedef union sigval {
-  int sival_int;
-  void * sival_ptr;
-} sigval_t;
-# 43 "/data/data/com.termux/files/usr/include/asm-generic/siginfo.h" 3 4
-typedef struct siginfo {
-  int si_signo;
-
-  int si_errno;
-  int si_code;
+typedef union pthread_attr_t pthread_attr_t;
 
 
 
 
-  union {
-    int _pad[((128 - (4 * sizeof(int))) / sizeof(int))];
-    struct {
-      __kernel_pid_t _pid;
-      __kernel_uid32_t _uid;
-    } _kill;
-    struct {
-      __kernel_timer_t _tid;
-      int _overrun;
-      sigval_t _sigval;
-      int _sys_private;
-    } _timer;
-    struct {
-      __kernel_pid_t _pid;
-      __kernel_uid32_t _uid;
-      sigval_t _sigval;
-    } _rt;
-    struct {
-      __kernel_pid_t _pid;
-      __kernel_uid32_t _uid;
-      int _status;
-      __kernel_clock_t _utime;
-      __kernel_clock_t _stime;
-    } _sigchld;
-    struct {
-      void * _addr;
-# 87 "/data/data/com.termux/files/usr/include/asm-generic/siginfo.h" 3 4
-      union {
-        short _addr_lsb;
-        struct {
-          char _dummy_bnd[(__alignof__(void *) < sizeof(short) ? sizeof(short) : __alignof__(void *))];
-          void * _lower;
-          void * _upper;
-        } _addr_bnd;
-        struct {
-          char _dummy_pkey[(__alignof__(void *) < sizeof(short) ? sizeof(short) : __alignof__(void *))];
-          __u32 _pkey;
-        } _addr_pkey;
-      };
-    } _sigfault;
-    struct {
-      long _band;
-      int _fd;
-    } _sigpoll;
-    struct {
-      void * _call_addr;
-      int _syscall;
-      unsigned int _arch;
-    } _sigsys;
-  } _sifields;
-} siginfo_t;
-# 223 "/data/data/com.termux/files/usr/include/asm-generic/siginfo.h" 3 4
-typedef struct sigevent {
-  sigval_t sigev_value;
-  int sigev_signo;
-  int sigev_notify;
-  union {
-    int _pad[((64 - (sizeof(int) * 2 + sizeof(sigval_t))) / sizeof(int))];
-    int _tid;
-    struct {
-      void(* _function) (sigval_t);
-      void * _attribute;
-    } _sigev_thread;
-  } _sigev_un;
-} sigevent_t;
-# 23 "/data/data/com.termux/files/usr/include/asm/siginfo.h" 2 3 4
-# 23 "/data/data/com.termux/files/usr/include/linux/signal.h" 2 3 4
-# 43 "/data/data/com.termux/files/usr/include/bits/signal_types.h" 2 3 4
-# 54 "/data/data/com.termux/files/usr/include/bits/signal_types.h" 3 4
-typedef int sig_atomic_t;
+typedef union
+{
+  struct __pthread_mutex_s __data;
+  char __size[40];
+  long int __align;
+} pthread_mutex_t;
 
-typedef __sighandler_t sig_t;
-typedef __sighandler_t sighandler_t;
+
+typedef union
+{
+  struct __pthread_cond_s __data;
+  char __size[48];
+  __extension__ long long int __align;
+} pthread_cond_t;
 
 
 
 
 
-typedef sigset_t sigset64_t;
-# 79 "/data/data/com.termux/files/usr/include/bits/signal_types.h" 3 4
-struct sigaction { int sa_flags; union { sighandler_t sa_handler; void (*sa_sigaction)(int, struct siginfo*, void*); }; sigset_t sa_mask; void (*sa_restorer)(void); };
-struct sigaction64 { int sa_flags; union { sighandler_t sa_handler; void (*sa_sigaction)(int, struct siginfo*, void*); }; sigset_t sa_mask; void (*sa_restorer)(void); };
-# 38 "/data/data/com.termux/files/usr/include/signal.h" 2 3 4
-# 1 "/data/data/com.termux/files/usr/include/bits/timespec.h" 1 3 4
-# 39 "/data/data/com.termux/files/usr/include/signal.h" 2 3 4
+typedef union
+{
+  struct __pthread_rwlock_arch_t __data;
+  char __size[56];
+  long int __align;
+} pthread_rwlock_t;
+
+typedef union
+{
+  char __size[8];
+  long int __align;
+} pthread_rwlockattr_t;
 
 
-# 1 "/data/data/com.termux/files/usr/include/sys/ucontext.h" 1 3 4
-# 34 "/data/data/com.termux/files/usr/include/sys/ucontext.h" 3 4
-# 1 "/data/data/com.termux/files/usr/include/signal.h" 1 3 4
-# 35 "/data/data/com.termux/files/usr/include/sys/ucontext.h" 2 3 4
-# 1 "/data/data/com.termux/files/usr/include/sys/user.h" 1 3 4
-# 33 "/data/data/com.termux/files/usr/include/sys/user.h" 3 4
-# 1 "/data/data/com.termux/files/usr/lib/clang/7.0.0/include/stddef.h" 1 3 4
-# 34 "/data/data/com.termux/files/usr/include/sys/user.h" 2 3 4
-# 240 "/data/data/com.termux/files/usr/include/sys/user.h" 3 4
-struct user_regs_struct {
-  uint64_t regs[31];
-  uint64_t sp;
-  uint64_t pc;
-  uint64_t pstate;
-};
-struct user_fpsimd_struct {
-  __uint128_t vregs[32];
-  uint32_t fpsr;
-  uint32_t fpcr;
-};
-# 36 "/data/data/com.termux/files/usr/include/sys/ucontext.h" 2 3 4
-# 106 "/data/data/com.termux/files/usr/include/sys/ucontext.h" 3 4
-typedef unsigned long greg_t;
-typedef greg_t gregset_t[34];
-typedef struct user_fpsimd_struct fpregset_t;
 
 
-typedef struct sigcontext mcontext_t;
 
-typedef struct ucontext {
-  unsigned long uc_flags;
-  struct ucontext *uc_link;
-  stack_t uc_stack;
-  union {
-    sigset_t uc_sigmask;
-    sigset64_t uc_sigmask64;
+typedef volatile int pthread_spinlock_t;
+
+
+
+
+typedef union
+{
+  char __size[32];
+  long int __align;
+} pthread_barrier_t;
+
+typedef union
+{
+  char __size[4];
+  int __align;
+} pthread_barrierattr_t;
+# 255 "/usr/include/x86_64-linux-gnu/sys/types.h" 2 3 4
+
+
+
+# 395 "/usr/include/stdlib.h" 2 3 4
+
+
+
+
+
+
+extern long int random (void) __attribute__ ((__nothrow__ , __leaf__));
+
+
+extern void srandom (unsigned int __seed) __attribute__ ((__nothrow__ , __leaf__));
+
+
+
+
+
+extern char *initstate (unsigned int __seed, char *__statebuf,
+   size_t __statelen) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (2)));
+
+
+
+extern char *setstate (char *__statebuf) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+
+
+
+
+
+
+
+struct random_data
+  {
+    int32_t *fptr;
+    int32_t *rptr;
+    int32_t *state;
+    int rand_type;
+    int rand_deg;
+    int rand_sep;
+    int32_t *end_ptr;
   };
 
-  char __padding[128 - sizeof(sigset_t)];
-  mcontext_t uc_mcontext;
-} ucontext_t;
-# 42 "/data/data/com.termux/files/usr/include/signal.h" 2 3 4
-# 56 "/data/data/com.termux/files/usr/include/signal.h" 3 4
-int __libc_current_sigrtmin(void) __attribute__((annotate("introduced_in=" "21")));
-int __libc_current_sigrtmax(void) __attribute__((annotate("introduced_in=" "21")));
+extern int random_r (struct random_data *__restrict __buf,
+       int32_t *__restrict __result) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
 
+extern int srandom_r (unsigned int __seed, struct random_data *__buf)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (2)));
 
+extern int initstate_r (unsigned int __seed, char *__restrict __statebuf,
+   size_t __statelen,
+   struct random_data *__restrict __buf)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (2, 4)));
 
-extern const char* const sys_siglist[(64 + 1)];
-extern const char* const sys_signame[(64 + 1)];
+extern int setstate_r (char *__restrict __statebuf,
+         struct random_data *__restrict __buf)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
 
 
 
-int sigaction(int __signal, const struct sigaction* __new_action, struct sigaction* __old_action);
 
 
+extern int rand (void) __attribute__ ((__nothrow__ , __leaf__));
 
+extern void srand (unsigned int __seed) __attribute__ ((__nothrow__ , __leaf__));
 
 
 
-int siginterrupt(int __signal, int __flag);
+extern int rand_r (unsigned int *__seed) __attribute__ ((__nothrow__ , __leaf__));
 
 
-sighandler_t signal(int __signal, sighandler_t __handler) __attribute__((annotate("introduced_in=" "21")));
-int sigaddset(sigset_t* __set, int __signal) __attribute__((annotate("introduced_in=" "21")));
 
 
 
 
 
-int sigdelset(sigset_t* __set, int __signal) __attribute__((annotate("introduced_in=" "21")));
+extern double drand48 (void) __attribute__ ((__nothrow__ , __leaf__));
+extern double erand48 (unsigned short int __xsubi[3]) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
 
 
+extern long int lrand48 (void) __attribute__ ((__nothrow__ , __leaf__));
+extern long int nrand48 (unsigned short int __xsubi[3])
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
 
 
+extern long int mrand48 (void) __attribute__ ((__nothrow__ , __leaf__));
+extern long int jrand48 (unsigned short int __xsubi[3])
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
 
-int sigemptyset(sigset_t* __set) __attribute__((annotate("introduced_in=" "21")));
 
+extern void srand48 (long int __seedval) __attribute__ ((__nothrow__ , __leaf__));
+extern unsigned short int *seed48 (unsigned short int __seed16v[3])
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+extern void lcong48 (unsigned short int __param[7]) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
 
 
 
 
-int sigfillset(sigset_t* __set) __attribute__((annotate("introduced_in=" "21")));
 
+struct drand48_data
+  {
+    unsigned short int __x[3];
+    unsigned short int __old_x[3];
+    unsigned short int __c;
+    unsigned short int __init;
+    __extension__ unsigned long long int __a;
 
+  };
 
 
+extern int drand48_r (struct drand48_data *__restrict __buffer,
+        double *__restrict __result) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
+extern int erand48_r (unsigned short int __xsubi[3],
+        struct drand48_data *__restrict __buffer,
+        double *__restrict __result) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
 
-int sigismember(const sigset_t* __set, int __signal) __attribute__((annotate("introduced_in=" "21")));
-# 111 "/data/data/com.termux/files/usr/include/signal.h" 3 4
-int sigpending(sigset_t* __set);
 
+extern int lrand48_r (struct drand48_data *__restrict __buffer,
+        long int *__restrict __result)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
+extern int nrand48_r (unsigned short int __xsubi[3],
+        struct drand48_data *__restrict __buffer,
+        long int *__restrict __result)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
 
 
+extern int mrand48_r (struct drand48_data *__restrict __buffer,
+        long int *__restrict __result)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
+extern int jrand48_r (unsigned short int __xsubi[3],
+        struct drand48_data *__restrict __buffer,
+        long int *__restrict __result)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
 
 
-int sigprocmask(int __how, const sigset_t* __new_set, sigset_t* __old_set);
+extern int srand48_r (long int __seedval, struct drand48_data *__buffer)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (2)));
 
+extern int seed48_r (unsigned short int __seed16v[3],
+       struct drand48_data *__buffer) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
 
+extern int lcong48_r (unsigned short int __param[7],
+        struct drand48_data *__buffer)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
 
 
 
-int sigsuspend(const sigset_t* __mask);
 
+extern void *malloc (size_t __size) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__malloc__)) ;
 
+extern void *calloc (size_t __nmemb, size_t __size)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__malloc__)) ;
 
 
 
-int sigwait(const sigset_t* __set, int* __signal);
-# 153 "/data/data/com.termux/files/usr/include/signal.h" 3 4
-int raise(int __signal);
-int kill(pid_t __pid, int __signal);
-int killpg(int __pgrp, int __signal);
 
 
-int tgkill(int __tgid, int __tid, int __signal) __attribute__((annotate("introduced_in_32=" "16")));
 
+extern void *realloc (void *__ptr, size_t __size)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__warn_unused_result__));
+# 563 "/usr/include/stdlib.h" 3 4
+extern void free (void *__ptr) __attribute__ ((__nothrow__ , __leaf__));
 
 
-int sigaltstack(const stack_t* __new_signal_stack, stack_t* __old_signal_stack);
+# 1 "/usr/include/alloca.h" 1 3 4
+# 24 "/usr/include/alloca.h" 3 4
+# 1 "/usr/lib/gcc/x86_64-linux-gnu/7/include/stddef.h" 1 3 4
+# 25 "/usr/include/alloca.h" 2 3 4
 
 
 
-void psiginfo(const siginfo_t* __info, const char* __msg) __attribute__((annotate("introduced_in=" "17")));
-void psignal(int __signal, const char* __msg) __attribute__((annotate("introduced_in=" "17")));
 
 
 
-int pthread_kill(pthread_t __pthread, int __signal);
-int pthread_sigmask(int __how, const sigset_t* __new_set, sigset_t* __old_set);
-# 203 "/data/data/com.termux/files/usr/include/signal.h" 3 4
-# 1 "/data/data/com.termux/files/usr/include/android/legacy_signal_inlines.h" 1 3 4
-# 204 "/data/data/com.termux/files/usr/include/signal.h" 2 3 4
-# 37 "/data/data/com.termux/files/usr/include/sys/select.h" 2 3 4
 
+extern void *alloca (size_t __size) __attribute__ ((__nothrow__ , __leaf__));
 
 
-typedef unsigned long fd_mask;
 
 
 
 
-typedef struct {
-  fd_mask fds_bits[1024/(8 * sizeof(fd_mask))];
-} fd_set;
-# 64 "/data/data/com.termux/files/usr/include/sys/select.h" 3 4
-void __FD_CLR_chk(int, fd_set*, size_t) __attribute__((annotate("introduced_in=" "21")));
-void __FD_SET_chk(int, fd_set*, size_t) __attribute__((annotate("introduced_in=" "21")));
-int __FD_ISSET_chk(int, const fd_set*, size_t) __attribute__((annotate("introduced_in=" "21")));
-# 85 "/data/data/com.termux/files/usr/include/sys/select.h" 3 4
-int select(int __fd_count, fd_set* __read_fds, fd_set* __write_fds, fd_set* __exception_fds, struct timeval* __timeout);
-int pselect(int __fd_count, fd_set* __read_fds, fd_set* __write_fds, fd_set* __exception_fds, const struct timespec* __timeout, const sigset_t* __mask);
-int pselect64(int __fd_count, fd_set* __read_fds, fd_set* __write_fds, fd_set* __exception_fds, const struct timespec* __timeout, const sigset64_t* __mask);
-# 36 "/data/data/com.termux/files/usr/include/unistd.h" 2 3 4
+# 567 "/usr/include/stdlib.h" 2 3 4
 
-# 1 "/data/data/com.termux/files/usr/include/bits/fcntl.h" 1 3 4
-# 36 "/data/data/com.termux/files/usr/include/bits/fcntl.h" 3 4
-int fcntl(int __fd, int __cmd, ...);
-# 38 "/data/data/com.termux/files/usr/include/unistd.h" 2 3 4
-# 1 "/data/data/com.termux/files/usr/include/bits/getopt.h" 1 3 4
-# 36 "/data/data/com.termux/files/usr/include/bits/getopt.h" 3 4
-int getopt(int __argc, char* const __argv[], const char* __options);
 
-extern char* optarg;
-extern int optind, opterr, optopt;
-# 39 "/data/data/com.termux/files/usr/include/unistd.h" 2 3 4
-# 1 "/data/data/com.termux/files/usr/include/bits/ioctl.h" 1 3 4
-# 36 "/data/data/com.termux/files/usr/include/bits/ioctl.h" 3 4
-int ioctl(int __fd, int __request, ...);
-# 56 "/data/data/com.termux/files/usr/include/bits/ioctl.h" 3 4
-int ioctl(int __fd, unsigned __request, ...) __attribute__((overloadable)) __attribute__((enable_if(1, ""))) __asm__("ioctl");
-# 40 "/data/data/com.termux/files/usr/include/unistd.h" 2 3 4
-# 1 "/data/data/com.termux/files/usr/include/bits/lockf.h" 1 3 4
-# 41 "/data/data/com.termux/files/usr/include/unistd.h" 2 3 4
 
 
-# 1 "/data/data/com.termux/files/usr/include/bits/sysconf.h" 1 3 4
-# 192 "/data/data/com.termux/files/usr/include/bits/sysconf.h" 3 4
-long sysconf(int __name);
-# 44 "/data/data/com.termux/files/usr/include/unistd.h" 2 3 4
-# 77 "/data/data/com.termux/files/usr/include/unistd.h" 3 4
-extern char** environ;
 
-__attribute__((__noreturn__)) void _exit(int __status);
+extern void *valloc (size_t __size) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__malloc__)) ;
 
-pid_t fork(void);
-pid_t vfork(void);
-pid_t getpid(void);
-pid_t gettid(void) __attribute__((__const__));
-pid_t getpgid(pid_t __pid);
-int setpgid(pid_t __pid, pid_t __pgid);
-pid_t getppid(void);
-pid_t getpgrp(void);
-int setpgrp(void);
 
 
-pid_t getsid(pid_t __pid) __attribute__((annotate("introduced_in=" "17")));
 
+extern int posix_memalign (void **__memptr, size_t __alignment, size_t __size)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1))) ;
 
-pid_t setsid(void);
 
-int execv(const char* __path, char* const* __argv);
-int execvp(const char* __file, char* const* __argv);
 
 
-int execvpe(const char* __file, char* const* __argv, char* const* __envp) __attribute__((annotate("introduced_in=" "21")));
+extern void *aligned_alloc (size_t __alignment, size_t __size)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__malloc__)) __attribute__ ((__alloc_size__ (2))) ;
 
 
-int execve(const char* __file, char* const* __argv, char* const* __envp);
-int execl(const char* __path, const char* __arg0, ...) __attribute__((__sentinel__));
-int execlp(const char* __file, const char* __arg0, ...) __attribute__((__sentinel__));
-int execle(const char* __path, const char* __arg0, ... )
-    __attribute__((__sentinel__(1)));
 
+extern void abort (void) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__noreturn__));
 
 
 
+extern int atexit (void (*__func) (void)) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
 
 
-int nice(int __incr);
 
-int setuid(uid_t __uid);
-uid_t getuid(void);
-int seteuid(uid_t __uid);
-uid_t geteuid(void);
-int setgid(gid_t __gid);
-gid_t getgid(void);
-int setegid(gid_t __gid);
-gid_t getegid(void);
-int getgroups(int __size, gid_t* __list);
-int setgroups(size_t __size, const gid_t* __list);
-int setreuid(uid_t __ruid, uid_t __euid);
-int setregid(gid_t __rgid, gid_t __egid);
-int setresuid(uid_t __ruid, uid_t __euid, uid_t __suid);
-int setresgid(gid_t __rgid, gid_t __egid, gid_t __sgid);
-int getresuid(uid_t* __ruid, uid_t* __euid, uid_t* __suid);
-int getresgid(gid_t* __rgid, gid_t* __egid, gid_t* __sgid);
-char* getlogin(void);
 
 
 
 
+extern int at_quick_exit (void (*__func) (void)) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
 
 
-long fpathconf(int __fd, int __name);
-long pathconf(const char* __path, int __name);
 
-int access(const char* __path, int __mode);
 
 
-int faccessat(int __dirfd, const char* __path, int __mode, int __flags) __attribute__((annotate("introduced_in=" "16")));
 
+extern int on_exit (void (*__func) (int __status, void *__arg), void *__arg)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
 
-int link(const char* __old_path, const char* __new_path);
 
 
-int linkat(int __old_dir_fd, const char* __old_path, int __new_dir_fd, const char* __new_path, int __flags) __attribute__((annotate("introduced_in=" "21")));
 
 
-int unlink(const char* __path);
-int unlinkat(int __dirfd, const char* __path, int __flags);
-int chdir(const char* __path);
-int fchdir(int __fd);
-int rmdir(const char* __path);
-int pipe(int __fds[2]);
+extern void exit (int __status) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__noreturn__));
 
 
 
-int chroot(const char* __path);
-int symlink(const char* __old_path, const char* __new_path);
 
 
-int symlinkat(const char* __old_path, int __new_dir_fd, const char* __new_path) __attribute__((annotate("introduced_in=" "21")));
+extern void quick_exit (int __status) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__noreturn__));
 
 
-ssize_t readlink(const char* __path, char* __buf, size_t __buf_size);
 
 
-ssize_t readlinkat(int __dir_fd, const char* __path, char* __buf, size_t __buf_size)
-    __attribute__((annotate("introduced_in=" "21")));
 
+extern void _Exit (int __status) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__noreturn__));
 
-int chown(const char* __path, uid_t __owner, gid_t __group);
-int fchown(int __fd, uid_t __owner, gid_t __group);
-int fchownat(int __dir_fd, const char* __path, uid_t __owner, gid_t __group, int __flags);
-int lchown(const char* __path, uid_t __owner, gid_t __group);
-char* getcwd(char* __buf, size_t __size);
 
-void sync(void);
-# 193 "/data/data/com.termux/files/usr/include/unistd.h" 3 4
-int close(int __fd);
 
-ssize_t read(int __fd, void* __buf, size_t __count);
-ssize_t write(int __fd, const void* __buf, size_t __count);
 
-int dup(int __old_fd);
-int dup2(int __old_fd, int __new_fd);
+extern char *getenv (const char *__name) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1))) ;
+# 644 "/usr/include/stdlib.h" 3 4
+extern int putenv (char *__string) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
 
 
-int dup3(int __old_fd, int __new_fd, int __flags) __attribute__((annotate("introduced_in=" "21")));
 
 
-int fsync(int __fd);
-int fdatasync(int __fd) __attribute__((annotate("introduced_in=" "9")));
-# 222 "/data/data/com.termux/files/usr/include/unistd.h" 3 4
-int truncate(const char* __path, off_t __length);
-off_t lseek(int __fd, off_t __offset, int __whence);
-ssize_t pread(int __fd, void* __buf, size_t __count, off_t __offset);
-ssize_t pwrite(int __fd, const void* __buf, size_t __count, off_t __offset);
-int ftruncate(int __fd, off_t __length);
 
+extern int setenv (const char *__name, const char *__value, int __replace)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (2)));
 
 
+extern int unsetenv (const char *__name) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
 
-int truncate64(const char* __path, off64_t __length) __attribute__((annotate("introduced_in=" "21")));
 
 
-off64_t lseek64(int __fd, off64_t __offset, int __whence);
-ssize_t pread64(int __fd, void* __buf, size_t __count, off64_t __offset) __attribute__((annotate("introduced_in=" "12")));
-ssize_t pwrite64(int __fd, const void* __buf, size_t __count, off64_t __offset) __attribute__((annotate("introduced_in=" "12")));
-int ftruncate64(int __fd, off64_t __length) __attribute__((annotate("introduced_in=" "12")));
 
-int pause(void);
-unsigned int alarm(unsigned int __seconds);
-unsigned int sleep(unsigned int __seconds);
-int usleep(useconds_t __microseconds);
 
-int gethostname(char* __buf, size_t __buf_size);
 
+extern int clearenv (void) __attribute__ ((__nothrow__ , __leaf__));
+# 672 "/usr/include/stdlib.h" 3 4
+extern char *mktemp (char *__template) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+# 685 "/usr/include/stdlib.h" 3 4
+extern int mkstemp (char *__template) __attribute__ ((__nonnull__ (1))) ;
+# 707 "/usr/include/stdlib.h" 3 4
+extern int mkstemps (char *__template, int __suffixlen) __attribute__ ((__nonnull__ (1))) ;
+# 728 "/usr/include/stdlib.h" 3 4
+extern char *mkdtemp (char *__template) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1))) ;
+# 781 "/usr/include/stdlib.h" 3 4
+extern int system (const char *__command) ;
+# 797 "/usr/include/stdlib.h" 3 4
+extern char *realpath (const char *__restrict __name,
+         char *__restrict __resolved) __attribute__ ((__nothrow__ , __leaf__)) ;
 
 
 
 
 
-int brk(void* __addr);
-void* sbrk(ptrdiff_t __increment);
 
-int isatty(int __fd);
-char* ttyname(int __fd);
-int ttyname_r(int __fd, char* __buf, size_t __buf_size) __attribute__((annotate("introduced_in=" "8")));
+typedef int (*__compar_fn_t) (const void *, const void *);
+# 817 "/usr/include/stdlib.h" 3 4
+extern void *bsearch (const void *__key, const void *__base,
+        size_t __nmemb, size_t __size, __compar_fn_t __compar)
+     __attribute__ ((__nonnull__ (1, 2, 5))) ;
 
-int acct(const char* __path);
 
 
-int getpagesize(void) __attribute__((annotate("introduced_in=" "21")));
 
 
 
 
+extern void qsort (void *__base, size_t __nmemb, size_t __size,
+     __compar_fn_t __compar) __attribute__ ((__nonnull__ (1, 4)));
+# 837 "/usr/include/stdlib.h" 3 4
+extern int abs (int __x) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__const__)) ;
+extern long int labs (long int __x) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__const__)) ;
 
 
-long syscall(long __number, ...);
+__extension__ extern long long int llabs (long long int __x)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__const__)) ;
 
-int daemon(int __no_chdir, int __no_close);
 
 
 
 
 
+extern div_t div (int __numer, int __denom)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__const__)) ;
+extern ldiv_t ldiv (long int __numer, long int __denom)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__const__)) ;
 
-pid_t tcgetpgrp(int __fd);
-int tcsetpgrp(int __fd, pid_t __pid);
-# 311 "/data/data/com.termux/files/usr/include/unistd.h" 3 4
-static __inline__ char* getpass(const char* prompt) {
 
-    struct _termios {
-        unsigned int c_iflag;
-        unsigned int c_oflag;
-        unsigned int c_cflag;
-        unsigned int c_lflag;
-        unsigned char c_line;
-        unsigned char c_cc[19 ];
-    };
+__extension__ extern lldiv_t lldiv (long long int __numer,
+        long long int __denom)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__const__)) ;
+# 869 "/usr/include/stdlib.h" 3 4
+extern char *ecvt (double __value, int __ndigit, int *__restrict __decpt,
+     int *__restrict __sign) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (3, 4))) ;
 
-    struct _termios term_old, term_new;
-    static char password[513] = { 0 };
-    int len = 0, tty_changed = 0;
 
 
-    while (*prompt) {
-        write(1, prompt, 1);
-        prompt++;
-    }
 
+extern char *fcvt (double __value, int __ndigit, int *__restrict __decpt,
+     int *__restrict __sign) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (3, 4))) ;
 
-    if (ioctl(0, 0x5401 , &term_old) == 0) {
-        term_new = term_old;
-        term_new.c_lflag &= ~0000010;
 
-        if (ioctl(0, 0x5402+0 , &term_new) == 0) {
-            tty_changed = 1;
-        } else {
-            tty_changed = 0;
-        }
-    }
 
 
-    char chr;
-    while (read(0, &chr, sizeof(char)) > 0) {
-        if (chr == '\r' || chr == '\n' || chr == 0) {
-            break;
-        }
+extern char *gcvt (double __value, int __ndigit, char *__buf)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (3))) ;
 
-        if (len == sizeof(password)-1) {
 
 
-            continue;
-        } else {
-            password[len++] = chr;
-        }
-    }
-    password[len] = 0;
 
+extern char *qecvt (long double __value, int __ndigit,
+      int *__restrict __decpt, int *__restrict __sign)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (3, 4))) ;
+extern char *qfcvt (long double __value, int __ndigit,
+      int *__restrict __decpt, int *__restrict __sign)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (3, 4))) ;
+extern char *qgcvt (long double __value, int __ndigit, char *__buf)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (3))) ;
 
-    if (tty_changed) {
-        ioctl(0, 0x5402+0 , &term_old);
-    }
 
 
-    write(1, "\n", 1);
 
-    return password;
-}
-# 8 "./headers.h" 2
-# 1 "/data/data/com.termux/files/usr/include/dirent.h" 1 3 4
-# 63 "/data/data/com.termux/files/usr/include/dirent.h" 3 4
-struct dirent { ino_t d_ino; off64_t d_off; unsigned short d_reclen; unsigned char d_type; char d_name[256]; };
-struct dirent64 { ino_t d_ino; off64_t d_off; unsigned short d_reclen; unsigned char d_type; char d_name[256]; };
-# 77 "/data/data/com.termux/files/usr/include/dirent.h" 3 4
-typedef struct DIR DIR;
+extern int ecvt_r (double __value, int __ndigit, int *__restrict __decpt,
+     int *__restrict __sign, char *__restrict __buf,
+     size_t __len) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (3, 4, 5)));
+extern int fcvt_r (double __value, int __ndigit, int *__restrict __decpt,
+     int *__restrict __sign, char *__restrict __buf,
+     size_t __len) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (3, 4, 5)));
 
-DIR* opendir(const char* __path);
-DIR* fdopendir(int __dir_fd);
-struct dirent* readdir(DIR* __dir);
+extern int qecvt_r (long double __value, int __ndigit,
+      int *__restrict __decpt, int *__restrict __sign,
+      char *__restrict __buf, size_t __len)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (3, 4, 5)));
+extern int qfcvt_r (long double __value, int __ndigit,
+      int *__restrict __decpt, int *__restrict __sign,
+      char *__restrict __buf, size_t __len)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (3, 4, 5)));
 
 
-struct dirent64* readdir64(DIR* __dir) __attribute__((annotate("introduced_in=" "21")));
 
 
-int readdir_r(DIR* __dir, struct dirent* __entry, struct dirent** __buffer) __attribute__((__deprecated__("readdir_r is deprecated; use readdir instead")));
 
+extern int mblen (const char *__s, size_t __n) __attribute__ ((__nothrow__ , __leaf__));
 
-int readdir64_r(DIR* __dir, struct dirent64* __entry, struct dirent64** __buffer) __attribute__((annotate("introduced_in=" "21"))) __attribute__((__deprecated__("readdir64_r is deprecated; use readdir64 instead")));
 
+extern int mbtowc (wchar_t *__restrict __pwc,
+     const char *__restrict __s, size_t __n) __attribute__ ((__nothrow__ , __leaf__));
 
-int closedir(DIR* __dir);
-void rewinddir(DIR* __dir);
 
+extern int wctomb (char *__s, wchar_t __wchar) __attribute__ ((__nothrow__ , __leaf__));
 
 
 
+extern size_t mbstowcs (wchar_t *__restrict __pwcs,
+   const char *__restrict __s, size_t __n) __attribute__ ((__nothrow__ , __leaf__));
 
+extern size_t wcstombs (char *__restrict __s,
+   const wchar_t *__restrict __pwcs, size_t __n)
+     __attribute__ ((__nothrow__ , __leaf__));
 
-int dirfd(DIR* __dir);
-int alphasort(const struct dirent** __lhs, const struct dirent** __rhs);
 
 
-int alphasort64(const struct dirent64** __lhs, const struct dirent64** __rhs) __attribute__((annotate("introduced_in=" "21")));
-int scandir64(const char* __path, struct dirent64*** __name_list, int (*__filter)(const struct dirent64*), int (*__comparator)(const struct dirent64**, const struct dirent64**)) __attribute__((annotate("introduced_in=" "21")));
 
 
-int scandir(const char* __path, struct dirent*** __name_list, int (*__filter)(const struct dirent*), int (*__comparator)(const struct dirent**, const struct dirent**));
-# 9 "./headers.h" 2
-# 1 "/data/data/com.termux/files/usr/include/errno.h" 1 3 4
-# 33 "/data/data/com.termux/files/usr/include/errno.h" 3 4
-# 1 "/data/data/com.termux/files/usr/include/linux/errno.h" 1 3 4
-# 19 "/data/data/com.termux/files/usr/include/linux/errno.h" 3 4
-# 1 "/data/data/com.termux/files/usr/include/asm/errno.h" 1 3 4
-# 19 "/data/data/com.termux/files/usr/include/asm/errno.h" 3 4
-# 1 "/data/data/com.termux/files/usr/include/asm-generic/errno.h" 1 3 4
-# 21 "/data/data/com.termux/files/usr/include/asm-generic/errno.h" 3 4
-# 1 "/data/data/com.termux/files/usr/include/asm-generic/errno-base.h" 1 3 4
-# 22 "/data/data/com.termux/files/usr/include/asm-generic/errno.h" 2 3 4
-# 20 "/data/data/com.termux/files/usr/include/asm/errno.h" 2 3 4
-# 20 "/data/data/com.termux/files/usr/include/linux/errno.h" 2 3 4
-# 34 "/data/data/com.termux/files/usr/include/errno.h" 2 3 4
 
 
+extern int rpmatch (const char *__response) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1))) ;
+# 954 "/usr/include/stdlib.h" 3 4
+extern int getsubopt (char **__restrict __optionp,
+        char *const *__restrict __tokens,
+        char **__restrict __valuep)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2, 3))) ;
+# 1006 "/usr/include/stdlib.h" 3 4
+extern int getloadavg (double __loadavg[], int __nelem)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+# 1016 "/usr/include/stdlib.h" 3 4
+# 1 "/usr/include/x86_64-linux-gnu/bits/stdlib-float.h" 1 3 4
+# 1017 "/usr/include/stdlib.h" 2 3 4
+# 1026 "/usr/include/stdlib.h" 3 4
 
+# 6 "headers.h" 2
+# 1 "/usr/include/string.h" 1 3 4
+# 26 "/usr/include/string.h" 3 4
+# 1 "/usr/include/x86_64-linux-gnu/bits/libc-header-start.h" 1 3 4
+# 27 "/usr/include/string.h" 2 3 4
 
 
 
 
 
-int* __errno(void) __attribute__((__const__));
 
+# 1 "/usr/lib/gcc/x86_64-linux-gnu/7/include/stddef.h" 1 3 4
+# 34 "/usr/include/string.h" 2 3 4
+# 42 "/usr/include/string.h" 3 4
+extern void *memcpy (void *__restrict __dest, const void *__restrict __src,
+       size_t __n) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
 
 
+extern void *memmove (void *__dest, const void *__src, size_t __n)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
 
 
-# 1 "/data/data/com.termux/files/usr/include/android/legacy_errno_inlines.h" 1 3 4
-# 48 "/data/data/com.termux/files/usr/include/errno.h" 2 3 4
-# 10 "./headers.h" 2
 
-# 1 "/data/data/com.termux/files/usr/include/sys/stat.h" 1 3 4
-# 33 "/data/data/com.termux/files/usr/include/sys/stat.h" 3 4
-# 1 "/data/data/com.termux/files/usr/include/linux/stat.h" 1 3 4
-# 54 "/data/data/com.termux/files/usr/include/linux/stat.h" 3 4
-struct statx_timestamp {
-  __s64 tv_sec;
-  __u32 tv_nsec;
-  __s32 __reserved;
+
+
+extern void *memccpy (void *__restrict __dest, const void *__restrict __src,
+        int __c, size_t __n)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
+
+
+
+
+extern void *memset (void *__s, int __c, size_t __n) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+
+
+extern int memcmp (const void *__s1, const void *__s2, size_t __n)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
+# 90 "/usr/include/string.h" 3 4
+extern void *memchr (const void *__s, int __c, size_t __n)
+      __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
+# 121 "/usr/include/string.h" 3 4
+extern char *strcpy (char *__restrict __dest, const char *__restrict __src)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
+
+extern char *strncpy (char *__restrict __dest,
+        const char *__restrict __src, size_t __n)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
+
+
+extern char *strcat (char *__restrict __dest, const char *__restrict __src)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
+
+extern char *strncat (char *__restrict __dest, const char *__restrict __src,
+        size_t __n) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
+
+
+extern int strcmp (const char *__s1, const char *__s2)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
+
+extern int strncmp (const char *__s1, const char *__s2, size_t __n)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
+
+
+extern int strcoll (const char *__s1, const char *__s2)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
+
+extern size_t strxfrm (char *__restrict __dest,
+         const char *__restrict __src, size_t __n)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (2)));
+
+
+
+# 1 "/usr/include/x86_64-linux-gnu/bits/types/locale_t.h" 1 3 4
+# 22 "/usr/include/x86_64-linux-gnu/bits/types/locale_t.h" 3 4
+# 1 "/usr/include/x86_64-linux-gnu/bits/types/__locale_t.h" 1 3 4
+# 28 "/usr/include/x86_64-linux-gnu/bits/types/__locale_t.h" 3 4
+struct __locale_struct
+{
+
+  struct __locale_data *__locales[13];
+
+
+  const unsigned short int *__ctype_b;
+  const int *__ctype_tolower;
+  const int *__ctype_toupper;
+
+
+  const char *__names[13];
 };
-struct statx {
-  __u32 stx_mask;
-  __u32 stx_blksize;
-  __u64 stx_attributes;
-  __u32 stx_nlink;
-  __u32 stx_uid;
-  __u32 stx_gid;
-  __u16 stx_mode;
-  __u16 __spare0[1];
-  __u64 stx_ino;
-  __u64 stx_size;
-  __u64 stx_blocks;
-  __u64 stx_attributes_mask;
-  struct statx_timestamp stx_atime;
-  struct statx_timestamp stx_btime;
-  struct statx_timestamp stx_ctime;
-  struct statx_timestamp stx_mtime;
-  __u32 stx_rdev_major;
-  __u32 stx_rdev_minor;
-  __u32 stx_dev_major;
-  __u32 stx_dev_minor;
-  __u64 __spare2[14];
-};
-# 34 "/data/data/com.termux/files/usr/include/sys/stat.h" 2 3 4
-# 117 "/data/data/com.termux/files/usr/include/sys/stat.h" 3 4
-struct stat { dev_t st_dev; ino_t st_ino; mode_t st_mode; nlink_t st_nlink; uid_t st_uid; gid_t st_gid; dev_t st_rdev; unsigned long __pad1; off_t st_size; int st_blksize; int __pad2; long st_blocks; struct timespec st_atim; struct timespec st_mtim; struct timespec st_ctim; unsigned int __unused4; unsigned int __unused5; };
-struct stat64 { dev_t st_dev; ino_t st_ino; mode_t st_mode; nlink_t st_nlink; uid_t st_uid; gid_t st_gid; dev_t st_rdev; unsigned long __pad1; off_t st_size; int st_blksize; int __pad2; long st_blocks; struct timespec st_atim; struct timespec st_mtim; struct timespec st_ctim; unsigned int __unused4; unsigned int __unused5; };
-# 154 "/data/data/com.termux/files/usr/include/sys/stat.h" 3 4
-int chmod(const char* __path, mode_t __mode);
-int fchmod(int __fd, mode_t __mode);
-int mkdir(const char* __path, mode_t __mode);
 
-int fstat(int __fd, struct stat* __buf);
-int fstat64(int __fd, struct stat64* __buf) __attribute__((annotate("introduced_in=" "21")));
-int fstatat(int __dir_fd, const char* __path, struct stat* __buf, int __flags);
-int fstatat64(int __dir_fd, const char* __path, struct stat64* __buf, int __flags) __attribute__((annotate("introduced_in=" "21")));
-int lstat(const char* __path, struct stat* __buf);
-int lstat64(const char* __path, struct stat64* __buf) __attribute__((annotate("introduced_in=" "21")));
-int stat(const char* __path, struct stat* __buf);
-int stat64(const char* __path, struct stat64* __buf) __attribute__((annotate("introduced_in=" "21")));
+typedef struct __locale_struct *__locale_t;
+# 23 "/usr/include/x86_64-linux-gnu/bits/types/locale_t.h" 2 3 4
 
-int mknod(const char* __path, mode_t __mode, dev_t __dev);
-mode_t umask(mode_t __mask);
+typedef __locale_t locale_t;
+# 153 "/usr/include/string.h" 2 3 4
+
+
+extern int strcoll_l (const char *__s1, const char *__s2, locale_t __l)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2, 3)));
+
+
+extern size_t strxfrm_l (char *__dest, const char *__src, size_t __n,
+    locale_t __l) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (2, 4)));
+
+
+
+
+
+extern char *strdup (const char *__s)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__malloc__)) __attribute__ ((__nonnull__ (1)));
 
 
 
 
 
 
-int mkfifo(const char* __path, mode_t __mode) __attribute__((annotate("introduced_in=" "21")));
-# 186 "/data/data/com.termux/files/usr/include/sys/stat.h" 3 4
-int fchmodat(int __dir_fd, const char* __path, mode_t __mode, int __flags);
-int mkdirat(int __dir_fd, const char* __path, mode_t __mode);
+extern char *strndup (const char *__string, size_t __n)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__malloc__)) __attribute__ ((__nonnull__ (1)));
+# 225 "/usr/include/string.h" 3 4
+extern char *strchr (const char *__s, int __c)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
+# 252 "/usr/include/string.h" 3 4
+extern char *strrchr (const char *__s, int __c)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
+# 272 "/usr/include/string.h" 3 4
+extern size_t strcspn (const char *__s, const char *__reject)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
 
 
-int mknodat(int __dir_fd, const char* __path, mode_t __mode, dev_t __dev) __attribute__((annotate("introduced_in=" "21")));
+extern size_t strspn (const char *__s, const char *__accept)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
+# 302 "/usr/include/string.h" 3 4
+extern char *strpbrk (const char *__s, const char *__accept)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
+# 329 "/usr/include/string.h" 3 4
+extern char *strstr (const char *__haystack, const char *__needle)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
+
+
+
+
+extern char *strtok (char *__restrict __s, const char *__restrict __delim)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (2)));
+
+
+
+extern char *__strtok_r (char *__restrict __s,
+    const char *__restrict __delim,
+    char **__restrict __save_ptr)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (2, 3)));
+
+extern char *strtok_r (char *__restrict __s, const char *__restrict __delim,
+         char **__restrict __save_ptr)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (2, 3)));
+# 384 "/usr/include/string.h" 3 4
+extern size_t strlen (const char *__s)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
+
+
+
+
+extern size_t strnlen (const char *__string, size_t __maxlen)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
+
+
+
+
+extern char *strerror (int __errnum) __attribute__ ((__nothrow__ , __leaf__));
+# 409 "/usr/include/string.h" 3 4
+extern int strerror_r (int __errnum, char *__buf, size_t __buflen) __asm__ ("" "__xpg_strerror_r") __attribute__ ((__nothrow__ , __leaf__))
+
+                        __attribute__ ((__nonnull__ (2)));
+# 427 "/usr/include/string.h" 3 4
+extern char *strerror_l (int __errnum, locale_t __l) __attribute__ ((__nothrow__ , __leaf__));
+
+
+
+# 1 "/usr/include/strings.h" 1 3 4
+# 23 "/usr/include/strings.h" 3 4
+# 1 "/usr/lib/gcc/x86_64-linux-gnu/7/include/stddef.h" 1 3 4
+# 24 "/usr/include/strings.h" 2 3 4
 
 
 
 
 
-int utimensat(int __dir_fd, const char* __path, const struct timespec __times[2], int __flags)
-  __attribute__((annotate("introduced_in=" "12")));
-
-
-int futimens(int __dir_fd, const struct timespec __times[2]) __attribute__((annotate("introduced_in=" "19")));
 
 
 
 
 
+extern int bcmp (const void *__s1, const void *__s2, size_t __n)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
 
-# 1 "/data/data/com.termux/files/usr/include/android/legacy_sys_stat_inlines.h" 1 3 4
-# 207 "/data/data/com.termux/files/usr/include/sys/stat.h" 2 3 4
-# 12 "./headers.h" 2
-# 6 "./parser.h" 2
-# 17 "./parser.h"
+
+extern void bcopy (const void *__src, void *__dest, size_t __n)
+  __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
+
+
+extern void bzero (void *__s, size_t __n) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+# 68 "/usr/include/strings.h" 3 4
+extern char *index (const char *__s, int __c)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
+# 96 "/usr/include/strings.h" 3 4
+extern char *rindex (const char *__s, int __c)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1)));
+
+
+
+
+
+
+extern int ffs (int __i) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__const__));
+
+
+
+
+
+extern int ffsl (long int __l) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__const__));
+__extension__ extern int ffsll (long long int __ll)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__const__));
+
+
+
+extern int strcasecmp (const char *__s1, const char *__s2)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
+
+
+extern int strncasecmp (const char *__s1, const char *__s2, size_t __n)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
+
+
+
+
+
+
+extern int strcasecmp_l (const char *__s1, const char *__s2, locale_t __loc)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2, 3)));
+
+
+
+extern int strncasecmp_l (const char *__s1, const char *__s2,
+     size_t __n, locale_t __loc)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2, 4)));
+
+
+
+# 432 "/usr/include/string.h" 2 3 4
+
+
+
+extern void explicit_bzero (void *__s, size_t __n) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+
+
+
+extern char *strsep (char **__restrict __stringp,
+       const char *__restrict __delim)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
+
+
+
+
+extern char *strsignal (int __sig) __attribute__ ((__nothrow__ , __leaf__));
+
+
+extern char *__stpcpy (char *__restrict __dest, const char *__restrict __src)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
+extern char *stpcpy (char *__restrict __dest, const char *__restrict __src)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
+
+
+
+extern char *__stpncpy (char *__restrict __dest,
+   const char *__restrict __src, size_t __n)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
+extern char *stpncpy (char *__restrict __dest,
+        const char *__restrict __src, size_t __n)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
+# 498 "/usr/include/string.h" 3 4
+
+# 7 "headers.h" 2
+# 1 "/usr/include/unistd.h" 1 3 4
+# 27 "/usr/include/unistd.h" 3 4
+
+# 205 "/usr/include/unistd.h" 3 4
+# 1 "/usr/include/x86_64-linux-gnu/bits/posix_opt.h" 1 3 4
+# 206 "/usr/include/unistd.h" 2 3 4
+
+
+
+# 1 "/usr/include/x86_64-linux-gnu/bits/environments.h" 1 3 4
+# 22 "/usr/include/x86_64-linux-gnu/bits/environments.h" 3 4
+# 1 "/usr/include/x86_64-linux-gnu/bits/wordsize.h" 1 3 4
+# 23 "/usr/include/x86_64-linux-gnu/bits/environments.h" 2 3 4
+# 210 "/usr/include/unistd.h" 2 3 4
+# 229 "/usr/include/unistd.h" 3 4
+# 1 "/usr/lib/gcc/x86_64-linux-gnu/7/include/stddef.h" 1 3 4
+# 230 "/usr/include/unistd.h" 2 3 4
+# 258 "/usr/include/unistd.h" 3 4
+typedef __useconds_t useconds_t;
+# 270 "/usr/include/unistd.h" 3 4
+typedef __intptr_t intptr_t;
+
+
+
+
+
+
+typedef __socklen_t socklen_t;
+# 290 "/usr/include/unistd.h" 3 4
+extern int access (const char *__name, int __type) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+# 307 "/usr/include/unistd.h" 3 4
+extern int faccessat (int __fd, const char *__file, int __type, int __flag)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (2))) ;
+# 337 "/usr/include/unistd.h" 3 4
+extern __off_t lseek (int __fd, __off_t __offset, int __whence) __attribute__ ((__nothrow__ , __leaf__));
+# 356 "/usr/include/unistd.h" 3 4
+extern int close (int __fd);
+
+
+
+
+
+
+extern ssize_t read (int __fd, void *__buf, size_t __nbytes) ;
+
+
+
+
+
+extern ssize_t write (int __fd, const void *__buf, size_t __n) ;
+# 379 "/usr/include/unistd.h" 3 4
+extern ssize_t pread (int __fd, void *__buf, size_t __nbytes,
+        __off_t __offset) ;
+
+
+
+
+
+
+extern ssize_t pwrite (int __fd, const void *__buf, size_t __n,
+         __off_t __offset) ;
+# 420 "/usr/include/unistd.h" 3 4
+extern int pipe (int __pipedes[2]) __attribute__ ((__nothrow__ , __leaf__)) ;
+# 435 "/usr/include/unistd.h" 3 4
+extern unsigned int alarm (unsigned int __seconds) __attribute__ ((__nothrow__ , __leaf__));
+# 447 "/usr/include/unistd.h" 3 4
+extern unsigned int sleep (unsigned int __seconds);
+
+
+
+
+
+
+
+extern __useconds_t ualarm (__useconds_t __value, __useconds_t __interval)
+     __attribute__ ((__nothrow__ , __leaf__));
+
+
+
+
+
+
+extern int usleep (__useconds_t __useconds);
+# 472 "/usr/include/unistd.h" 3 4
+extern int pause (void);
+
+
+
+extern int chown (const char *__file, __uid_t __owner, __gid_t __group)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1))) ;
+
+
+
+extern int fchown (int __fd, __uid_t __owner, __gid_t __group) __attribute__ ((__nothrow__ , __leaf__)) ;
+
+
+
+
+extern int lchown (const char *__file, __uid_t __owner, __gid_t __group)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1))) ;
+
+
+
+
+
+
+extern int fchownat (int __fd, const char *__file, __uid_t __owner,
+       __gid_t __group, int __flag)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (2))) ;
+
+
+
+extern int chdir (const char *__path) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1))) ;
+
+
+
+extern int fchdir (int __fd) __attribute__ ((__nothrow__ , __leaf__)) ;
+# 514 "/usr/include/unistd.h" 3 4
+extern char *getcwd (char *__buf, size_t __size) __attribute__ ((__nothrow__ , __leaf__)) ;
+# 528 "/usr/include/unistd.h" 3 4
+extern char *getwd (char *__buf)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1))) __attribute__ ((__deprecated__)) ;
+
+
+
+
+extern int dup (int __fd) __attribute__ ((__nothrow__ , __leaf__)) ;
+
+
+extern int dup2 (int __fd, int __fd2) __attribute__ ((__nothrow__ , __leaf__));
+# 546 "/usr/include/unistd.h" 3 4
+extern char **__environ;
+
+
+
+
+
+
+
+extern int execve (const char *__path, char *const __argv[],
+     char *const __envp[]) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
+
+
+
+
+extern int fexecve (int __fd, char *const __argv[], char *const __envp[])
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (2)));
+
+
+
+
+extern int execv (const char *__path, char *const __argv[])
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
+
+
+
+extern int execle (const char *__path, const char *__arg, ...)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
+
+
+
+extern int execl (const char *__path, const char *__arg, ...)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
+
+
+
+extern int execvp (const char *__file, char *const __argv[])
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
+
+
+
+
+extern int execlp (const char *__file, const char *__arg, ...)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
+# 601 "/usr/include/unistd.h" 3 4
+extern int nice (int __inc) __attribute__ ((__nothrow__ , __leaf__)) ;
+
+
+
+
+extern void _exit (int __status) __attribute__ ((__noreturn__));
+
+
+
+
+
+# 1 "/usr/include/x86_64-linux-gnu/bits/confname.h" 1 3 4
+# 24 "/usr/include/x86_64-linux-gnu/bits/confname.h" 3 4
+enum
+  {
+    _PC_LINK_MAX,
+
+    _PC_MAX_CANON,
+
+    _PC_MAX_INPUT,
+
+    _PC_NAME_MAX,
+
+    _PC_PATH_MAX,
+
+    _PC_PIPE_BUF,
+
+    _PC_CHOWN_RESTRICTED,
+
+    _PC_NO_TRUNC,
+
+    _PC_VDISABLE,
+
+    _PC_SYNC_IO,
+
+    _PC_ASYNC_IO,
+
+    _PC_PRIO_IO,
+
+    _PC_SOCK_MAXBUF,
+
+    _PC_FILESIZEBITS,
+
+    _PC_REC_INCR_XFER_SIZE,
+
+    _PC_REC_MAX_XFER_SIZE,
+
+    _PC_REC_MIN_XFER_SIZE,
+
+    _PC_REC_XFER_ALIGN,
+
+    _PC_ALLOC_SIZE_MIN,
+
+    _PC_SYMLINK_MAX,
+
+    _PC_2_SYMLINKS
+
+  };
+
+
+enum
+  {
+    _SC_ARG_MAX,
+
+    _SC_CHILD_MAX,
+
+    _SC_CLK_TCK,
+
+    _SC_NGROUPS_MAX,
+
+    _SC_OPEN_MAX,
+
+    _SC_STREAM_MAX,
+
+    _SC_TZNAME_MAX,
+
+    _SC_JOB_CONTROL,
+
+    _SC_SAVED_IDS,
+
+    _SC_REALTIME_SIGNALS,
+
+    _SC_PRIORITY_SCHEDULING,
+
+    _SC_TIMERS,
+
+    _SC_ASYNCHRONOUS_IO,
+
+    _SC_PRIORITIZED_IO,
+
+    _SC_SYNCHRONIZED_IO,
+
+    _SC_FSYNC,
+
+    _SC_MAPPED_FILES,
+
+    _SC_MEMLOCK,
+
+    _SC_MEMLOCK_RANGE,
+
+    _SC_MEMORY_PROTECTION,
+
+    _SC_MESSAGE_PASSING,
+
+    _SC_SEMAPHORES,
+
+    _SC_SHARED_MEMORY_OBJECTS,
+
+    _SC_AIO_LISTIO_MAX,
+
+    _SC_AIO_MAX,
+
+    _SC_AIO_PRIO_DELTA_MAX,
+
+    _SC_DELAYTIMER_MAX,
+
+    _SC_MQ_OPEN_MAX,
+
+    _SC_MQ_PRIO_MAX,
+
+    _SC_VERSION,
+
+    _SC_PAGESIZE,
+
+
+    _SC_RTSIG_MAX,
+
+    _SC_SEM_NSEMS_MAX,
+
+    _SC_SEM_VALUE_MAX,
+
+    _SC_SIGQUEUE_MAX,
+
+    _SC_TIMER_MAX,
+
+
+
+
+    _SC_BC_BASE_MAX,
+
+    _SC_BC_DIM_MAX,
+
+    _SC_BC_SCALE_MAX,
+
+    _SC_BC_STRING_MAX,
+
+    _SC_COLL_WEIGHTS_MAX,
+
+    _SC_EQUIV_CLASS_MAX,
+
+    _SC_EXPR_NEST_MAX,
+
+    _SC_LINE_MAX,
+
+    _SC_RE_DUP_MAX,
+
+    _SC_CHARCLASS_NAME_MAX,
+
+
+    _SC_2_VERSION,
+
+    _SC_2_C_BIND,
+
+    _SC_2_C_DEV,
+
+    _SC_2_FORT_DEV,
+
+    _SC_2_FORT_RUN,
+
+    _SC_2_SW_DEV,
+
+    _SC_2_LOCALEDEF,
+
+
+    _SC_PII,
+
+    _SC_PII_XTI,
+
+    _SC_PII_SOCKET,
+
+    _SC_PII_INTERNET,
+
+    _SC_PII_OSI,
+
+    _SC_POLL,
+
+    _SC_SELECT,
+
+    _SC_UIO_MAXIOV,
+
+    _SC_IOV_MAX = _SC_UIO_MAXIOV,
+
+    _SC_PII_INTERNET_STREAM,
+
+    _SC_PII_INTERNET_DGRAM,
+
+    _SC_PII_OSI_COTS,
+
+    _SC_PII_OSI_CLTS,
+
+    _SC_PII_OSI_M,
+
+    _SC_T_IOV_MAX,
+
+
+
+    _SC_THREADS,
+
+    _SC_THREAD_SAFE_FUNCTIONS,
+
+    _SC_GETGR_R_SIZE_MAX,
+
+    _SC_GETPW_R_SIZE_MAX,
+
+    _SC_LOGIN_NAME_MAX,
+
+    _SC_TTY_NAME_MAX,
+
+    _SC_THREAD_DESTRUCTOR_ITERATIONS,
+
+    _SC_THREAD_KEYS_MAX,
+
+    _SC_THREAD_STACK_MIN,
+
+    _SC_THREAD_THREADS_MAX,
+
+    _SC_THREAD_ATTR_STACKADDR,
+
+    _SC_THREAD_ATTR_STACKSIZE,
+
+    _SC_THREAD_PRIORITY_SCHEDULING,
+
+    _SC_THREAD_PRIO_INHERIT,
+
+    _SC_THREAD_PRIO_PROTECT,
+
+    _SC_THREAD_PROCESS_SHARED,
+
+
+    _SC_NPROCESSORS_CONF,
+
+    _SC_NPROCESSORS_ONLN,
+
+    _SC_PHYS_PAGES,
+
+    _SC_AVPHYS_PAGES,
+
+    _SC_ATEXIT_MAX,
+
+    _SC_PASS_MAX,
+
+
+    _SC_XOPEN_VERSION,
+
+    _SC_XOPEN_XCU_VERSION,
+
+    _SC_XOPEN_UNIX,
+
+    _SC_XOPEN_CRYPT,
+
+    _SC_XOPEN_ENH_I18N,
+
+    _SC_XOPEN_SHM,
+
+
+    _SC_2_CHAR_TERM,
+
+    _SC_2_C_VERSION,
+
+    _SC_2_UPE,
+
+
+    _SC_XOPEN_XPG2,
+
+    _SC_XOPEN_XPG3,
+
+    _SC_XOPEN_XPG4,
+
+
+    _SC_CHAR_BIT,
+
+    _SC_CHAR_MAX,
+
+    _SC_CHAR_MIN,
+
+    _SC_INT_MAX,
+
+    _SC_INT_MIN,
+
+    _SC_LONG_BIT,
+
+    _SC_WORD_BIT,
+
+    _SC_MB_LEN_MAX,
+
+    _SC_NZERO,
+
+    _SC_SSIZE_MAX,
+
+    _SC_SCHAR_MAX,
+
+    _SC_SCHAR_MIN,
+
+    _SC_SHRT_MAX,
+
+    _SC_SHRT_MIN,
+
+    _SC_UCHAR_MAX,
+
+    _SC_UINT_MAX,
+
+    _SC_ULONG_MAX,
+
+    _SC_USHRT_MAX,
+
+
+    _SC_NL_ARGMAX,
+
+    _SC_NL_LANGMAX,
+
+    _SC_NL_MSGMAX,
+
+    _SC_NL_NMAX,
+
+    _SC_NL_SETMAX,
+
+    _SC_NL_TEXTMAX,
+
+
+    _SC_XBS5_ILP32_OFF32,
+
+    _SC_XBS5_ILP32_OFFBIG,
+
+    _SC_XBS5_LP64_OFF64,
+
+    _SC_XBS5_LPBIG_OFFBIG,
+
+
+    _SC_XOPEN_LEGACY,
+
+    _SC_XOPEN_REALTIME,
+
+    _SC_XOPEN_REALTIME_THREADS,
+
+
+    _SC_ADVISORY_INFO,
+
+    _SC_BARRIERS,
+
+    _SC_BASE,
+
+    _SC_C_LANG_SUPPORT,
+
+    _SC_C_LANG_SUPPORT_R,
+
+    _SC_CLOCK_SELECTION,
+
+    _SC_CPUTIME,
+
+    _SC_THREAD_CPUTIME,
+
+    _SC_DEVICE_IO,
+
+    _SC_DEVICE_SPECIFIC,
+
+    _SC_DEVICE_SPECIFIC_R,
+
+    _SC_FD_MGMT,
+
+    _SC_FIFO,
+
+    _SC_PIPE,
+
+    _SC_FILE_ATTRIBUTES,
+
+    _SC_FILE_LOCKING,
+
+    _SC_FILE_SYSTEM,
+
+    _SC_MONOTONIC_CLOCK,
+
+    _SC_MULTI_PROCESS,
+
+    _SC_SINGLE_PROCESS,
+
+    _SC_NETWORKING,
+
+    _SC_READER_WRITER_LOCKS,
+
+    _SC_SPIN_LOCKS,
+
+    _SC_REGEXP,
+
+    _SC_REGEX_VERSION,
+
+    _SC_SHELL,
+
+    _SC_SIGNALS,
+
+    _SC_SPAWN,
+
+    _SC_SPORADIC_SERVER,
+
+    _SC_THREAD_SPORADIC_SERVER,
+
+    _SC_SYSTEM_DATABASE,
+
+    _SC_SYSTEM_DATABASE_R,
+
+    _SC_TIMEOUTS,
+
+    _SC_TYPED_MEMORY_OBJECTS,
+
+    _SC_USER_GROUPS,
+
+    _SC_USER_GROUPS_R,
+
+    _SC_2_PBS,
+
+    _SC_2_PBS_ACCOUNTING,
+
+    _SC_2_PBS_LOCATE,
+
+    _SC_2_PBS_MESSAGE,
+
+    _SC_2_PBS_TRACK,
+
+    _SC_SYMLOOP_MAX,
+
+    _SC_STREAMS,
+
+    _SC_2_PBS_CHECKPOINT,
+
+
+    _SC_V6_ILP32_OFF32,
+
+    _SC_V6_ILP32_OFFBIG,
+
+    _SC_V6_LP64_OFF64,
+
+    _SC_V6_LPBIG_OFFBIG,
+
+
+    _SC_HOST_NAME_MAX,
+
+    _SC_TRACE,
+
+    _SC_TRACE_EVENT_FILTER,
+
+    _SC_TRACE_INHERIT,
+
+    _SC_TRACE_LOG,
+
+
+    _SC_LEVEL1_ICACHE_SIZE,
+
+    _SC_LEVEL1_ICACHE_ASSOC,
+
+    _SC_LEVEL1_ICACHE_LINESIZE,
+
+    _SC_LEVEL1_DCACHE_SIZE,
+
+    _SC_LEVEL1_DCACHE_ASSOC,
+
+    _SC_LEVEL1_DCACHE_LINESIZE,
+
+    _SC_LEVEL2_CACHE_SIZE,
+
+    _SC_LEVEL2_CACHE_ASSOC,
+
+    _SC_LEVEL2_CACHE_LINESIZE,
+
+    _SC_LEVEL3_CACHE_SIZE,
+
+    _SC_LEVEL3_CACHE_ASSOC,
+
+    _SC_LEVEL3_CACHE_LINESIZE,
+
+    _SC_LEVEL4_CACHE_SIZE,
+
+    _SC_LEVEL4_CACHE_ASSOC,
+
+    _SC_LEVEL4_CACHE_LINESIZE,
+
+
+
+    _SC_IPV6 = _SC_LEVEL1_ICACHE_SIZE + 50,
+
+    _SC_RAW_SOCKETS,
+
+
+    _SC_V7_ILP32_OFF32,
+
+    _SC_V7_ILP32_OFFBIG,
+
+    _SC_V7_LP64_OFF64,
+
+    _SC_V7_LPBIG_OFFBIG,
+
+
+    _SC_SS_REPL_MAX,
+
+
+    _SC_TRACE_EVENT_NAME_MAX,
+
+    _SC_TRACE_NAME_MAX,
+
+    _SC_TRACE_SYS_MAX,
+
+    _SC_TRACE_USER_EVENT_MAX,
+
+
+    _SC_XOPEN_STREAMS,
+
+
+    _SC_THREAD_ROBUST_PRIO_INHERIT,
+
+    _SC_THREAD_ROBUST_PRIO_PROTECT
+
+  };
+
+
+enum
+  {
+    _CS_PATH,
+
+
+    _CS_V6_WIDTH_RESTRICTED_ENVS,
+
+
+
+    _CS_GNU_LIBC_VERSION,
+
+    _CS_GNU_LIBPTHREAD_VERSION,
+
+
+    _CS_V5_WIDTH_RESTRICTED_ENVS,
+
+
+
+    _CS_V7_WIDTH_RESTRICTED_ENVS,
+
+
+
+    _CS_LFS_CFLAGS = 1000,
+
+    _CS_LFS_LDFLAGS,
+
+    _CS_LFS_LIBS,
+
+    _CS_LFS_LINTFLAGS,
+
+    _CS_LFS64_CFLAGS,
+
+    _CS_LFS64_LDFLAGS,
+
+    _CS_LFS64_LIBS,
+
+    _CS_LFS64_LINTFLAGS,
+
+
+    _CS_XBS5_ILP32_OFF32_CFLAGS = 1100,
+
+    _CS_XBS5_ILP32_OFF32_LDFLAGS,
+
+    _CS_XBS5_ILP32_OFF32_LIBS,
+
+    _CS_XBS5_ILP32_OFF32_LINTFLAGS,
+
+    _CS_XBS5_ILP32_OFFBIG_CFLAGS,
+
+    _CS_XBS5_ILP32_OFFBIG_LDFLAGS,
+
+    _CS_XBS5_ILP32_OFFBIG_LIBS,
+
+    _CS_XBS5_ILP32_OFFBIG_LINTFLAGS,
+
+    _CS_XBS5_LP64_OFF64_CFLAGS,
+
+    _CS_XBS5_LP64_OFF64_LDFLAGS,
+
+    _CS_XBS5_LP64_OFF64_LIBS,
+
+    _CS_XBS5_LP64_OFF64_LINTFLAGS,
+
+    _CS_XBS5_LPBIG_OFFBIG_CFLAGS,
+
+    _CS_XBS5_LPBIG_OFFBIG_LDFLAGS,
+
+    _CS_XBS5_LPBIG_OFFBIG_LIBS,
+
+    _CS_XBS5_LPBIG_OFFBIG_LINTFLAGS,
+
+
+    _CS_POSIX_V6_ILP32_OFF32_CFLAGS,
+
+    _CS_POSIX_V6_ILP32_OFF32_LDFLAGS,
+
+    _CS_POSIX_V6_ILP32_OFF32_LIBS,
+
+    _CS_POSIX_V6_ILP32_OFF32_LINTFLAGS,
+
+    _CS_POSIX_V6_ILP32_OFFBIG_CFLAGS,
+
+    _CS_POSIX_V6_ILP32_OFFBIG_LDFLAGS,
+
+    _CS_POSIX_V6_ILP32_OFFBIG_LIBS,
+
+    _CS_POSIX_V6_ILP32_OFFBIG_LINTFLAGS,
+
+    _CS_POSIX_V6_LP64_OFF64_CFLAGS,
+
+    _CS_POSIX_V6_LP64_OFF64_LDFLAGS,
+
+    _CS_POSIX_V6_LP64_OFF64_LIBS,
+
+    _CS_POSIX_V6_LP64_OFF64_LINTFLAGS,
+
+    _CS_POSIX_V6_LPBIG_OFFBIG_CFLAGS,
+
+    _CS_POSIX_V6_LPBIG_OFFBIG_LDFLAGS,
+
+    _CS_POSIX_V6_LPBIG_OFFBIG_LIBS,
+
+    _CS_POSIX_V6_LPBIG_OFFBIG_LINTFLAGS,
+
+
+    _CS_POSIX_V7_ILP32_OFF32_CFLAGS,
+
+    _CS_POSIX_V7_ILP32_OFF32_LDFLAGS,
+
+    _CS_POSIX_V7_ILP32_OFF32_LIBS,
+
+    _CS_POSIX_V7_ILP32_OFF32_LINTFLAGS,
+
+    _CS_POSIX_V7_ILP32_OFFBIG_CFLAGS,
+
+    _CS_POSIX_V7_ILP32_OFFBIG_LDFLAGS,
+
+    _CS_POSIX_V7_ILP32_OFFBIG_LIBS,
+
+    _CS_POSIX_V7_ILP32_OFFBIG_LINTFLAGS,
+
+    _CS_POSIX_V7_LP64_OFF64_CFLAGS,
+
+    _CS_POSIX_V7_LP64_OFF64_LDFLAGS,
+
+    _CS_POSIX_V7_LP64_OFF64_LIBS,
+
+    _CS_POSIX_V7_LP64_OFF64_LINTFLAGS,
+
+    _CS_POSIX_V7_LPBIG_OFFBIG_CFLAGS,
+
+    _CS_POSIX_V7_LPBIG_OFFBIG_LDFLAGS,
+
+    _CS_POSIX_V7_LPBIG_OFFBIG_LIBS,
+
+    _CS_POSIX_V7_LPBIG_OFFBIG_LINTFLAGS,
+
+
+    _CS_V6_ENV,
+
+    _CS_V7_ENV
+
+  };
+# 613 "/usr/include/unistd.h" 2 3 4
+
+
+extern long int pathconf (const char *__path, int __name)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+
+
+extern long int fpathconf (int __fd, int __name) __attribute__ ((__nothrow__ , __leaf__));
+
+
+extern long int sysconf (int __name) __attribute__ ((__nothrow__ , __leaf__));
+
+
+
+extern size_t confstr (int __name, char *__buf, size_t __len) __attribute__ ((__nothrow__ , __leaf__));
+
+
+
+
+extern __pid_t getpid (void) __attribute__ ((__nothrow__ , __leaf__));
+
+
+extern __pid_t getppid (void) __attribute__ ((__nothrow__ , __leaf__));
+
+
+extern __pid_t getpgrp (void) __attribute__ ((__nothrow__ , __leaf__));
+
+
+extern __pid_t __getpgid (__pid_t __pid) __attribute__ ((__nothrow__ , __leaf__));
+
+extern __pid_t getpgid (__pid_t __pid) __attribute__ ((__nothrow__ , __leaf__));
+
+
+
+
+
+
+extern int setpgid (__pid_t __pid, __pid_t __pgid) __attribute__ ((__nothrow__ , __leaf__));
+# 663 "/usr/include/unistd.h" 3 4
+extern int setpgrp (void) __attribute__ ((__nothrow__ , __leaf__));
+
+
+
+
+
+
+extern __pid_t setsid (void) __attribute__ ((__nothrow__ , __leaf__));
+
+
+
+extern __pid_t getsid (__pid_t __pid) __attribute__ ((__nothrow__ , __leaf__));
+
+
+
+extern __uid_t getuid (void) __attribute__ ((__nothrow__ , __leaf__));
+
+
+extern __uid_t geteuid (void) __attribute__ ((__nothrow__ , __leaf__));
+
+
+extern __gid_t getgid (void) __attribute__ ((__nothrow__ , __leaf__));
+
+
+extern __gid_t getegid (void) __attribute__ ((__nothrow__ , __leaf__));
+
+
+
+
+extern int getgroups (int __size, __gid_t __list[]) __attribute__ ((__nothrow__ , __leaf__)) ;
+# 703 "/usr/include/unistd.h" 3 4
+extern int setuid (__uid_t __uid) __attribute__ ((__nothrow__ , __leaf__)) ;
+
+
+
+
+extern int setreuid (__uid_t __ruid, __uid_t __euid) __attribute__ ((__nothrow__ , __leaf__)) ;
+
+
+
+
+extern int seteuid (__uid_t __uid) __attribute__ ((__nothrow__ , __leaf__)) ;
+
+
+
+
+
+
+extern int setgid (__gid_t __gid) __attribute__ ((__nothrow__ , __leaf__)) ;
+
+
+
+
+extern int setregid (__gid_t __rgid, __gid_t __egid) __attribute__ ((__nothrow__ , __leaf__)) ;
+
+
+
+
+extern int setegid (__gid_t __gid) __attribute__ ((__nothrow__ , __leaf__)) ;
+# 759 "/usr/include/unistd.h" 3 4
+extern __pid_t fork (void) __attribute__ ((__nothrow__));
+
+
+
+
+
+
+
+extern __pid_t vfork (void) __attribute__ ((__nothrow__ , __leaf__));
+
+
+
+
+
+extern char *ttyname (int __fd) __attribute__ ((__nothrow__ , __leaf__));
+
+
+
+extern int ttyname_r (int __fd, char *__buf, size_t __buflen)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (2))) ;
+
+
+
+extern int isatty (int __fd) __attribute__ ((__nothrow__ , __leaf__));
+
+
+
+
+extern int ttyslot (void) __attribute__ ((__nothrow__ , __leaf__));
+
+
+
+
+extern int link (const char *__from, const char *__to)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2))) ;
+
+
+
+
+extern int linkat (int __fromfd, const char *__from, int __tofd,
+     const char *__to, int __flags)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (2, 4))) ;
+
+
+
+
+extern int symlink (const char *__from, const char *__to)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2))) ;
+
+
+
+
+extern ssize_t readlink (const char *__restrict __path,
+    char *__restrict __buf, size_t __len)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2))) ;
+
+
+
+
+extern int symlinkat (const char *__from, int __tofd,
+        const char *__to) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 3))) ;
+
+
+extern ssize_t readlinkat (int __fd, const char *__restrict __path,
+      char *__restrict __buf, size_t __len)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (2, 3))) ;
+
+
+
+extern int unlink (const char *__name) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+
+
+
+extern int unlinkat (int __fd, const char *__name, int __flag)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (2)));
+
+
+
+extern int rmdir (const char *__path) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+
+
+
+extern __pid_t tcgetpgrp (int __fd) __attribute__ ((__nothrow__ , __leaf__));
+
+
+extern int tcsetpgrp (int __fd, __pid_t __pgrp_id) __attribute__ ((__nothrow__ , __leaf__));
+
+
+
+
+
+
+extern char *getlogin (void);
+
+
+
+
+
+
+
+extern int getlogin_r (char *__name, size_t __name_len) __attribute__ ((__nonnull__ (1)));
+
+
+
+
+extern int setlogin (const char *__name) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+
+
+
+
+
+
+
+# 1 "/usr/include/x86_64-linux-gnu/bits/getopt_posix.h" 1 3 4
+# 27 "/usr/include/x86_64-linux-gnu/bits/getopt_posix.h" 3 4
+# 1 "/usr/include/x86_64-linux-gnu/bits/getopt_core.h" 1 3 4
+# 28 "/usr/include/x86_64-linux-gnu/bits/getopt_core.h" 3 4
+
+
+
+
+
+
+
+
+extern char *optarg;
+# 50 "/usr/include/x86_64-linux-gnu/bits/getopt_core.h" 3 4
+extern int optind;
+
+
+
+
+extern int opterr;
+
+
+
+extern int optopt;
+# 91 "/usr/include/x86_64-linux-gnu/bits/getopt_core.h" 3 4
+extern int getopt (int ___argc, char *const *___argv, const char *__shortopts)
+       __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (2, 3)));
+
+
+# 28 "/usr/include/x86_64-linux-gnu/bits/getopt_posix.h" 2 3 4
+
+
+# 49 "/usr/include/x86_64-linux-gnu/bits/getopt_posix.h" 3 4
+
+# 873 "/usr/include/unistd.h" 2 3 4
+
+
+
+
+
+
+
+extern int gethostname (char *__name, size_t __len) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+
+
+
+
+
+
+extern int sethostname (const char *__name, size_t __len)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1))) ;
+
+
+
+extern int sethostid (long int __id) __attribute__ ((__nothrow__ , __leaf__)) ;
+
+
+
+
+
+extern int getdomainname (char *__name, size_t __len)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1))) ;
+extern int setdomainname (const char *__name, size_t __len)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1))) ;
+
+
+
+
+
+extern int vhangup (void) __attribute__ ((__nothrow__ , __leaf__));
+
+
+extern int revoke (const char *__file) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1))) ;
+
+
+
+
+
+
+
+extern int profil (unsigned short int *__sample_buffer, size_t __size,
+     size_t __offset, unsigned int __scale)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+
+
+
+
+
+extern int acct (const char *__name) __attribute__ ((__nothrow__ , __leaf__));
+
+
+
+extern char *getusershell (void) __attribute__ ((__nothrow__ , __leaf__));
+extern void endusershell (void) __attribute__ ((__nothrow__ , __leaf__));
+extern void setusershell (void) __attribute__ ((__nothrow__ , __leaf__));
+
+
+
+
+
+extern int daemon (int __nochdir, int __noclose) __attribute__ ((__nothrow__ , __leaf__)) ;
+
+
+
+
+
+
+extern int chroot (const char *__path) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1))) ;
+
+
+
+extern char *getpass (const char *__prompt) __attribute__ ((__nonnull__ (1)));
+
+
+
+
+
+
+
+extern int fsync (int __fd);
+# 970 "/usr/include/unistd.h" 3 4
+extern long int gethostid (void);
+
+
+extern void sync (void) __attribute__ ((__nothrow__ , __leaf__));
+
+
+
+
+
+extern int getpagesize (void) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__const__));
+
+
+
+
+extern int getdtablesize (void) __attribute__ ((__nothrow__ , __leaf__));
+# 994 "/usr/include/unistd.h" 3 4
+extern int truncate (const char *__file, __off_t __length)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1))) ;
+# 1017 "/usr/include/unistd.h" 3 4
+extern int ftruncate (int __fd, __off_t __length) __attribute__ ((__nothrow__ , __leaf__)) ;
+# 1038 "/usr/include/unistd.h" 3 4
+extern int brk (void *__addr) __attribute__ ((__nothrow__ , __leaf__)) ;
+
+
+
+
+
+extern void *sbrk (intptr_t __delta) __attribute__ ((__nothrow__ , __leaf__));
+# 1059 "/usr/include/unistd.h" 3 4
+extern long int syscall (long int __sysno, ...) __attribute__ ((__nothrow__ , __leaf__));
+# 1082 "/usr/include/unistd.h" 3 4
+extern int lockf (int __fd, int __cmd, __off_t __len) ;
+# 1118 "/usr/include/unistd.h" 3 4
+extern int fdatasync (int __fildes);
+# 1167 "/usr/include/unistd.h" 3 4
+int getentropy (void *__buffer, size_t __length) ;
+
+
+
+
+
+
+
+
+# 8 "headers.h" 2
+# 1 "/usr/include/dirent.h" 1 3 4
+# 27 "/usr/include/dirent.h" 3 4
+
+# 61 "/usr/include/dirent.h" 3 4
+# 1 "/usr/include/x86_64-linux-gnu/bits/dirent.h" 1 3 4
+# 22 "/usr/include/x86_64-linux-gnu/bits/dirent.h" 3 4
+struct dirent
+  {
+
+    __ino_t d_ino;
+    __off_t d_off;
+
+
+
+
+    unsigned short int d_reclen;
+    unsigned char d_type;
+    char d_name[256];
+  };
+# 62 "/usr/include/dirent.h" 2 3 4
+# 97 "/usr/include/dirent.h" 3 4
+enum
+  {
+    DT_UNKNOWN = 0,
+
+    DT_FIFO = 1,
+
+    DT_CHR = 2,
+
+    DT_DIR = 4,
+
+    DT_BLK = 6,
+
+    DT_REG = 8,
+
+    DT_LNK = 10,
+
+    DT_SOCK = 12,
+
+    DT_WHT = 14
+
+  };
+# 127 "/usr/include/dirent.h" 3 4
+typedef struct __dirstream DIR;
+
+
+
+
+
+
+extern DIR *opendir (const char *__name) __attribute__ ((__nonnull__ (1)));
+
+
+
+
+
+
+extern DIR *fdopendir (int __fd);
+
+
+
+
+
+
+
+extern int closedir (DIR *__dirp) __attribute__ ((__nonnull__ (1)));
+# 162 "/usr/include/dirent.h" 3 4
+extern struct dirent *readdir (DIR *__dirp) __attribute__ ((__nonnull__ (1)));
+# 183 "/usr/include/dirent.h" 3 4
+extern int readdir_r (DIR *__restrict __dirp,
+        struct dirent *__restrict __entry,
+        struct dirent **__restrict __result)
+     __attribute__ ((__nonnull__ (1, 2, 3))) __attribute__ ((__deprecated__));
+# 209 "/usr/include/dirent.h" 3 4
+extern void rewinddir (DIR *__dirp) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+
+
+
+
+
+extern void seekdir (DIR *__dirp, long int __pos) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+
+
+extern long int telldir (DIR *__dirp) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+
+
+
+
+
+extern int dirfd (DIR *__dirp) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+# 233 "/usr/include/dirent.h" 3 4
+# 1 "/usr/include/x86_64-linux-gnu/bits/posix1_lim.h" 1 3 4
+# 160 "/usr/include/x86_64-linux-gnu/bits/posix1_lim.h" 3 4
+# 1 "/usr/include/x86_64-linux-gnu/bits/local_lim.h" 1 3 4
+# 38 "/usr/include/x86_64-linux-gnu/bits/local_lim.h" 3 4
+# 1 "/usr/include/linux/limits.h" 1 3 4
+# 39 "/usr/include/x86_64-linux-gnu/bits/local_lim.h" 2 3 4
+# 161 "/usr/include/x86_64-linux-gnu/bits/posix1_lim.h" 2 3 4
+# 234 "/usr/include/dirent.h" 2 3 4
+# 245 "/usr/include/dirent.h" 3 4
+# 1 "/usr/lib/gcc/x86_64-linux-gnu/7/include/stddef.h" 1 3 4
+# 246 "/usr/include/dirent.h" 2 3 4
+# 255 "/usr/include/dirent.h" 3 4
+extern int scandir (const char *__restrict __dir,
+      struct dirent ***__restrict __namelist,
+      int (*__selector) (const struct dirent *),
+      int (*__cmp) (const struct dirent **,
+      const struct dirent **))
+     __attribute__ ((__nonnull__ (1, 2)));
+# 325 "/usr/include/dirent.h" 3 4
+extern int alphasort (const struct dirent **__e1,
+        const struct dirent **__e2)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__pure__)) __attribute__ ((__nonnull__ (1, 2)));
+# 353 "/usr/include/dirent.h" 3 4
+extern __ssize_t getdirentries (int __fd, char *__restrict __buf,
+    size_t __nbytes,
+    __off_t *__restrict __basep)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (2, 4)));
+# 402 "/usr/include/dirent.h" 3 4
+
+# 9 "headers.h" 2
+# 1 "/usr/include/errno.h" 1 3 4
+# 28 "/usr/include/errno.h" 3 4
+# 1 "/usr/include/x86_64-linux-gnu/bits/errno.h" 1 3 4
+# 26 "/usr/include/x86_64-linux-gnu/bits/errno.h" 3 4
+# 1 "/usr/include/linux/errno.h" 1 3 4
+# 1 "/usr/include/x86_64-linux-gnu/asm/errno.h" 1 3 4
+# 1 "/usr/include/asm-generic/errno.h" 1 3 4
+
+
+
+
+# 1 "/usr/include/asm-generic/errno-base.h" 1 3 4
+# 6 "/usr/include/asm-generic/errno.h" 2 3 4
+# 1 "/usr/include/x86_64-linux-gnu/asm/errno.h" 2 3 4
+# 1 "/usr/include/linux/errno.h" 2 3 4
+# 27 "/usr/include/x86_64-linux-gnu/bits/errno.h" 2 3 4
+# 29 "/usr/include/errno.h" 2 3 4
+
+
+
+
+
+
+
+
+extern int *__errno_location (void) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__const__));
+# 57 "/usr/include/errno.h" 3 4
+
+# 10 "headers.h" 2
+
+# 1 "/usr/include/x86_64-linux-gnu/sys/stat.h" 1 3 4
+# 99 "/usr/include/x86_64-linux-gnu/sys/stat.h" 3 4
+
+
+# 1 "/usr/include/x86_64-linux-gnu/bits/stat.h" 1 3 4
+# 46 "/usr/include/x86_64-linux-gnu/bits/stat.h" 3 4
+struct stat
+  {
+    __dev_t st_dev;
+
+
+
+
+    __ino_t st_ino;
+
+
+
+
+
+
+
+    __nlink_t st_nlink;
+    __mode_t st_mode;
+
+    __uid_t st_uid;
+    __gid_t st_gid;
+
+    int __pad0;
+
+    __dev_t st_rdev;
+
+
+
+
+    __off_t st_size;
+
+
+
+    __blksize_t st_blksize;
+
+    __blkcnt_t st_blocks;
+# 91 "/usr/include/x86_64-linux-gnu/bits/stat.h" 3 4
+    struct timespec st_atim;
+    struct timespec st_mtim;
+    struct timespec st_ctim;
+# 106 "/usr/include/x86_64-linux-gnu/bits/stat.h" 3 4
+    __syscall_slong_t __glibc_reserved[3];
+# 115 "/usr/include/x86_64-linux-gnu/bits/stat.h" 3 4
+  };
+# 102 "/usr/include/x86_64-linux-gnu/sys/stat.h" 2 3 4
+# 205 "/usr/include/x86_64-linux-gnu/sys/stat.h" 3 4
+extern int stat (const char *__restrict __file,
+   struct stat *__restrict __buf) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
+
+
+
+extern int fstat (int __fd, struct stat *__buf) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (2)));
+# 234 "/usr/include/x86_64-linux-gnu/sys/stat.h" 3 4
+extern int fstatat (int __fd, const char *__restrict __file,
+      struct stat *__restrict __buf, int __flag)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (2, 3)));
+# 259 "/usr/include/x86_64-linux-gnu/sys/stat.h" 3 4
+extern int lstat (const char *__restrict __file,
+    struct stat *__restrict __buf) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1, 2)));
+# 280 "/usr/include/x86_64-linux-gnu/sys/stat.h" 3 4
+extern int chmod (const char *__file, __mode_t __mode)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+
+
+
+
+
+extern int lchmod (const char *__file, __mode_t __mode)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+
+
+
+
+extern int fchmod (int __fd, __mode_t __mode) __attribute__ ((__nothrow__ , __leaf__));
+
+
+
+
+
+extern int fchmodat (int __fd, const char *__file, __mode_t __mode,
+       int __flag)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (2))) ;
+
+
+
+
+
+
+extern __mode_t umask (__mode_t __mask) __attribute__ ((__nothrow__ , __leaf__));
+# 317 "/usr/include/x86_64-linux-gnu/sys/stat.h" 3 4
+extern int mkdir (const char *__path, __mode_t __mode)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+
+
+
+
+
+extern int mkdirat (int __fd, const char *__path, __mode_t __mode)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (2)));
+
+
+
+
+
+
+extern int mknod (const char *__path, __mode_t __mode, __dev_t __dev)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+
+
+
+
+
+extern int mknodat (int __fd, const char *__path, __mode_t __mode,
+      __dev_t __dev) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (2)));
+
+
+
+
+
+extern int mkfifo (const char *__path, __mode_t __mode)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (1)));
+
+
+
+
+
+extern int mkfifoat (int __fd, const char *__path, __mode_t __mode)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (2)));
+
+
+
+
+
+extern int utimensat (int __fd, const char *__path,
+        const struct timespec __times[2],
+        int __flags)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (2)));
+
+
+
+
+extern int futimens (int __fd, const struct timespec __times[2]) __attribute__ ((__nothrow__ , __leaf__));
+# 395 "/usr/include/x86_64-linux-gnu/sys/stat.h" 3 4
+extern int __fxstat (int __ver, int __fildes, struct stat *__stat_buf)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (3)));
+extern int __xstat (int __ver, const char *__filename,
+      struct stat *__stat_buf) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (2, 3)));
+extern int __lxstat (int __ver, const char *__filename,
+       struct stat *__stat_buf) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (2, 3)));
+extern int __fxstatat (int __ver, int __fildes, const char *__filename,
+         struct stat *__stat_buf, int __flag)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (3, 4)));
+# 438 "/usr/include/x86_64-linux-gnu/sys/stat.h" 3 4
+extern int __xmknod (int __ver, const char *__path, __mode_t __mode,
+       __dev_t *__dev) __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (2, 4)));
+
+extern int __xmknodat (int __ver, int __fd, const char *__path,
+         __mode_t __mode, __dev_t *__dev)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__nonnull__ (3, 5)));
+# 530 "/usr/include/x86_64-linux-gnu/sys/stat.h" 3 4
+
+# 12 "headers.h" 2
+# 6 "parser.h" 2
+# 17 "parser.h"
+
+# 17 "parser.h"
 typedef enum {VAL_INT, VAL_STRING}Type;
 
 
@@ -1890,7 +3757,11 @@ struct Condition_Operator_Type{
  int integer;
  char string[1000];
  char opertr[3];
- _Bool bool_val;
+ 
+# 73 "parser.h" 3 4
+_Bool 
+# 73 "parser.h"
+     bool_val;
 };
 
 union YYSTYPE{
@@ -1901,62 +3772,112 @@ union YYSTYPE{
 
     struct Record* record_ptr;
     struct String_List* string_list_ptr;
-    _Bool boolean;
+    
+# 84 "parser.h" 3 4
+   _Bool 
+# 84 "parser.h"
+        boolean;
     struct Condition_Operator_Type condtional_operator;
 };
 # 13 "parser.y" 2
-# 1 "./defaults.h" 1
+# 1 "defaults.h" 1
 
 
 
 
 
-# 1 "/data/data/com.termux/files/usr/include/ctype.h" 1 3 4
-# 62 "/data/data/com.termux/files/usr/include/ctype.h" 3 4
-extern const char* _ctype_;
+# 1 "/usr/include/ctype.h" 1 3 4
+# 28 "/usr/include/ctype.h" 3 4
 
-int isalnum(int __ch);
-int isalpha(int __ch);
-int isblank(int __ch);
-int iscntrl(int __ch);
-int isdigit(int __ch);
-int isgraph(int __ch);
-int islower(int __ch);
-int isprint(int __ch);
-int ispunct(int __ch);
-int isspace(int __ch);
-int isupper(int __ch);
-int isxdigit(int __ch);
-int tolower(int __ch);
-int toupper(int __ch);
+# 46 "/usr/include/ctype.h" 3 4
+
+# 46 "/usr/include/ctype.h" 3 4
+enum
+{
+  _ISupper = ((0) < 8 ? ((1 << (0)) << 8) : ((1 << (0)) >> 8)),
+  _ISlower = ((1) < 8 ? ((1 << (1)) << 8) : ((1 << (1)) >> 8)),
+  _ISalpha = ((2) < 8 ? ((1 << (2)) << 8) : ((1 << (2)) >> 8)),
+  _ISdigit = ((3) < 8 ? ((1 << (3)) << 8) : ((1 << (3)) >> 8)),
+  _ISxdigit = ((4) < 8 ? ((1 << (4)) << 8) : ((1 << (4)) >> 8)),
+  _ISspace = ((5) < 8 ? ((1 << (5)) << 8) : ((1 << (5)) >> 8)),
+  _ISprint = ((6) < 8 ? ((1 << (6)) << 8) : ((1 << (6)) >> 8)),
+  _ISgraph = ((7) < 8 ? ((1 << (7)) << 8) : ((1 << (7)) >> 8)),
+  _ISblank = ((8) < 8 ? ((1 << (8)) << 8) : ((1 << (8)) >> 8)),
+  _IScntrl = ((9) < 8 ? ((1 << (9)) << 8) : ((1 << (9)) >> 8)),
+  _ISpunct = ((10) < 8 ? ((1 << (10)) << 8) : ((1 << (10)) >> 8)),
+  _ISalnum = ((11) < 8 ? ((1 << (11)) << 8) : ((1 << (11)) >> 8))
+};
+# 79 "/usr/include/ctype.h" 3 4
+extern const unsigned short int **__ctype_b_loc (void)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__const__));
+extern const __int32_t **__ctype_tolower_loc (void)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__const__));
+extern const __int32_t **__ctype_toupper_loc (void)
+     __attribute__ ((__nothrow__ , __leaf__)) __attribute__ ((__const__));
+# 108 "/usr/include/ctype.h" 3 4
+extern int isalnum (int) __attribute__ ((__nothrow__ , __leaf__));
+extern int isalpha (int) __attribute__ ((__nothrow__ , __leaf__));
+extern int iscntrl (int) __attribute__ ((__nothrow__ , __leaf__));
+extern int isdigit (int) __attribute__ ((__nothrow__ , __leaf__));
+extern int islower (int) __attribute__ ((__nothrow__ , __leaf__));
+extern int isgraph (int) __attribute__ ((__nothrow__ , __leaf__));
+extern int isprint (int) __attribute__ ((__nothrow__ , __leaf__));
+extern int ispunct (int) __attribute__ ((__nothrow__ , __leaf__));
+extern int isspace (int) __attribute__ ((__nothrow__ , __leaf__));
+extern int isupper (int) __attribute__ ((__nothrow__ , __leaf__));
+extern int isxdigit (int) __attribute__ ((__nothrow__ , __leaf__));
 
 
-int isalnum_l(int __ch, locale_t __l) __attribute__((annotate("introduced_in=" "21")));
-int isalpha_l(int __ch, locale_t __l) __attribute__((annotate("introduced_in=" "21")));
-int isblank_l(int __ch, locale_t __l) __attribute__((annotate("introduced_in=" "21")));
-int iscntrl_l(int __ch, locale_t __l) __attribute__((annotate("introduced_in=" "21")));
-int isdigit_l(int __ch, locale_t __l) __attribute__((annotate("introduced_in=" "21")));
-int isgraph_l(int __ch, locale_t __l) __attribute__((annotate("introduced_in=" "21")));
-int islower_l(int __ch, locale_t __l) __attribute__((annotate("introduced_in=" "21")));
-int isprint_l(int __ch, locale_t __l) __attribute__((annotate("introduced_in=" "21")));
-int ispunct_l(int __ch, locale_t __l) __attribute__((annotate("introduced_in=" "21")));
-int isspace_l(int __ch, locale_t __l) __attribute__((annotate("introduced_in=" "21")));
-int isupper_l(int __ch, locale_t __l) __attribute__((annotate("introduced_in=" "21")));
-int isxdigit_l(int __ch, locale_t __l) __attribute__((annotate("introduced_in=" "21")));
-int tolower_l(int __ch, locale_t __l) __attribute__((annotate("introduced_in=" "21")));
-int toupper_l(int __ch, locale_t __l) __attribute__((annotate("introduced_in=" "21")));
+
+extern int tolower (int __c) __attribute__ ((__nothrow__ , __leaf__));
+
+
+extern int toupper (int __c) __attribute__ ((__nothrow__ , __leaf__));
 
 
 
 
-int isascii(int __ch);
-int toascii(int __ch);
+extern int isblank (int) __attribute__ ((__nothrow__ , __leaf__));
+# 142 "/usr/include/ctype.h" 3 4
+extern int isascii (int __c) __attribute__ ((__nothrow__ , __leaf__));
 
 
-int _tolower(int __ch) __attribute__((annotate("introduced_in=" "21")));
-int _toupper(int __ch) __attribute__((annotate("introduced_in=" "21")));
-# 7 "./defaults.h" 2
-# 18 "./defaults.h"
+
+extern int toascii (int __c) __attribute__ ((__nothrow__ , __leaf__));
+
+
+
+extern int _toupper (int) __attribute__ ((__nothrow__ , __leaf__));
+extern int _tolower (int) __attribute__ ((__nothrow__ , __leaf__));
+# 251 "/usr/include/ctype.h" 3 4
+extern int isalnum_l (int, locale_t) __attribute__ ((__nothrow__ , __leaf__));
+extern int isalpha_l (int, locale_t) __attribute__ ((__nothrow__ , __leaf__));
+extern int iscntrl_l (int, locale_t) __attribute__ ((__nothrow__ , __leaf__));
+extern int isdigit_l (int, locale_t) __attribute__ ((__nothrow__ , __leaf__));
+extern int islower_l (int, locale_t) __attribute__ ((__nothrow__ , __leaf__));
+extern int isgraph_l (int, locale_t) __attribute__ ((__nothrow__ , __leaf__));
+extern int isprint_l (int, locale_t) __attribute__ ((__nothrow__ , __leaf__));
+extern int ispunct_l (int, locale_t) __attribute__ ((__nothrow__ , __leaf__));
+extern int isspace_l (int, locale_t) __attribute__ ((__nothrow__ , __leaf__));
+extern int isupper_l (int, locale_t) __attribute__ ((__nothrow__ , __leaf__));
+extern int isxdigit_l (int, locale_t) __attribute__ ((__nothrow__ , __leaf__));
+
+extern int isblank_l (int, locale_t) __attribute__ ((__nothrow__ , __leaf__));
+
+
+
+extern int __tolower_l (int __c, locale_t __l) __attribute__ ((__nothrow__ , __leaf__));
+extern int tolower_l (int __c, locale_t __l) __attribute__ ((__nothrow__ , __leaf__));
+
+
+extern int __toupper_l (int __c, locale_t __l) __attribute__ ((__nothrow__ , __leaf__));
+extern int toupper_l (int __c, locale_t __l) __attribute__ ((__nothrow__ , __leaf__));
+# 327 "/usr/include/ctype.h" 3 4
+
+# 7 "defaults.h" 2
+# 18 "defaults.h"
+
+# 18 "defaults.h"
 char* masterPath="./master";
 char* dataPath="./data";
 
@@ -1974,7 +3895,11 @@ void strupr(char* input){
 
 void print_list(struct Record* head){
     printf("Now printing\n");
-    while(head != ((void*)0)){
+    while(head != 
+# 35 "defaults.h" 3 4
+                 ((void *)0)
+# 35 "defaults.h"
+                     ){
         int length = head->current_field.length;
         for(int i=0;i<length;i++){
             switch(head->current_field.field_array[i].type){
@@ -1989,30 +3914,62 @@ void print_list(struct Record* head){
 }
 
 void push_back(struct Field_List record, struct Record** head){
- if(*head == ((void*)0)){
+ if(*head == 
+# 50 "defaults.h" 3 4
+            ((void *)0)
+# 50 "defaults.h"
+                ){
         *head = (struct Record*)malloc(sizeof(struct Record));
         (*head)->current_field = record;
-        (*head)->next_record = ((void*)0);
+        (*head)->next_record = 
+# 53 "defaults.h" 3 4
+                              ((void *)0)
+# 53 "defaults.h"
+                                  ;
         printf("record ka field array first data is %d\n",record.field_array[0].value.integer);
         printf("head ka field array first data is %d\n",(*head)->current_field.field_array[0].value.integer);
     }
     else{
         struct Record* temp = *head;
-        while(temp->next_record != ((void*)0)){
+        while(temp->next_record != 
+# 59 "defaults.h" 3 4
+                                  ((void *)0)
+# 59 "defaults.h"
+                                      ){
             temp = temp->next_record;
         }
         struct Record* temp_record = (struct Record*)malloc(sizeof(struct Record));
         temp_record->current_field = record;
-        temp_record->next_record = ((void*)0);
+        temp_record->next_record = 
+# 64 "defaults.h" 3 4
+                                  ((void *)0)
+# 64 "defaults.h"
+                                      ;
         temp->next_record = temp_record;
     }
     printf("The list after updation\n");
     print_list(*head);
 }
 
-_Bool find(struct Record record, struct Record* head){
-    while(head != ((void*)0)){
-        _Bool flag = 1;
+
+# 71 "defaults.h" 3 4
+_Bool 
+# 71 "defaults.h"
+    find(struct Record record, struct Record* head){
+    while(head != 
+# 72 "defaults.h" 3 4
+                 ((void *)0)
+# 72 "defaults.h"
+                     ){
+        
+# 73 "defaults.h" 3 4
+       _Bool 
+# 73 "defaults.h"
+            flag = 
+# 73 "defaults.h" 3 4
+                   1
+# 73 "defaults.h"
+                       ;
 
 
 
@@ -2020,23 +3977,43 @@ _Bool find(struct Record record, struct Record* head){
             if( record.current_field.field_array[0].type == VAL_STRING){
 
                 if(strcmp(record.current_field.field_array[0].value.string,head->current_field.field_array[0].value.string) != 0){
-                    flag = 0;
+                    flag = 
+# 81 "defaults.h" 3 4
+                          0
+# 81 "defaults.h"
+                               ;
                 }
             }
             else{
 
                 if(record.current_field.field_array[0].value.integer != head->current_field.field_array[0].value.integer){
-                    flag = 0;
+                    flag = 
+# 87 "defaults.h" 3 4
+                          0
+# 87 "defaults.h"
+                               ;
                 }
             }
         }
 
-        if(flag == 1){
-            return 1;
+        if(flag == 
+# 92 "defaults.h" 3 4
+                  1
+# 92 "defaults.h"
+                      ){
+            return 
+# 93 "defaults.h" 3 4
+                  1
+# 93 "defaults.h"
+                      ;
         }
         head = head->next_record;
     }
-    return 0;
+    return 
+# 97 "defaults.h" 3 4
+          0
+# 97 "defaults.h"
+               ;
 }
 
 void strip(char* input){
@@ -2052,15 +4029,23 @@ void remove_index(int index);
 # 14 "parser.y" 2
 
     struct Schema schema;
-    struct Record* table_records = ((void*)0);
-    struct String_List* string_list_ptr = ((void*)0);
+    struct Record* table_records = 
+# 16 "parser.y" 3 4
+                                  ((void *)0)
+# 16 "parser.y"
+                                      ;
+    struct String_List* string_list_ptr = 
+# 17 "parser.y" 3 4
+                                         ((void *)0)
+# 17 "parser.y"
+                                             ;
     int yylex();
     extern int yyerror(const char* msg);
     int initFunction(char* tableName);
     void handleError(int isMaster);
     void handle_query_file_error();
-# 84 "y.tab.c"
-# 119 "y.tab.c"
+# 80 "y.tab.c"
+# 112 "y.tab.c"
   enum yytokentype
   {
     GET = 258,
@@ -2092,7 +4077,7 @@ void remove_index(int index);
     INTEGER_LITERAL = 284,
     IDENTIFIER = 285
   };
-# 183 "y.tab.c"
+# 176 "y.tab.c"
 typedef union YYSTYPE YYSTYPE;
 
 
@@ -2102,7 +4087,8 @@ typedef union YYSTYPE YYSTYPE;
 extern YYSTYPE yylval;
 
 int yyparse (void);
-# 204 "y.tab.c"
+# 191 "y.tab.c"
+# 199 "y.tab.c"
 typedef unsigned char yytype_uint8;
 
 
@@ -2115,20 +4101,20 @@ typedef signed char yytype_int8;
 
 
 
-typedef unsigned short yytype_uint16;
+typedef unsigned short int yytype_uint16;
 
 
 
 
 
-typedef short yytype_int16;
-# 370 "y.tab.c"
+typedef short int yytype_int16;
+# 374 "y.tab.c"
 union yyalloc
 {
   yytype_int16 yyss_alloc;
   YYSTYPE yyvs_alloc;
 };
-# 449 "y.tab.c"
+# 453 "y.tab.c"
 static const yytype_uint8 yytranslate[] =
 {
        0, 2, 2, 2, 2, 2, 2, 2, 2, 2,
@@ -2161,7 +4147,7 @@ static const yytype_uint8 yytranslate[] =
       15, 16, 17, 18, 19, 20, 21, 22, 23, 24,
       25, 26, 27, 28, 29, 30
 };
-# 538 "y.tab.c"
+# 542 "y.tab.c"
 static const yytype_int8 yypact[] =
 {
        2, -2, 10, 20, 23, 31, -41, -41, -41, -41,
@@ -2263,18 +4249,34 @@ static const yytype_uint8 yyr2[] =
        1, 1, 1, 1, 1, 4, 3, 0, 1, 1,
        1
 };
-# 1054 "y.tab.c"
+# 1053 "y.tab.c"
 static void
 yydestruct (const char *yymsg, int yytype, YYSTYPE *yyvaluep)
 {
   ((void) (yyvaluep));
   if (!yymsg)
     yymsg = "Deleting";
-                                                        ;
+  ;
 
-
+ 
+# 1061 "y.tab.c"
+#pragma GCC diagnostic push
+# 1061 "y.tab.c"
+ 
+# 1061 "y.tab.c"
+#pragma GCC diagnostic ignored "-Wuninitialized"
+# 1061 "y.tab.c"
+ 
+# 1061 "y.tab.c"
+#pragma GCC diagnostic ignored "-Wmaybe-uninitialized"
+# 1061 "y.tab.c"
+ 
   ((void) (yytype));
-
+ 
+# 1063 "y.tab.c"
+#pragma GCC diagnostic pop
+# 1063 "y.tab.c"
+ 
 }
 
 
@@ -2299,7 +4301,7 @@ yyparse (void)
     int yystate;
 
     int yyerrstatus;
-# 1098 "y.tab.c"
+# 1097 "y.tab.c"
     yytype_int16 yyssa[200];
     yytype_int16 *yyss;
     yytype_int16 *yyssp;
@@ -2318,14 +4320,14 @@ yyparse (void)
 
 
   YYSTYPE yyval;
-# 1128 "y.tab.c"
+# 1127 "y.tab.c"
   int yylen = 0;
 
   yyssp = yyss = yyssa;
   yyvsp = yyvs = yyvsa;
   yystacksize = 200;
 
-                                          ;
+  ;
 
   yystate = 0;
   yyerrstatus = 0;
@@ -2336,27 +4338,19 @@ yyparse (void)
 
 
 
-
-yynewstate:
+ yynewstate:
 
 
   yyssp++;
 
-
-
-
-
-yysetstate:
-  *yyssp = (yytype_int16) yystate;
+ yysetstate:
+  *yyssp = yystate;
 
   if (yyss + yystacksize - 1 <= yyssp)
-
-
-
     {
 
-      long unsigned int yysize = (long unsigned int) (yyssp - yyss + 1);
-# 1187 "y.tab.c"
+      long unsigned int yysize = yyssp - yyss + 1;
+# 1182 "y.tab.c"
       if (10000 <= yystacksize)
         goto yyexhaustedlab;
       yystacksize *= 2;
@@ -2377,18 +4371,18 @@ yysetstate:
       }
 
 
+
       yyssp = yyss + yysize - 1;
       yyvsp = yyvs + yysize - 1;
 
-
-                                               ;
+     
+                                                   ;
 
       if (yyss + yystacksize - 1 <= yyssp)
         goto yyabortlab;
     }
 
-
-                                                      ;
+  ;
 
   if (yystate == 15)
     goto yyacceptlab;
@@ -2398,8 +4392,8 @@ yysetstate:
 
 
 
-
 yybackup:
+
 
 
 
@@ -2413,19 +4407,19 @@ yybackup:
 
   if (yychar == (-2))
     {
-                                               ;
+      ;
       yychar = yylex ();
     }
 
   if (yychar <= 0)
     {
       yychar = yytoken = 0;
-                                                    ;
+      ;
     }
   else
     {
-      yytoken = ((unsigned) (yychar) <= 285 ? yytranslate[yychar] : 2);
-                                                                  ;
+      yytoken = ((unsigned int) (yychar) <= 285 ? yytranslate[yychar] : 2);
+      ;
     }
 
 
@@ -2448,15 +4442,31 @@ yybackup:
     yyerrstatus--;
 
 
-                                                         ;
+  ;
 
 
   yychar = (-2);
 
   yystate = yyn;
-
+ 
+# 1279 "y.tab.c"
+#pragma GCC diagnostic push
+# 1279 "y.tab.c"
+ 
+# 1279 "y.tab.c"
+#pragma GCC diagnostic ignored "-Wuninitialized"
+# 1279 "y.tab.c"
+ 
+# 1279 "y.tab.c"
+#pragma GCC diagnostic ignored "-Wmaybe-uninitialized"
+# 1279 "y.tab.c"
+ 
   *++yyvsp = yylval;
-
+ 
+# 1281 "y.tab.c"
+#pragma GCC diagnostic pop
+# 1281 "y.tab.c"
+ 
 
   goto yynewstate;
 
@@ -2477,70 +4487,73 @@ yydefault:
 yyreduce:
 
   yylen = yyr2[yyn];
-# 1316 "y.tab.c"
+# 1311 "y.tab.c"
   yyval = yyvsp[1-yylen];
 
 
-                       ;
+  ;
   switch (yyn)
     {
         case 2:
 # 55 "parser.y"
- { printf("Get query\n");}
-# 1326 "y.tab.c"
- break;
+    { printf("Get query\n");}
+# 1321 "y.tab.c"
+    break;
 
   case 3:
 # 57 "parser.y"
- { printf("Insert query\n");}
-# 1332 "y.tab.c"
- break;
+    { printf("Insert query\n");}
+# 1327 "y.tab.c"
+    break;
 
   case 4:
 # 59 "parser.y"
- { printf("Update query\n");}
-# 1338 "y.tab.c"
- break;
+    { printf("Update query\n");}
+# 1333 "y.tab.c"
+    break;
 
   case 5:
 # 61 "parser.y"
- { printf("Delete query\n");}
-# 1344 "y.tab.c"
- break;
+    { printf("Delete query\n");}
+# 1339 "y.tab.c"
+    break;
 
   case 6:
 # 64 "parser.y"
- {
+    {
 
 
 
           }
-# 1354 "y.tab.c"
- break;
+# 1349 "y.tab.c"
+    break;
 
   case 7:
 # 71 "parser.y"
- {
+    {
+
+
+
 
 
 
                 }
-# 1364 "y.tab.c"
- break;
+# 1362 "y.tab.c"
+    break;
 
   case 8:
-# 78 "parser.y"
- {
+# 81 "parser.y"
+    {
 
 
 
                 }
-# 1374 "y.tab.c"
- break;
+# 1372 "y.tab.c"
+    break;
 
   case 9:
-# 85 "parser.y"
- {
+# 88 "parser.y"
+    {
 
                   struct Record* iter = (yyvsp[0].record_ptr);
                   printf("DELETE KE ANDAR\n");
@@ -2548,10 +4561,18 @@ yyreduce:
                   DIR* dir_handle = opendir((yyvsp[-2].string));
                   struct dirent* dir_entry;
                   int Hack = 2;
-                  while((dir_entry=readdir(dir_handle))!=((void*)0)){
+                  while((dir_entry=readdir(dir_handle))!=
+# 96 "parser.y" 3 4
+                                                        ((void *)0)
+# 96 "parser.y"
+                                                            ){
                     iter = (yyvsp[0].record_ptr);
 
-                    while(iter!=((void*)0)){
+                    while(iter!=
+# 99 "parser.y" 3 4
+                               ((void *)0)
+# 99 "parser.y"
+                                   ){
                       printf("the dir handle 2 is %p\n",iter);
                       printf("the type is %d, STRING %d INT %d\n ",iter->current_field.field_array[0].type,VAL_STRING,VAL_INT );
                       switch(iter->current_field.field_array[0].type){
@@ -2583,20 +4604,20 @@ yyreduce:
 
                   }
                 }
-# 1422 "y.tab.c"
- break;
+# 1420 "y.tab.c"
+    break;
 
   case 10:
-# 130 "parser.y"
- {
+# 133 "parser.y"
+    {
                   (yyval.string_list_ptr) = (yyvsp[-1].string_list_ptr) ;
                 }
-# 1430 "y.tab.c"
- break;
+# 1428 "y.tab.c"
+    break;
 
   case 11:
-# 135 "parser.y"
- {
+# 138 "parser.y"
+    {
                   struct String_List* temp = malloc(sizeof(struct String));
                   strcpy(temp->data.string,(yyvsp[-2].string));
                   temp->data.string_length = strlen((yyvsp[-2].string));
@@ -2604,37 +4625,45 @@ yyreduce:
                   (yyval.string_list_ptr) ->next_str = temp;
 
                 }
-# 1443 "y.tab.c"
- break;
+# 1441 "y.tab.c"
+    break;
 
   case 12:
-# 144 "parser.y"
- {
+# 147 "parser.y"
+    {
                   struct String_List* temp = malloc(sizeof(struct String));
                   strcpy(temp->data.string,(yyvsp[0].string));
                   temp->data.string_length = strlen((yyvsp[0].string));
                   temp->length = 1;
                   (yyval.string_list_ptr) = temp;
                 }
-# 1455 "y.tab.c"
- break;
+# 1453 "y.tab.c"
+    break;
 
   case 13:
-# 153 "parser.y"
- { strcpy((yyval.string),(yyvsp[0].string)); }
-# 1461 "y.tab.c"
- break;
+# 156 "parser.y"
+    { strcpy((yyval.string),(yyvsp[0].string)); }
+# 1459 "y.tab.c"
+    break;
 
   case 14:
-# 156 "parser.y"
- {
+# 159 "parser.y"
+    {
             puts("entered condition list");
-            (yyval.record_ptr) = ((void*)0);
+            (yyval.record_ptr) = 
+# 161 "parser.y" 3 4
+                                ((void *)0)
+# 161 "parser.y"
+                                    ;
             struct Record * iter = (yyvsp[-2].record_ptr);
             if((yyvsp[-1].integer) == 1)
             {
               printf("Inside AND\n");
-              while(iter != ((void*)0)){
+              while(iter != 
+# 166 "parser.y" 3 4
+                           ((void *)0)
+# 166 "parser.y"
+                               ){
                 if( find(*iter,(yyvsp[0].record_ptr))){
                   push_back(iter->current_field,&(yyval.record_ptr));
                 }
@@ -2644,7 +4673,11 @@ yyreduce:
             else{
               (yyval.record_ptr) = (yyvsp[-2].record_ptr);
               iter = (yyvsp[0].record_ptr);
-              while(iter != ((void*)0)){
+              while(iter != 
+# 176 "parser.y" 3 4
+                           ((void *)0)
+# 176 "parser.y"
+                               ){
                 if( !find(*iter,(yyval.record_ptr))){
                   push_back(iter->current_field,&(yyval.record_ptr));
                 }
@@ -2654,73 +4687,86 @@ yyreduce:
             printf("output after condition\n\n");
             print_list((yyval.record_ptr));
           }
-# 1493 "y.tab.c"
- break;
+# 1491 "y.tab.c"
+    break;
 
   case 15:
-# 184 "parser.y"
- { (yyval.record_ptr) = (yyvsp[0].record_ptr); }
-# 1499 "y.tab.c"
- break;
+# 187 "parser.y"
+    { (yyval.record_ptr) = (yyvsp[0].record_ptr); }
+# 1497 "y.tab.c"
+    break;
 
   case 16:
-# 187 "parser.y"
- { printf("GAND\n");
+# 190 "parser.y"
+    { printf("GAND\n");
                                                                                     (yyval.integer) = 1;
                                                                                }
-# 1507 "y.tab.c"
- break;
+# 1505 "y.tab.c"
+    break;
 
   case 17:
-# 191 "parser.y"
- { printf("GORI\n");
+# 194 "parser.y"
+    { printf("GORI\n");
                                                                                   (yyval.integer) = 0;
                                                                                 }
-# 1515 "y.tab.c"
- break;
+# 1513 "y.tab.c"
+    break;
 
   case 18:
-# 197 "parser.y"
- { (yyval.record_ptr) = (yyvsp[0].record_ptr); }
-# 1521 "y.tab.c"
- break;
+# 200 "parser.y"
+    { (yyval.record_ptr) = (yyvsp[0].record_ptr); }
+# 1519 "y.tab.c"
+    break;
 
   case 19:
-# 199 "parser.y"
- { (yyval.record_ptr) = (yyvsp[0].record_ptr); }
-# 1527 "y.tab.c"
- break;
+# 202 "parser.y"
+    { (yyval.record_ptr) = (yyvsp[0].record_ptr); }
+# 1525 "y.tab.c"
+    break;
 
   case 20:
-# 201 "parser.y"
- {
-                  (yyval.record_ptr) = ((void*)0);
+# 204 "parser.y"
+    {
+                  (yyval.record_ptr) = 
+# 205 "parser.y" 3 4
+                                      ((void *)0)
+# 205 "parser.y"
+                                          ;
                   struct Record * iter = table_records;
-                  while(iter != ((void*)0)){
-                    if( find(*iter,(yyvsp[0].record_ptr)) ){
-                      continue;
-                    }
-                    else{
+                  while(iter != 
+# 207 "parser.y" 3 4
+                               ((void *)0)
+# 207 "parser.y"
+                                   ){
+                    if( find(*iter,(yyvsp[0].record_ptr)) == 
+# 208 "parser.y" 3 4
+                                                            0
+# 208 "parser.y"
+                                                                 ){
                       push_back(iter->current_field,&(yyval.record_ptr));
                     }
+                    iter = iter->next_record;
                   }
-                  iter = iter->next_record;
                 }
-# 1545 "y.tab.c"
- break;
+# 1540 "y.tab.c"
+    break;
 
   case 21:
 # 215 "parser.y"
- {
+    {
                   (yyval.record_ptr) = (yyvsp[-1].record_ptr);
                 }
-# 1553 "y.tab.c"
- break;
+# 1548 "y.tab.c"
+    break;
 
   case 22:
 # 220 "parser.y"
- {
-            (yyval.record_ptr)= ((void*)0);
+    {
+            (yyval.record_ptr)= 
+# 221 "parser.y" 3 4
+                               ((void *)0)
+# 221 "parser.y"
+                                   ;
             puts("entered NUMERICAL_CONDITION");
             struct Record* iter = table_records;
             print_list(table_records);
@@ -2734,7 +4780,11 @@ yyreduce:
             }
             printf("table record pointer: %p, first record %d\n",iter,iter->current_field.field_array[pos_of_field].value.integer);
             printf("comparing %d\n",(yyvsp[0].field).value.integer);
-            while(iter != ((void*)0)){
+            while(iter != 
+# 235 "parser.y" 3 4
+                         ((void *)0)
+# 235 "parser.y"
+                             ){
               printf("values in iter %d\n",iter->current_field.field_array[pos_of_field].value.integer);
 
               struct Record* temp = (struct Record*)malloc(sizeof(struct Record));
@@ -2785,13 +4835,17 @@ yyreduce:
             print_list((yyval.record_ptr));
             printf("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD\n");
           }
-# 1624 "y.tab.c"
- break;
+# 1619 "y.tab.c"
+    break;
 
   case 23:
 # 288 "parser.y"
- {
-            (yyval.record_ptr) = ((void*)0);
+    {
+            (yyval.record_ptr) = 
+# 289 "parser.y" 3 4
+                                ((void *)0)
+# 289 "parser.y"
+                                    ;
             struct Record* iter = table_records;
             printf("INSIDE STRING COND\n");
             int pos_of_field = 0;
@@ -2806,7 +4860,11 @@ yyreduce:
             printf("ITER IS %p\n",iter);
             printf("OP IS %s\n",(yyvsp[-1].condtional_operator).opertr);
             printf("COMPARinG with %s %d\n",(yyvsp[0].field).value.string,strlen((yyvsp[0].field).value.string));
-            while(iter != ((void*)0)){
+            while(iter != 
+# 304 "parser.y" 3 4
+                         ((void *)0)
+# 304 "parser.y"
+                             ){
               if( strcmp((yyvsp[-1].condtional_operator).opertr,"=") == 0){
                 char temp[1000];
                 strcpy(temp,(yyvsp[0].field).value.string);
@@ -2825,32 +4883,48 @@ yyreduce:
             print_list((yyval.record_ptr));
             printf("I AINT GOT NO MONEY\n");
           }
-# 1664 "y.tab.c"
- break;
+# 1659 "y.tab.c"
+    break;
 
   case 24:
 # 325 "parser.y"
- {
+    {
 
             strcpy((yyval.field).value.string , (yyvsp[0].field).value.string);
           }
-# 1673 "y.tab.c"
- break;
+# 1668 "y.tab.c"
+    break;
 
   case 25:
 # 331 "parser.y"
- {
+    {
 
             printf("THE STRING FIELD IS ");
-            _Bool flag = 0;
+            
+# 334 "parser.y" 3 4
+           _Bool 
+# 334 "parser.y"
+                flag = 
+# 334 "parser.y" 3 4
+                       0
+# 334 "parser.y"
+                            ;
             for(int i = 0; i < schema.length; i++){
               if(strcmp((yyvsp[0].string),schema.schema_definition[i].name.field_name) == 0){
-                  flag = 1;
+                  flag = 
+# 337 "parser.y" 3 4
+                        1
+# 337 "parser.y"
+                            ;
                   break;
                 }
               }
 
-            if(flag == 0){
+            if(flag == 
+# 342 "parser.y" 3 4
+                      0
+# 342 "parser.y"
+                           ){
 
               printf("FIELD NOT FOUND, CHECK QUERY\n");
               goto yyabortlab;
@@ -2859,106 +4933,122 @@ yyreduce:
             printf("%s\n",(yyval.string));
             printf("DDDDDDDDDDDDSSSSSSSSSSSSSSEEEEEEEEEEEEE\n");
           }
-# 1698 "y.tab.c"
- break;
+# 1693 "y.tab.c"
+    break;
 
   case 26:
 # 353 "parser.y"
- {
+    {
             (yyval.condtional_operator).type = OPERTR;
             strcpy((yyval.condtional_operator).opertr, "=");
             printf("RECEIVED OP %s",(yyval.condtional_operator).opertr);
           }
-# 1708 "y.tab.c"
- break;
+# 1703 "y.tab.c"
+    break;
 
   case 27:
 # 360 "parser.y"
- {
+    {
               (yyval.field).type = INT_TYPE;
               (yyval.field).value.integer = (yyvsp[0].field).value.integer;
             }
-# 1717 "y.tab.c"
- break;
+# 1712 "y.tab.c"
+    break;
 
   case 28:
 # 366 "parser.y"
- {
-            _Bool flag = 0;
+    {
+            
+# 367 "parser.y" 3 4
+           _Bool 
+# 367 "parser.y"
+                flag = 
+# 367 "parser.y" 3 4
+                       0
+# 367 "parser.y"
+                            ;
             for(int i = 0; i < schema.length; i++){
               if(strcmp((yyvsp[0].string),schema.schema_definition[i].name.field_name) == 0){
-                  flag = 1;
+                  flag = 
+# 370 "parser.y" 3 4
+                        1
+# 370 "parser.y"
+                            ;
                   break;
                 }
               }
 
-            if(flag == 0){
+            if(flag == 
+# 375 "parser.y" 3 4
+                      0
+# 375 "parser.y"
+                           ){
 
               printf("FIELD NOT FOUND, CHECK QUERY\n");
               goto yyabortlab;
             }
             strcpy((yyval.string),(yyvsp[0].string));
           }
-# 1738 "y.tab.c"
- break;
+# 1733 "y.tab.c"
+    break;
 
   case 29:
 # 384 "parser.y"
- {
+    {
                           (yyval.condtional_operator).type = OPERTR;
                           strcpy((yyval.condtional_operator).opertr, "<");
                         }
-# 1747 "y.tab.c"
- break;
+# 1742 "y.tab.c"
+    break;
 
   case 30:
 # 389 "parser.y"
- {
+    {
                           (yyval.condtional_operator).type = OPERTR;
                           strcpy((yyval.condtional_operator).opertr, "<=");
                         }
-# 1756 "y.tab.c"
- break;
+# 1751 "y.tab.c"
+    break;
 
   case 31:
 # 394 "parser.y"
- {
+    {
                           (yyval.condtional_operator).type = OPERTR;
                           strcpy((yyval.condtional_operator).opertr, ">");
                         }
-# 1765 "y.tab.c"
- break;
+# 1760 "y.tab.c"
+    break;
 
   case 32:
 # 399 "parser.y"
- {
+    {
                           (yyval.condtional_operator).type = OPERTR;
                           strcpy((yyval.condtional_operator).opertr, ">");
                         }
-# 1774 "y.tab.c"
- break;
+# 1769 "y.tab.c"
+    break;
 
   case 33:
 # 404 "parser.y"
- {
+    {
                           (yyval.condtional_operator).type = OPERTR;
                           strcpy((yyval.condtional_operator).opertr, "==");
                         }
-# 1783 "y.tab.c"
- break;
+# 1778 "y.tab.c"
+    break;
 
   case 34:
 # 410 "parser.y"
- {
+    {
                           (yyval.condtional_operator).type = OPERTR;
                           strcpy((yyval.condtional_operator).opertr, "!=");
                         }
-# 1792 "y.tab.c"
- break;
+# 1787 "y.tab.c"
+    break;
 
   case 35:
 # 418 "parser.y"
- {
+    {
                   if((yyvsp[-1].field_list_ptr)->length == 100){
                     printf("Need more fields in the definition? contact the developer\n");
                     goto yyabortlab;
@@ -2974,12 +5064,12 @@ yyreduce:
                     (yyval.field_list_ptr)->length = (yyval.field_list_ptr)->length + 1;
                   }
                 }
-# 1813 "y.tab.c"
- break;
+# 1808 "y.tab.c"
+    break;
 
   case 36:
 # 436 "parser.y"
- {
+    {
                   if((yyvsp[0].field_list_ptr)->length == 100){
                     printf("Need more fields in the definition? contact the developer\n");
                     goto yyabortlab;
@@ -2995,21 +5085,21 @@ yyreduce:
                     (yyval.field_list_ptr)->length = (yyval.field_list_ptr)->length + 1;
                   }
                 }
-# 1834 "y.tab.c"
- break;
+# 1829 "y.tab.c"
+    break;
 
   case 37:
 # 453 "parser.y"
- {
+    {
                                         (yyval.field_list_ptr) = (struct Field_List*)calloc(1,sizeof(struct Field_List));
                                         (yyval.field_list_ptr)->length = 0;
                                         }
-# 1843 "y.tab.c"
- break;
+# 1838 "y.tab.c"
+    break;
 
   case 38:
 # 459 "parser.y"
- {
+    {
                   (yyval.field).type = (yyvsp[0].field).type;
                   switch((yyval.field).type){
                     case VAL_INT : (yyval.field).value.integer = (yyvsp[0].field).value.integer; break;
@@ -3017,12 +5107,12 @@ yyreduce:
                     default: printf("Illegal type stopping execution\n");goto yyabortlab;
                   }
                 }
-# 1856 "y.tab.c"
- break;
+# 1851 "y.tab.c"
+    break;
 
   case 39:
 # 468 "parser.y"
- {
+    {
                   (yyval.field).type = (yyvsp[0].field).type;
                   switch((yyval.field).type){
                     case VAL_INT : (yyval.field).value.integer = (yyvsp[0].field).value.integer; break;
@@ -3030,15 +5120,23 @@ yyreduce:
                     default: printf("Illegal type stopping execution\n");goto yyabortlab;
                   }
                 }
-# 1869 "y.tab.c"
- break;
+# 1864 "y.tab.c"
+    break;
 
   case 40:
 # 478 "parser.y"
- {
+    {
 
 
 
+
+
+                  table_records = 
+# 484 "parser.y" 3 4
+                                 ((void *)0)
+# 484 "parser.y"
+                                     ;
+                  memset(&schema,0,sizeof(schema));
 
                   char path_to_schema[1000];
                   strcpy((yyval.string),(yyvsp[0].string));
@@ -3049,7 +5147,11 @@ yyreduce:
                   printf("path to schema is %s\n",path_to_schema);
                   FILE* schema_file_handle = fopen(path_to_schema,"r+");
 
-                  if(schema_file_handle==((void*)0)){
+                  if(schema_file_handle==
+# 496 "parser.y" 3 4
+                                        ((void *)0)
+# 496 "parser.y"
+                                            ){
                     handle_query_file_error();
                   }
                   printf("Table Schema found!\n");
@@ -3065,12 +5167,24 @@ yyreduce:
                   strcat(path_to_table,(yyval.string));
 
                   DIR* table_file_handle = opendir(path_to_table);
-                  if(table_file_handle==((void*)0)){
+                  if(table_file_handle==
+# 512 "parser.y" 3 4
+                                       ((void *)0)
+# 512 "parser.y"
+                                           ){
                     handleError(0);
                   }
                   printf("The table is found\n");
-                  struct dirent* file = ((void*)0);
-                  char* line = ((void*)0);
+                  struct dirent* file = 
+# 516 "parser.y" 3 4
+                                       ((void *)0)
+# 516 "parser.y"
+                                           ;
+                  char* line = 
+# 517 "parser.y" 3 4
+                              ((void *)0)
+# 517 "parser.y"
+                                  ;
                   ssize_t read;
                   size_t len;
 
@@ -3093,7 +5207,11 @@ yyreduce:
                       strip(line);
                       char* token1 = strtok(line,":");
                       strcpy(schema.schema_definition[index].name.field_name,token1);
-                      token1 = strtok(((void*)0),":");
+                      token1 = strtok(
+# 540 "parser.y" 3 4
+                                     ((void *)0)
+# 540 "parser.y"
+                                         ,":");
                       if(strcmp(token1,"string") == 0){
                           schema.schema_definition[index++].type = VAL_STRING;
                       }
@@ -3110,8 +5228,16 @@ yyreduce:
                   }
                   printf("dummy\n");
 
-                  while((file=readdir(table_file_handle))!=((void*)0)){
-                    if(file->d_type != 8){
+                  while((file=readdir(table_file_handle))!=
+# 557 "parser.y" 3 4
+                                                          ((void *)0)
+# 557 "parser.y"
+                                                              ){
+                    if(file->d_type != 
+# 558 "parser.y" 3 4
+                                      DT_REG
+# 558 "parser.y"
+                                            ){
                       continue;
                     }
                     else{
@@ -3131,14 +5257,26 @@ yyreduce:
                         char templine[1000];
                         strcpy(templine,line);
                         char* token = strtok(line,"\t");
-                        while(token != ((void*)0)){
+                        while(token != 
+# 578 "parser.y" 3 4
+                                      ((void *)0)
+# 578 "parser.y"
+                                          ){
                           index++;
-                          token = strtok(((void*)0),"\t");
+                          token = strtok(
+# 580 "parser.y" 3 4
+                                        ((void *)0)
+# 580 "parser.y"
+                                            ,"\t");
                         }
                         record.length = index;
                         index = 0;
                         token = strtok(templine,"\t");
-                        while(token != ((void*)0)){
+                        while(token != 
+# 585 "parser.y" 3 4
+                                      ((void *)0)
+# 585 "parser.y"
+                                          ){
 
                             record.field_array[index].type = schema.schema_definition[index].type;
                             if(record.field_array[index].type == VAL_INT){
@@ -3149,7 +5287,11 @@ yyreduce:
                             }
 
                             index++;
-                            token = strtok(((void*)0),"\t");
+                            token = strtok(
+# 596 "parser.y" 3 4
+                                          ((void *)0)
+# 596 "parser.y"
+                                              ,"\t");
                         }
                         push_back(record,&table_records);
 
@@ -3160,30 +5302,31 @@ yyreduce:
                   puts("THE PATH TO THE TABLE IS");
                   puts((yyval.string));
                 }
-# 1999 "y.tab.c"
- break;
-# 2003 "y.tab.c"
- default: break;
+# 1998 "y.tab.c"
+    break;
+# 2002 "y.tab.c"
+      default: break;
     }
-# 2016 "y.tab.c"
-                                                        ;
+# 2015 "y.tab.c"
+  ;
 
   (yyvsp -= (yylen), yyssp -= (yylen));
   yylen = 0;
-                              ;
+  ;
 
   *++yyvsp = yyval;
 
 
 
 
-  {
-    const int yylhs = yyr1[yyn] - 31;
-    const int yyi = yypgoto[yylhs] + *yyssp;
-    yystate = (0 <= yyi && yyi <= 63 && yycheck[yyi] == *yyssp
-               ? yytable[yyi]
-               : yydefgoto[yylhs]);
-  }
+
+  yyn = yyr1[yyn];
+
+  yystate = yypgoto[yyn - 31] + *yyssp;
+  if (0 <= yystate && yystate <= 63 && yycheck[yystate] == *yyssp)
+    yystate = yytable[yystate];
+  else
+    yystate = yydefgoto[yyn - 31];
 
   goto yynewstate;
 
@@ -3194,7 +5337,7 @@ yyreduce:
 yyerrlab:
 
 
-  yytoken = yychar == (-2) ? (-2) : ((unsigned) (yychar) <= 285 ? yytranslate[yychar] : 2);
+  yytoken = yychar == (-2) ? (-2) : ((unsigned int) (yychar) <= 285 ? yytranslate[yychar] : 2);
 
 
   if (!yyerrstatus)
@@ -3237,14 +5380,16 @@ yyerrlab:
 yyerrorlab:
 
 
-  if (0)
-    goto yyerrorlab;
+
+
+  if ( 0)
+     goto yyerrorlab;
 
 
 
   (yyvsp -= (yylen), yyssp -= (yylen));
   yylen = 0;
-                              ;
+  ;
   yystate = *yyssp;
   goto yyerrlab1;
 
@@ -3278,16 +5423,32 @@ yyerrlab1:
                   yystos[yystate], yyvsp);
       (yyvsp -= (1), yyssp -= (1));
       yystate = *yyssp;
-                                  ;
+      ;
     }
 
-
+ 
+# 2164 "y.tab.c"
+#pragma GCC diagnostic push
+# 2164 "y.tab.c"
+ 
+# 2164 "y.tab.c"
+#pragma GCC diagnostic ignored "-Wuninitialized"
+# 2164 "y.tab.c"
+ 
+# 2164 "y.tab.c"
+#pragma GCC diagnostic ignored "-Wmaybe-uninitialized"
+# 2164 "y.tab.c"
+ 
   *++yyvsp = yylval;
+ 
+# 2166 "y.tab.c"
+#pragma GCC diagnostic pop
+# 2166 "y.tab.c"
+ 
 
 
 
-
-                                                         ;
+  ;
 
   yystate = yyn;
   goto yynewstate;
@@ -3303,11 +5464,9 @@ yyacceptlab:
 
 
 
-
 yyabortlab:
   yyresult = 1;
   goto yyreturn;
-
 
 
 
@@ -3319,23 +5478,19 @@ yyexhaustedlab:
 
 
 
-
-
-
-
 yyreturn:
   if (yychar != (-2))
     {
 
 
-      yytoken = ((unsigned) (yychar) <= 285 ? yytranslate[yychar] : 2);
+      yytoken = ((unsigned int) (yychar) <= 285 ? yytranslate[yychar] : 2);
       yydestruct ("Cleanup: discarding lookahead",
                   yytoken, &yylval);
     }
 
 
   (yyvsp -= (yylen), yyssp -= (yylen));
-                              ;
+  ;
   while (yyssp != yyss)
     {
       yydestruct ("Cleanup: popping",
@@ -3352,25 +5507,57 @@ yyreturn:
 
   return yyresult;
 }
-# 604 "parser.y"
+# 608 "parser.y"
 
 
 void handle_query_file_error(){
 
-  switch((*__errno())){
-    case 22: printf("The mode provided for opening the file is incorrect\n");break;
-    case 12: printf("Out of memory as the memory has hit the memory limit set internally\n");break;
-    case 13: printf("Access to the current file is not allowed.Check the permissions set for the file\n");break;
-    case 14: printf("The path name is outside your accessible address space\n");break;
-    case 2: printf("This file does not exist\n");break;
+  switch(
+# 612 "parser.y" 3 4
+        (*__errno_location ())
+# 612 "parser.y"
+             ){
+    case 
+# 613 "parser.y" 3 4
+        22
+# 613 "parser.y"
+              : printf("The mode provided for opening the file is incorrect\n");break;
+    case 
+# 614 "parser.y" 3 4
+        12
+# 614 "parser.y"
+              : printf("Out of memory as the memory has hit the memory limit set internally\n");break;
+    case 
+# 615 "parser.y" 3 4
+        13
+# 615 "parser.y"
+              : printf("Access to the current file is not allowed.Check the permissions set for the file\n");break;
+    case 
+# 616 "parser.y" 3 4
+        14
+# 616 "parser.y"
+              : printf("The path name is outside your accessible address space\n");break;
+    case 
+# 617 "parser.y" 3 4
+        2
+# 617 "parser.y"
+              : printf("This file does not exist\n");break;
 
 
 
   }
-  exit(1);
+  exit(
+# 622 "parser.y" 3 4
+      1
+# 622 "parser.y"
+                  );
 }
 int yyerror(const char* msg){
-  fprintf((&__sF[2])," %s\n",msg);
+  fprintf(
+# 625 "parser.y" 3 4
+         stderr
+# 625 "parser.y"
+               ," %s\n",msg);
     return 0;
 }
 
@@ -3378,26 +5565,70 @@ int yyerror(const char* msg){
 
 void handleError(int isMaster){
 
-    switch((*__errno())){
-    case 13: perror("Permission denied.\n");exit(1);break;
+    switch(
+# 633 "parser.y" 3 4
+          (*__errno_location ())
+# 633 "parser.y"
+               ){
+    case 
+# 634 "parser.y" 3 4
+        13
+# 634 "parser.y"
+              : perror("Permission denied.\n");exit(
+# 634 "parser.y" 3 4
+                                                    1
+# 634 "parser.y"
+                                                                );break;
 
-       case 9: perror("fd is not a valid file descriptor opened for reading.\n");exit(1);break;
+       case 
+# 636 "parser.y" 3 4
+           9
+# 636 "parser.y"
+                : perror("fd is not a valid file descriptor opened for reading.\n");exit(
+# 636 "parser.y" 3 4
+                                                                                          1
+# 636 "parser.y"
+                                                                                                      );break;
 
-       case 24: perror("The per-process limit on the number of open file descriptors has been reached.\n");exit(1);break;
+       case 
+# 638 "parser.y" 3 4
+           24
+# 638 "parser.y"
+                 : perror("The per-process limit on the number of open file descriptors has been reached.\n");exit(
+# 638 "parser.y" 3 4
+                                                                                                                   1
+# 638 "parser.y"
+                                                                                                                               );break;
 
 
-       case 23: perror("The system-wide limit on the total number of open files has been reached.\n");exit(1);break;
+       case 
+# 641 "parser.y" 3 4
+           23
+# 641 "parser.y"
+                 : perror("The system-wide limit on the total number of open files has been reached.\n");exit(
+# 641 "parser.y" 3 4
+                                                                                                              1
+# 641 "parser.y"
+                                                                                                                          );break;
 
 
 
-        case 2: printf("Directory does not exist, or name is an empty string.\n");
+        case 
+# 645 "parser.y" 3 4
+            2
+# 645 "parser.y"
+                  : printf("Directory does not exist, or name is an empty string.\n");
                         if(isMaster==1){
                             char c;
                             printf("Do you want to create a new master Directory(y/n)\n");
                             scanf("%c",&c);
                             if(c=='n' || c=='N'){
                                 printf("Terminating execution\n");
-                                exit(0);
+                                exit(
+# 652 "parser.y" 3 4
+                                    0
+# 652 "parser.y"
+                                                );
                             }
                             else{
 
@@ -3405,16 +5636,40 @@ void handleError(int isMaster){
                                 mkdir("./data",0777);
                                 printf(" Make use of the schema and the data helper utilities to fill the schema details and the input files\n");
                             }
-                            exit(0);
+                            exit(
+# 660 "parser.y" 3 4
+                                0
+# 660 "parser.y"
+                                            );
                             break;
                         }
-                        exit(0);
+                        exit(
+# 663 "parser.y" 3 4
+                            0
+# 663 "parser.y"
+                                        );
 
 
-       case 12: perror("Insufficient memory to complete the operation.\n");exit(1);break;
+       case 
+# 666 "parser.y" 3 4
+           12
+# 666 "parser.y"
+                 : perror("Insufficient memory to complete the operation.\n");exit(
+# 666 "parser.y" 3 4
+                                                                                   1
+# 666 "parser.y"
+                                                                                               );break;
 
 
-       case 20: perror("name is not a directory.\n");exit(1);break;
+       case 
+# 669 "parser.y" 3 4
+           20
+# 669 "parser.y"
+                  : perror("name is not a directory.\n");exit(
+# 669 "parser.y" 3 4
+                                                              1
+# 669 "parser.y"
+                                                                          );break;
     }
 }
 
@@ -3426,7 +5681,11 @@ int initFunction(char *tableName){
         printf("The master diretory is initialized.\n");
     }
     else{
-        handleError(2);
+        handleError(
+# 681 "parser.y" 3 4
+                   2
+# 681 "parser.y"
+                         );
     }
     return 0;
 }

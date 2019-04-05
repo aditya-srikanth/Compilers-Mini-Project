@@ -9,13 +9,12 @@
 #include <string.h>
 #include <stdlib.h>
 #include <dirent.h>
-#define STRING "string"
-#define INT "int"
+#define STRING "string\n"
+#define INT "int\n"
 #define ARRAY_SIZE 100
 #define STRING_LENGTH 1000
 
 typedef enum {VAL_INT, VAL_STRING}Type;
-typedef union {}Types;
 
 //Datatypes
 struct Field{

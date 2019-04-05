@@ -1,4 +1,4 @@
-/*
+ /*
  * @authors
  * Tanmay Kulkarni
  * Ch Vishal
@@ -51,6 +51,7 @@
 %type <field> DATA_UNIT
 
 %%
+
   QUERY :   GET_QRY    { printf("Get query\n");}
         |
         INSERT_QRY  { printf("Insert query\n");}
@@ -84,6 +85,7 @@
     DELETE_QRY: DELETE RECORD FROM FILE_NAME WHERE CONDITION_LIST  {
                   // $$ = NULL;
                   struct Record* iter = $6;
+                  print_list(iter);
                   DIR* dir_handle = opendir($4);
                   struct dirent* dir_entry;
                   int Hack = 2;
@@ -113,6 +115,7 @@
                                         }
                                         break;
                       }
+                      iter = iter -> next_record;
                     }
                   }
                 }
@@ -207,6 +210,7 @@
             $$= NULL;
             puts("entered NUMERICAL_CONDITION");
             struct Record* iter = table_records;
+            print_list(table_records);
             int pos_of_field = 0;
             for(int i = 0; i < schema.length; i++){
               printf("schema field name %s \n",$1);
@@ -215,8 +219,8 @@
                 break;
               }
             } 
-            printf("table record pointer: %p, first record %d\n",iter,iter->current_field.field_array[pos_of_field].value.integer);
-            printf("comparing %d\n",$3.value.integer);
+            // printf("table record pointer: %p, first record %d\n",iter,iter->current_field.field_array[pos_of_field].value.integer);
+            // printf("comparing %d\n",$3.value.integer);
             while(iter != NULL){
               printf("values in iter %d\n",iter->current_field.field_array[pos_of_field].value.integer);
 
@@ -259,6 +263,7 @@
               }    
               iter = iter->next_record;
             }
+            print_list($$);
           }
           ;
 
@@ -491,15 +496,15 @@
                       char* token1 = strtok(line,SCHEMA_DELIM);
                       strcpy(schema.schema_definition[index].name.field_name,token1);
                       token1 = strtok(NULL,SCHEMA_DELIM);
-                      if(strcmp(token1,STRING)){
+                      if(strcmp(token1,STRING) == 0){
                           schema.schema_definition[index++].type = VAL_STRING;
                       }
-                      else{
+                      else if(strcmp(token1,INT) == 0){
                           schema.schema_definition[index++].type = VAL_INT;
                       }
                       // strcpy(schema.schema_definition[index++].type,token1);
                   }
-                  
+                  fclose(schema_file_handle);
                   //for debug, print the schema obtained
                   printf("Number of  Attributes: %d\n",number_of_attributes);
                   for(int i=0;i<number_of_attributes;i++){
@@ -518,20 +523,32 @@
                         FILE* ffile = fopen(filenames,"r");
                         read = getline(&line,&len,ffile);
                         if(read == -1){
-                            printf("Line not found\n");
+                          // printf("Line not found\n");
+                          handle_query_file_error();
                         }
                         index = 0;
+                        printf("%s\n",line);
+                        char templine[STRING_LENGTH];
+                        strcpy(templine,line);
                         char* token = strtok(line,FILE_DELIM);
                         while(token != NULL){
-                            struct Field field;
-                            field.type = schema.schema_definition[index].type;
-                            if(field.type == VAL_INT){
-                                field.value.integer = atoi(token);
+                          index++;
+                          token = strtok(NULL,FILE_DELIM);
+                        }
+                        record.length = index;
+                        index = 0;
+                        token = strtok(templine,FILE_DELIM);
+                        while(token != NULL){
+                            // struct Field field;
+                            record.field_array[index].type = schema.schema_definition[index].type;
+                            if(record.field_array[index].type == VAL_INT){
+                                record.field_array[index].value.integer = atoi(token);
                             }
                             else{
-                                strcpy(field.value.string,token);
+                                strcpy(record.field_array[index].value.string,token);
                             }
-                            record.field_array[index++] = field;
+                            // record.field_array[index++] = field;
+                            index++;
                             token = strtok(NULL,FILE_DELIM);
                         }
                         push_back(record,&table_records);

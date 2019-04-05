@@ -68,15 +68,94 @@
           }
         ;
 
-    INSERT_QRY:  INSERT RECORD TUPLE INTO FILE_NAME                   {
+    INSERT_QRY:  INSERT RECORD TUPLE INTO FILE_NAME                  {
                                                                         //TODO 
                                                                         //open file handle
                                                                         //write to file
-                FILE* file_handle = NULL;
-                
-                file_handle = fopen($5);                                               
-                }
-                ;
+                                                                        
+                                                                        if($3->length != schema.length){
+                                                                          yyerror("Input does not match schema: incorrect number of arguments");
+                                                                          YYABORT;
+                                                                        }
+                                                                          
+                                                                        for(int i = $3->length-1; i >= 0; i--){
+                                                                          printf("type of candidate is %d and schema: %d\n",$3->field_array[i].type, schema.schema_definition[$3->length-i-1].type);
+                                                                          if($3->field_array[i].type != schema.schema_definition[$3->length-i-1].type){
+                                                                            yyerror("Input does not match schema: incorrect type of arguments");
+                                                                            YYABORT;
+                                                                          }
+                                                                        }  
+                                                                        DIR* dir_handle = NULL;                                                                        
+                                                                        dir_handle = opendir($5); 
+                                                                        if(dir_handle == NULL){
+                                                                          handleError(false);
+                                                                        }
+                                                                        else{
+                                                                          FILE* file_handle = NULL;
+                                                                          char temp[STRING_LENGTH];
+                                                                          char path_to_file[STRING_LENGTH];
+                                                                          switch($3->field_array[$3->length-1].type){
+                                                                            case VAL_INT:
+
+                                                                              sprintf(temp,"%s/%d.txt",$5,$3->field_array[$3->length-1].value.integer);
+                                                                            
+                                                                            break;
+                                                                            
+                                                                            case VAL_STRING:
+                                                                              sprintf(temp,"%s/%s.txt",$5,$3->field_array[$3->length-1].value.string);
+                                                                            break;
+                                                                          }
+                                                                          strcpy(path_to_file,temp);
+                                                                          if(access(path_to_file,F_OK) != -1){
+                                                                            yyerror("Record already exists!");
+                                                                            YYABORT;
+                                                                          }
+                                                                          else{
+                                                                            char to_print_record[RECORD_LENGTH];
+                                                                            memset(to_print_record,0,sizeof(to_print_record));
+                                                                            for(int i = $3->length-1; i > 0; i--){
+                                                                              switch($3->field_array[i].type){
+                                                                                case VAL_INT:
+
+                                                                                  sprintf(temp,"%d%s",$3->field_array[i].value.integer,FILE_DELIM);
+                                                                                
+                                                                                break;
+                                                                                
+                                                                                case VAL_STRING:
+                                                                                  sprintf(temp,"%s%s",$3->field_array[i].value.string,FILE_DELIM);
+                                                                                break;
+                                                                              }
+                                                                              strcat(to_print_record,temp);
+                                                                            }
+                                                                            switch($3->field_array[0].type){
+                                                                                case VAL_INT:
+
+                                                                                  sprintf(temp,"%d",$3->field_array[0].value.integer);
+                                                                                
+                                                                                break;
+                                                                                
+                                                                                case VAL_STRING:
+                                                                                  sprintf(temp,"%s",$3->field_array[0].value.string);
+                                                                                break;
+                                                                            }
+                                                                            strcat(to_print_record,temp);
+                                                                            puts("to print record");
+                                                                            puts(to_print_record);
+                                                                            file_handle = fopen(path_to_file,"w");
+                                                                            if(file_handle == NULL){
+                                                                              handle_query_file_error();
+                                                                            }
+                                                                            else{
+                                                                              printf("ENTERING %s\n",to_print_record);
+                                                                              fprintf(file_handle,"%s",to_print_record);
+                                                                              printf("RECORD ENTERED SUCCESFULLY\n");
+                                                                            }
+                                                                            fclose(file_handle);
+                                                                            
+                                                                          }
+                                                                        }
+                                                                      }
+                                                                      ;
 
     UPDATE_QRY: UPDATE RECORD IN FILE_NAME SET FIELD_LIST TO TUPLE WHERE CONDITION_LIST     {
                                                                                               //TODO

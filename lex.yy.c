@@ -976,12 +976,12 @@ YY_RULE_SETUP
 /* Any other character is invalid */
 case 30:
 YY_RULE_SETUP
-#line 88 "lexer.l"
+#line 90 "lexer.l"
 puts(yytext); yyerror("This is an invalid character");
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 89 "lexer.l"
+#line 91 "lexer.l"
 ECHO;
 	YY_BREAK
 #line 988 "lex.yy.c"
@@ -1989,7 +1989,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 89 "lexer.l"
+#line 91 "lexer.l"
 
 
 int yywrap(void){

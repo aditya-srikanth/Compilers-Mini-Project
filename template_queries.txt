@@ -1,0 +1,4 @@
+delete record from employee where name = "tanmay you shit";
+insert record (667,"tanmay you shit") into employee;
+insert record (123,"tanmay") into employee;
+delete record from employee where name = "tanmay you shit";

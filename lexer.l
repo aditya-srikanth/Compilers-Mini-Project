@@ -83,6 +83,8 @@ DIGIT [0-9]
 [ \t] ;
   /* ; signifies DO NOTHING */
 
+
+
   /* Any other character is invalid */
 . puts(yytext); yyerror("This is an invalid character");
 %%

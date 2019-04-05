@@ -4535,24 +4535,127 @@ yyreduce:
 
 
 
+                                                                        if((yyvsp[-2].field_list_ptr)->length != schema.length){
+                                                                          yyerror("Input does not match schema: incorrect number of arguments");
+                                                                          goto yyabortlab;
+                                                                        }
 
+                                                                        for(int i = (yyvsp[-2].field_list_ptr)->length-1; i >= 0; i--){
+                                                                          printf("type of candidate is %d and schema: %d\n",(yyvsp[-2].field_list_ptr)->field_array[i].type, schema.schema_definition[(yyvsp[-2].field_list_ptr)->length-i-1].type);
+                                                                          if((yyvsp[-2].field_list_ptr)->field_array[i].type != schema.schema_definition[(yyvsp[-2].field_list_ptr)->length-i-1].type){
+                                                                            yyerror("Input does not match schema: incorrect type of arguments");
+                                                                            goto yyabortlab;
+                                                                          }
+                                                                        }
+                                                                        DIR* dir_handle = 
+# 88 "parser.y" 3 4
+                                                                                         ((void *)0)
+# 88 "parser.y"
+                                                                                             ;
+                                                                        dir_handle = opendir((yyvsp[0].string));
+                                                                        if(dir_handle == 
+# 90 "parser.y" 3 4
+                                                                                        ((void *)0)
+# 90 "parser.y"
+                                                                                            ){
+                                                                          handleError(
+# 91 "parser.y" 3 4
+                                                                                     0
+# 91 "parser.y"
+                                                                                          );
+                                                                        }
+                                                                        else{
+                                                                          FILE* file_handle = 
+# 94 "parser.y" 3 4
+                                                                                             ((void *)0)
+# 94 "parser.y"
+                                                                                                 ;
+                                                                          char temp[1000];
+                                                                          char path_to_file[1000];
+                                                                          switch((yyvsp[-2].field_list_ptr)->field_array[(yyvsp[-2].field_list_ptr)->length-1].type){
+                                                                            case VAL_INT:
 
-                }
-# 1362 "y.tab.c"
+                                                                              sprintf(temp,"%s/%d.txt",(yyvsp[0].string),(yyvsp[-2].field_list_ptr)->field_array[(yyvsp[-2].field_list_ptr)->length-1].value.integer);
+
+                                                                            break;
+
+                                                                            case VAL_STRING:
+                                                                              sprintf(temp,"%s/%s.txt",(yyvsp[0].string),(yyvsp[-2].field_list_ptr)->field_array[(yyvsp[-2].field_list_ptr)->length-1].value.string);
+                                                                            break;
+                                                                          }
+                                                                          strcpy(path_to_file,temp);
+                                                                          if(access(path_to_file,
+# 109 "parser.y" 3 4
+                                                                                                0
+# 109 "parser.y"
+                                                                                                    ) != -1){
+                                                                            yyerror("Record already exists!");
+                                                                            goto yyabortlab;
+                                                                          }
+                                                                          else{
+                                                                            char to_print_record[1000];
+                                                                            memset(to_print_record,0,sizeof(to_print_record));
+                                                                            for(int i = (yyvsp[-2].field_list_ptr)->length-1; i > 0; i--){
+                                                                              switch((yyvsp[-2].field_list_ptr)->field_array[i].type){
+                                                                                case VAL_INT:
+
+                                                                                  sprintf(temp,"%d%s",(yyvsp[-2].field_list_ptr)->field_array[i].value.integer,"\t");
+
+                                                                                break;
+
+                                                                                case VAL_STRING:
+                                                                                  sprintf(temp,"%s%s",(yyvsp[-2].field_list_ptr)->field_array[i].value.string,"\t");
+                                                                                break;
+                                                                              }
+                                                                              strcat(to_print_record,temp);
+                                                                            }
+                                                                            switch((yyvsp[-2].field_list_ptr)->field_array[0].type){
+                                                                                case VAL_INT:
+
+                                                                                  sprintf(temp,"%d",(yyvsp[-2].field_list_ptr)->field_array[0].value.integer);
+
+                                                                                break;
+
+                                                                                case VAL_STRING:
+                                                                                  sprintf(temp,"%s",(yyvsp[-2].field_list_ptr)->field_array[0].value.string);
+                                                                                break;
+                                                                            }
+                                                                            strcat(to_print_record,temp);
+                                                                            puts("to print record");
+                                                                            puts(to_print_record);
+                                                                            file_handle = fopen(path_to_file,"w");
+                                                                            if(file_handle == 
+# 145 "parser.y" 3 4
+                                                                                             ((void *)0)
+# 145 "parser.y"
+                                                                                                 ){
+                                                                              handle_query_file_error();
+                                                                            }
+                                                                            else{
+                                                                              printf("ENTERING %s\n",to_print_record);
+                                                                              fprintf(file_handle,"%s",to_print_record);
+                                                                              printf("RECORD ENTERED SUCCESFULLY\n");
+                                                                            }
+                                                                            fclose(file_handle);
+
+                                                                          }
+                                                                        }
+                                                                      }
+# 1441 "y.tab.c"
     break;
 
   case 8:
-# 81 "parser.y"
+# 160 "parser.y"
     {
 
 
 
                 }
-# 1372 "y.tab.c"
+# 1451 "y.tab.c"
     break;
 
   case 9:
-# 88 "parser.y"
+# 167 "parser.y"
     {
 
                   struct Record* iter = (yyvsp[0].record_ptr);
@@ -4562,16 +4665,16 @@ yyreduce:
                   struct dirent* dir_entry;
                   int Hack = 2;
                   while((dir_entry=readdir(dir_handle))!=
-# 96 "parser.y" 3 4
+# 175 "parser.y" 3 4
                                                         ((void *)0)
-# 96 "parser.y"
+# 175 "parser.y"
                                                             ){
                     iter = (yyvsp[0].record_ptr);
 
                     while(iter!=
-# 99 "parser.y" 3 4
+# 178 "parser.y" 3 4
                                ((void *)0)
-# 99 "parser.y"
+# 178 "parser.y"
                                    ){
                       printf("the dir handle 2 is %p\n",iter);
                       printf("the type is %d, STRING %d INT %d\n ",iter->current_field.field_array[0].type,VAL_STRING,VAL_INT );
@@ -4604,19 +4707,19 @@ yyreduce:
 
                   }
                 }
-# 1420 "y.tab.c"
+# 1499 "y.tab.c"
     break;
 
   case 10:
-# 133 "parser.y"
+# 212 "parser.y"
     {
                   (yyval.string_list_ptr) = (yyvsp[-1].string_list_ptr) ;
                 }
-# 1428 "y.tab.c"
+# 1507 "y.tab.c"
     break;
 
   case 11:
-# 138 "parser.y"
+# 217 "parser.y"
     {
                   struct String_List* temp = malloc(sizeof(struct String));
                   strcpy(temp->data.string,(yyvsp[-2].string));
@@ -4625,11 +4728,11 @@ yyreduce:
                   (yyval.string_list_ptr) ->next_str = temp;
 
                 }
-# 1441 "y.tab.c"
+# 1520 "y.tab.c"
     break;
 
   case 12:
-# 147 "parser.y"
+# 226 "parser.y"
     {
                   struct String_List* temp = malloc(sizeof(struct String));
                   strcpy(temp->data.string,(yyvsp[0].string));
@@ -4637,32 +4740,32 @@ yyreduce:
                   temp->length = 1;
                   (yyval.string_list_ptr) = temp;
                 }
-# 1453 "y.tab.c"
+# 1532 "y.tab.c"
     break;
 
   case 13:
-# 156 "parser.y"
+# 235 "parser.y"
     { strcpy((yyval.string),(yyvsp[0].string)); }
-# 1459 "y.tab.c"
+# 1538 "y.tab.c"
     break;
 
   case 14:
-# 159 "parser.y"
+# 238 "parser.y"
     {
             puts("entered condition list");
             (yyval.record_ptr) = 
-# 161 "parser.y" 3 4
+# 240 "parser.y" 3 4
                                 ((void *)0)
-# 161 "parser.y"
+# 240 "parser.y"
                                     ;
             struct Record * iter = (yyvsp[-2].record_ptr);
             if((yyvsp[-1].integer) == 1)
             {
               printf("Inside AND\n");
               while(iter != 
-# 166 "parser.y" 3 4
+# 245 "parser.y" 3 4
                            ((void *)0)
-# 166 "parser.y"
+# 245 "parser.y"
                                ){
                 if( find(*iter,(yyvsp[0].record_ptr))){
                   push_back(iter->current_field,&(yyval.record_ptr));
@@ -4674,9 +4777,9 @@ yyreduce:
               (yyval.record_ptr) = (yyvsp[-2].record_ptr);
               iter = (yyvsp[0].record_ptr);
               while(iter != 
-# 176 "parser.y" 3 4
+# 255 "parser.y" 3 4
                            ((void *)0)
-# 176 "parser.y"
+# 255 "parser.y"
                                ){
                 if( !find(*iter,(yyval.record_ptr))){
                   push_back(iter->current_field,&(yyval.record_ptr));
@@ -4687,85 +4790,85 @@ yyreduce:
             printf("output after condition\n\n");
             print_list((yyval.record_ptr));
           }
-# 1491 "y.tab.c"
+# 1570 "y.tab.c"
     break;
 
   case 15:
-# 187 "parser.y"
+# 266 "parser.y"
     { (yyval.record_ptr) = (yyvsp[0].record_ptr); }
-# 1497 "y.tab.c"
+# 1576 "y.tab.c"
     break;
 
   case 16:
-# 190 "parser.y"
+# 269 "parser.y"
     { printf("GAND\n");
                                                                                     (yyval.integer) = 1;
                                                                                }
-# 1505 "y.tab.c"
+# 1584 "y.tab.c"
     break;
 
   case 17:
-# 194 "parser.y"
+# 273 "parser.y"
     { printf("GORI\n");
                                                                                   (yyval.integer) = 0;
                                                                                 }
-# 1513 "y.tab.c"
+# 1592 "y.tab.c"
     break;
 
   case 18:
-# 200 "parser.y"
+# 279 "parser.y"
     { (yyval.record_ptr) = (yyvsp[0].record_ptr); }
-# 1519 "y.tab.c"
+# 1598 "y.tab.c"
     break;
 
   case 19:
-# 202 "parser.y"
+# 281 "parser.y"
     { (yyval.record_ptr) = (yyvsp[0].record_ptr); }
-# 1525 "y.tab.c"
+# 1604 "y.tab.c"
     break;
 
   case 20:
-# 204 "parser.y"
+# 283 "parser.y"
     {
                   (yyval.record_ptr) = 
-# 205 "parser.y" 3 4
+# 284 "parser.y" 3 4
                                       ((void *)0)
-# 205 "parser.y"
+# 284 "parser.y"
                                           ;
                   struct Record * iter = table_records;
                   while(iter != 
-# 207 "parser.y" 3 4
+# 286 "parser.y" 3 4
                                ((void *)0)
-# 207 "parser.y"
+# 286 "parser.y"
                                    ){
                     if( find(*iter,(yyvsp[0].record_ptr)) == 
-# 208 "parser.y" 3 4
+# 287 "parser.y" 3 4
                                                             0
-# 208 "parser.y"
+# 287 "parser.y"
                                                                  ){
                       push_back(iter->current_field,&(yyval.record_ptr));
                     }
                     iter = iter->next_record;
                   }
                 }
-# 1540 "y.tab.c"
+# 1619 "y.tab.c"
     break;
 
   case 21:
-# 215 "parser.y"
+# 294 "parser.y"
     {
                   (yyval.record_ptr) = (yyvsp[-1].record_ptr);
                 }
-# 1548 "y.tab.c"
+# 1627 "y.tab.c"
     break;
 
   case 22:
-# 220 "parser.y"
+# 299 "parser.y"
     {
             (yyval.record_ptr)= 
-# 221 "parser.y" 3 4
+# 300 "parser.y" 3 4
                                ((void *)0)
-# 221 "parser.y"
+# 300 "parser.y"
                                    ;
             puts("entered NUMERICAL_CONDITION");
             struct Record* iter = table_records;
@@ -4781,9 +4884,9 @@ yyreduce:
             printf("table record pointer: %p, first record %d\n",iter,iter->current_field.field_array[pos_of_field].value.integer);
             printf("comparing %d\n",(yyvsp[0].field).value.integer);
             while(iter != 
-# 235 "parser.y" 3 4
+# 314 "parser.y" 3 4
                          ((void *)0)
-# 235 "parser.y"
+# 314 "parser.y"
                              ){
               printf("values in iter %d\n",iter->current_field.field_array[pos_of_field].value.integer);
 
@@ -4835,16 +4938,16 @@ yyreduce:
             print_list((yyval.record_ptr));
             printf("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD\n");
           }
-# 1619 "y.tab.c"
+# 1698 "y.tab.c"
     break;
 
   case 23:
-# 288 "parser.y"
+# 367 "parser.y"
     {
             (yyval.record_ptr) = 
-# 289 "parser.y" 3 4
+# 368 "parser.y" 3 4
                                 ((void *)0)
-# 289 "parser.y"
+# 368 "parser.y"
                                     ;
             struct Record* iter = table_records;
             printf("INSIDE STRING COND\n");
@@ -4861,9 +4964,9 @@ yyreduce:
             printf("OP IS %s\n",(yyvsp[-1].condtional_operator).opertr);
             printf("COMPARinG with %s %d\n",(yyvsp[0].field).value.string,strlen((yyvsp[0].field).value.string));
             while(iter != 
-# 304 "parser.y" 3 4
+# 383 "parser.y" 3 4
                          ((void *)0)
-# 304 "parser.y"
+# 383 "parser.y"
                              ){
               if( strcmp((yyvsp[-1].condtional_operator).opertr,"=") == 0){
                 char temp[1000];
@@ -4883,47 +4986,47 @@ yyreduce:
             print_list((yyval.record_ptr));
             printf("I AINT GOT NO MONEY\n");
           }
-# 1659 "y.tab.c"
+# 1738 "y.tab.c"
     break;
 
   case 24:
-# 325 "parser.y"
+# 404 "parser.y"
     {
 
             strcpy((yyval.field).value.string , (yyvsp[0].field).value.string);
           }
-# 1668 "y.tab.c"
+# 1747 "y.tab.c"
     break;
 
   case 25:
-# 331 "parser.y"
+# 410 "parser.y"
     {
 
             printf("THE STRING FIELD IS ");
             
-# 334 "parser.y" 3 4
+# 413 "parser.y" 3 4
            _Bool 
-# 334 "parser.y"
+# 413 "parser.y"
                 flag = 
-# 334 "parser.y" 3 4
+# 413 "parser.y" 3 4
                        0
-# 334 "parser.y"
+# 413 "parser.y"
                             ;
             for(int i = 0; i < schema.length; i++){
               if(strcmp((yyvsp[0].string),schema.schema_definition[i].name.field_name) == 0){
                   flag = 
-# 337 "parser.y" 3 4
+# 416 "parser.y" 3 4
                         1
-# 337 "parser.y"
+# 416 "parser.y"
                             ;
                   break;
                 }
               }
 
             if(flag == 
-# 342 "parser.y" 3 4
+# 421 "parser.y" 3 4
                       0
-# 342 "parser.y"
+# 421 "parser.y"
                            ){
 
               printf("FIELD NOT FOUND, CHECK QUERY\n");
@@ -4933,55 +5036,55 @@ yyreduce:
             printf("%s\n",(yyval.string));
             printf("DDDDDDDDDDDDSSSSSSSSSSSSSSEEEEEEEEEEEEE\n");
           }
-# 1693 "y.tab.c"
+# 1772 "y.tab.c"
     break;
 
   case 26:
-# 353 "parser.y"
+# 432 "parser.y"
     {
             (yyval.condtional_operator).type = OPERTR;
             strcpy((yyval.condtional_operator).opertr, "=");
             printf("RECEIVED OP %s",(yyval.condtional_operator).opertr);
           }
-# 1703 "y.tab.c"
+# 1782 "y.tab.c"
     break;
 
   case 27:
-# 360 "parser.y"
+# 439 "parser.y"
     {
               (yyval.field).type = INT_TYPE;
               (yyval.field).value.integer = (yyvsp[0].field).value.integer;
             }
-# 1712 "y.tab.c"
+# 1791 "y.tab.c"
     break;
 
   case 28:
-# 366 "parser.y"
+# 445 "parser.y"
     {
             
-# 367 "parser.y" 3 4
+# 446 "parser.y" 3 4
            _Bool 
-# 367 "parser.y"
+# 446 "parser.y"
                 flag = 
-# 367 "parser.y" 3 4
+# 446 "parser.y" 3 4
                        0
-# 367 "parser.y"
+# 446 "parser.y"
                             ;
             for(int i = 0; i < schema.length; i++){
               if(strcmp((yyvsp[0].string),schema.schema_definition[i].name.field_name) == 0){
                   flag = 
-# 370 "parser.y" 3 4
+# 449 "parser.y" 3 4
                         1
-# 370 "parser.y"
+# 449 "parser.y"
                             ;
                   break;
                 }
               }
 
             if(flag == 
-# 375 "parser.y" 3 4
+# 454 "parser.y" 3 4
                       0
-# 375 "parser.y"
+# 454 "parser.y"
                            ){
 
               printf("FIELD NOT FOUND, CHECK QUERY\n");
@@ -4989,65 +5092,65 @@ yyreduce:
             }
             strcpy((yyval.string),(yyvsp[0].string));
           }
-# 1733 "y.tab.c"
+# 1812 "y.tab.c"
     break;
 
   case 29:
-# 384 "parser.y"
+# 463 "parser.y"
     {
                           (yyval.condtional_operator).type = OPERTR;
                           strcpy((yyval.condtional_operator).opertr, "<");
                         }
-# 1742 "y.tab.c"
+# 1821 "y.tab.c"
     break;
 
   case 30:
-# 389 "parser.y"
+# 468 "parser.y"
     {
                           (yyval.condtional_operator).type = OPERTR;
                           strcpy((yyval.condtional_operator).opertr, "<=");
                         }
-# 1751 "y.tab.c"
+# 1830 "y.tab.c"
     break;
 
   case 31:
-# 394 "parser.y"
+# 473 "parser.y"
     {
                           (yyval.condtional_operator).type = OPERTR;
                           strcpy((yyval.condtional_operator).opertr, ">");
                         }
-# 1760 "y.tab.c"
+# 1839 "y.tab.c"
     break;
 
   case 32:
-# 399 "parser.y"
+# 478 "parser.y"
     {
                           (yyval.condtional_operator).type = OPERTR;
                           strcpy((yyval.condtional_operator).opertr, ">");
                         }
-# 1769 "y.tab.c"
+# 1848 "y.tab.c"
     break;
 
   case 33:
-# 404 "parser.y"
+# 483 "parser.y"
     {
                           (yyval.condtional_operator).type = OPERTR;
                           strcpy((yyval.condtional_operator).opertr, "==");
                         }
-# 1778 "y.tab.c"
+# 1857 "y.tab.c"
     break;
 
   case 34:
-# 410 "parser.y"
+# 489 "parser.y"
     {
                           (yyval.condtional_operator).type = OPERTR;
                           strcpy((yyval.condtional_operator).opertr, "!=");
                         }
-# 1787 "y.tab.c"
+# 1866 "y.tab.c"
     break;
 
   case 35:
-# 418 "parser.y"
+# 497 "parser.y"
     {
                   if((yyvsp[-1].field_list_ptr)->length == 100){
                     printf("Need more fields in the definition? contact the developer\n");
@@ -5064,11 +5167,11 @@ yyreduce:
                     (yyval.field_list_ptr)->length = (yyval.field_list_ptr)->length + 1;
                   }
                 }
-# 1808 "y.tab.c"
+# 1887 "y.tab.c"
     break;
 
   case 36:
-# 436 "parser.y"
+# 515 "parser.y"
     {
                   if((yyvsp[0].field_list_ptr)->length == 100){
                     printf("Need more fields in the definition? contact the developer\n");
@@ -5085,20 +5188,20 @@ yyreduce:
                     (yyval.field_list_ptr)->length = (yyval.field_list_ptr)->length + 1;
                   }
                 }
-# 1829 "y.tab.c"
+# 1908 "y.tab.c"
     break;
 
   case 37:
-# 453 "parser.y"
+# 532 "parser.y"
     {
                                         (yyval.field_list_ptr) = (struct Field_List*)calloc(1,sizeof(struct Field_List));
                                         (yyval.field_list_ptr)->length = 0;
                                         }
-# 1838 "y.tab.c"
+# 1917 "y.tab.c"
     break;
 
   case 38:
-# 459 "parser.y"
+# 538 "parser.y"
     {
                   (yyval.field).type = (yyvsp[0].field).type;
                   switch((yyval.field).type){
@@ -5107,11 +5210,11 @@ yyreduce:
                     default: printf("Illegal type stopping execution\n");goto yyabortlab;
                   }
                 }
-# 1851 "y.tab.c"
+# 1930 "y.tab.c"
     break;
 
   case 39:
-# 468 "parser.y"
+# 547 "parser.y"
     {
                   (yyval.field).type = (yyvsp[0].field).type;
                   switch((yyval.field).type){
@@ -5120,11 +5223,11 @@ yyreduce:
                     default: printf("Illegal type stopping execution\n");goto yyabortlab;
                   }
                 }
-# 1864 "y.tab.c"
+# 1943 "y.tab.c"
     break;
 
   case 40:
-# 478 "parser.y"
+# 557 "parser.y"
     {
 
 
@@ -5132,9 +5235,9 @@ yyreduce:
 
 
                   table_records = 
-# 484 "parser.y" 3 4
+# 563 "parser.y" 3 4
                                  ((void *)0)
-# 484 "parser.y"
+# 563 "parser.y"
                                      ;
                   memset(&schema,0,sizeof(schema));
 
@@ -5148,9 +5251,9 @@ yyreduce:
                   FILE* schema_file_handle = fopen(path_to_schema,"r+");
 
                   if(schema_file_handle==
-# 496 "parser.y" 3 4
+# 575 "parser.y" 3 4
                                         ((void *)0)
-# 496 "parser.y"
+# 575 "parser.y"
                                             ){
                     handle_query_file_error();
                   }
@@ -5168,22 +5271,22 @@ yyreduce:
 
                   DIR* table_file_handle = opendir(path_to_table);
                   if(table_file_handle==
-# 512 "parser.y" 3 4
+# 591 "parser.y" 3 4
                                        ((void *)0)
-# 512 "parser.y"
+# 591 "parser.y"
                                            ){
                     handleError(0);
                   }
                   printf("The table is found\n");
                   struct dirent* file = 
-# 516 "parser.y" 3 4
+# 595 "parser.y" 3 4
                                        ((void *)0)
-# 516 "parser.y"
+# 595 "parser.y"
                                            ;
                   char* line = 
-# 517 "parser.y" 3 4
+# 596 "parser.y" 3 4
                               ((void *)0)
-# 517 "parser.y"
+# 596 "parser.y"
                                   ;
                   ssize_t read;
                   size_t len;
@@ -5208,9 +5311,9 @@ yyreduce:
                       char* token1 = strtok(line,":");
                       strcpy(schema.schema_definition[index].name.field_name,token1);
                       token1 = strtok(
-# 540 "parser.y" 3 4
+# 619 "parser.y" 3 4
                                      ((void *)0)
-# 540 "parser.y"
+# 619 "parser.y"
                                          ,":");
                       if(strcmp(token1,"string") == 0){
                           schema.schema_definition[index++].type = VAL_STRING;
@@ -5229,14 +5332,14 @@ yyreduce:
                   printf("dummy\n");
 
                   while((file=readdir(table_file_handle))!=
-# 557 "parser.y" 3 4
+# 636 "parser.y" 3 4
                                                           ((void *)0)
-# 557 "parser.y"
+# 636 "parser.y"
                                                               ){
                     if(file->d_type != 
-# 558 "parser.y" 3 4
+# 637 "parser.y" 3 4
                                       DT_REG
-# 558 "parser.y"
+# 637 "parser.y"
                                             ){
                       continue;
                     }
@@ -5258,24 +5361,24 @@ yyreduce:
                         strcpy(templine,line);
                         char* token = strtok(line,"\t");
                         while(token != 
-# 578 "parser.y" 3 4
+# 657 "parser.y" 3 4
                                       ((void *)0)
-# 578 "parser.y"
+# 657 "parser.y"
                                           ){
                           index++;
                           token = strtok(
-# 580 "parser.y" 3 4
+# 659 "parser.y" 3 4
                                         ((void *)0)
-# 580 "parser.y"
+# 659 "parser.y"
                                             ,"\t");
                         }
                         record.length = index;
                         index = 0;
                         token = strtok(templine,"\t");
                         while(token != 
-# 585 "parser.y" 3 4
+# 664 "parser.y" 3 4
                                       ((void *)0)
-# 585 "parser.y"
+# 664 "parser.y"
                                           ){
 
                             record.field_array[index].type = schema.schema_definition[index].type;
@@ -5288,9 +5391,9 @@ yyreduce:
 
                             index++;
                             token = strtok(
-# 596 "parser.y" 3 4
+# 675 "parser.y" 3 4
                                           ((void *)0)
-# 596 "parser.y"
+# 675 "parser.y"
                                               ,"\t");
                         }
                         push_back(record,&table_records);
@@ -5302,12 +5405,12 @@ yyreduce:
                   puts("THE PATH TO THE TABLE IS");
                   puts((yyval.string));
                 }
-# 1998 "y.tab.c"
+# 2077 "y.tab.c"
     break;
-# 2002 "y.tab.c"
+# 2081 "y.tab.c"
       default: break;
     }
-# 2015 "y.tab.c"
+# 2094 "y.tab.c"
   ;
 
   (yyvsp -= (yylen), yyssp -= (yylen));
@@ -5345,7 +5448,7 @@ yyerrlab:
       ++yynerrs;
 
       yyerror ("syntax error");
-# 2084 "y.tab.c"
+# 2163 "y.tab.c"
     }
 
 
@@ -5427,23 +5530,23 @@ yyerrlab1:
     }
 
  
-# 2164 "y.tab.c"
+# 2243 "y.tab.c"
 #pragma GCC diagnostic push
-# 2164 "y.tab.c"
+# 2243 "y.tab.c"
  
-# 2164 "y.tab.c"
+# 2243 "y.tab.c"
 #pragma GCC diagnostic ignored "-Wuninitialized"
-# 2164 "y.tab.c"
+# 2243 "y.tab.c"
  
-# 2164 "y.tab.c"
+# 2243 "y.tab.c"
 #pragma GCC diagnostic ignored "-Wmaybe-uninitialized"
-# 2164 "y.tab.c"
+# 2243 "y.tab.c"
  
   *++yyvsp = yylval;
  
-# 2166 "y.tab.c"
+# 2245 "y.tab.c"
 #pragma GCC diagnostic pop
-# 2166 "y.tab.c"
+# 2245 "y.tab.c"
  
 
 
@@ -5507,56 +5610,56 @@ yyreturn:
 
   return yyresult;
 }
-# 608 "parser.y"
+# 687 "parser.y"
 
 
 void handle_query_file_error(){
 
   switch(
-# 612 "parser.y" 3 4
+# 691 "parser.y" 3 4
         (*__errno_location ())
-# 612 "parser.y"
+# 691 "parser.y"
              ){
     case 
-# 613 "parser.y" 3 4
+# 692 "parser.y" 3 4
         22
-# 613 "parser.y"
+# 692 "parser.y"
               : printf("The mode provided for opening the file is incorrect\n");break;
     case 
-# 614 "parser.y" 3 4
+# 693 "parser.y" 3 4
         12
-# 614 "parser.y"
+# 693 "parser.y"
               : printf("Out of memory as the memory has hit the memory limit set internally\n");break;
     case 
-# 615 "parser.y" 3 4
+# 694 "parser.y" 3 4
         13
-# 615 "parser.y"
+# 694 "parser.y"
               : printf("Access to the current file is not allowed.Check the permissions set for the file\n");break;
     case 
-# 616 "parser.y" 3 4
+# 695 "parser.y" 3 4
         14
-# 616 "parser.y"
+# 695 "parser.y"
               : printf("The path name is outside your accessible address space\n");break;
     case 
-# 617 "parser.y" 3 4
+# 696 "parser.y" 3 4
         2
-# 617 "parser.y"
+# 696 "parser.y"
               : printf("This file does not exist\n");break;
 
 
 
   }
   exit(
-# 622 "parser.y" 3 4
+# 701 "parser.y" 3 4
       1
-# 622 "parser.y"
+# 701 "parser.y"
                   );
 }
 int yyerror(const char* msg){
   fprintf(
-# 625 "parser.y" 3 4
+# 704 "parser.y" 3 4
          stderr
-# 625 "parser.y"
+# 704 "parser.y"
                ," %s\n",msg);
     return 0;
 }
@@ -5566,57 +5669,57 @@ int yyerror(const char* msg){
 void handleError(int isMaster){
 
     switch(
-# 633 "parser.y" 3 4
+# 712 "parser.y" 3 4
           (*__errno_location ())
-# 633 "parser.y"
+# 712 "parser.y"
                ){
     case 
-# 634 "parser.y" 3 4
+# 713 "parser.y" 3 4
         13
-# 634 "parser.y"
+# 713 "parser.y"
               : perror("Permission denied.\n");exit(
-# 634 "parser.y" 3 4
+# 713 "parser.y" 3 4
                                                     1
-# 634 "parser.y"
+# 713 "parser.y"
                                                                 );break;
 
        case 
-# 636 "parser.y" 3 4
+# 715 "parser.y" 3 4
            9
-# 636 "parser.y"
+# 715 "parser.y"
                 : perror("fd is not a valid file descriptor opened for reading.\n");exit(
-# 636 "parser.y" 3 4
+# 715 "parser.y" 3 4
                                                                                           1
-# 636 "parser.y"
+# 715 "parser.y"
                                                                                                       );break;
 
        case 
-# 638 "parser.y" 3 4
+# 717 "parser.y" 3 4
            24
-# 638 "parser.y"
+# 717 "parser.y"
                  : perror("The per-process limit on the number of open file descriptors has been reached.\n");exit(
-# 638 "parser.y" 3 4
+# 717 "parser.y" 3 4
                                                                                                                    1
-# 638 "parser.y"
+# 717 "parser.y"
                                                                                                                                );break;
 
 
        case 
-# 641 "parser.y" 3 4
+# 720 "parser.y" 3 4
            23
-# 641 "parser.y"
+# 720 "parser.y"
                  : perror("The system-wide limit on the total number of open files has been reached.\n");exit(
-# 641 "parser.y" 3 4
+# 720 "parser.y" 3 4
                                                                                                               1
-# 641 "parser.y"
+# 720 "parser.y"
                                                                                                                           );break;
 
 
 
         case 
-# 645 "parser.y" 3 4
+# 724 "parser.y" 3 4
             2
-# 645 "parser.y"
+# 724 "parser.y"
                   : printf("Directory does not exist, or name is an empty string.\n");
                         if(isMaster==1){
                             char c;
@@ -5625,9 +5728,9 @@ void handleError(int isMaster){
                             if(c=='n' || c=='N'){
                                 printf("Terminating execution\n");
                                 exit(
-# 652 "parser.y" 3 4
+# 731 "parser.y" 3 4
                                     0
-# 652 "parser.y"
+# 731 "parser.y"
                                                 );
                             }
                             else{
@@ -5637,38 +5740,38 @@ void handleError(int isMaster){
                                 printf(" Make use of the schema and the data helper utilities to fill the schema details and the input files\n");
                             }
                             exit(
-# 660 "parser.y" 3 4
+# 739 "parser.y" 3 4
                                 0
-# 660 "parser.y"
+# 739 "parser.y"
                                             );
                             break;
                         }
                         exit(
-# 663 "parser.y" 3 4
+# 742 "parser.y" 3 4
                             0
-# 663 "parser.y"
+# 742 "parser.y"
                                         );
 
 
        case 
-# 666 "parser.y" 3 4
+# 745 "parser.y" 3 4
            12
-# 666 "parser.y"
+# 745 "parser.y"
                  : perror("Insufficient memory to complete the operation.\n");exit(
-# 666 "parser.y" 3 4
+# 745 "parser.y" 3 4
                                                                                    1
-# 666 "parser.y"
+# 745 "parser.y"
                                                                                                );break;
 
 
        case 
-# 669 "parser.y" 3 4
+# 748 "parser.y" 3 4
            20
-# 669 "parser.y"
+# 748 "parser.y"
                   : perror("name is not a directory.\n");exit(
-# 669 "parser.y" 3 4
+# 748 "parser.y" 3 4
                                                               1
-# 669 "parser.y"
+# 748 "parser.y"
                                                                           );break;
     }
 }
@@ -5682,9 +5785,9 @@ int initFunction(char *tableName){
     }
     else{
         handleError(
-# 681 "parser.y" 3 4
+# 760 "parser.y" 3 4
                    2
-# 681 "parser.y"
+# 760 "parser.y"
                          );
     }
     return 0;

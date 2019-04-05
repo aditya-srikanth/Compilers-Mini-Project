@@ -4562,12 +4562,12 @@ case 29:
 
 case 30:
 
-# 88 "lexer.l"
+# 90 "lexer.l"
 puts(yytext); yyerror("This is an invalid character");
  break;
 case 31:
 
-# 89 "lexer.l"
+# 91 "lexer.l"
 do { if (fwrite( yytext, (size_t) yyleng, 1, yyout )) {} } while (0);
  break;
 # 988 "lex.yy.c"
@@ -5598,7 +5598,7 @@ void yyfree (void * ptr )
 {
    free( (char *) ptr );
 }
-# 89 "lexer.l"
+# 91 "lexer.l"
 
 
 int yywrap(void){

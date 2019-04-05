@@ -46,6 +46,62 @@ void print_list(struct Record* head){
     }
 }
 
+void print_list_masked(struct Record* head,int bitmask){
+    printf("Now printing\n");
+    while(head != NULL){
+        int length = head->current_field.length;
+        int value = bitmask;
+        for(int i=0;i<length;i++){
+            // printf("value:%d\n",value);
+            if((value & 1) > 0){
+                // printf("Inside the condition\n");
+                switch(head->current_field.field_array[i].type){
+                    case VAL_INT: printf("%d\t",head->current_field.field_array[i].value.integer); break;
+                    case VAL_STRING: printf("%s\t",head->current_field.field_array[i].value.string);break;
+                    default: printf("Invalid Type\n");
+                }
+            }
+            value>>=1;
+            if(value==0){
+                break;
+            }
+        }
+        printf("\n");   
+        head = head->next_record;
+    }
+}
+void push_back_string(struct String_Node input, struct String_List** list_ptr){
+    struct String_List* list = *list_ptr;
+    if(list->length == 0){
+        list->head = (struct String_Node*)malloc(sizeof(struct String_Node));
+        (list->head)->next_str = NULL;
+        strcpy((list->head)->string,input.string);
+        (list->head)->string_length = input.string_length;
+    }
+    else{
+        struct String_Node* temp = list->head;
+        while(temp->next_str != NULL){
+            temp = temp->next_str;
+        }
+        struct String_Node* temp_string = (struct String_Node*)malloc(sizeof(struct String_Node));
+        temp_string->next_str = NULL;
+        temp_string->string_length = input.string_length;
+        strcpy(temp_string->string,input.string);
+        temp->next_str = temp_string;
+    }
+    list->length++;
+}
+
+int find_string(char* string, struct Schema schema){
+    
+    for (int i =0;i<schema.length;i++){
+        if(strcmp(string,schema.schema_definition[i].name.field_name)==0){
+            return i;
+        }
+    }
+    return -1;
+}
+
 void push_back(struct Field_List record, struct Record** head){
 	if(*head == NULL){
         *head = (struct Record*)malloc(sizeof(struct Record));

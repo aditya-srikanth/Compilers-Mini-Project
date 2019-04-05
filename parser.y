@@ -14,7 +14,6 @@
     #include <dirent.h>
     struct Schema schema;
     struct Record* table_records = NULL;
-    struct String_List* string_list_ptr = NULL;
     int yylex();
     extern int yyerror(const char* msg);
     int initFunction(char* tableName);
@@ -33,7 +32,7 @@
 
 %type <string_list_ptr> FIELD_LIST
 %type <string_list_ptr> FIELDS 
-%type <string> FIELD 
+%type <string_node_ptr> FIELD 
 %type <record_ptr> CONDITION_LIST
 %type <record_ptr> CONDITION
 %type <condtional_operator> RELATIONAL_OPERATOR
@@ -62,100 +61,145 @@
         ;
 
     GET_QRY:   GET FIELD_LIST FROM FILE_NAME WHERE CONDITION_LIST   {
-                                                                      //TODO
-                                                                      //Verfify field list
-                                                                      //print according to field list
+            //TODO
+            //Verfify field list
+            //print according to field list
+            if($2->length <= schema.length){
+              int bitmask = 0;
+              int temp;
+              printf("The input  to the get is \n");
+              print_list($6);
+              // struct String_Node* itr = $2
+              struct String_Node* iter = $2->head;
+              printf("The values within schema are\n");
+              while(iter != NULL){
+                temp = find_string(iter->string,schema);
+                printf("String:%s\n",iter->string);
+                printf("The position obtained is %d\n",temp);
+                printf("The bitmask up to now is %d\n",bitmask);
+                printf("The value of 2*i is %d\n",(int)pow(2,temp));
+                if(bitmask==0){
+                  bitmask+=(int)pow(2,temp);
+                }
+                else{
+                  printf("the bitmask is %d\n",bitmask);
+                  if( (bitmask & (int)pow(2,temp)) == 0){
+                    bitmask+=(int)pow(2,temp);
+                  }
+                  else{
+                    printf("WARNING!!! THE SAME ATTR HAS BEEN REPEATED\n");
+                  }
+                }
+                iter = iter->next_str;
+              }
+              printf("The mask is %d\n",bitmask);
+              int value = bitmask;
+              for(int i=0;i<schema.length;i++){
+                if(value & 1){
+                  printf("%s\t",schema.schema_definition[i].name.field_name);  
+                }
+                value >>=1;           
+                if(value == 0){
+                  break;
+                }
+              }
+              printf("\n");
+              print_list_masked($6,bitmask);
+              printf("\n\n");
+            }
+            else{
+              yyerror("The fields do not match the schema: length mismatch");
+              YYABORT;
+            }
           }
         ;
 
     INSERT_QRY:  INSERT RECORD TUPLE INTO FILE_NAME                  {
-                                                                        //TODO 
-                                                                        //open file handle
-                                                                        //write to file
-                                                                        
-                                                                        if($3->length != schema.length){
-                                                                          yyerror("Input does not match schema: incorrect number of arguments");
-                                                                          YYABORT;
-                                                                        }
-                                                                          
-                                                                        for(int i = $3->length-1; i >= 0; i--){
-                                                                          printf("type of candidate is %d and schema: %d\n",$3->field_array[i].type, schema.schema_definition[$3->length-i-1].type);
-                                                                          if($3->field_array[i].type != schema.schema_definition[$3->length-i-1].type){
-                                                                            yyerror("Input does not match schema: incorrect type of arguments");
-                                                                            YYABORT;
-                                                                          }
-                                                                        }  
-                                                                        DIR* dir_handle = NULL;                                                                        
-                                                                        dir_handle = opendir($5); 
-                                                                        if(dir_handle == NULL){
-                                                                          handleError(false);
-                                                                        }
-                                                                        else{
-                                                                          FILE* file_handle = NULL;
-                                                                          char temp[STRING_LENGTH];
-                                                                          char path_to_file[STRING_LENGTH];
-                                                                          switch($3->field_array[$3->length-1].type){
-                                                                            case VAL_INT:
+                  
+                  
+                  if($3->length != schema.length){
+                    yyerror("Input does not match schema: incorrect number of arguments");
+                    YYABORT;
+                  }
+                    
+                  for(int i = $3->length-1; i >= 0; i--){
+                    printf("type of candidate is %d and schema: %d\n",$3->field_array[i].type, schema.schema_definition[$3->length-i-1].type);
+                    if($3->field_array[i].type != schema.schema_definition[$3->length-i-1].type){
+                      yyerror("Input does not match schema: incorrect type of arguments");
+                      YYABORT;
+                    }
+                  }  
+                  DIR* dir_handle = NULL;                                                                        
+                  dir_handle = opendir($5); 
+                  if(dir_handle == NULL){
+                    handleError(false);
+                  }
+                  else{
+                    FILE* file_handle = NULL;
+                    char temp[STRING_LENGTH];
+                    char path_to_file[STRING_LENGTH];
+                    switch($3->field_array[$3->length-1].type){
+                      case VAL_INT:
 
-                                                                              sprintf(temp,"%s/%d.txt",$5,$3->field_array[$3->length-1].value.integer);
-                                                                            
-                                                                            break;
-                                                                            
-                                                                            case VAL_STRING:
-                                                                              sprintf(temp,"%s/%s.txt",$5,$3->field_array[$3->length-1].value.string);
-                                                                            break;
-                                                                          }
-                                                                          strcpy(path_to_file,temp);
-                                                                          if(access(path_to_file,F_OK) != -1){
-                                                                            yyerror("Record already exists!");
-                                                                            YYABORT;
-                                                                          }
-                                                                          else{
-                                                                            char to_print_record[RECORD_LENGTH];
-                                                                            memset(to_print_record,0,sizeof(to_print_record));
-                                                                            for(int i = $3->length-1; i > 0; i--){
-                                                                              switch($3->field_array[i].type){
-                                                                                case VAL_INT:
+                        sprintf(temp,"%s/%d.txt",$5,$3->field_array[$3->length-1].value.integer);
+                      
+                      break;
+                      
+                      case VAL_STRING:
+                        sprintf(temp,"%s/%s.txt",$5,$3->field_array[$3->length-1].value.string);
+                      break;
+                    }
+                    strcpy(path_to_file,temp);
+                    if(access(path_to_file,F_OK) != -1){
+                      yyerror("Record already exists!");
+                      YYABORT;
+                    }
+                    else{
+                      char to_print_record[RECORD_LENGTH];
+                      memset(to_print_record,0,sizeof(to_print_record));
+                      for(int i = $3->length-1; i > 0; i--){
+                        switch($3->field_array[i].type){
+                          case VAL_INT:
 
-                                                                                  sprintf(temp,"%d%s",$3->field_array[i].value.integer,FILE_DELIM);
-                                                                                
-                                                                                break;
-                                                                                
-                                                                                case VAL_STRING:
-                                                                                  sprintf(temp,"%s%s",$3->field_array[i].value.string,FILE_DELIM);
-                                                                                break;
-                                                                              }
-                                                                              strcat(to_print_record,temp);
-                                                                            }
-                                                                            switch($3->field_array[0].type){
-                                                                                case VAL_INT:
+                            sprintf(temp,"%d%s",$3->field_array[i].value.integer,FILE_DELIM);
+                          
+                          break;
+                          
+                          case VAL_STRING:
+                            sprintf(temp,"%s%s",$3->field_array[i].value.string,FILE_DELIM);
+                          break;
+                        }
+                        strcat(to_print_record,temp);
+                      }
+                      switch($3->field_array[0].type){
+                          case VAL_INT:
 
-                                                                                  sprintf(temp,"%d",$3->field_array[0].value.integer);
-                                                                                
-                                                                                break;
-                                                                                
-                                                                                case VAL_STRING:
-                                                                                  sprintf(temp,"%s",$3->field_array[0].value.string);
-                                                                                break;
-                                                                            }
-                                                                            strcat(to_print_record,temp);
-                                                                            puts("to print record");
-                                                                            puts(to_print_record);
-                                                                            file_handle = fopen(path_to_file,"w");
-                                                                            if(file_handle == NULL){
-                                                                              handle_query_file_error();
-                                                                            }
-                                                                            else{
-                                                                              printf("ENTERING %s\n",to_print_record);
-                                                                              fprintf(file_handle,"%s",to_print_record);
-                                                                              printf("RECORD ENTERED SUCCESFULLY\n");
-                                                                            }
-                                                                            fclose(file_handle);
-                                                                            
-                                                                          }
-                                                                        }
-                                                                      }
-                                                                      ;
+                            sprintf(temp,"%d",$3->field_array[0].value.integer);
+                          
+                          break;
+                          
+                          case VAL_STRING:
+                            sprintf(temp,"%s",$3->field_array[0].value.string);
+                          break;
+                      }
+                      strcat(to_print_record,temp);
+                      puts("to print record");
+                      puts(to_print_record);
+                      file_handle = fopen(path_to_file,"w");
+                      if(file_handle == NULL){
+                        handle_query_file_error();
+                      }
+                      else{
+                        printf("ENTERING %s\n",to_print_record);
+                        fprintf(file_handle,"%s",to_print_record);
+                        printf("RECORD ENTERED SUCCESFULLY\n");
+                      }
+                      fclose(file_handle);
+                      
+                    }
+                  }
+                }
+                ;
 
     UPDATE_QRY: UPDATE RECORD IN FILE_NAME SET FIELD_LIST TO TUPLE WHERE CONDITION_LIST     {
                                                                                               //TODO
@@ -210,29 +254,50 @@
                 ;
 
     FIELD_LIST: LEFT_PARANTHESES FIELDS RIGHT_PARANTHESES {
-                  $$ = $2 ;
+                  // struct String_List* temp = (struct String_List*)malloc(sizeof(struct String_Node));
+                  // temp->head = $2->head;
+                  // temp->length = $2->length;
+                  // $$ = temp;
+                  $$ = $2;
                 }
                 ;
 
     FIELDS:     FIELD COMMA FIELDS { 
-                  struct String_List* temp = malloc(sizeof(struct String));
-                  strcpy(temp->data.string,$1);
-                  temp->data.string_length = strlen($1); 
-                  $3->length += 1;
-                  $$ ->next_str = temp;
-                  //TODO ADD API FOR STRING LIST  
+                  // struct String_List* temp = (struct String_List*)malloc(sizeof(struct String_Node));
+                  // $$->head = $3->head;
+                  // temp->length = $3->length;
+                  $$ = $3;
+                  push_back_string(*$1,&$$);
+                  // $$ = temp;
+                  // struct String_List temp = (struct String_List)malloc(sizeof(struct String_List));
+                  // strcpy(temp->data.string,$1);
+                  // temp->data.string_length = strlen($1); 
+                  // $3->length += 1;
+                  // $$->next_str = temp;
+                  // //TODO ADD API FOR STRING LIST
+                  // push_back_string($1);  
                 }
                 | 
-                FIELD { 
-                  struct String_List* temp = malloc(sizeof(struct String));
-                  strcpy(temp->data.string,$1);
-                  temp->data.string_length = strlen($1); 
-                  temp->length = 1;
+                FIELD {
+                  struct String_List* temp = (struct String_List*)malloc(sizeof(struct String_List));
+                  
+                  push_back_string(*$1,&temp);
                   $$ = temp;
+                  // struct String_List* temp = malloc(sizeof(struct String));
+                  // strcpy(temp->data.string,$1);
+                  // temp->data.string_length = strlen($1); 
+                  // temp->length = 1;
+                  // $$ = temp;
                 }
                 ;
 
-    FIELD:     IDENTIFIER                                                     { strcpy($$,$1); }
+    FIELD:     IDENTIFIER {
+                    struct String_Node* temp = (struct String_Node*)malloc(sizeof(struct String_Node));
+                    strcpy(temp->string,$1);
+                    temp->string_length = strlen($1);
+                    temp->next_str = NULL; 
+                    $$ = temp;
+                  }
                 ;
 
     CONDITION_LIST: CONDITION_LIST LOGICAL_OPERATOR  CONDITION { 

@@ -48,14 +48,15 @@ struct Schema{
 };
 
 
-struct String{
+struct String_Node{
 	char string[STRING_LENGTH];
 	int string_length;
+	struct String_Node* next_str;
 };
 
+
 struct String_List{
-	struct String data;
-	struct String_List* next_str;
+	struct String_Node* head;
 	int length;
 };
 
@@ -81,6 +82,7 @@ union YYSTYPE{
     // struct Condition_Operator_Type;
     struct Record* record_ptr;
     struct String_List* string_list_ptr;
+	struct String_Node* string_node_ptr;
     bool boolean;
     struct Condition_Operator_Type condtional_operator;
 };

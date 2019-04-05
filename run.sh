@@ -1,4 +1,6 @@
 #! /usr/bin/bash
+echo "Deleting the executable"
+rm ./a.out
 
 echo "!!!WARNING!!! We are using lexer.l and parser.y as the lexer and parser respectively"
 echo ""
@@ -12,11 +14,8 @@ lex lexer.l
 echo ""
 
 echo "Compiling them together"
-gcc y.tab.c lex.yy.c -ll -ly -save-temps
+gcc y.tab.c lex.yy.c -ll -ly -lm 
 echo ""
 
 echo "Run the excutable"
 ./a.out
-
-echo "Deleting the executable"
-rm ./a.out

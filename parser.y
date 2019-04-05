@@ -649,8 +649,8 @@ void handleError(int isMaster){
                             }
                             else{
                                 // Create the default file locations in the current folder
-                                mkdir(MASTER_TABLE,DEFFILEMODE); // master files
-                                mkdir(DATA_PATH,DEFFILEMODE); // all the other database folders
+                                mkdir(MASTER_TABLE,PERMISSIONS); // master files
+                                mkdir(DATA_PATH,PERMISSIONS); // all the other database folders
                                 printf(" Make use of the schema and the data helper utilities to fill the schema details and the input files\n");
                             }
                             exit(EXIT_SUCCESS);

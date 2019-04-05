@@ -9,8 +9,8 @@
 #include <string.h>
 #include <stdlib.h>
 #include <dirent.h>
-#define STRING "string\n"
-#define INT "int\n"
+#define STRING "string"
+#define INT "int"
 #define ARRAY_SIZE 100
 #define STRING_LENGTH 1000
 

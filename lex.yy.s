@@ -1047,9 +1047,13 @@ yy_flex_debug:
 	.comm	yytext,8,8
 	.section	.rodata
 .LC0:
+	.string	"BANDA %s\n"
+.LC1:
+	.string	"DEL %s\n"
+.LC2:
 	.string	"This is an invalid character"
 	.align 8
-.LC1:
+.LC3:
 	.string	"fatal flex scanner internal error--no action found"
 	.text
 	.globl	yylex
@@ -1067,7 +1071,7 @@ yylex:
 	.cfi_offset 3, -24
 	movl	yy_init(%rip), %eax
 	testl	%eax, %eax
-	jne	.L62
+	jne	.L64
 	movl	$1, yy_init(%rip)
 	movl	yy_start(%rip), %eax
 	testl	%eax, %eax
@@ -1109,7 +1113,7 @@ yylex:
 	movq	%rax, (%rbx)
 .L7:
 	call	yy_load_buffer_state
-.L62:
+.L64:
 	movq	yy_c_buf_p(%rip), %rax
 	movq	%rax, -32(%rbp)
 	movzbl	yy_hold_char(%rip), %edx
@@ -1118,9 +1122,9 @@ yylex:
 	movq	-32(%rbp), %rax
 	movq	%rax, -24(%rbp)
 	movl	yy_start(%rip), %eax
-	movl	%eax, -48(%rbp)
+	movl	%eax, -52(%rbp)
 	jmp	.L8
-.L63:
+.L65:
 	nop
 .L8:
 	movq	-32(%rbp), %rax
@@ -1129,94 +1133,94 @@ yylex:
 	movslq	%eax, %rdx
 	leaq	yy_ec(%rip), %rax
 	movzbl	(%rdx,%rax), %eax
-	movb	%al, -49(%rbp)
-	movl	-48(%rbp), %eax
+	movb	%al, -53(%rbp)
+	movl	-52(%rbp), %eax
 	cltq
 	leaq	(%rax,%rax), %rdx
 	leaq	yy_accept(%rip), %rax
 	movzwl	(%rdx,%rax), %eax
 	testw	%ax, %ax
 	je	.L10
-	movl	-48(%rbp), %eax
+	movl	-52(%rbp), %eax
 	movl	%eax, yy_last_accepting_state(%rip)
 	movq	-32(%rbp), %rax
 	movq	%rax, yy_last_accepting_cpos(%rip)
 	jmp	.L10
 .L11:
-	movl	-48(%rbp), %eax
+	movl	-52(%rbp), %eax
 	cltq
 	leaq	(%rax,%rax), %rdx
 	leaq	yy_def(%rip), %rax
 	movzwl	(%rdx,%rax), %eax
 	cwtl
-	movl	%eax, -48(%rbp)
-	cmpl	$78, -48(%rbp)
+	movl	%eax, -52(%rbp)
+	cmpl	$78, -52(%rbp)
 	jle	.L10
-	movzbl	-49(%rbp), %eax
+	movzbl	-53(%rbp), %eax
 	movslq	%eax, %rdx
 	leaq	yy_meta(%rip), %rax
 	movzbl	(%rdx,%rax), %eax
-	movb	%al, -49(%rbp)
+	movb	%al, -53(%rbp)
 .L10:
-	movl	-48(%rbp), %eax
+	movl	-52(%rbp), %eax
 	cltq
 	leaq	(%rax,%rax), %rdx
 	leaq	yy_base(%rip), %rax
 	movzwl	(%rdx,%rax), %eax
 	movswl	%ax, %edx
-	movzbl	-49(%rbp), %eax
+	movzbl	-53(%rbp), %eax
 	addl	%edx, %eax
 	cltq
 	leaq	(%rax,%rax), %rdx
 	leaq	yy_chk(%rip), %rax
 	movzwl	(%rdx,%rax), %eax
 	cwtl
-	cmpl	%eax, -48(%rbp)
+	cmpl	%eax, -52(%rbp)
 	jne	.L11
-	movl	-48(%rbp), %eax
+	movl	-52(%rbp), %eax
 	cltq
 	leaq	(%rax,%rax), %rdx
 	leaq	yy_base(%rip), %rax
 	movzwl	(%rdx,%rax), %eax
 	movswl	%ax, %edx
-	movzbl	-49(%rbp), %eax
+	movzbl	-53(%rbp), %eax
 	addl	%edx, %eax
 	cltq
 	leaq	(%rax,%rax), %rdx
 	leaq	yy_nxt(%rip), %rax
 	movzwl	(%rdx,%rax), %eax
 	cwtl
-	movl	%eax, -48(%rbp)
+	movl	%eax, -52(%rbp)
 	addq	$1, -32(%rbp)
-	movl	-48(%rbp), %eax
+	movl	-52(%rbp), %eax
 	cltq
 	leaq	(%rax,%rax), %rdx
 	leaq	yy_base(%rip), %rax
 	movzwl	(%rdx,%rax), %eax
 	cmpw	$153, %ax
-	jne	.L63
+	jne	.L65
 	nop
 .L12:
-	movl	-48(%rbp), %eax
+	movl	-52(%rbp), %eax
 	cltq
 	leaq	(%rax,%rax), %rdx
 	leaq	yy_accept(%rip), %rax
 	movzwl	(%rdx,%rax), %eax
 	cwtl
-	movl	%eax, -44(%rbp)
-	cmpl	$0, -44(%rbp)
+	movl	%eax, -48(%rbp)
+	cmpl	$0, -48(%rbp)
 	jne	.L13
 	movq	yy_last_accepting_cpos(%rip), %rax
 	movq	%rax, -32(%rbp)
 	movl	yy_last_accepting_state(%rip), %eax
-	movl	%eax, -48(%rbp)
-	movl	-48(%rbp), %eax
+	movl	%eax, -52(%rbp)
+	movl	-52(%rbp), %eax
 	cltq
 	leaq	(%rax,%rax), %rdx
 	leaq	yy_accept(%rip), %rax
 	movzwl	(%rdx,%rax), %eax
 	cwtl
-	movl	%eax, -44(%rbp)
+	movl	%eax, -48(%rbp)
 .L13:
 	movq	-24(%rbp), %rax
 	movq	%rax, yytext(%rip)
@@ -1233,9 +1237,9 @@ yylex:
 	movq	-32(%rbp), %rax
 	movq	%rax, yy_c_buf_p(%rip)
 .L14:
-	cmpl	$33, -44(%rbp)
+	cmpl	$33, -48(%rbp)
 	ja	.L15
-	movl	-44(%rbp), %eax
+	movl	-48(%rbp), %eax
 	leaq	0(,%rax,4), %rdx
 	leaq	.L17(%rip), %rax
 	movl	(%rdx,%rax), %eax
@@ -1276,7 +1280,7 @@ yylex:
 	.long	.L43-.L17
 	.long	.L44-.L17
 	.long	.L45-.L17
-	.long	.L64-.L17
+	.long	.L66-.L17
 	.long	.L47-.L17
 	.long	.L48-.L17
 	.long	.L49-.L17
@@ -1289,7 +1293,7 @@ yylex:
 	movq	yy_last_accepting_cpos(%rip), %rax
 	movq	%rax, -32(%rbp)
 	movl	yy_last_accepting_state(%rip), %eax
-	movl	%eax, -48(%rbp)
+	movl	%eax, -52(%rbp)
 	jmp	.L12
 .L18:
 	movl	$258, %eax
@@ -1301,6 +1305,11 @@ yylex:
 	movl	$260, %eax
 	jmp	.L51
 .L21:
+	movq	yytext(%rip), %rax
+	movq	%rax, %rsi
+	leaq	.LC0(%rip), %rdi
+	movl	$0, %eax
+	call	printf@PLT
 	movl	$274, %eax
 	jmp	.L51
 .L22:
@@ -1331,6 +1340,12 @@ yylex:
 	movl	$267, %eax
 	jmp	.L51
 .L31:
+	movq	yytext(%rip), %rdx
+	movq	stdout(%rip), %rax
+	leaq	.LC1(%rip), %rsi
+	movq	%rax, %rdi
+	movl	$0, %eax
+	call	fprintf@PLT
 	movl	$268, %eax
 	jmp	.L51
 .L32:
@@ -1379,10 +1394,30 @@ yylex:
 	jmp	.L51
 .L44:
 	movl	$1, yylval(%rip)
+	movl	$0, -44(%rbp)
+	jmp	.L52
+.L53:
 	movq	yytext(%rip), %rax
-	movq	%rax, %rsi
-	leaq	4+yylval(%rip), %rdi
-	call	strcpy@PLT
+	movl	-44(%rbp), %edx
+	movslq	%edx, %rdx
+	addq	$1, %rdx
+	addq	%rdx, %rax
+	movzbl	(%rax), %ecx
+	movl	-44(%rbp), %eax
+	movslq	%eax, %rdx
+	leaq	4+yylval(%rip), %rax
+	movb	%cl, (%rdx,%rax)
+	addl	$1, -44(%rbp)
+.L52:
+	movl	yyleng(%rip), %eax
+	subl	$2, %eax
+	cmpl	%eax, -44(%rbp)
+	jl	.L53
+	movl	yyleng(%rip), %eax
+	subl	$2, %eax
+	movslq	%eax, %rdx
+	leaq	4+yylval(%rip), %rax
+	movb	$0, (%rdx,%rax)
 	movl	$283, %eax
 	jmp	.L51
 .L45:
@@ -1397,9 +1432,9 @@ yylex:
 	movq	yytext(%rip), %rax
 	movq	%rax, %rdi
 	call	puts@PLT
-	leaq	.LC0(%rip), %rdi
+	leaq	.LC2(%rip), %rdi
 	call	yyerror@PLT
-	jmp	.L52
+	jmp	.L54
 .L48:
 	movq	yyout(%rip), %rdx
 	movl	yyleng(%rip), %eax
@@ -1409,7 +1444,7 @@ yylex:
 	movl	$1, %edx
 	movq	%rax, %rdi
 	call	fwrite@PLT
-	jmp	.L52
+	jmp	.L54
 .L50:
 	movl	$0, %eax
 	jmp	.L51
@@ -1429,7 +1464,7 @@ yylex:
 	movq	(%rax), %rax
 	movl	56(%rax), %eax
 	testl	%eax, %eax
-	jne	.L53
+	jne	.L55
 	movq	yy_buffer_stack(%rip), %rax
 	movq	yy_buffer_stack_top(%rip), %rdx
 	salq	$3, %rdx
@@ -1450,7 +1485,7 @@ yylex:
 	addq	%rdx, %rax
 	movq	(%rax), %rax
 	movl	$1, 56(%rax)
-.L53:
+.L55:
 	movq	yy_buffer_stack(%rip), %rax
 	movq	yy_buffer_stack_top(%rip), %rdx
 	salq	$3, %rdx
@@ -1462,48 +1497,48 @@ yylex:
 	addq	%rax, %rdx
 	movq	yy_c_buf_p(%rip), %rax
 	cmpq	%rax, %rdx
-	jb	.L54
+	jb	.L56
 	movq	yytext(%rip), %rdx
 	movl	-40(%rbp), %eax
 	cltq
 	addq	%rdx, %rax
 	movq	%rax, yy_c_buf_p(%rip)
 	call	yy_get_previous_state
-	movl	%eax, -48(%rbp)
-	movl	-48(%rbp), %eax
+	movl	%eax, -52(%rbp)
+	movl	-52(%rbp), %eax
 	movl	%eax, %edi
 	call	yy_try_NUL_trans
 	movl	%eax, -36(%rbp)
 	movq	yytext(%rip), %rax
 	movq	%rax, -24(%rbp)
 	cmpl	$0, -36(%rbp)
-	je	.L55
+	je	.L57
 	movq	yy_c_buf_p(%rip), %rax
 	addq	$1, %rax
 	movq	%rax, yy_c_buf_p(%rip)
 	movq	yy_c_buf_p(%rip), %rax
 	movq	%rax, -32(%rbp)
 	movl	-36(%rbp), %eax
-	movl	%eax, -48(%rbp)
+	movl	%eax, -52(%rbp)
 	jmp	.L8
-.L55:
+.L57:
 	movq	yy_c_buf_p(%rip), %rax
 	movq	%rax, -32(%rbp)
 	jmp	.L12
-.L54:
+.L56:
 	call	yy_get_next_buffer
 	cmpl	$1, %eax
-	je	.L57
-	cmpl	$2, %eax
-	je	.L58
-	testl	%eax, %eax
 	je	.L59
-	jmp	.L52
-.L57:
+	cmpl	$2, %eax
+	je	.L60
+	testl	%eax, %eax
+	je	.L61
+	jmp	.L54
+.L59:
 	movl	$0, yy_did_buffer_switch_on_eof(%rip)
 	call	yywrap
 	testl	%eax, %eax
-	je	.L60
+	je	.L62
 	movq	yytext(%rip), %rax
 	movq	%rax, yy_c_buf_p(%rip)
 	movl	yy_start(%rip), %eax
@@ -1513,30 +1548,30 @@ yylex:
 	addl	%edx, %eax
 	sarl	%eax
 	addl	$33, %eax
-	movl	%eax, -44(%rbp)
+	movl	%eax, -48(%rbp)
 	jmp	.L14
-.L60:
+.L62:
 	movl	yy_did_buffer_switch_on_eof(%rip), %eax
 	testl	%eax, %eax
-	jne	.L65
+	jne	.L67
 	movq	yyin(%rip), %rax
 	movq	%rax, %rdi
 	call	yyrestart
-	jmp	.L65
-.L59:
+	jmp	.L67
+.L61:
 	movq	yytext(%rip), %rdx
 	movl	-40(%rbp), %eax
 	cltq
 	addq	%rdx, %rax
 	movq	%rax, yy_c_buf_p(%rip)
 	call	yy_get_previous_state
-	movl	%eax, -48(%rbp)
+	movl	%eax, -52(%rbp)
 	movq	yy_c_buf_p(%rip), %rax
 	movq	%rax, -32(%rbp)
 	movq	yytext(%rip), %rax
 	movq	%rax, -24(%rbp)
 	jmp	.L8
-.L58:
+.L60:
 	movq	yy_buffer_stack(%rip), %rax
 	movq	yy_buffer_stack_top(%rip), %rdx
 	salq	$3, %rdx
@@ -1548,22 +1583,22 @@ yylex:
 	addq	%rdx, %rax
 	movq	%rax, yy_c_buf_p(%rip)
 	call	yy_get_previous_state
-	movl	%eax, -48(%rbp)
+	movl	%eax, -52(%rbp)
 	movq	yy_c_buf_p(%rip), %rax
 	movq	%rax, -32(%rbp)
 	movq	yytext(%rip), %rax
 	movq	%rax, -24(%rbp)
 	jmp	.L12
-.L65:
+.L67:
 	nop
-	jmp	.L52
+	jmp	.L54
 .L15:
-	leaq	.LC1(%rip), %rdi
+	leaq	.LC3(%rip), %rdi
 	call	yy_fatal_error
-.L64:
+.L66:
 	nop
-.L52:
-	jmp	.L62
+.L54:
+	jmp	.L64
 .L51:
 	addq	$56, %rsp
 	popq	%rbx
@@ -1575,15 +1610,15 @@ yylex:
 	.size	yylex, .-yylex
 	.section	.rodata
 	.align 8
-.LC2:
+.LC4:
 	.string	"fatal flex scanner internal error--end of buffer missed"
 	.align 8
-.LC3:
+.LC5:
 	.string	"fatal error - scanner input buffer overflow"
-.LC4:
+.LC6:
 	.string	"input in flex scanner failed"
 	.align 8
-.LC5:
+.LC7:
 	.string	"out of dynamic memory in yy_get_next_buffer()"
 	.text
 	.type	yy_get_next_buffer, @function
@@ -1619,10 +1654,10 @@ yy_get_next_buffer:
 	addq	%rax, %rdx
 	movq	yy_c_buf_p(%rip), %rax
 	cmpq	%rax, %rdx
-	jnb	.L67
-	leaq	.LC2(%rip), %rdi
+	jnb	.L69
+	leaq	.LC4(%rip), %rdi
 	call	yy_fatal_error
-.L67:
+.L69:
 	movq	yy_buffer_stack(%rip), %rax
 	movq	yy_buffer_stack_top(%rip), %rdx
 	salq	$3, %rdx
@@ -1630,20 +1665,20 @@ yy_get_next_buffer:
 	movq	(%rax), %rax
 	movl	52(%rax), %eax
 	testl	%eax, %eax
-	jne	.L68
+	jne	.L70
 	movq	yy_c_buf_p(%rip), %rax
 	movq	%rax, %rdx
 	movq	yytext(%rip), %rax
 	subq	%rax, %rdx
 	movq	%rdx, %rax
 	cmpq	$1, %rax
-	jne	.L69
+	jne	.L71
 	movl	$1, %eax
-	jmp	.L70
-.L69:
+	jmp	.L72
+.L71:
 	movl	$2, %eax
-	jmp	.L70
-.L68:
+	jmp	.L72
+.L70:
 	movq	yy_c_buf_p(%rip), %rax
 	movq	%rax, %rdx
 	movq	yytext(%rip), %rax
@@ -1652,8 +1687,8 @@ yy_get_next_buffer:
 	subl	$1, %eax
 	movl	%eax, -56(%rbp)
 	movl	$0, -76(%rbp)
-	jmp	.L71
-.L72:
+	jmp	.L73
+.L74:
 	movq	-32(%rbp), %rdx
 	leaq	1(%rdx), %rax
 	movq	%rax, -32(%rbp)
@@ -1663,10 +1698,10 @@ yy_get_next_buffer:
 	movzbl	(%rdx), %edx
 	movb	%dl, (%rax)
 	addl	$1, -76(%rbp)
-.L71:
+.L73:
 	movl	-76(%rbp), %eax
 	cmpl	-56(%rbp), %eax
-	jl	.L72
+	jl	.L74
 	movq	yy_buffer_stack(%rip), %rax
 	movq	yy_buffer_stack_top(%rip), %rdx
 	salq	$3, %rdx
@@ -1674,7 +1709,7 @@ yy_get_next_buffer:
 	movq	(%rax), %rax
 	movl	56(%rax), %eax
 	cmpl	$2, %eax
-	jne	.L73
+	jne	.L75
 	movl	$0, yy_n_chars(%rip)
 	movq	yy_buffer_stack(%rip), %rax
 	movq	yy_buffer_stack_top(%rip), %rdx
@@ -1683,8 +1718,8 @@ yy_get_next_buffer:
 	movq	(%rax), %rax
 	movl	yy_n_chars(%rip), %edx
 	movl	%edx, 28(%rax)
-	jmp	.L74
-.L73:
+	jmp	.L76
+.L75:
 	movq	yy_buffer_stack(%rip), %rax
 	movq	yy_buffer_stack_top(%rip), %rdx
 	salq	$3, %rdx
@@ -1694,8 +1729,8 @@ yy_get_next_buffer:
 	subl	-56(%rbp), %eax
 	subl	$1, %eax
 	movl	%eax, -68(%rbp)
-	jmp	.L75
-.L81:
+	jmp	.L77
+.L83:
 	movq	yy_buffer_stack(%rip), %rax
 	movq	yy_buffer_stack_top(%rip), %rdx
 	salq	$3, %rdx
@@ -1712,13 +1747,13 @@ yy_get_next_buffer:
 	movq	-24(%rbp), %rax
 	movl	32(%rax), %eax
 	testl	%eax, %eax
-	je	.L76
+	je	.L78
 	movq	-24(%rbp), %rax
 	movl	24(%rax), %eax
 	addl	%eax, %eax
 	movl	%eax, -48(%rbp)
 	cmpl	$0, -48(%rbp)
-	jg	.L77
+	jg	.L79
 	movq	-24(%rbp), %rax
 	movl	24(%rax), %edx
 	movq	-24(%rbp), %rax
@@ -1730,14 +1765,14 @@ yy_get_next_buffer:
 	addl	%eax, %edx
 	movq	-24(%rbp), %rax
 	movl	%edx, 24(%rax)
-	jmp	.L78
-.L77:
+	jmp	.L80
+.L79:
 	movq	-24(%rbp), %rax
 	movl	24(%rax), %eax
 	leal	(%rax,%rax), %edx
 	movq	-24(%rbp), %rax
 	movl	%edx, 24(%rax)
-.L78:
+.L80:
 	movq	-24(%rbp), %rax
 	movl	24(%rax), %eax
 	addl	$2, %eax
@@ -1750,18 +1785,18 @@ yy_get_next_buffer:
 	movq	%rax, %rdx
 	movq	-24(%rbp), %rax
 	movq	%rdx, 8(%rax)
-	jmp	.L79
-.L76:
+	jmp	.L81
+.L78:
 	movq	-24(%rbp), %rax
 	movq	$0, 8(%rax)
-.L79:
+.L81:
 	movq	-24(%rbp), %rax
 	movq	8(%rax), %rax
 	testq	%rax, %rax
-	jne	.L80
-	leaq	.LC3(%rip), %rdi
+	jne	.L82
+	leaq	.LC5(%rip), %rdi
 	call	yy_fatal_error
-.L80:
+.L82:
 	movq	-24(%rbp), %rax
 	movq	8(%rax), %rdx
 	movl	-52(%rbp), %eax
@@ -1777,13 +1812,13 @@ yy_get_next_buffer:
 	subl	-56(%rbp), %eax
 	subl	$1, %eax
 	movl	%eax, -68(%rbp)
-.L75:
+.L77:
 	cmpl	$0, -68(%rbp)
-	jle	.L81
+	jle	.L83
 	cmpl	$8192, -68(%rbp)
-	jle	.L82
+	jle	.L84
 	movl	$8192, -68(%rbp)
-.L82:
+.L84:
 	movq	yy_buffer_stack(%rip), %rax
 	movq	yy_buffer_stack_top(%rip), %rdx
 	salq	$3, %rdx
@@ -1791,11 +1826,11 @@ yy_get_next_buffer:
 	movq	(%rax), %rax
 	movl	36(%rax), %eax
 	testl	%eax, %eax
-	je	.L83
+	je	.L85
 	movl	$42, -64(%rbp)
 	movl	$0, -60(%rbp)
-	jmp	.L84
-.L86:
+	jmp	.L86
+.L88:
 	movq	yy_buffer_stack(%rip), %rax
 	movq	yy_buffer_stack_top(%rip), %rdx
 	salq	$3, %rdx
@@ -1811,21 +1846,21 @@ yy_get_next_buffer:
 	movl	-64(%rbp), %edx
 	movb	%dl, (%rax)
 	addl	$1, -60(%rbp)
-.L84:
+.L86:
 	movl	-60(%rbp), %eax
 	cmpl	-68(%rbp), %eax
-	jge	.L85
+	jge	.L87
 	movq	yyin(%rip), %rax
 	movq	%rax, %rdi
 	call	_IO_getc@PLT
 	movl	%eax, -64(%rbp)
 	cmpl	$-1, -64(%rbp)
-	je	.L85
+	je	.L87
 	cmpl	$10, -64(%rbp)
-	jne	.L86
-.L85:
+	jne	.L88
+.L87:
 	cmpl	$10, -64(%rbp)
-	jne	.L87
+	jne	.L89
 	movq	yy_buffer_stack(%rip), %rax
 	movq	yy_buffer_stack_top(%rip), %rdx
 	salq	$3, %rdx
@@ -1842,38 +1877,38 @@ yy_get_next_buffer:
 	addq	%rcx, %rax
 	movl	-64(%rbp), %edx
 	movb	%dl, (%rax)
-.L87:
+.L89:
 	cmpl	$-1, -64(%rbp)
-	jne	.L88
+	jne	.L90
 	movq	yyin(%rip), %rax
 	movq	%rax, %rdi
 	call	ferror@PLT
 	testl	%eax, %eax
-	je	.L88
-	leaq	.LC4(%rip), %rdi
+	je	.L90
+	leaq	.LC6(%rip), %rdi
 	call	yy_fatal_error
-.L88:
+.L90:
 	movl	-60(%rbp), %eax
 	movl	%eax, yy_n_chars(%rip)
-	jmp	.L89
-.L83:
+	jmp	.L91
+.L85:
 	call	__errno_location@PLT
 	movl	$0, (%rax)
-	jmp	.L90
-.L92:
+	jmp	.L92
+.L94:
 	call	__errno_location@PLT
 	movl	(%rax), %eax
 	cmpl	$4, %eax
-	je	.L91
-	leaq	.LC4(%rip), %rdi
+	je	.L93
+	leaq	.LC6(%rip), %rdi
 	call	yy_fatal_error
-.L91:
+.L93:
 	call	__errno_location@PLT
 	movl	$0, (%rax)
 	movq	yyin(%rip), %rax
 	movq	%rax, %rdi
 	call	clearerr@PLT
-.L90:
+.L92:
 	movq	yyin(%rip), %rdx
 	movl	-68(%rbp), %eax
 	cltq
@@ -1893,13 +1928,13 @@ yy_get_next_buffer:
 	movl	%eax, yy_n_chars(%rip)
 	movl	yy_n_chars(%rip), %eax
 	testl	%eax, %eax
-	jne	.L89
+	jne	.L91
 	movq	yyin(%rip), %rax
 	movq	%rax, %rdi
 	call	ferror@PLT
 	testl	%eax, %eax
-	jne	.L92
-.L89:
+	jne	.L94
+.L91:
 	movq	yy_buffer_stack(%rip), %rax
 	movq	yy_buffer_stack_top(%rip), %rdx
 	salq	$3, %rdx
@@ -1907,18 +1942,18 @@ yy_get_next_buffer:
 	movq	(%rax), %rax
 	movl	yy_n_chars(%rip), %edx
 	movl	%edx, 28(%rax)
-.L74:
+.L76:
 	movl	yy_n_chars(%rip), %eax
 	testl	%eax, %eax
-	jne	.L93
+	jne	.L95
 	cmpl	$0, -56(%rbp)
-	jne	.L94
+	jne	.L96
 	movl	$1, -72(%rbp)
 	movq	yyin(%rip), %rax
 	movq	%rax, %rdi
 	call	yyrestart
-	jmp	.L96
-.L94:
+	jmp	.L98
+.L96:
 	movl	$2, -72(%rbp)
 	movq	yy_buffer_stack(%rip), %rax
 	movq	yy_buffer_stack_top(%rip), %rdx
@@ -1926,10 +1961,10 @@ yy_get_next_buffer:
 	addq	%rdx, %rax
 	movq	(%rax), %rax
 	movl	$2, 56(%rax)
-	jmp	.L96
-.L93:
+	jmp	.L98
+.L95:
 	movl	$0, -72(%rbp)
-.L96:
+.L98:
 	movl	yy_n_chars(%rip), %edx
 	movl	-56(%rbp), %eax
 	leal	(%rdx,%rax), %ecx
@@ -1940,7 +1975,7 @@ yy_get_next_buffer:
 	movq	(%rax), %rax
 	movl	24(%rax), %eax
 	cmpl	%eax, %ecx
-	jle	.L97
+	jle	.L99
 	movl	yy_n_chars(%rip), %edx
 	movl	-56(%rbp), %eax
 	addl	%eax, %edx
@@ -1972,10 +2007,10 @@ yy_get_next_buffer:
 	movq	(%rax), %rax
 	movq	8(%rax), %rax
 	testq	%rax, %rax
-	jne	.L98
-	leaq	.LC5(%rip), %rdi
+	jne	.L100
+	leaq	.LC7(%rip), %rdi
 	call	yy_fatal_error
-.L98:
+.L100:
 	movq	yy_buffer_stack(%rip), %rax
 	movq	yy_buffer_stack_top(%rip), %rdx
 	salq	$3, %rdx
@@ -1984,7 +2019,7 @@ yy_get_next_buffer:
 	movl	-44(%rbp), %edx
 	subl	$2, %edx
 	movl	%edx, 24(%rax)
-.L97:
+.L99:
 	movl	yy_n_chars(%rip), %edx
 	movl	-56(%rbp), %eax
 	addl	%edx, %eax
@@ -2018,7 +2053,7 @@ yy_get_next_buffer:
 	movq	8(%rax), %rax
 	movq	%rax, yytext(%rip)
 	movl	-72(%rbp), %eax
-.L70:
+.L72:
 	addq	$72, %rsp
 	popq	%rbx
 	popq	%rbp
@@ -2040,22 +2075,22 @@ yy_get_previous_state:
 	movl	%eax, -12(%rbp)
 	movq	yytext(%rip), %rax
 	movq	%rax, -8(%rbp)
-	jmp	.L100
-.L106:
+	jmp	.L102
+.L108:
 	movq	-8(%rbp), %rax
 	movzbl	(%rax), %eax
 	testb	%al, %al
-	je	.L101
+	je	.L103
 	movq	-8(%rbp), %rax
 	movzbl	(%rax), %eax
 	movzbl	%al, %eax
 	movslq	%eax, %rdx
 	leaq	yy_ec(%rip), %rax
 	movzbl	(%rdx,%rax), %eax
-	jmp	.L102
-.L101:
+	jmp	.L104
+.L103:
 	movl	$1, %eax
-.L102:
+.L104:
 	movb	%al, -13(%rbp)
 	movl	-12(%rbp), %eax
 	cltq
@@ -2063,13 +2098,13 @@ yy_get_previous_state:
 	leaq	yy_accept(%rip), %rax
 	movzwl	(%rdx,%rax), %eax
 	testw	%ax, %ax
-	je	.L104
+	je	.L106
 	movl	-12(%rbp), %eax
 	movl	%eax, yy_last_accepting_state(%rip)
 	movq	-8(%rbp), %rax
 	movq	%rax, yy_last_accepting_cpos(%rip)
-	jmp	.L104
-.L105:
+	jmp	.L106
+.L107:
 	movl	-12(%rbp), %eax
 	cltq
 	leaq	(%rax,%rax), %rdx
@@ -2078,13 +2113,13 @@ yy_get_previous_state:
 	cwtl
 	movl	%eax, -12(%rbp)
 	cmpl	$78, -12(%rbp)
-	jle	.L104
+	jle	.L106
 	movzbl	-13(%rbp), %eax
 	movslq	%eax, %rdx
 	leaq	yy_meta(%rip), %rax
 	movzbl	(%rdx,%rax), %eax
 	movb	%al, -13(%rbp)
-.L104:
+.L106:
 	movl	-12(%rbp), %eax
 	cltq
 	leaq	(%rax,%rax), %rdx
@@ -2099,7 +2134,7 @@ yy_get_previous_state:
 	movzwl	(%rdx,%rax), %eax
 	cwtl
 	cmpl	%eax, -12(%rbp)
-	jne	.L105
+	jne	.L107
 	movl	-12(%rbp), %eax
 	cltq
 	leaq	(%rax,%rax), %rdx
@@ -2115,10 +2150,10 @@ yy_get_previous_state:
 	cwtl
 	movl	%eax, -12(%rbp)
 	addq	$1, -8(%rbp)
-.L100:
+.L102:
 	movq	yy_c_buf_p(%rip), %rax
 	cmpq	%rax, -8(%rbp)
-	jb	.L106
+	jb	.L108
 	movl	-12(%rbp), %eax
 	popq	%rbp
 	.cfi_def_cfa 7, 8
@@ -2145,13 +2180,13 @@ yy_try_NUL_trans:
 	leaq	yy_accept(%rip), %rax
 	movzwl	(%rdx,%rax), %eax
 	testw	%ax, %ax
-	je	.L110
+	je	.L112
 	movl	-20(%rbp), %eax
 	movl	%eax, yy_last_accepting_state(%rip)
 	movq	-8(%rbp), %rax
 	movq	%rax, yy_last_accepting_cpos(%rip)
-	jmp	.L110
-.L111:
+	jmp	.L112
+.L113:
 	movl	-20(%rbp), %eax
 	cltq
 	leaq	(%rax,%rax), %rdx
@@ -2160,13 +2195,13 @@ yy_try_NUL_trans:
 	cwtl
 	movl	%eax, -20(%rbp)
 	cmpl	$78, -20(%rbp)
-	jle	.L110
+	jle	.L112
 	movzbl	-13(%rbp), %eax
 	movslq	%eax, %rdx
 	leaq	yy_meta(%rip), %rax
 	movzbl	(%rdx,%rax), %eax
 	movb	%al, -13(%rbp)
-.L110:
+.L112:
 	movl	-20(%rbp), %eax
 	cltq
 	leaq	(%rax,%rax), %rdx
@@ -2181,7 +2216,7 @@ yy_try_NUL_trans:
 	movzwl	(%rdx,%rax), %eax
 	cwtl
 	cmpl	%eax, -20(%rbp)
-	jne	.L111
+	jne	.L113
 	movl	-20(%rbp), %eax
 	cltq
 	leaq	(%rax,%rax), %rdx
@@ -2201,12 +2236,12 @@ yy_try_NUL_trans:
 	movzbl	%al, %eax
 	movl	%eax, -12(%rbp)
 	cmpl	$0, -12(%rbp)
-	jne	.L112
+	jne	.L114
 	movl	-20(%rbp), %eax
-	jmp	.L114
-.L112:
-	movl	$0, %eax
+	jmp	.L116
 .L114:
+	movl	$0, %eax
+.L116:
 	popq	%rbp
 	.cfi_def_cfa 7, 8
 	ret
@@ -2215,7 +2250,7 @@ yy_try_NUL_trans:
 	.size	yy_try_NUL_trans, .-yy_try_NUL_trans
 	.section	.rodata
 	.align 8
-.LC6:
+.LC8:
 	.string	"flex scanner push-back overflow"
 	.text
 	.type	yyunput, @function
@@ -2243,7 +2278,7 @@ yyunput:
 	movq	8(%rax), %rax
 	addq	$2, %rax
 	cmpq	%rax, -24(%rbp)
-	jnb	.L116
+	jnb	.L118
 	movl	yy_n_chars(%rip), %eax
 	addl	$2, %eax
 	movl	%eax, -28(%rbp)
@@ -2273,15 +2308,15 @@ yyunput:
 	cltq
 	addq	%rdx, %rax
 	movq	%rax, -8(%rbp)
-	jmp	.L117
-.L118:
+	jmp	.L119
+.L120:
 	subq	$1, -8(%rbp)
 	subq	$1, -16(%rbp)
 	movq	-8(%rbp), %rax
 	movzbl	(%rax), %edx
 	movq	-16(%rbp), %rax
 	movb	%dl, (%rax)
-.L117:
+.L119:
 	movq	yy_buffer_stack(%rip), %rax
 	movq	yy_buffer_stack_top(%rip), %rdx
 	salq	$3, %rdx
@@ -2289,7 +2324,7 @@ yyunput:
 	movq	(%rax), %rax
 	movq	8(%rax), %rax
 	cmpq	%rax, -8(%rbp)
-	ja	.L118
+	ja	.L120
 	movq	-16(%rbp), %rdx
 	movq	-8(%rbp), %rax
 	subq	%rax, %rdx
@@ -2324,10 +2359,10 @@ yyunput:
 	movq	8(%rax), %rax
 	addq	$2, %rax
 	cmpq	%rax, -24(%rbp)
-	jnb	.L116
-	leaq	.LC6(%rip), %rdi
+	jnb	.L118
+	leaq	.LC8(%rip), %rdi
 	call	yy_fatal_error
-.L116:
+.L118:
 	subq	$1, -24(%rbp)
 	movl	-36(%rbp), %eax
 	movl	%eax, %edx
@@ -2363,7 +2398,7 @@ input:
 	movq	yy_c_buf_p(%rip), %rax
 	movzbl	(%rax), %eax
 	testb	%al, %al
-	jne	.L120
+	jne	.L122
 	movq	yy_buffer_stack(%rip), %rax
 	movq	yy_buffer_stack_top(%rip), %rdx
 	salq	$3, %rdx
@@ -2375,11 +2410,11 @@ input:
 	addq	%rax, %rdx
 	movq	yy_c_buf_p(%rip), %rax
 	cmpq	%rax, %rdx
-	jbe	.L121
+	jbe	.L123
 	movq	yy_c_buf_p(%rip), %rax
 	movb	$0, (%rax)
-	jmp	.L120
-.L121:
+	jmp	.L122
+.L123:
 	movq	yy_c_buf_p(%rip), %rax
 	movq	%rax, %rdx
 	movq	yytext(%rip), %rax
@@ -2391,40 +2426,40 @@ input:
 	movq	%rax, yy_c_buf_p(%rip)
 	call	yy_get_next_buffer
 	cmpl	$1, %eax
-	je	.L122
-	cmpl	$2, %eax
-	je	.L123
-	testl	%eax, %eax
 	je	.L124
-	jmp	.L120
-.L123:
+	cmpl	$2, %eax
+	je	.L125
+	testl	%eax, %eax
+	je	.L126
+	jmp	.L122
+.L125:
 	movq	yyin(%rip), %rax
 	movq	%rax, %rdi
 	call	yyrestart
-.L122:
+.L124:
 	call	yywrap
 	testl	%eax, %eax
-	je	.L125
+	je	.L127
 	movl	$0, %eax
-	jmp	.L126
-.L125:
+	jmp	.L128
+.L127:
 	movl	yy_did_buffer_switch_on_eof(%rip), %eax
 	testl	%eax, %eax
-	jne	.L127
+	jne	.L129
 	movq	yyin(%rip), %rax
 	movq	%rax, %rdi
 	call	yyrestart
-.L127:
+.L129:
 	call	input
-	jmp	.L126
-.L124:
+	jmp	.L128
+.L126:
 	movq	yytext(%rip), %rdx
 	movl	-8(%rbp), %eax
 	cltq
 	addq	%rdx, %rax
 	movq	%rax, yy_c_buf_p(%rip)
 	nop
-.L120:
+.L122:
 	movq	yy_c_buf_p(%rip), %rax
 	movzbl	(%rax), %eax
 	movzbl	%al, %eax
@@ -2438,7 +2473,7 @@ input:
 	movzbl	(%rax), %eax
 	movb	%al, yy_hold_char(%rip)
 	movl	-4(%rbp), %eax
-.L126:
+.L128:
 	leave
 	.cfi_def_cfa 7, 8
 	ret
@@ -2461,15 +2496,15 @@ yyrestart:
 	movq	%rdi, -24(%rbp)
 	movq	yy_buffer_stack(%rip), %rax
 	testq	%rax, %rax
-	je	.L129
+	je	.L131
 	movq	yy_buffer_stack(%rip), %rax
 	movq	yy_buffer_stack_top(%rip), %rdx
 	salq	$3, %rdx
 	addq	%rdx, %rax
 	movq	(%rax), %rax
 	testq	%rax, %rax
-	jne	.L130
-.L129:
+	jne	.L132
+.L131:
 	call	yyensure_buffer_stack
 	movq	yyin(%rip), %rax
 	movq	yy_buffer_stack(%rip), %rdx
@@ -2480,19 +2515,19 @@ yyrestart:
 	movq	%rax, %rdi
 	call	yy_create_buffer
 	movq	%rax, (%rbx)
-.L130:
+.L132:
 	movq	yy_buffer_stack(%rip), %rax
 	testq	%rax, %rax
-	je	.L131
+	je	.L133
 	movq	yy_buffer_stack(%rip), %rax
 	movq	yy_buffer_stack_top(%rip), %rdx
 	salq	$3, %rdx
 	addq	%rdx, %rax
 	movq	(%rax), %rax
-	jmp	.L132
-.L131:
+	jmp	.L134
+.L133:
 	movl	$0, %eax
-.L132:
+.L134:
 	movq	-24(%rbp), %rdx
 	movq	%rdx, %rsi
 	movq	%rax, %rdi
@@ -2522,28 +2557,28 @@ yy_switch_to_buffer:
 	call	yyensure_buffer_stack
 	movq	yy_buffer_stack(%rip), %rax
 	testq	%rax, %rax
-	je	.L134
+	je	.L136
 	movq	yy_buffer_stack(%rip), %rax
 	movq	yy_buffer_stack_top(%rip), %rdx
 	salq	$3, %rdx
 	addq	%rdx, %rax
 	movq	(%rax), %rax
-	jmp	.L135
-.L134:
+	jmp	.L137
+.L136:
 	movl	$0, %eax
-.L135:
+.L137:
 	cmpq	-8(%rbp), %rax
-	je	.L139
+	je	.L141
 	movq	yy_buffer_stack(%rip), %rax
 	testq	%rax, %rax
-	je	.L138
+	je	.L140
 	movq	yy_buffer_stack(%rip), %rax
 	movq	yy_buffer_stack_top(%rip), %rdx
 	salq	$3, %rdx
 	addq	%rdx, %rax
 	movq	(%rax), %rax
 	testq	%rax, %rax
-	je	.L138
+	je	.L140
 	movq	yy_c_buf_p(%rip), %rax
 	movzbl	yy_hold_char(%rip), %edx
 	movb	%dl, (%rax)
@@ -2561,7 +2596,7 @@ yy_switch_to_buffer:
 	movq	(%rax), %rax
 	movl	yy_n_chars(%rip), %edx
 	movl	%edx, 28(%rax)
-.L138:
+.L140:
 	movq	yy_buffer_stack(%rip), %rax
 	movq	yy_buffer_stack_top(%rip), %rdx
 	salq	$3, %rdx
@@ -2570,10 +2605,10 @@ yy_switch_to_buffer:
 	movq	%rax, (%rdx)
 	call	yy_load_buffer_state
 	movl	$1, yy_did_buffer_switch_on_eof(%rip)
-	jmp	.L133
-.L139:
+	jmp	.L135
+.L141:
 	nop
-.L133:
+.L135:
 	leave
 	.cfi_def_cfa 7, 8
 	ret
@@ -2624,7 +2659,7 @@ yy_load_buffer_state:
 	.size	yy_load_buffer_state, .-yy_load_buffer_state
 	.section	.rodata
 	.align 8
-.LC7:
+.LC9:
 	.string	"out of dynamic memory in yy_create_buffer()"
 	.text
 	.globl	yy_create_buffer
@@ -2644,10 +2679,10 @@ yy_create_buffer:
 	call	yyalloc
 	movq	%rax, -8(%rbp)
 	cmpq	$0, -8(%rbp)
-	jne	.L142
-	leaq	.LC7(%rip), %rdi
+	jne	.L144
+	leaq	.LC9(%rip), %rdi
 	call	yy_fatal_error
-.L142:
+.L144:
 	movq	-8(%rbp), %rax
 	movl	-28(%rbp), %edx
 	movl	%edx, 24(%rax)
@@ -2663,10 +2698,10 @@ yy_create_buffer:
 	movq	-8(%rbp), %rax
 	movq	8(%rax), %rax
 	testq	%rax, %rax
-	jne	.L143
-	leaq	.LC7(%rip), %rdi
+	jne	.L145
+	leaq	.LC9(%rip), %rdi
 	call	yy_fatal_error
-.L143:
+.L145:
 	movq	-8(%rbp), %rax
 	movl	$1, 32(%rax)
 	movq	-24(%rbp), %rdx
@@ -2694,43 +2729,43 @@ yy_delete_buffer:
 	subq	$16, %rsp
 	movq	%rdi, -8(%rbp)
 	cmpq	$0, -8(%rbp)
-	je	.L152
+	je	.L154
 	movq	yy_buffer_stack(%rip), %rax
 	testq	%rax, %rax
-	je	.L148
+	je	.L150
 	movq	yy_buffer_stack(%rip), %rax
 	movq	yy_buffer_stack_top(%rip), %rdx
 	salq	$3, %rdx
 	addq	%rdx, %rax
 	movq	(%rax), %rax
-	jmp	.L149
-.L148:
+	jmp	.L151
+.L150:
 	movl	$0, %eax
-.L149:
+.L151:
 	cmpq	-8(%rbp), %rax
-	jne	.L150
+	jne	.L152
 	movq	yy_buffer_stack(%rip), %rax
 	movq	yy_buffer_stack_top(%rip), %rdx
 	salq	$3, %rdx
 	addq	%rdx, %rax
 	movq	$0, (%rax)
-.L150:
+.L152:
 	movq	-8(%rbp), %rax
 	movl	32(%rax), %eax
 	testl	%eax, %eax
-	je	.L151
+	je	.L153
 	movq	-8(%rbp), %rax
 	movq	8(%rax), %rax
 	movq	%rax, %rdi
 	call	yyfree
-.L151:
+.L153:
 	movq	-8(%rbp), %rax
 	movq	%rax, %rdi
 	call	yyfree
-	jmp	.L145
-.L152:
+	jmp	.L147
+.L154:
 	nop
-.L145:
+.L147:
 	leave
 	.cfi_def_cfa 7, 8
 	ret
@@ -2762,37 +2797,37 @@ yy_init_buffer:
 	movl	$1, 52(%rax)
 	movq	yy_buffer_stack(%rip), %rax
 	testq	%rax, %rax
-	je	.L154
+	je	.L156
 	movq	yy_buffer_stack(%rip), %rax
 	movq	yy_buffer_stack_top(%rip), %rdx
 	salq	$3, %rdx
 	addq	%rdx, %rax
 	movq	(%rax), %rax
-	jmp	.L155
-.L154:
+	jmp	.L157
+.L156:
 	movl	$0, %eax
-.L155:
+.L157:
 	cmpq	-24(%rbp), %rax
-	je	.L156
+	je	.L158
 	movq	-24(%rbp), %rax
 	movl	$1, 44(%rax)
 	movq	-24(%rbp), %rax
 	movl	$0, 48(%rax)
-.L156:
+.L158:
 	cmpq	$0, -32(%rbp)
-	je	.L157
+	je	.L159
 	movq	-32(%rbp), %rax
 	movq	%rax, %rdi
 	call	fileno@PLT
 	movl	%eax, %edi
 	call	isatty@PLT
 	testl	%eax, %eax
-	jle	.L157
+	jle	.L159
 	movl	$1, %edx
-	jmp	.L158
-.L157:
+	jmp	.L160
+.L159:
 	movl	$0, %edx
-.L158:
+.L160:
 	movq	-24(%rbp), %rax
 	movl	%edx, 36(%rax)
 	call	__errno_location@PLT
@@ -2819,7 +2854,7 @@ yy_flush_buffer:
 	subq	$8, %rsp
 	movq	%rdi, -8(%rbp)
 	cmpq	$0, -8(%rbp)
-	je	.L164
+	je	.L166
 	movq	-8(%rbp), %rax
 	movl	$0, 28(%rax)
 	movq	-8(%rbp), %rax
@@ -2839,23 +2874,23 @@ yy_flush_buffer:
 	movl	$0, 56(%rax)
 	movq	yy_buffer_stack(%rip), %rax
 	testq	%rax, %rax
-	je	.L162
+	je	.L164
 	movq	yy_buffer_stack(%rip), %rax
 	movq	yy_buffer_stack_top(%rip), %rdx
 	salq	$3, %rdx
 	addq	%rdx, %rax
 	movq	(%rax), %rax
-	jmp	.L163
-.L162:
-	movl	$0, %eax
-.L163:
-	cmpq	-8(%rbp), %rax
-	jne	.L159
-	call	yy_load_buffer_state
-	jmp	.L159
+	jmp	.L165
 .L164:
+	movl	$0, %eax
+.L165:
+	cmpq	-8(%rbp), %rax
+	jne	.L161
+	call	yy_load_buffer_state
+	jmp	.L161
+.L166:
 	nop
-.L159:
+.L161:
 	leave
 	.cfi_def_cfa 7, 8
 	ret
@@ -2875,18 +2910,18 @@ yypush_buffer_state:
 	subq	$16, %rsp
 	movq	%rdi, -8(%rbp)
 	cmpq	$0, -8(%rbp)
-	je	.L170
+	je	.L172
 	call	yyensure_buffer_stack
 	movq	yy_buffer_stack(%rip), %rax
 	testq	%rax, %rax
-	je	.L168
+	je	.L170
 	movq	yy_buffer_stack(%rip), %rax
 	movq	yy_buffer_stack_top(%rip), %rdx
 	salq	$3, %rdx
 	addq	%rdx, %rax
 	movq	(%rax), %rax
 	testq	%rax, %rax
-	je	.L168
+	je	.L170
 	movq	yy_c_buf_p(%rip), %rax
 	movzbl	yy_hold_char(%rip), %edx
 	movb	%dl, (%rax)
@@ -2904,21 +2939,21 @@ yypush_buffer_state:
 	movq	(%rax), %rax
 	movl	yy_n_chars(%rip), %edx
 	movl	%edx, 28(%rax)
-.L168:
+.L170:
 	movq	yy_buffer_stack(%rip), %rax
 	testq	%rax, %rax
-	je	.L169
+	je	.L171
 	movq	yy_buffer_stack(%rip), %rax
 	movq	yy_buffer_stack_top(%rip), %rdx
 	salq	$3, %rdx
 	addq	%rdx, %rax
 	movq	(%rax), %rax
 	testq	%rax, %rax
-	je	.L169
+	je	.L171
 	movq	yy_buffer_stack_top(%rip), %rax
 	addq	$1, %rax
 	movq	%rax, yy_buffer_stack_top(%rip)
-.L169:
+.L171:
 	movq	yy_buffer_stack(%rip), %rax
 	movq	yy_buffer_stack_top(%rip), %rdx
 	salq	$3, %rdx
@@ -2927,10 +2962,10 @@ yypush_buffer_state:
 	movq	%rax, (%rdx)
 	call	yy_load_buffer_state
 	movl	$1, yy_did_buffer_switch_on_eof(%rip)
-	jmp	.L165
-.L170:
+	jmp	.L167
+.L172:
 	nop
-.L165:
+.L167:
 	leave
 	.cfi_def_cfa 7, 8
 	ret
@@ -2949,26 +2984,26 @@ yypop_buffer_state:
 	.cfi_def_cfa_register 6
 	movq	yy_buffer_stack(%rip), %rax
 	testq	%rax, %rax
-	je	.L178
+	je	.L180
 	movq	yy_buffer_stack(%rip), %rax
 	movq	yy_buffer_stack_top(%rip), %rdx
 	salq	$3, %rdx
 	addq	%rdx, %rax
 	movq	(%rax), %rax
 	testq	%rax, %rax
-	je	.L178
+	je	.L180
 	movq	yy_buffer_stack(%rip), %rax
 	testq	%rax, %rax
-	je	.L175
+	je	.L177
 	movq	yy_buffer_stack(%rip), %rax
 	movq	yy_buffer_stack_top(%rip), %rdx
 	salq	$3, %rdx
 	addq	%rdx, %rax
 	movq	(%rax), %rax
-	jmp	.L176
-.L175:
+	jmp	.L178
+.L177:
 	movl	$0, %eax
-.L176:
+.L178:
 	movq	%rax, %rdi
 	call	yy_delete_buffer
 	movq	yy_buffer_stack(%rip), %rax
@@ -2978,27 +3013,27 @@ yypop_buffer_state:
 	movq	$0, (%rax)
 	movq	yy_buffer_stack_top(%rip), %rax
 	testq	%rax, %rax
-	je	.L177
+	je	.L179
 	movq	yy_buffer_stack_top(%rip), %rax
 	subq	$1, %rax
 	movq	%rax, yy_buffer_stack_top(%rip)
-.L177:
+.L179:
 	movq	yy_buffer_stack(%rip), %rax
 	testq	%rax, %rax
-	je	.L171
+	je	.L173
 	movq	yy_buffer_stack(%rip), %rax
 	movq	yy_buffer_stack_top(%rip), %rdx
 	salq	$3, %rdx
 	addq	%rdx, %rax
 	movq	(%rax), %rax
 	testq	%rax, %rax
-	je	.L171
+	je	.L173
 	call	yy_load_buffer_state
 	movl	$1, yy_did_buffer_switch_on_eof(%rip)
-	jmp	.L171
-.L178:
+	jmp	.L173
+.L180:
 	nop
-.L171:
+.L173:
 	popq	%rbp
 	.cfi_def_cfa 7, 8
 	ret
@@ -3007,7 +3042,7 @@ yypop_buffer_state:
 	.size	yypop_buffer_state, .-yypop_buffer_state
 	.section	.rodata
 	.align 8
-.LC8:
+.LC10:
 	.string	"out of dynamic memory in yyensure_buffer_stack()"
 	.text
 	.type	yyensure_buffer_stack, @function
@@ -3022,7 +3057,7 @@ yyensure_buffer_stack:
 	subq	$16, %rsp
 	movq	yy_buffer_stack(%rip), %rax
 	testq	%rax, %rax
-	jne	.L180
+	jne	.L182
 	movq	$1, -8(%rbp)
 	movq	-8(%rbp), %rax
 	salq	$3, %rax
@@ -3031,10 +3066,10 @@ yyensure_buffer_stack:
 	movq	%rax, yy_buffer_stack(%rip)
 	movq	yy_buffer_stack(%rip), %rax
 	testq	%rax, %rax
-	jne	.L181
-	leaq	.LC8(%rip), %rdi
+	jne	.L183
+	leaq	.LC10(%rip), %rdi
 	call	yy_fatal_error
-.L181:
+.L183:
 	movq	-8(%rbp), %rax
 	leaq	0(,%rax,8), %rdx
 	movq	yy_buffer_stack(%rip), %rax
@@ -3044,13 +3079,13 @@ yyensure_buffer_stack:
 	movq	-8(%rbp), %rax
 	movq	%rax, yy_buffer_stack_max(%rip)
 	movq	$0, yy_buffer_stack_top(%rip)
-	jmp	.L179
-.L180:
+	jmp	.L181
+.L182:
 	movq	yy_buffer_stack_max(%rip), %rax
 	leaq	-1(%rax), %rdx
 	movq	yy_buffer_stack_top(%rip), %rax
 	cmpq	%rax, %rdx
-	ja	.L179
+	ja	.L181
 	movq	$8, -16(%rbp)
 	movq	yy_buffer_stack_max(%rip), %rdx
 	movq	-16(%rbp), %rax
@@ -3065,10 +3100,10 @@ yyensure_buffer_stack:
 	movq	%rax, yy_buffer_stack(%rip)
 	movq	yy_buffer_stack(%rip), %rax
 	testq	%rax, %rax
-	jne	.L183
-	leaq	.LC8(%rip), %rdi
+	jne	.L185
+	leaq	.LC10(%rip), %rdi
 	call	yy_fatal_error
-.L183:
+.L185:
 	movq	-16(%rbp), %rax
 	leaq	0(,%rax,8), %rdx
 	movq	yy_buffer_stack(%rip), %rax
@@ -3080,7 +3115,7 @@ yyensure_buffer_stack:
 	call	memset@PLT
 	movq	-8(%rbp), %rax
 	movq	%rax, yy_buffer_stack_max(%rip)
-.L179:
+.L181:
 	leave
 	.cfi_def_cfa 7, 8
 	ret
@@ -3089,7 +3124,7 @@ yyensure_buffer_stack:
 	.size	yyensure_buffer_stack, .-yyensure_buffer_stack
 	.section	.rodata
 	.align 8
-.LC9:
+.LC11:
 	.string	"out of dynamic memory in yy_scan_buffer()"
 	.text
 	.globl	yy_scan_buffer
@@ -3106,33 +3141,33 @@ yy_scan_buffer:
 	movq	%rdi, -24(%rbp)
 	movq	%rsi, -32(%rbp)
 	cmpq	$1, -32(%rbp)
-	jbe	.L185
+	jbe	.L187
 	movq	-32(%rbp), %rax
 	leaq	-2(%rax), %rdx
 	movq	-24(%rbp), %rax
 	addq	%rdx, %rax
 	movzbl	(%rax), %eax
 	testb	%al, %al
-	jne	.L185
+	jne	.L187
 	movq	-32(%rbp), %rax
 	leaq	-1(%rax), %rdx
 	movq	-24(%rbp), %rax
 	addq	%rdx, %rax
 	movzbl	(%rax), %eax
 	testb	%al, %al
-	je	.L186
-.L185:
+	je	.L188
+.L187:
 	movl	$0, %eax
-	jmp	.L187
-.L186:
+	jmp	.L189
+.L188:
 	movl	$64, %edi
 	call	yyalloc
 	movq	%rax, -8(%rbp)
 	cmpq	$0, -8(%rbp)
-	jne	.L188
-	leaq	.LC9(%rip), %rdi
+	jne	.L190
+	leaq	.LC11(%rip), %rdi
 	call	yy_fatal_error
-.L188:
+.L190:
 	movq	-32(%rbp), %rax
 	subl	$2, %eax
 	movl	%eax, %edx
@@ -3165,7 +3200,7 @@ yy_scan_buffer:
 	movq	%rax, %rdi
 	call	yy_switch_to_buffer
 	movq	-8(%rbp), %rax
-.L187:
+.L189:
 	leave
 	.cfi_def_cfa 7, 8
 	ret
@@ -3200,9 +3235,9 @@ yy_scan_string:
 	.size	yy_scan_string, .-yy_scan_string
 	.section	.rodata
 	.align 8
-.LC10:
+.LC12:
 	.string	"out of dynamic memory in yy_scan_bytes()"
-.LC11:
+.LC13:
 	.string	"bad buffer in yy_scan_bytes()"
 	.text
 	.globl	yy_scan_bytes
@@ -3227,13 +3262,13 @@ yy_scan_bytes:
 	call	yyalloc
 	movq	%rax, -16(%rbp)
 	cmpq	$0, -16(%rbp)
-	jne	.L192
-	leaq	.LC10(%rip), %rdi
+	jne	.L194
+	leaq	.LC12(%rip), %rdi
 	call	yy_fatal_error
-.L192:
-	movl	$0, -28(%rbp)
-	jmp	.L193
 .L194:
+	movl	$0, -28(%rbp)
+	jmp	.L195
+.L196:
 	movl	-28(%rbp), %eax
 	movslq	%eax, %rdx
 	movq	-40(%rbp), %rax
@@ -3245,10 +3280,10 @@ yy_scan_bytes:
 	movzbl	(%rax), %eax
 	movb	%al, (%rdx)
 	addl	$1, -28(%rbp)
-.L193:
+.L195:
 	movl	-28(%rbp), %eax
 	cmpl	-44(%rbp), %eax
-	jl	.L194
+	jl	.L196
 	movl	-44(%rbp), %eax
 	cltq
 	leaq	1(%rax), %rdx
@@ -3268,10 +3303,10 @@ yy_scan_bytes:
 	call	yy_scan_buffer
 	movq	%rax, -8(%rbp)
 	cmpq	$0, -8(%rbp)
-	jne	.L195
-	leaq	.LC11(%rip), %rdi
+	jne	.L197
+	leaq	.LC13(%rip), %rdi
 	call	yy_fatal_error
-.L195:
+.L197:
 	movq	-8(%rbp), %rax
 	movl	$1, 32(%rax)
 	movq	-8(%rbp), %rax
@@ -3282,7 +3317,7 @@ yy_scan_bytes:
 .LFE23:
 	.size	yy_scan_bytes, .-yy_scan_bytes
 	.section	.rodata
-.LC12:
+.LC14:
 	.string	"%s\n"
 	.text
 	.type	yy_fatal_error, @function
@@ -3298,7 +3333,7 @@ yy_fatal_error:
 	movq	%rdi, -8(%rbp)
 	movq	stderr(%rip), %rax
 	movq	-8(%rbp), %rdx
-	leaq	.LC12(%rip), %rsi
+	leaq	.LC14(%rip), %rsi
 	movq	%rax, %rdi
 	movl	$0, %eax
 	call	fprintf@PLT
@@ -3523,29 +3558,8 @@ yylex_destroy:
 	.cfi_offset 6, -16
 	movq	%rsp, %rbp
 	.cfi_def_cfa_register 6
-	jmp	.L217
-.L221:
-	movq	yy_buffer_stack(%rip), %rax
-	testq	%rax, %rax
-	je	.L218
-	movq	yy_buffer_stack(%rip), %rax
-	movq	yy_buffer_stack_top(%rip), %rdx
-	salq	$3, %rdx
-	addq	%rdx, %rax
-	movq	(%rax), %rax
 	jmp	.L219
-.L218:
-	movl	$0, %eax
-.L219:
-	movq	%rax, %rdi
-	call	yy_delete_buffer
-	movq	yy_buffer_stack(%rip), %rax
-	movq	yy_buffer_stack_top(%rip), %rdx
-	salq	$3, %rdx
-	addq	%rdx, %rax
-	movq	$0, (%rax)
-	call	yypop_buffer_state
-.L217:
+.L223:
 	movq	yy_buffer_stack(%rip), %rax
 	testq	%rax, %rax
 	je	.L220
@@ -3554,9 +3568,30 @@ yylex_destroy:
 	salq	$3, %rdx
 	addq	%rdx, %rax
 	movq	(%rax), %rax
-	testq	%rax, %rax
-	jne	.L221
+	jmp	.L221
 .L220:
+	movl	$0, %eax
+.L221:
+	movq	%rax, %rdi
+	call	yy_delete_buffer
+	movq	yy_buffer_stack(%rip), %rax
+	movq	yy_buffer_stack_top(%rip), %rdx
+	salq	$3, %rdx
+	addq	%rdx, %rax
+	movq	$0, (%rax)
+	call	yypop_buffer_state
+.L219:
+	movq	yy_buffer_stack(%rip), %rax
+	testq	%rax, %rax
+	je	.L222
+	movq	yy_buffer_stack(%rip), %rax
+	movq	yy_buffer_stack_top(%rip), %rdx
+	salq	$3, %rdx
+	addq	%rdx, %rax
+	movq	(%rax), %rax
+	testq	%rax, %rax
+	jne	.L223
+.L222:
 	movq	yy_buffer_stack(%rip), %rax
 	movq	%rax, %rdi
 	call	yyfree

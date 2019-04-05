@@ -820,7 +820,7 @@ return WHERE;
 case 4:
 YY_RULE_SETUP
 #line 26 "lexer.l"
-return AND;
+{printf("BANDA %s\n",yytext);return AND;}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
@@ -870,7 +870,7 @@ return TO;
 case 14:
 YY_RULE_SETUP
 #line 36 "lexer.l"
-return DELETE;
+{fprintf(stdout,"DEL %s\n",yytext);return DELETE;}
 	YY_BREAK
 /* Special symbols used : Paranthesis */
 case 15:
@@ -948,7 +948,10 @@ YY_RULE_SETUP
 #line 66 "lexer.l"
 {
                                             yylval.field.type = VAL_STRING;
-                                            strcpy(yylval.field.value.string,yytext);
+                                            for(int i =0;i<yyleng-2;i++){
+                                              yylval.field.value.string[i]=yytext[i+1];
+                                            }
+                                            yylval.field.value.string[yyleng-2] = '\0';
                                             return STRING_LITERAL;
 
                                         }
@@ -956,7 +959,7 @@ YY_RULE_SETUP
 /*  This is an integer  */
 case 28:
 YY_RULE_SETUP
-#line 74 "lexer.l"
+#line 77 "lexer.l"
 {
                                             yylval.field.type = VAL_INT;
                                             yylval.field.value.integer = atoi(yytext);
@@ -966,22 +969,22 @@ YY_RULE_SETUP
 /* Ignoring whitespaces */
 case 29:
 YY_RULE_SETUP
-#line 81 "lexer.l"
+#line 84 "lexer.l"
 ;
 	YY_BREAK
 /* ; signifies DO NOTHING */
 /* Any other character is invalid */
 case 30:
 YY_RULE_SETUP
-#line 85 "lexer.l"
+#line 88 "lexer.l"
 puts(yytext); yyerror("This is an invalid character");
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 86 "lexer.l"
+#line 89 "lexer.l"
 ECHO;
 	YY_BREAK
-#line 985 "lex.yy.c"
+#line 988 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1986,7 +1989,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 86 "lexer.l"
+#line 89 "lexer.l"
 
 
 int yywrap(void){

@@ -85,15 +85,17 @@
     DELETE_QRY: DELETE RECORD FROM FILE_NAME WHERE CONDITION_LIST  {
                   // $$ = NULL;
                   struct Record* iter = $6;
+                  printf("DELETE KE ANDAR\n");
                   print_list(iter);
                   DIR* dir_handle = opendir($4);
                   struct dirent* dir_entry;
                   int Hack = 2;
                   while((dir_entry=readdir(dir_handle))!=NULL){
-                    printf("the dir handle is %p\n",dir_handle);
+                    iter = $6;
+                    // printf("the dir handle is %p\n",dir_handle);
                     while(iter!=NULL){
-                      printf("the dir handle is %p\n",iter);
-                      printf("the type is %d, STRING %d INT %d\n ",iter->current_field.field_array[0].type,iter->current_field.field_array[0].type == VAL_STRING,iter->current_field.field_array[0].type == VAL_INT );
+                      printf("the dir handle 2 is %p\n",iter);
+                      printf("the type is %d, STRING %d INT %d\n ",iter->current_field.field_array[0].type,VAL_STRING,VAL_INT );
                       switch(iter->current_field.field_array[0].type){
                         case VAL_STRING: if(strcmp(iter->current_field.field_array[0].value.string,dir_entry->d_name)==0){
                                           char path[STRING_LENGTH];
@@ -104,8 +106,11 @@
                                         }
                                         break;
                         case VAL_INT:   Hack = 3;
+                        //delete record from employee where id == 2;
                                         char string_format[STRING_LENGTH];
                                         sprintf(string_format,"%d.txt",iter->current_field.field_array[0].value.integer);
+                                        printf("string format is %s\n",string_format);
+                                        printf("%s is the dir_name\n",dir_entry->d_name);
                                         if(strcmp(string_format,dir_entry->d_name)==0){
                                           char path[STRING_LENGTH];
                                           sprintf(path,"%s/%s",$4,dir_entry->d_name);
@@ -117,6 +122,7 @@
                       }
                       iter = iter -> next_record;
                     }
+                     
                   }
                 }
                 ;
@@ -147,39 +153,44 @@
     FIELD:     IDENTIFIER                                                     { strcpy($$,$1); }
                 ;
 
-    CONDITION_LIST: CONDITION_LIST LOGICAL_OPERATOR CONDITION { 
-                                                                $$ = NULL;
-                                                                struct Record * iter = $1;
-                                                                if($2 == 1)
-                                                                { 
-                                                                  while(iter != NULL){
-                                                                    if( find(*iter,$3)){
-                                                                      push_back(iter->current_field,&$$);
-                                                                    }
-                                                                    else{
-                                                                      continue;
-                                                                    }
-                                                                    iter = iter->next_record;
-                                                                  }
-                                                                }
-                                                                else{
-                                                                  $$ = $1;
-                                                                  iter = $3;
-                                                                  while(iter != NULL){
-                                                                    if( !find(*iter,$$)){
-                                                                      push_back(iter->current_field,&$$);
-                                                                    }
-                                                                    iter = iter->next_record;
-                                                                  }
-                                                                }
-                                                              }
+    CONDITION_LIST: CONDITION_LIST LOGICAL_OPERATOR  CONDITION { 
+            puts("entered condition list");
+            $$ = NULL;
+            struct Record * iter = $1;
+            if($2 == 1)
+            { 
+              printf("Inside AND\n");
+              while(iter != NULL){
+                if( find(*iter,$3)){
+                  push_back(iter->current_field,&$$);
+                }
+                iter = iter->next_record;
+              }
+            }
+            else{
+              $$ = $1;
+              iter = $3;
+              while(iter != NULL){
+                if( !find(*iter,$$)){
+                  push_back(iter->current_field,&$$);
+                }
+                iter = iter->next_record;
+              }
+            }
+            printf("output after condition\n\n");
+            print_list($$);
+          }
           |
           CONDITION                                                            { $$ = $1; }
           ;
 
-    LOGICAL_OPERATOR: AND                                                      { $$ = 1; }
-                      | 
-                      OR                                                       { $$ = 0; }
+    LOGICAL_OPERATOR: AND                                                      {  printf("GAND\n");
+                                                                                    $$ = 1; 
+                                                                               }
+                      |                                                       
+                      OR                                                       { printf("GORI\n");
+                                                                                  $$ = 0; 
+                                                                                }
           ;
 
     /* this may fuxk titself   */
@@ -219,16 +230,21 @@
                 break;
               }
             } 
-            // printf("table record pointer: %p, first record %d\n",iter,iter->current_field.field_array[pos_of_field].value.integer);
-            // printf("comparing %d\n",$3.value.integer);
+            printf("table record pointer: %p, first record %d\n",iter,iter->current_field.field_array[pos_of_field].value.integer);
+            printf("comparing %d\n",$3.value.integer);
             while(iter != NULL){
               printf("values in iter %d\n",iter->current_field.field_array[pos_of_field].value.integer);
 
               struct Record* temp  = (struct Record*)malloc(sizeof(struct Record));
+              temp->current_field = iter->current_field;
+              
               if( strcmp($2.opertr,"==") == 0){
                 puts("eq");
+                printf("$3 value integer is %d\n",$3.value.integer);
                 if( $3.value.integer == iter->current_field.field_array[pos_of_field].value.integer){
+                  printf("EQ condition matched\n");
                   push_back(temp->current_field,&$$);
+                  print_list($$);
                 }
               }
               if( strcmp($2.opertr,"!=") == 0){
@@ -263,29 +279,46 @@
               }    
               iter = iter->next_record;
             }
+            printf("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD\n");
             print_list($$);
+            printf("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD\n");
           }
           ;
 
     STRING_CONDITION: STRING_FIELD STRING_RELATIONAL_OPERATOR STRING_OPERAND  {
             $$ = NULL;
             struct Record* iter = table_records;
+            printf("INSIDE STRING COND\n");
             int pos_of_field = 0;
             for(int i = 0; i < schema.length; i++){
-              if(strcpy($1,schema.schema_definition[i].name.field_name) == 0){
-                pos_of_field = i; 
+              if(strcmp($1,schema.schema_definition[i].name.field_name) == 0){
+                pos_of_field = i;
+                printf("%d is POS OF FIELD\n",pos_of_field); 
                 break;
               }
-            } 
+            }
+
+            printf("ITER IS %p\n",iter); 
+            printf("OP IS %s\n",$2.opertr);
+            printf("COMPARinG with %s %d\n",$3.value.string,strlen($3.value.string));
             while(iter != NULL){
-              if( strcmp($2.string,"=") == 0){
+              if( strcmp($2.opertr,"=") == 0){
+                char temp[STRING_LENGTH];
+                strcpy(temp,$3.value.string);
+                // strcat(temp,"\n");
+                printf("Length of the iter string %d\n",strlen(iter->current_field.field_array[pos_of_field].value.string));
+                printf("NOW COMPARING %s %d with temp %d\n",iter->current_field.field_array[pos_of_field].value.string,strcmp($3.value.string,iter->current_field.field_array[pos_of_field].value.string),strcmp(temp,iter->current_field.field_array[pos_of_field].value.string));
                 if(strcmp($3.value.string,iter->current_field.field_array[pos_of_field].value.string) == 0){
                   struct Record* temp  = (struct Record*)malloc(sizeof(struct Record));
+                  temp->current_field = iter->current_field;
                   push_back(temp->current_field,&$$);
                 }
-                iter = iter->next_record;
               }    
-            }   
+              iter = iter->next_record;
+            }
+            printf("DAS STRING CONDITIONES OP IS \n");
+            print_list($$);
+            printf("I AINT GOT NO MONEY\n");   
           }
           ;
 
@@ -297,6 +330,7 @@
 
     STRING_FIELD:     IDENTIFIER  {
             // $$.type = INT_TYPE;
+            printf("THE STRING FIELD IS ");
             bool flag = false;
             for(int i = 0; i < schema.length; i++){
               if(strcmp($1,schema.schema_definition[i].name.field_name) == 0){
@@ -310,13 +344,16 @@
               printf("FIELD NOT FOUND, CHECK QUERY\n");
               YYABORT;
             }
-            strcpy($$,$1);                                                            
+            strcpy($$,$1);
+            printf("%s\n",$$);
+            printf("DDDDDDDDDDDDSSSSSSSSSSSSSSEEEEEEEEEEEEE\n");                                                            
           }
           ;
 
     STRING_RELATIONAL_OPERATOR: STRING_COMPARISON {
             $$.type = OPERTR;
             strcpy($$.opertr, "=");
+            printf("RECEIVED OP %s",$$.opertr);
           }
           ;
 
@@ -493,6 +530,7 @@
                   //fill the schema
                   int index = 0;
                   while((read = getline(&line,&len,schema_file_handle)) != -1){
+                      strip(line);
                       char* token1 = strtok(line,SCHEMA_DELIM);
                       strcpy(schema.schema_definition[index].name.field_name,token1);
                       token1 = strtok(NULL,SCHEMA_DELIM);
@@ -508,9 +546,9 @@
                   //for debug, print the schema obtained
                   printf("Number of  Attributes: %d\n",number_of_attributes);
                   for(int i=0;i<number_of_attributes;i++){
-                      printf("%s\t",schema.schema_definition[i].name.field_name);
+                      printf("%s\n",schema.schema_definition[i].name.field_name);
                   }
-                  printf("\n");
+                  printf("dummy\n");
                   //go through the 'records'/txt files inside the data folder and fill the linked list of records
                   while((file=readdir(table_file_handle))!=NULL){
                     if(file->d_type != DT_REG){// If it is not a regular file
@@ -522,12 +560,14 @@
                         sprintf(filenames,"%s/%s",path_to_table,file->d_name);
                         FILE* ffile = fopen(filenames,"r");
                         read = getline(&line,&len,ffile);
+                        strip(line);
                         if(read == -1){
                           // printf("Line not found\n");
                           handle_query_file_error();
                         }
                         index = 0;
                         printf("%s\n",line);
+                        
                         char templine[STRING_LENGTH];
                         strcpy(templine,line);
                         char* token = strtok(line,FILE_DELIM);

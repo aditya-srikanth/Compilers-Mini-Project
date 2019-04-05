@@ -214,7 +214,13 @@ print_list:
 .LFE7:
 	.size	print_list, .-print_list
 	.section	.rodata
+	.align 8
 .LC6:
+	.string	"record ka field array first data is %d\n"
+	.align 8
+.LC7:
+	.string	"head ka field array first data is %d\n"
+.LC8:
 	.string	"The list after updation"
 	.text
 	.globl	push_back
@@ -248,6 +254,18 @@ push_back:
 	movq	-24(%rbp), %rax
 	movq	(%rax), %rax
 	movq	$0, 100408(%rax)
+	movl	20(%rbp), %eax
+	movl	%eax, %esi
+	leaq	.LC6(%rip), %rdi
+	movl	$0, %eax
+	call	printf@PLT
+	movq	-24(%rbp), %rax
+	movq	(%rax), %rax
+	movl	4(%rax), %eax
+	movl	%eax, %esi
+	leaq	.LC7(%rip), %rdi
+	movl	$0, %eax
+	call	printf@PLT
 	jmp	.L19
 .L18:
 	movq	-24(%rbp), %rax
@@ -278,7 +296,7 @@ push_back:
 	movq	-8(%rbp), %rdx
 	movq	%rdx, 100408(%rax)
 .L19:
-	leaq	.LC6(%rip), %rdi
+	leaq	.LC8(%rip), %rdi
 	call	puts@PLT
 	movq	-24(%rbp), %rax
 	movq	(%rax), %rax
@@ -351,6 +369,54 @@ find:
 	.cfi_endproc
 .LFE9:
 	.size	find, .-find
+	.globl	strip
+	.type	strip, @function
+strip:
+.LFB10:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	pushq	%rbx
+	subq	$40, %rsp
+	.cfi_offset 3, -24
+	movq	%rdi, -40(%rbp)
+	movl	$0, -20(%rbp)
+	jmp	.L31
+.L33:
+	movl	-20(%rbp), %eax
+	movslq	%eax, %rdx
+	movq	-40(%rbp), %rax
+	addq	%rdx, %rax
+	movzbl	(%rax), %eax
+	cmpb	$10, %al
+	jne	.L32
+	movl	-20(%rbp), %eax
+	movslq	%eax, %rdx
+	movq	-40(%rbp), %rax
+	addq	%rdx, %rax
+	movb	$0, (%rax)
+.L32:
+	addl	$1, -20(%rbp)
+.L31:
+	movl	-20(%rbp), %eax
+	movslq	%eax, %rbx
+	movq	-40(%rbp), %rax
+	movq	%rax, %rdi
+	call	strlen@PLT
+	cmpq	%rax, %rbx
+	jb	.L33
+	nop
+	addq	$40, %rsp
+	popq	%rbx
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE10:
+	.size	strip, .-strip
 	.comm	schema,16,16
 	.globl	table_records
 	.bss
@@ -1187,12 +1253,12 @@ yyr2:
 	.byte	1
 	.byte	1
 	.byte	1
-.LC7:
+.LC9:
 	.string	"Deleting"
 	.text
 	.type	yydestruct, @function
 yydestruct:
-.LFB10:
+.LFB11:
 	.cfi_startproc
 	pushq	%rbp
 	.cfi_def_cfa_offset 16
@@ -1203,126 +1269,180 @@ yydestruct:
 	movl	%esi, -12(%rbp)
 	movq	%rdx, -24(%rbp)
 	cmpq	$0, -8(%rbp)
-	jne	.L32
-	leaq	.LC7(%rip), %rax
+	jne	.L36
+	leaq	.LC9(%rip), %rax
 	movq	%rax, -8(%rbp)
-.L32:
+.L36:
 	nop
 	popq	%rbp
 	.cfi_def_cfa 7, 8
 	ret
 	.cfi_endproc
-.LFE10:
+.LFE11:
 	.size	yydestruct, .-yydestruct
 	.comm	yychar,4,4
 	.comm	yylval,1016,32
 	.comm	yynerrs,4,4
 	.section	.rodata
-.LC8:
-	.string	"Get query"
-.LC9:
-	.string	"Insert query"
 .LC10:
-	.string	"Update query"
+	.string	"Get query"
 .LC11:
-	.string	"Delete query"
+	.string	"Insert query"
 .LC12:
-	.string	"the dir handle is %p\n"
-	.align 8
+	.string	"Update query"
 .LC13:
-	.string	"the type is %d, STRING %d INT %d\n "
+	.string	"Delete query"
 .LC14:
-	.string	"%s/%s.txt"
+	.string	"DELETE KE ANDAR"
 .LC15:
-	.string	"path to deletion"
+	.string	"the dir handle 2 is %p\n"
+	.align 8
 .LC16:
-	.string	"%d.txt"
+	.string	"the type is %d, STRING %d INT %d\n "
 .LC17:
-	.string	"%s/%s"
+	.string	"%s/%s.txt"
 .LC18:
-	.string	"entered NUMERICAL_CONDITION"
+	.string	"path to deletion"
 .LC19:
-	.string	"schema field name %s \n"
+	.string	"%d.txt"
 .LC20:
-	.string	"values in iter %d\n"
+	.string	"string format is %s\n"
 .LC21:
-	.string	"=="
+	.string	"%s is the dir_name\n"
 .LC22:
-	.string	"eq"
+	.string	"%s/%s"
 .LC23:
-	.string	"!="
+	.string	"entered condition list"
 .LC24:
-	.string	"neq"
+	.string	"Inside AND"
 .LC25:
-	.string	">"
+	.string	"output after condition\n"
 .LC26:
-	.string	"gt"
+	.string	"GAND"
 .LC27:
-	.string	"<"
+	.string	"GORI"
 .LC28:
-	.string	"lt"
+	.string	"entered NUMERICAL_CONDITION"
 .LC29:
-	.string	">="
+	.string	"schema field name %s \n"
+	.align 8
 .LC30:
-	.string	"geq"
+	.string	"table record pointer: %p, first record %d\n"
 .LC31:
-	.string	"<="
+	.string	"comparing %d\n"
 .LC32:
-	.string	"leq"
+	.string	"values in iter %d\n"
 .LC33:
-	.string	"="
+	.string	"=="
 .LC34:
+	.string	"eq"
+.LC35:
+	.string	"$3 value integer is %d\n"
+.LC36:
+	.string	"EQ condition matched"
+.LC37:
+	.string	"!="
+.LC38:
+	.string	"neq"
+.LC39:
+	.string	">"
+.LC40:
+	.string	"gt"
+.LC41:
+	.string	"<"
+.LC42:
+	.string	"lt"
+.LC43:
+	.string	">="
+.LC44:
+	.string	"geq"
+.LC45:
+	.string	"<="
+.LC46:
+	.string	"leq"
+	.align 8
+.LC47:
+	.string	"DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD"
+.LC48:
+	.string	"INSIDE STRING COND"
+.LC49:
+	.string	"%d is POS OF FIELD\n"
+.LC50:
+	.string	"ITER IS %p\n"
+.LC51:
+	.string	"OP IS %s\n"
+.LC52:
+	.string	"COMPARinG with %s %d\n"
+.LC53:
+	.string	"="
+.LC54:
+	.string	"Length of the iter string %d\n"
+	.align 8
+.LC55:
+	.string	"NOW COMPARING %s %d with temp %d\n"
+.LC56:
+	.string	"DAS STRING CONDITIONES OP IS "
+.LC57:
+	.string	"I AINT GOT NO MONEY"
+.LC58:
+	.string	"THE STRING FIELD IS "
+.LC59:
 	.string	"FIELD NOT FOUND, CHECK QUERY"
 	.align 8
-.LC35:
+.LC60:
+	.string	"DDDDDDDDDDDDSSSSSSSSSSSSSSEEEEEEEEEEEEE"
+.LC61:
+	.string	"RECEIVED OP %s"
+	.align 8
+.LC62:
 	.string	"Need more fields in the definition? contact the developer"
 	.align 8
-.LC36:
+.LC63:
 	.string	"This datatype has not been defined"
 	.align 8
-.LC37:
+.LC64:
 	.string	"Illegal type stopping execution"
-.LC38:
+.LC65:
 	.string	"path to schema is %s\n"
-.LC39:
+.LC66:
 	.string	"r+"
-.LC40:
+.LC67:
 	.string	"Table Schema found!"
-.LC41:
+.LC68:
 	.string	"The table is found"
-.LC42:
+.LC69:
 	.string	":"
-.LC43:
-	.string	"string\n"
-.LC44:
-	.string	"int\n"
-.LC45:
+.LC70:
+	.string	"string"
+.LC71:
+	.string	"int"
+.LC72:
 	.string	"Number of  Attributes: %d\n"
-.LC46:
-	.string	"%s\t"
-.LC47:
+.LC73:
+	.string	"dummy"
+.LC74:
 	.string	"r"
-.LC48:
+.LC75:
 	.string	"\t"
-.LC49:
+.LC76:
 	.string	"THE PATH TO THE TABLE IS"
-.LC50:
+.LC77:
 	.string	"syntax error"
-.LC51:
+.LC78:
 	.string	"Error: discarding"
-.LC52:
+.LC79:
 	.string	"Error: popping"
-.LC53:
+.LC80:
 	.string	"memory exhausted"
-.LC54:
+.LC81:
 	.string	"Cleanup: discarding lookahead"
-.LC55:
+.LC82:
 	.string	"Cleanup: popping"
 	.text
 	.globl	yyparse
 	.type	yyparse, @function
 yyparse:
-.LFB11:
+.LFB12:
 	.cfi_startproc
 	pushq	%rbp
 	.cfi_def_cfa_offset 16
@@ -1350,10 +1470,10 @@ yyparse:
 	movl	$0, -309388(%rbp)
 	movl	$0, yynerrs(%rip)
 	movl	$-2, yychar(%rip)
-	jmp	.L34
-.L35:
+	jmp	.L38
+.L39:
 	addq	$2, -309304(%rbp)
-.L34:
+.L38:
 	movl	-309392(%rbp), %eax
 	movl	%eax, %edx
 	movq	-309304(%rbp), %rax
@@ -1364,7 +1484,7 @@ yyparse:
 	movq	-309312(%rbp), %rax
 	addq	%rdx, %rax
 	cmpq	%rax, -309304(%rbp)
-	jb	.L36
+	jb	.L40
 	movq	-309304(%rbp), %rdx
 	movq	-309312(%rbp), %rax
 	subq	%rax, %rdx
@@ -1373,12 +1493,12 @@ yyparse:
 	addq	$1, %rax
 	movq	%rax, -309232(%rbp)
 	cmpq	$9999, -309280(%rbp)
-	ja	.L218
+	ja	.L222
 	salq	-309280(%rbp)
 	cmpq	$10000, -309280(%rbp)
-	jbe	.L39
+	jbe	.L43
 	movq	$10000, -309280(%rbp)
-.L39:
+.L43:
 	movq	-309312(%rbp), %rax
 	movq	%rax, -309224(%rbp)
 	movq	-309280(%rbp), %rax
@@ -1388,7 +1508,7 @@ yyparse:
 	call	malloc@PLT
 	movq	%rax, -309216(%rbp)
 	cmpq	$0, -309216(%rbp)
-	je	.L219
+	je	.L223
 	movq	-309232(%rbp), %rax
 	leaq	(%rax,%rax), %rcx
 	movq	-309216(%rbp), %rdx
@@ -1447,11 +1567,11 @@ yyparse:
 	addq	%rax, -309216(%rbp)
 	leaq	-309088(%rbp), %rax
 	cmpq	%rax, -309224(%rbp)
-	je	.L41
+	je	.L45
 	movq	-309224(%rbp), %rax
 	movq	%rax, %rdi
 	call	free@PLT
-.L41:
+.L45:
 	movq	-309232(%rbp), %rax
 	addq	%rax, %rax
 	leaq	-2(%rax), %rdx
@@ -1473,12 +1593,12 @@ yyparse:
 	movq	-309312(%rbp), %rax
 	addq	%rdx, %rax
 	cmpq	%rax, -309304(%rbp)
-	jnb	.L220
-.L36:
+	jnb	.L224
+.L40:
 	cmpl	$15, -309392(%rbp)
-	je	.L221
+	je	.L225
 	nop
-.L45:
+.L49:
 	movl	-309392(%rbp), %eax
 	movslq	%eax, %rdx
 	leaq	yypact(%rip), %rax
@@ -1486,49 +1606,49 @@ yyparse:
 	movsbl	%al, %eax
 	movl	%eax, -309384(%rbp)
 	cmpl	$-41, -309384(%rbp)
-	je	.L222
+	je	.L226
 	movl	yychar(%rip), %eax
 	cmpl	$-2, %eax
-	jne	.L48
+	jne	.L52
 	movl	$0, %eax
 	call	yylex@PLT
 	movl	%eax, yychar(%rip)
-.L48:
+.L52:
 	movl	yychar(%rip), %eax
 	testl	%eax, %eax
-	jg	.L49
+	jg	.L53
 	movl	$0, -309376(%rbp)
 	movl	-309376(%rbp), %eax
 	movl	%eax, yychar(%rip)
-	jmp	.L50
-.L49:
+	jmp	.L54
+.L53:
 	movl	yychar(%rip), %eax
 	cmpl	$285, %eax
-	ja	.L51
+	ja	.L55
 	movl	yychar(%rip), %eax
 	movslq	%eax, %rdx
 	leaq	yytranslate(%rip), %rax
 	movzbl	(%rdx,%rax), %eax
 	movzbl	%al, %eax
-	jmp	.L52
-.L51:
+	jmp	.L56
+.L55:
 	movl	$2, %eax
-.L52:
+.L56:
 	movl	%eax, -309376(%rbp)
-.L50:
+.L54:
 	movl	-309376(%rbp), %eax
 	addl	%eax, -309384(%rbp)
 	cmpl	$0, -309384(%rbp)
-	js	.L223
+	js	.L227
 	cmpl	$63, -309384(%rbp)
-	jg	.L223
+	jg	.L227
 	movl	-309384(%rbp), %eax
 	movslq	%eax, %rdx
 	leaq	yycheck(%rip), %rax
 	movzbl	(%rdx,%rax), %eax
 	movsbl	%al, %eax
 	cmpl	%eax, -309376(%rbp)
-	jne	.L223
+	jne	.L227
 	movl	-309384(%rbp), %eax
 	movslq	%eax, %rdx
 	leaq	yytable(%rip), %rax
@@ -1536,14 +1656,14 @@ yyparse:
 	movsbl	%al, %eax
 	movl	%eax, -309384(%rbp)
 	cmpl	$0, -309384(%rbp)
-	jg	.L53
+	jg	.L57
 	negl	-309384(%rbp)
-	jmp	.L54
-.L53:
+	jmp	.L58
+.L57:
 	cmpl	$0, -309388(%rbp)
-	je	.L55
+	je	.L59
 	subl	$1, -309388(%rbp)
-.L55:
+.L59:
 	movl	$-2, yychar(%rip)
 	movl	-309384(%rbp), %eax
 	movl	%eax, -309392(%rbp)
@@ -1555,13 +1675,13 @@ yyparse:
 	movq	%rax, %rsi
 	movq	%rdx, %rcx
 	rep movsq
-	jmp	.L35
-.L222:
+	jmp	.L39
+.L226:
 	nop
-	jmp	.L47
-.L223:
+	jmp	.L51
+.L227:
 	nop
-.L47:
+.L51:
 	movl	-309392(%rbp), %eax
 	movslq	%eax, %rdx
 	leaq	yydefact(%rip), %rax
@@ -1569,9 +1689,9 @@ yyparse:
 	movzbl	%al, %eax
 	movl	%eax, -309384(%rbp)
 	cmpl	$0, -309384(%rbp)
-	je	.L224
+	je	.L228
 	nop
-.L54:
+.L58:
 	movl	-309384(%rbp), %eax
 	movslq	%eax, %rdx
 	leaq	yyr2(%rip), %rax
@@ -1595,81 +1715,83 @@ yyparse:
 	movq	%rdx, %rcx
 	rep movsq
 	cmpl	$40, -309384(%rbp)
-	ja	.L225
+	ja	.L229
 	movl	-309384(%rbp), %eax
 	leaq	0(,%rax,4), %rdx
-	leaq	.L60(%rip), %rax
+	leaq	.L64(%rip), %rax
 	movl	(%rdx,%rax), %eax
 	movslq	%eax, %rdx
-	leaq	.L60(%rip), %rax
+	leaq	.L64(%rip), %rax
 	addq	%rdx, %rax
 	jmp	*%rax
 	.section	.rodata
 	.align 4
 	.align 4
-.L60:
-	.long	.L225-.L60
-	.long	.L225-.L60
-	.long	.L59-.L60
-	.long	.L61-.L60
-	.long	.L62-.L60
-	.long	.L63-.L60
-	.long	.L225-.L60
-	.long	.L225-.L60
-	.long	.L225-.L60
-	.long	.L67-.L60
-	.long	.L68-.L60
-	.long	.L69-.L60
-	.long	.L70-.L60
-	.long	.L71-.L60
-	.long	.L72-.L60
-	.long	.L73-.L60
-	.long	.L74-.L60
-	.long	.L75-.L60
-	.long	.L76-.L60
-	.long	.L77-.L60
-	.long	.L78-.L60
-	.long	.L79-.L60
-	.long	.L80-.L60
-	.long	.L81-.L60
-	.long	.L82-.L60
-	.long	.L83-.L60
-	.long	.L84-.L60
-	.long	.L85-.L60
-	.long	.L86-.L60
-	.long	.L87-.L60
-	.long	.L88-.L60
-	.long	.L89-.L60
-	.long	.L90-.L60
-	.long	.L91-.L60
-	.long	.L92-.L60
-	.long	.L93-.L60
-	.long	.L94-.L60
-	.long	.L95-.L60
-	.long	.L96-.L60
-	.long	.L97-.L60
-	.long	.L98-.L60
+.L64:
+	.long	.L229-.L64
+	.long	.L229-.L64
+	.long	.L63-.L64
+	.long	.L65-.L64
+	.long	.L66-.L64
+	.long	.L67-.L64
+	.long	.L229-.L64
+	.long	.L229-.L64
+	.long	.L229-.L64
+	.long	.L71-.L64
+	.long	.L72-.L64
+	.long	.L73-.L64
+	.long	.L74-.L64
+	.long	.L75-.L64
+	.long	.L76-.L64
+	.long	.L77-.L64
+	.long	.L78-.L64
+	.long	.L79-.L64
+	.long	.L80-.L64
+	.long	.L81-.L64
+	.long	.L82-.L64
+	.long	.L83-.L64
+	.long	.L84-.L64
+	.long	.L85-.L64
+	.long	.L86-.L64
+	.long	.L87-.L64
+	.long	.L88-.L64
+	.long	.L89-.L64
+	.long	.L90-.L64
+	.long	.L91-.L64
+	.long	.L92-.L64
+	.long	.L93-.L64
+	.long	.L94-.L64
+	.long	.L95-.L64
+	.long	.L96-.L64
+	.long	.L97-.L64
+	.long	.L98-.L64
+	.long	.L99-.L64
+	.long	.L100-.L64
+	.long	.L101-.L64
+	.long	.L102-.L64
 	.text
-.L59:
-	leaq	.LC8(%rip), %rdi
-	call	puts@PLT
-	jmp	.L99
-.L61:
-	leaq	.LC9(%rip), %rdi
-	call	puts@PLT
-	jmp	.L99
-.L62:
+.L63:
 	leaq	.LC10(%rip), %rdi
 	call	puts@PLT
-	jmp	.L99
-.L63:
+	jmp	.L103
+.L65:
 	leaq	.LC11(%rip), %rdi
 	call	puts@PLT
-	jmp	.L99
+	jmp	.L103
+.L66:
+	leaq	.LC12(%rip), %rdi
+	call	puts@PLT
+	jmp	.L103
 .L67:
+	leaq	.LC13(%rip), %rdi
+	call	puts@PLT
+	jmp	.L103
+.L71:
 	movq	-309288(%rbp), %rax
 	movq	(%rax), %rax
 	movq	%rax, -309272(%rbp)
+	leaq	.LC14(%rip), %rdi
+	call	puts@PLT
 	movq	-309272(%rbp), %rax
 	movq	%rax, %rdi
 	call	print_list
@@ -1679,42 +1801,32 @@ yyparse:
 	call	opendir@PLT
 	movq	%rax, -309104(%rbp)
 	movl	$2, -309332(%rbp)
-	jmp	.L100
-.L109:
-	movq	-309104(%rbp), %rax
-	movq	%rax, %rsi
-	leaq	.LC12(%rip), %rdi
-	movl	$0, %eax
-	call	printf@PLT
-	jmp	.L101
-.L108:
+	jmp	.L104
+.L113:
+	movq	-309288(%rbp), %rax
+	movq	(%rax), %rax
+	movq	%rax, -309272(%rbp)
+	jmp	.L105
+.L112:
 	movq	-309272(%rbp), %rax
 	movq	%rax, %rsi
-	leaq	.LC12(%rip), %rdi
+	leaq	.LC15(%rip), %rdi
 	movl	$0, %eax
 	call	printf@PLT
 	movq	-309272(%rbp), %rax
 	movl	(%rax), %eax
-	testl	%eax, %eax
-	sete	%al
-	movzbl	%al, %ecx
-	movq	-309272(%rbp), %rax
-	movl	(%rax), %eax
-	cmpl	$1, %eax
-	sete	%al
-	movzbl	%al, %edx
-	movq	-309272(%rbp), %rax
-	movl	(%rax), %eax
+	movl	$0, %ecx
+	movl	$1, %edx
 	movl	%eax, %esi
-	leaq	.LC13(%rip), %rdi
+	leaq	.LC16(%rip), %rdi
 	movl	$0, %eax
 	call	printf@PLT
 	movq	-309272(%rbp), %rax
 	movl	(%rax), %eax
 	testl	%eax, %eax
-	je	.L103
+	je	.L107
 	cmpl	$1, %eax
-	jne	.L102
+	jne	.L106
 	movq	-309096(%rbp), %rax
 	leaq	19(%rax), %rdx
 	movq	-309272(%rbp), %rax
@@ -1723,45 +1835,7 @@ yyparse:
 	movq	%rax, %rdi
 	call	strcmp@PLT
 	testl	%eax, %eax
-	jne	.L226
-	movq	-309096(%rbp), %rax
-	leaq	19(%rax), %rdx
-	movq	-309288(%rbp), %rax
-	subq	$2032, %rax
-	movq	%rax, %rsi
-	leaq	-1024(%rbp), %rax
-	movq	%rdx, %rcx
-	movq	%rsi, %rdx
-	leaq	.LC14(%rip), %rsi
-	movq	%rax, %rdi
-	movl	$0, %eax
-	call	sprintf@PLT
-	leaq	.LC15(%rip), %rdi
-	call	puts@PLT
-	leaq	-1024(%rbp), %rax
-	movq	%rax, %rdi
-	call	puts@PLT
-	leaq	-1024(%rbp), %rax
-	movq	%rax, %rdi
-	call	remove@PLT
-	jmp	.L226
-.L103:
-	movl	$3, -309332(%rbp)
-	movq	-309272(%rbp), %rax
-	movl	4(%rax), %edx
-	leaq	-2032(%rbp), %rax
-	leaq	.LC16(%rip), %rsi
-	movq	%rax, %rdi
-	movl	$0, %eax
-	call	sprintf@PLT
-	movq	-309096(%rbp), %rax
-	leaq	19(%rax), %rdx
-	leaq	-2032(%rbp), %rax
-	movq	%rdx, %rsi
-	movq	%rax, %rdi
-	call	strcmp@PLT
-	testl	%eax, %eax
-	jne	.L227
+	jne	.L230
 	movq	-309096(%rbp), %rax
 	leaq	19(%rax), %rdx
 	movq	-309288(%rbp), %rax
@@ -1774,7 +1848,56 @@ yyparse:
 	movq	%rax, %rdi
 	movl	$0, %eax
 	call	sprintf@PLT
-	leaq	.LC15(%rip), %rdi
+	leaq	.LC18(%rip), %rdi
+	call	puts@PLT
+	leaq	-1024(%rbp), %rax
+	movq	%rax, %rdi
+	call	puts@PLT
+	leaq	-1024(%rbp), %rax
+	movq	%rax, %rdi
+	call	remove@PLT
+	jmp	.L230
+.L107:
+	movl	$3, -309332(%rbp)
+	movq	-309272(%rbp), %rax
+	movl	4(%rax), %edx
+	leaq	-2032(%rbp), %rax
+	leaq	.LC19(%rip), %rsi
+	movq	%rax, %rdi
+	movl	$0, %eax
+	call	sprintf@PLT
+	leaq	-2032(%rbp), %rax
+	movq	%rax, %rsi
+	leaq	.LC20(%rip), %rdi
+	movl	$0, %eax
+	call	printf@PLT
+	movq	-309096(%rbp), %rax
+	addq	$19, %rax
+	movq	%rax, %rsi
+	leaq	.LC21(%rip), %rdi
+	movl	$0, %eax
+	call	printf@PLT
+	movq	-309096(%rbp), %rax
+	leaq	19(%rax), %rdx
+	leaq	-2032(%rbp), %rax
+	movq	%rdx, %rsi
+	movq	%rax, %rdi
+	call	strcmp@PLT
+	testl	%eax, %eax
+	jne	.L231
+	movq	-309096(%rbp), %rax
+	leaq	19(%rax), %rdx
+	movq	-309288(%rbp), %rax
+	subq	$2032, %rax
+	movq	%rax, %rsi
+	leaq	-1024(%rbp), %rax
+	movq	%rdx, %rcx
+	movq	%rsi, %rdx
+	leaq	.LC22(%rip), %rsi
+	movq	%rax, %rdi
+	movl	$0, %eax
+	call	sprintf@PLT
+	leaq	.LC18(%rip), %rdi
 	call	puts@PLT
 	leaq	-1024(%rbp), %rax
 	movq	%rax, %rdi
@@ -1783,34 +1906,34 @@ yyparse:
 	movq	%rax, %rdi
 	call	remove@PLT
 	nop
-	jmp	.L227
-.L226:
+	jmp	.L231
+.L230:
 	nop
-	jmp	.L102
-.L227:
+	jmp	.L106
+.L231:
 	nop
-.L102:
+.L106:
 	movq	-309272(%rbp), %rax
 	movq	100408(%rax), %rax
 	movq	%rax, -309272(%rbp)
-.L101:
+.L105:
 	cmpq	$0, -309272(%rbp)
-	jne	.L108
-.L100:
+	jne	.L112
+.L104:
 	movq	-309104(%rbp), %rax
 	movq	%rax, %rdi
 	call	readdir@PLT
 	movq	%rax, -309096(%rbp)
 	cmpq	$0, -309096(%rbp)
-	jne	.L109
-	jmp	.L99
-.L68:
+	jne	.L113
+	jmp	.L103
+.L72:
 	movq	-309288(%rbp), %rax
 	subq	$1016, %rax
 	movq	(%rax), %rax
 	movq	%rax, -308688(%rbp)
-	jmp	.L99
-.L69:
+	jmp	.L103
+.L73:
 	movl	$1004, %edi
 	call	malloc@PLT
 	movq	%rax, -309112(%rbp)
@@ -1838,8 +1961,8 @@ yyparse:
 	movq	-308688(%rbp), %rax
 	movq	-309112(%rbp), %rdx
 	movq	%rdx, 1008(%rax)
-	jmp	.L99
-.L70:
+	jmp	.L103
+.L74:
 	movl	$1004, %edi
 	call	malloc@PLT
 	movq	%rax, -309120(%rbp)
@@ -1858,15 +1981,17 @@ yyparse:
 	movl	$1, 1016(%rax)
 	movq	-309120(%rbp), %rax
 	movq	%rax, -308688(%rbp)
-	jmp	.L99
-.L71:
+	jmp	.L103
+.L75:
 	movq	-309288(%rbp), %rdx
 	leaq	-308688(%rbp), %rax
 	movq	%rdx, %rsi
 	movq	%rax, %rdi
 	call	strcpy@PLT
-	jmp	.L99
-.L72:
+	jmp	.L103
+.L76:
+	leaq	.LC23(%rip), %rdi
+	call	puts@PLT
 	movq	$0, -308688(%rbp)
 	movq	-309288(%rbp), %rax
 	subq	$2032, %rax
@@ -1876,9 +2001,11 @@ yyparse:
 	subq	$1016, %rax
 	movl	(%rax), %eax
 	cmpl	$1, %eax
-	jne	.L110
-	jmp	.L111
-.L114:
+	jne	.L114
+	leaq	.LC24(%rip), %rdi
+	call	puts@PLT
+	jmp	.L115
+.L117:
 	movq	-309288(%rbp), %rax
 	movq	(%rax), %rbx
 	movq	-309264(%rbp), %rax
@@ -1893,7 +2020,7 @@ yyparse:
 	call	find
 	addq	$100416, %rsp
 	testb	%al, %al
-	je	.L231
+	je	.L116
 	leaq	-308688(%rbp), %rbx
 	subq	$8, %rsp
 	movq	-309264(%rbp), %rax
@@ -1907,17 +2034,15 @@ yyparse:
 	movq	%rbx, %rdi
 	call	push_back
 	addq	$100416, %rsp
+.L116:
 	movq	-309264(%rbp), %rax
 	movq	100408(%rax), %rax
 	movq	%rax, -309264(%rbp)
-	jmp	.L111
-.L231:
-	nop
-.L111:
+.L115:
 	cmpq	$0, -309264(%rbp)
-	jne	.L114
-	jmp	.L99
-.L110:
+	jne	.L117
+	jmp	.L118
+.L114:
 	movq	-309288(%rbp), %rax
 	subq	$2032, %rax
 	movq	(%rax), %rax
@@ -1925,8 +2050,8 @@ yyparse:
 	movq	-309288(%rbp), %rax
 	movq	(%rax), %rax
 	movq	%rax, -309264(%rbp)
-	jmp	.L116
-.L118:
+	jmp	.L119
+.L121:
 	movq	-308688(%rbp), %rbx
 	movq	-309264(%rbp), %rax
 	subq	$100416, %rsp
@@ -1941,7 +2066,7 @@ yyparse:
 	addq	$100416, %rsp
 	xorl	$1, %eax
 	testb	%al, %al
-	je	.L117
+	je	.L120
 	leaq	-308688(%rbp), %rbx
 	subq	$8, %rsp
 	movq	-309264(%rbp), %rax
@@ -1955,41 +2080,51 @@ yyparse:
 	movq	%rbx, %rdi
 	call	push_back
 	addq	$100416, %rsp
-.L117:
+.L120:
 	movq	-309264(%rbp), %rax
 	movq	100408(%rax), %rax
 	movq	%rax, -309264(%rbp)
-.L116:
+.L119:
 	cmpq	$0, -309264(%rbp)
-	jne	.L118
-	jmp	.L99
-.L73:
-	movq	-309288(%rbp), %rax
-	movq	(%rax), %rax
-	movq	%rax, -308688(%rbp)
-	jmp	.L99
-.L74:
-	movl	$1, -308688(%rbp)
-	jmp	.L99
-.L75:
-	movl	$0, -308688(%rbp)
-	jmp	.L99
-.L76:
-	movq	-309288(%rbp), %rax
-	movq	(%rax), %rax
-	movq	%rax, -308688(%rbp)
-	jmp	.L99
+	jne	.L121
+.L118:
+	leaq	.LC25(%rip), %rdi
+	call	puts@PLT
+	movq	-308688(%rbp), %rax
+	movq	%rax, %rdi
+	call	print_list
+	jmp	.L103
 .L77:
 	movq	-309288(%rbp), %rax
 	movq	(%rax), %rax
 	movq	%rax, -308688(%rbp)
-	jmp	.L99
+	jmp	.L103
 .L78:
+	leaq	.LC26(%rip), %rdi
+	call	puts@PLT
+	movl	$1, -308688(%rbp)
+	jmp	.L103
+.L79:
+	leaq	.LC27(%rip), %rdi
+	call	puts@PLT
+	movl	$0, -308688(%rbp)
+	jmp	.L103
+.L80:
+	movq	-309288(%rbp), %rax
+	movq	(%rax), %rax
+	movq	%rax, -308688(%rbp)
+	jmp	.L103
+.L81:
+	movq	-309288(%rbp), %rax
+	movq	(%rax), %rax
+	movq	%rax, -308688(%rbp)
+	jmp	.L103
+.L82:
 	movq	$0, -308688(%rbp)
 	movq	table_records(%rip), %rax
 	movq	%rax, -309128(%rbp)
-	jmp	.L119
-.L121:
+	jmp	.L122
+.L124:
 	movq	-309288(%rbp), %rax
 	movq	(%rax), %rbx
 	movq	-309128(%rbp), %rax
@@ -2004,9 +2139,9 @@ yyparse:
 	call	find
 	addq	$100416, %rsp
 	testb	%al, %al
-	je	.L120
-	jmp	.L119
-.L120:
+	je	.L123
+	jmp	.L122
+.L123:
 	leaq	-308688(%rbp), %rbx
 	subq	$8, %rsp
 	movq	-309128(%rbp), %rax
@@ -2020,22 +2155,22 @@ yyparse:
 	movq	%rbx, %rdi
 	call	push_back
 	addq	$100416, %rsp
-.L119:
+.L122:
 	cmpq	$0, -309128(%rbp)
-	jne	.L121
+	jne	.L124
 	movq	-309128(%rbp), %rax
 	movq	100408(%rax), %rax
 	movq	%rax, -309128(%rbp)
-	jmp	.L99
-.L79:
+	jmp	.L103
+.L83:
 	movq	-309288(%rbp), %rax
 	subq	$1016, %rax
 	movq	(%rax), %rax
 	movq	%rax, -308688(%rbp)
-	jmp	.L99
-.L80:
+	jmp	.L103
+.L84:
 	movq	$0, -308688(%rbp)
-	leaq	.LC18(%rip), %rdi
+	leaq	.LC28(%rip), %rdi
 	call	puts@PLT
 	movq	table_records(%rip), %rax
 	movq	%rax, -309256(%rbp)
@@ -2044,12 +2179,12 @@ yyparse:
 	call	print_list
 	movl	$0, -309368(%rbp)
 	movl	$0, -309364(%rbp)
-	jmp	.L122
-.L125:
+	jmp	.L125
+.L128:
 	movq	-309288(%rbp), %rax
 	subq	$2032, %rax
 	movq	%rax, %rsi
-	leaq	.LC19(%rip), %rdi
+	leaq	.LC29(%rip), %rdi
 	movl	$0, %eax
 	call	printf@PLT
 	movq	schema(%rip), %rdx
@@ -2064,19 +2199,37 @@ yyparse:
 	movq	%rdx, %rdi
 	call	strcmp@PLT
 	testl	%eax, %eax
-	jne	.L123
+	jne	.L126
 	movl	-309364(%rbp), %eax
 	movl	%eax, -309368(%rbp)
-	jmp	.L124
-.L123:
+	jmp	.L127
+.L126:
 	addl	$1, -309364(%rbp)
-.L122:
+.L125:
 	movl	8+schema(%rip), %eax
 	cmpl	%eax, -309364(%rbp)
-	jl	.L125
-.L124:
-	jmp	.L126
-.L133:
+	jl	.L128
+.L127:
+	movq	-309256(%rbp), %rdx
+	movl	-309368(%rbp), %eax
+	cltq
+	imulq	$1004, %rax, %rax
+	addq	%rdx, %rax
+	addq	$4, %rax
+	movl	(%rax), %edx
+	movq	-309256(%rbp), %rax
+	movq	%rax, %rsi
+	leaq	.LC30(%rip), %rdi
+	movl	$0, %eax
+	call	printf@PLT
+	movq	-309288(%rbp), %rax
+	movl	4(%rax), %eax
+	movl	%eax, %esi
+	leaq	.LC31(%rip), %rdi
+	movl	$0, %eax
+	call	printf@PLT
+	jmp	.L129
+.L136:
 	movq	-309256(%rbp), %rdx
 	movl	-309368(%rbp), %eax
 	cltq
@@ -2085,127 +2238,35 @@ yyparse:
 	addq	$4, %rax
 	movl	(%rax), %eax
 	movl	%eax, %esi
-	leaq	.LC20(%rip), %rdi
+	leaq	.LC32(%rip), %rdi
 	movl	$0, %eax
 	call	printf@PLT
 	movl	$100416, %edi
 	call	malloc@PLT
 	movq	%rax, -309136(%rbp)
-	movq	-309288(%rbp), %rax
-	subq	$1016, %rax
-	addq	$1008, %rax
-	leaq	.LC21(%rip), %rsi
-	movq	%rax, %rdi
-	call	strcmp@PLT
-	testl	%eax, %eax
-	jne	.L127
-	leaq	.LC22(%rip), %rdi
-	call	puts@PLT
-	movq	-309288(%rbp), %rax
-	movl	4(%rax), %edx
-	movq	-309256(%rbp), %rcx
-	movl	-309368(%rbp), %eax
-	cltq
-	imulq	$1004, %rax, %rax
-	addq	%rcx, %rax
-	addq	$4, %rax
-	movl	(%rax), %eax
-	cmpl	%eax, %edx
-	jne	.L127
-	leaq	-308688(%rbp), %rbx
-	subq	$8, %rsp
-	movq	-309136(%rbp), %rax
-	subq	$100408, %rsp
-	movq	%rsp, %rdx
+	movq	-309136(%rbp), %rdx
+	movq	-309256(%rbp), %rax
 	movq	%rdx, %rcx
 	movl	$100404, %edx
 	movq	%rax, %rsi
 	movq	%rcx, %rdi
 	call	memcpy@PLT
-	movq	%rbx, %rdi
-	call	push_back
-	addq	$100416, %rsp
-.L127:
 	movq	-309288(%rbp), %rax
 	subq	$1016, %rax
 	addq	$1008, %rax
-	leaq	.LC23(%rip), %rsi
-	movq	%rax, %rdi
-	call	strcmp@PLT
-	testl	%eax, %eax
-	jne	.L128
-	leaq	.LC24(%rip), %rdi
-	call	puts@PLT
-	movq	-309288(%rbp), %rax
-	movl	4(%rax), %edx
-	movq	-309256(%rbp), %rcx
-	movl	-309368(%rbp), %eax
-	cltq
-	imulq	$1004, %rax, %rax
-	addq	%rcx, %rax
-	addq	$4, %rax
-	movl	(%rax), %eax
-	cmpl	%eax, %edx
-	je	.L128
-	leaq	-308688(%rbp), %rbx
-	subq	$8, %rsp
-	movq	-309136(%rbp), %rax
-	subq	$100408, %rsp
-	movq	%rsp, %rdx
-	movq	%rdx, %rcx
-	movl	$100404, %edx
-	movq	%rax, %rsi
-	movq	%rcx, %rdi
-	call	memcpy@PLT
-	movq	%rbx, %rdi
-	call	push_back
-	addq	$100416, %rsp
-.L128:
-	movq	-309288(%rbp), %rax
-	subq	$1016, %rax
-	addq	$1008, %rax
-	leaq	.LC25(%rip), %rsi
-	movq	%rax, %rdi
-	call	strcmp@PLT
-	testl	%eax, %eax
-	jne	.L129
-	leaq	.LC26(%rip), %rdi
-	call	puts@PLT
-	movq	-309288(%rbp), %rax
-	movl	4(%rax), %edx
-	movq	-309256(%rbp), %rcx
-	movl	-309368(%rbp), %eax
-	cltq
-	imulq	$1004, %rax, %rax
-	addq	%rcx, %rax
-	addq	$4, %rax
-	movl	(%rax), %eax
-	cmpl	%eax, %edx
-	jge	.L129
-	leaq	-308688(%rbp), %rbx
-	subq	$8, %rsp
-	movq	-309136(%rbp), %rax
-	subq	$100408, %rsp
-	movq	%rsp, %rdx
-	movq	%rdx, %rcx
-	movl	$100404, %edx
-	movq	%rax, %rsi
-	movq	%rcx, %rdi
-	call	memcpy@PLT
-	movq	%rbx, %rdi
-	call	push_back
-	addq	$100416, %rsp
-.L129:
-	movq	-309288(%rbp), %rax
-	subq	$1016, %rax
-	addq	$1008, %rax
-	leaq	.LC27(%rip), %rsi
+	leaq	.LC33(%rip), %rsi
 	movq	%rax, %rdi
 	call	strcmp@PLT
 	testl	%eax, %eax
 	jne	.L130
-	leaq	.LC28(%rip), %rdi
+	leaq	.LC34(%rip), %rdi
 	call	puts@PLT
+	movq	-309288(%rbp), %rax
+	movl	4(%rax), %eax
+	movl	%eax, %esi
+	leaq	.LC35(%rip), %rdi
+	movl	$0, %eax
+	call	printf@PLT
 	movq	-309288(%rbp), %rax
 	movl	4(%rax), %edx
 	movq	-309256(%rbp), %rcx
@@ -2216,7 +2277,9 @@ yyparse:
 	addq	$4, %rax
 	movl	(%rax), %eax
 	cmpl	%eax, %edx
-	jle	.L130
+	jne	.L130
+	leaq	.LC36(%rip), %rdi
+	call	puts@PLT
 	leaq	-308688(%rbp), %rbx
 	subq	$8, %rsp
 	movq	-309136(%rbp), %rax
@@ -2230,16 +2293,19 @@ yyparse:
 	movq	%rbx, %rdi
 	call	push_back
 	addq	$100416, %rsp
+	movq	-308688(%rbp), %rax
+	movq	%rax, %rdi
+	call	print_list
 .L130:
 	movq	-309288(%rbp), %rax
 	subq	$1016, %rax
 	addq	$1008, %rax
-	leaq	.LC29(%rip), %rsi
+	leaq	.LC37(%rip), %rsi
 	movq	%rax, %rdi
 	call	strcmp@PLT
 	testl	%eax, %eax
 	jne	.L131
-	leaq	.LC30(%rip), %rdi
+	leaq	.LC38(%rip), %rdi
 	call	puts@PLT
 	movq	-309288(%rbp), %rax
 	movl	4(%rax), %edx
@@ -2251,7 +2317,7 @@ yyparse:
 	addq	$4, %rax
 	movl	(%rax), %eax
 	cmpl	%eax, %edx
-	jg	.L131
+	je	.L131
 	leaq	-308688(%rbp), %rbx
 	subq	$8, %rsp
 	movq	-309136(%rbp), %rax
@@ -2269,12 +2335,12 @@ yyparse:
 	movq	-309288(%rbp), %rax
 	subq	$1016, %rax
 	addq	$1008, %rax
-	leaq	.LC31(%rip), %rsi
+	leaq	.LC39(%rip), %rsi
 	movq	%rax, %rdi
 	call	strcmp@PLT
 	testl	%eax, %eax
 	jne	.L132
-	leaq	.LC32(%rip), %rdi
+	leaq	.LC40(%rip), %rdi
 	call	puts@PLT
 	movq	-309288(%rbp), %rax
 	movl	4(%rax), %edx
@@ -2286,7 +2352,7 @@ yyparse:
 	addq	$4, %rax
 	movl	(%rax), %eax
 	cmpl	%eax, %edx
-	jl	.L132
+	jge	.L132
 	leaq	-308688(%rbp), %rbx
 	subq	$8, %rsp
 	movq	-309136(%rbp), %rax
@@ -2301,24 +2367,135 @@ yyparse:
 	call	push_back
 	addq	$100416, %rsp
 .L132:
+	movq	-309288(%rbp), %rax
+	subq	$1016, %rax
+	addq	$1008, %rax
+	leaq	.LC41(%rip), %rsi
+	movq	%rax, %rdi
+	call	strcmp@PLT
+	testl	%eax, %eax
+	jne	.L133
+	leaq	.LC42(%rip), %rdi
+	call	puts@PLT
+	movq	-309288(%rbp), %rax
+	movl	4(%rax), %edx
+	movq	-309256(%rbp), %rcx
+	movl	-309368(%rbp), %eax
+	cltq
+	imulq	$1004, %rax, %rax
+	addq	%rcx, %rax
+	addq	$4, %rax
+	movl	(%rax), %eax
+	cmpl	%eax, %edx
+	jle	.L133
+	leaq	-308688(%rbp), %rbx
+	subq	$8, %rsp
+	movq	-309136(%rbp), %rax
+	subq	$100408, %rsp
+	movq	%rsp, %rdx
+	movq	%rdx, %rcx
+	movl	$100404, %edx
+	movq	%rax, %rsi
+	movq	%rcx, %rdi
+	call	memcpy@PLT
+	movq	%rbx, %rdi
+	call	push_back
+	addq	$100416, %rsp
+.L133:
+	movq	-309288(%rbp), %rax
+	subq	$1016, %rax
+	addq	$1008, %rax
+	leaq	.LC43(%rip), %rsi
+	movq	%rax, %rdi
+	call	strcmp@PLT
+	testl	%eax, %eax
+	jne	.L134
+	leaq	.LC44(%rip), %rdi
+	call	puts@PLT
+	movq	-309288(%rbp), %rax
+	movl	4(%rax), %edx
+	movq	-309256(%rbp), %rcx
+	movl	-309368(%rbp), %eax
+	cltq
+	imulq	$1004, %rax, %rax
+	addq	%rcx, %rax
+	addq	$4, %rax
+	movl	(%rax), %eax
+	cmpl	%eax, %edx
+	jg	.L134
+	leaq	-308688(%rbp), %rbx
+	subq	$8, %rsp
+	movq	-309136(%rbp), %rax
+	subq	$100408, %rsp
+	movq	%rsp, %rdx
+	movq	%rdx, %rcx
+	movl	$100404, %edx
+	movq	%rax, %rsi
+	movq	%rcx, %rdi
+	call	memcpy@PLT
+	movq	%rbx, %rdi
+	call	push_back
+	addq	$100416, %rsp
+.L134:
+	movq	-309288(%rbp), %rax
+	subq	$1016, %rax
+	addq	$1008, %rax
+	leaq	.LC45(%rip), %rsi
+	movq	%rax, %rdi
+	call	strcmp@PLT
+	testl	%eax, %eax
+	jne	.L135
+	leaq	.LC46(%rip), %rdi
+	call	puts@PLT
+	movq	-309288(%rbp), %rax
+	movl	4(%rax), %edx
+	movq	-309256(%rbp), %rcx
+	movl	-309368(%rbp), %eax
+	cltq
+	imulq	$1004, %rax, %rax
+	addq	%rcx, %rax
+	addq	$4, %rax
+	movl	(%rax), %eax
+	cmpl	%eax, %edx
+	jl	.L135
+	leaq	-308688(%rbp), %rbx
+	subq	$8, %rsp
+	movq	-309136(%rbp), %rax
+	subq	$100408, %rsp
+	movq	%rsp, %rdx
+	movq	%rdx, %rcx
+	movl	$100404, %edx
+	movq	%rax, %rsi
+	movq	%rcx, %rdi
+	call	memcpy@PLT
+	movq	%rbx, %rdi
+	call	push_back
+	addq	$100416, %rsp
+.L135:
 	movq	-309256(%rbp), %rax
 	movq	100408(%rax), %rax
 	movq	%rax, -309256(%rbp)
-.L126:
+.L129:
 	cmpq	$0, -309256(%rbp)
-	jne	.L133
+	jne	.L136
+	leaq	.LC47(%rip), %rdi
+	call	puts@PLT
 	movq	-308688(%rbp), %rax
 	movq	%rax, %rdi
 	call	print_list
-	jmp	.L99
-.L81:
+	leaq	.LC47(%rip), %rdi
+	call	puts@PLT
+	jmp	.L103
+.L85:
 	movq	$0, -308688(%rbp)
 	movq	table_records(%rip), %rax
 	movq	%rax, -309248(%rbp)
+	leaq	.LC48(%rip), %rdi
+	call	puts@PLT
 	movl	$0, -309360(%rbp)
 	movl	$0, -309356(%rbp)
-	jmp	.L134
-.L137:
+	jmp	.L137
+.L140:
 	movq	schema(%rip), %rdx
 	movl	-309356(%rbp), %eax
 	cltq
@@ -2329,29 +2506,110 @@ yyparse:
 	subq	$2032, %rdx
 	movq	%rax, %rsi
 	movq	%rdx, %rdi
-	call	strcpy@PLT
-	testq	%rax, %rax
-	jne	.L135
-	movl	-309356(%rbp), %eax
-	movl	%eax, -309360(%rbp)
-	jmp	.L136
-.L135:
-	addl	$1, -309356(%rbp)
-.L134:
-	movl	8+schema(%rip), %eax
-	cmpl	%eax, -309356(%rbp)
-	jl	.L137
-.L136:
-	jmp	.L138
-.L140:
-	movq	-309288(%rbp), %rax
-	subq	$1016, %rax
-	addq	$8, %rax
-	leaq	.LC33(%rip), %rsi
-	movq	%rax, %rdi
 	call	strcmp@PLT
 	testl	%eax, %eax
 	jne	.L138
+	movl	-309356(%rbp), %eax
+	movl	%eax, -309360(%rbp)
+	movl	-309360(%rbp), %eax
+	movl	%eax, %esi
+	leaq	.LC49(%rip), %rdi
+	movl	$0, %eax
+	call	printf@PLT
+	jmp	.L139
+.L138:
+	addl	$1, -309356(%rbp)
+.L137:
+	movl	8+schema(%rip), %eax
+	cmpl	%eax, -309356(%rbp)
+	jl	.L140
+.L139:
+	movq	-309248(%rbp), %rax
+	movq	%rax, %rsi
+	leaq	.LC50(%rip), %rdi
+	movl	$0, %eax
+	call	printf@PLT
+	movq	-309288(%rbp), %rax
+	subq	$1016, %rax
+	addq	$1008, %rax
+	movq	%rax, %rsi
+	leaq	.LC51(%rip), %rdi
+	movl	$0, %eax
+	call	printf@PLT
+	movq	-309288(%rbp), %rax
+	addq	$4, %rax
+	movq	%rax, %rdi
+	call	strlen@PLT
+	movq	%rax, %rdx
+	movq	-309288(%rbp), %rax
+	addq	$4, %rax
+	movq	%rax, %rsi
+	leaq	.LC52(%rip), %rdi
+	movl	$0, %eax
+	call	printf@PLT
+	jmp	.L141
+.L144:
+	movq	-309288(%rbp), %rax
+	subq	$1016, %rax
+	addq	$1008, %rax
+	leaq	.LC53(%rip), %rsi
+	movq	%rax, %rdi
+	call	strcmp@PLT
+	testl	%eax, %eax
+	jne	.L142
+	movq	-309288(%rbp), %rax
+	leaq	4(%rax), %rdx
+	leaq	-1024(%rbp), %rax
+	movq	%rdx, %rsi
+	movq	%rax, %rdi
+	call	strcpy@PLT
+	movl	-309360(%rbp), %eax
+	cltq
+	imulq	$1004, %rax, %rdx
+	movq	-309248(%rbp), %rax
+	addq	%rdx, %rax
+	addq	$4, %rax
+	movq	%rax, %rdi
+	call	strlen@PLT
+	movq	%rax, %rsi
+	leaq	.LC54(%rip), %rdi
+	movl	$0, %eax
+	call	printf@PLT
+	movl	-309360(%rbp), %eax
+	cltq
+	imulq	$1004, %rax, %rdx
+	movq	-309248(%rbp), %rax
+	addq	%rdx, %rax
+	leaq	4(%rax), %rdx
+	leaq	-1024(%rbp), %rax
+	movq	%rdx, %rsi
+	movq	%rax, %rdi
+	call	strcmp@PLT
+	movl	%eax, %ebx
+	movl	-309360(%rbp), %eax
+	cltq
+	imulq	$1004, %rax, %rdx
+	movq	-309248(%rbp), %rax
+	addq	%rdx, %rax
+	leaq	4(%rax), %rdx
+	movq	-309288(%rbp), %rax
+	addq	$4, %rax
+	movq	%rdx, %rsi
+	movq	%rax, %rdi
+	call	strcmp@PLT
+	movl	%eax, %esi
+	movl	-309360(%rbp), %eax
+	cltq
+	imulq	$1004, %rax, %rdx
+	movq	-309248(%rbp), %rax
+	addq	%rdx, %rax
+	addq	$4, %rax
+	movl	%ebx, %ecx
+	movl	%esi, %edx
+	movq	%rax, %rsi
+	leaq	.LC55(%rip), %rdi
+	movl	$0, %eax
+	call	printf@PLT
 	movl	-309360(%rbp), %eax
 	cltq
 	imulq	$1004, %rax, %rdx
@@ -2364,10 +2622,17 @@ yyparse:
 	movq	%rax, %rdi
 	call	strcmp@PLT
 	testl	%eax, %eax
-	jne	.L139
+	jne	.L142
 	movl	$100416, %edi
 	call	malloc@PLT
 	movq	%rax, -309144(%rbp)
+	movq	-309144(%rbp), %rdx
+	movq	-309248(%rbp), %rax
+	movq	%rdx, %rcx
+	movl	$100404, %edx
+	movq	%rax, %rsi
+	movq	%rcx, %rdi
+	call	memcpy@PLT
 	leaq	-308688(%rbp), %rbx
 	subq	$8, %rsp
 	movq	-309144(%rbp), %rax
@@ -2381,15 +2646,22 @@ yyparse:
 	movq	%rbx, %rdi
 	call	push_back
 	addq	$100416, %rsp
-.L139:
+.L142:
 	movq	-309248(%rbp), %rax
 	movq	100408(%rax), %rax
 	movq	%rax, -309248(%rbp)
-.L138:
+.L141:
 	cmpq	$0, -309248(%rbp)
-	jne	.L140
-	jmp	.L99
-.L82:
+	jne	.L144
+	leaq	.LC56(%rip), %rdi
+	call	puts@PLT
+	movq	-308688(%rbp), %rax
+	movq	%rax, %rdi
+	call	print_list
+	leaq	.LC57(%rip), %rdi
+	call	puts@PLT
+	jmp	.L103
+.L86:
 	movq	-309288(%rbp), %rax
 	leaq	4(%rax), %rdx
 	leaq	-308688(%rbp), %rax
@@ -2397,12 +2669,15 @@ yyparse:
 	movq	%rdx, %rsi
 	movq	%rax, %rdi
 	call	strcpy@PLT
-	jmp	.L99
-.L83:
+	jmp	.L103
+.L87:
+	leaq	.LC58(%rip), %rdi
+	movl	$0, %eax
+	call	printf@PLT
 	movb	$0, -309394(%rbp)
 	movl	$0, -309352(%rbp)
-	jmp	.L141
-.L144:
+	jmp	.L145
+.L148:
 	movq	schema(%rip), %rdx
 	movl	-309352(%rbp), %eax
 	cltq
@@ -2414,47 +2689,58 @@ yyparse:
 	movq	%rax, %rdi
 	call	strcmp@PLT
 	testl	%eax, %eax
-	jne	.L142
+	jne	.L146
 	movb	$1, -309394(%rbp)
-	jmp	.L143
-.L142:
+	jmp	.L147
+.L146:
 	addl	$1, -309352(%rbp)
-.L141:
+.L145:
 	movl	8+schema(%rip), %eax
 	cmpl	%eax, -309352(%rbp)
-	jl	.L144
-.L143:
+	jl	.L148
+.L147:
 	movzbl	-309394(%rbp), %eax
 	xorl	$1, %eax
 	testb	%al, %al
-	je	.L145
-	leaq	.LC34(%rip), %rdi
+	je	.L149
+	leaq	.LC59(%rip), %rdi
 	call	puts@PLT
-	jmp	.L42
-.L145:
+	jmp	.L46
+.L149:
 	movq	-309288(%rbp), %rdx
 	leaq	-308688(%rbp), %rax
 	movq	%rdx, %rsi
 	movq	%rax, %rdi
 	call	strcpy@PLT
-	jmp	.L99
-.L84:
+	leaq	-308688(%rbp), %rax
+	movq	%rax, %rdi
+	call	puts@PLT
+	leaq	.LC60(%rip), %rdi
+	call	puts@PLT
+	jmp	.L103
+.L88:
 	movl	$0, -308688(%rbp)
 	leaq	-308688(%rbp), %rax
 	addq	$1008, %rax
 	movw	$61, (%rax)
-	jmp	.L99
-.L85:
+	leaq	-308688(%rbp), %rax
+	addq	$1008, %rax
+	movq	%rax, %rsi
+	leaq	.LC61(%rip), %rdi
+	movl	$0, %eax
+	call	printf@PLT
+	jmp	.L103
+.L89:
 	movl	$1, -308688(%rbp)
 	movq	-309288(%rbp), %rax
 	movl	4(%rax), %eax
 	movl	%eax, -308684(%rbp)
-	jmp	.L99
-.L86:
+	jmp	.L103
+.L90:
 	movb	$0, -309393(%rbp)
 	movl	$0, -309348(%rbp)
-	jmp	.L146
-.L149:
+	jmp	.L150
+.L153:
 	movq	schema(%rip), %rdx
 	movl	-309348(%rbp), %eax
 	cltq
@@ -2466,74 +2752,74 @@ yyparse:
 	movq	%rax, %rdi
 	call	strcmp@PLT
 	testl	%eax, %eax
-	jne	.L147
+	jne	.L151
 	movb	$1, -309393(%rbp)
-	jmp	.L148
-.L147:
+	jmp	.L152
+.L151:
 	addl	$1, -309348(%rbp)
-.L146:
+.L150:
 	movl	8+schema(%rip), %eax
 	cmpl	%eax, -309348(%rbp)
-	jl	.L149
-.L148:
+	jl	.L153
+.L152:
 	movzbl	-309393(%rbp), %eax
 	xorl	$1, %eax
 	testb	%al, %al
-	je	.L150
-	leaq	.LC34(%rip), %rdi
+	je	.L154
+	leaq	.LC59(%rip), %rdi
 	call	puts@PLT
-	jmp	.L42
-.L150:
+	jmp	.L46
+.L154:
 	movq	-309288(%rbp), %rdx
 	leaq	-308688(%rbp), %rax
 	movq	%rdx, %rsi
 	movq	%rax, %rdi
 	call	strcpy@PLT
-	jmp	.L99
-.L87:
+	jmp	.L103
+.L91:
 	movl	$0, -308688(%rbp)
 	leaq	-308688(%rbp), %rax
 	addq	$1008, %rax
 	movw	$60, (%rax)
-	jmp	.L99
-.L88:
+	jmp	.L103
+.L92:
 	movl	$0, -308688(%rbp)
 	movw	$15676, -307680(%rbp)
 	movb	$0, -307678(%rbp)
-	jmp	.L99
-.L89:
+	jmp	.L103
+.L93:
 	movl	$0, -308688(%rbp)
 	leaq	-308688(%rbp), %rax
 	addq	$1008, %rax
 	movw	$62, (%rax)
-	jmp	.L99
-.L90:
+	jmp	.L103
+.L94:
 	movl	$0, -308688(%rbp)
 	leaq	-308688(%rbp), %rax
 	addq	$1008, %rax
 	movw	$62, (%rax)
-	jmp	.L99
-.L91:
+	jmp	.L103
+.L95:
 	movl	$0, -308688(%rbp)
 	movw	$15677, -307680(%rbp)
 	movb	$0, -307678(%rbp)
-	jmp	.L99
-.L92:
+	jmp	.L103
+.L96:
 	movl	$0, -308688(%rbp)
 	movw	$15649, -307680(%rbp)
 	movb	$0, -307678(%rbp)
-	jmp	.L99
-.L93:
+	jmp	.L103
+.L97:
 	movq	-309288(%rbp), %rax
 	subq	$1016, %rax
 	movq	(%rax), %rax
 	movl	100400(%rax), %eax
 	cmpl	$100, %eax
-	jne	.L151
-	leaq	.LC35(%rip), %rdi
+	jne	.L155
+	leaq	.LC62(%rip), %rdi
 	call	puts@PLT
-	jmp	.L42
-.L151:
+	jmp	.L46
+.L155:
 	movq	-309288(%rbp), %rax
 	subq	$1016, %rax
 	movq	(%rax), %rax
@@ -2552,11 +2838,11 @@ yyparse:
 	subq	$2032, %rax
 	movl	(%rax), %eax
 	testl	%eax, %eax
-	je	.L153
+	je	.L157
 	cmpl	$1, %eax
-	je	.L154
-	jmp	.L213
-.L153:
+	je	.L158
+	jmp	.L217
+.L157:
 	movq	-309288(%rbp), %rax
 	leaq	-2032(%rax), %rsi
 	movq	-308688(%rbp), %rcx
@@ -2568,66 +2854,66 @@ yyparse:
 	addq	%rcx, %rdx
 	addq	$4, %rdx
 	movl	%eax, (%rdx)
-	jmp	.L155
-.L154:
-	movq	-309288(%rbp), %rax
-	subq	$2032, %rax
-	leaq	4(%rax), %rdx
-	movq	-308688(%rbp), %rcx
-	movq	-308688(%rbp), %rax
-	movl	100400(%rax), %eax
-	cltq
-	imulq	$1004, %rax, %rax
-	addq	%rcx, %rax
-	addq	$4, %rax
-	movq	%rdx, %rsi
-	movq	%rax, %rdi
-	call	strcpy@PLT
-	jmp	.L155
-.L213:
-	leaq	.LC36(%rip), %rdi
-	call	puts@PLT
-	jmp	.L42
-.L155:
-	movq	-308688(%rbp), %rax
-	movl	100400(%rax), %edx
-	movq	-308688(%rbp), %rax
-	addl	$1, %edx
-	movl	%edx, 100400(%rax)
-	jmp	.L99
-.L94:
-	movq	-309288(%rbp), %rax
-	movq	(%rax), %rax
-	movl	100400(%rax), %eax
-	cmpl	$100, %eax
-	jne	.L156
-	leaq	.LC35(%rip), %rdi
-	call	puts@PLT
-	jmp	.L42
-.L156:
-	movq	-309288(%rbp), %rax
-	movq	(%rax), %rax
-	movq	%rax, -308688(%rbp)
-	movq	-309288(%rbp), %rax
-	leaq	-1016(%rax), %rsi
-	movq	-308688(%rbp), %rcx
-	movq	-308688(%rbp), %rax
-	movl	100400(%rax), %edx
-	movl	(%rsi), %eax
-	movslq	%edx, %rdx
-	imulq	$1004, %rdx, %rdx
-	addq	%rcx, %rdx
-	movl	%eax, (%rdx)
-	movq	-309288(%rbp), %rax
-	subq	$1016, %rax
-	movl	(%rax), %eax
-	testl	%eax, %eax
-	je	.L158
-	cmpl	$1, %eax
-	je	.L159
-	jmp	.L214
+	jmp	.L159
 .L158:
 	movq	-309288(%rbp), %rax
+	subq	$2032, %rax
+	leaq	4(%rax), %rdx
+	movq	-308688(%rbp), %rcx
+	movq	-308688(%rbp), %rax
+	movl	100400(%rax), %eax
+	cltq
+	imulq	$1004, %rax, %rax
+	addq	%rcx, %rax
+	addq	$4, %rax
+	movq	%rdx, %rsi
+	movq	%rax, %rdi
+	call	strcpy@PLT
+	jmp	.L159
+.L217:
+	leaq	.LC63(%rip), %rdi
+	call	puts@PLT
+	jmp	.L46
+.L159:
+	movq	-308688(%rbp), %rax
+	movl	100400(%rax), %edx
+	movq	-308688(%rbp), %rax
+	addl	$1, %edx
+	movl	%edx, 100400(%rax)
+	jmp	.L103
+.L98:
+	movq	-309288(%rbp), %rax
+	movq	(%rax), %rax
+	movl	100400(%rax), %eax
+	cmpl	$100, %eax
+	jne	.L160
+	leaq	.LC62(%rip), %rdi
+	call	puts@PLT
+	jmp	.L46
+.L160:
+	movq	-309288(%rbp), %rax
+	movq	(%rax), %rax
+	movq	%rax, -308688(%rbp)
+	movq	-309288(%rbp), %rax
+	leaq	-1016(%rax), %rsi
+	movq	-308688(%rbp), %rcx
+	movq	-308688(%rbp), %rax
+	movl	100400(%rax), %edx
+	movl	(%rsi), %eax
+	movslq	%edx, %rdx
+	imulq	$1004, %rdx, %rdx
+	addq	%rcx, %rdx
+	movl	%eax, (%rdx)
+	movq	-309288(%rbp), %rax
+	subq	$1016, %rax
+	movl	(%rax), %eax
+	testl	%eax, %eax
+	je	.L162
+	cmpl	$1, %eax
+	je	.L163
+	jmp	.L218
+.L162:
+	movq	-309288(%rbp), %rax
 	leaq	-1016(%rax), %rsi
 	movq	-308688(%rbp), %rcx
 	movq	-308688(%rbp), %rax
@@ -2638,8 +2924,8 @@ yyparse:
 	addq	%rcx, %rdx
 	addq	$4, %rdx
 	movl	%eax, (%rdx)
-	jmp	.L160
-.L159:
+	jmp	.L164
+.L163:
 	movq	-309288(%rbp), %rax
 	subq	$1016, %rax
 	leaq	4(%rax), %rdx
@@ -2653,57 +2939,27 @@ yyparse:
 	movq	%rdx, %rsi
 	movq	%rax, %rdi
 	call	strcpy@PLT
-	jmp	.L160
-.L214:
-	leaq	.LC36(%rip), %rdi
+	jmp	.L164
+.L218:
+	leaq	.LC63(%rip), %rdi
 	call	puts@PLT
-	jmp	.L42
-.L160:
+	jmp	.L46
+.L164:
 	movq	-308688(%rbp), %rax
 	movl	100400(%rax), %edx
 	movq	-308688(%rbp), %rax
 	addl	$1, %edx
 	movl	%edx, 100400(%rax)
-	jmp	.L99
-.L95:
+	jmp	.L103
+.L99:
 	movl	$100404, %esi
 	movl	$1, %edi
 	call	calloc@PLT
 	movq	%rax, -308688(%rbp)
 	movq	-308688(%rbp), %rax
 	movl	$0, 100400(%rax)
-	jmp	.L99
-.L96:
-	movq	-309288(%rbp), %rax
-	movl	(%rax), %eax
-	movl	%eax, -308688(%rbp)
-	movl	-308688(%rbp), %eax
-	testl	%eax, %eax
-	je	.L162
-	cmpl	$1, %eax
-	je	.L163
-	jmp	.L215
-.L162:
-	movq	-309288(%rbp), %rax
-	movl	4(%rax), %eax
-	movl	%eax, -308684(%rbp)
-	jmp	.L164
-.L163:
-	movq	-309288(%rbp), %rax
-	leaq	4(%rax), %rdx
-	leaq	-308688(%rbp), %rax
-	addq	$4, %rax
-	movq	%rdx, %rsi
-	movq	%rax, %rdi
-	call	strcpy@PLT
-	jmp	.L164
-.L215:
-	leaq	.LC37(%rip), %rdi
-	call	puts@PLT
-	jmp	.L42
-.L164:
-	jmp	.L99
-.L97:
+	jmp	.L103
+.L100:
 	movq	-309288(%rbp), %rax
 	movl	(%rax), %eax
 	movl	%eax, -308688(%rbp)
@@ -2712,7 +2968,7 @@ yyparse:
 	je	.L166
 	cmpl	$1, %eax
 	je	.L167
-	jmp	.L216
+	jmp	.L219
 .L166:
 	movq	-309288(%rbp), %rax
 	movl	4(%rax), %eax
@@ -2727,13 +2983,43 @@ yyparse:
 	movq	%rax, %rdi
 	call	strcpy@PLT
 	jmp	.L168
-.L216:
-	leaq	.LC37(%rip), %rdi
+.L219:
+	leaq	.LC64(%rip), %rdi
 	call	puts@PLT
-	jmp	.L42
+	jmp	.L46
 .L168:
-	jmp	.L99
-.L98:
+	jmp	.L103
+.L101:
+	movq	-309288(%rbp), %rax
+	movl	(%rax), %eax
+	movl	%eax, -308688(%rbp)
+	movl	-308688(%rbp), %eax
+	testl	%eax, %eax
+	je	.L170
+	cmpl	$1, %eax
+	je	.L171
+	jmp	.L220
+.L170:
+	movq	-309288(%rbp), %rax
+	movl	4(%rax), %eax
+	movl	%eax, -308684(%rbp)
+	jmp	.L172
+.L171:
+	movq	-309288(%rbp), %rax
+	leaq	4(%rax), %rdx
+	leaq	-308688(%rbp), %rax
+	addq	$4, %rax
+	movq	%rdx, %rsi
+	movq	%rax, %rdi
+	call	strcpy@PLT
+	jmp	.L172
+.L220:
+	leaq	.LC64(%rip), %rdi
+	call	puts@PLT
+	jmp	.L46
+.L172:
+	jmp	.L103
+.L102:
 	movq	-309288(%rbp), %rdx
 	leaq	-308688(%rbp), %rax
 	movq	%rdx, %rsi
@@ -2762,20 +3048,20 @@ yyparse:
 	call	strcat@PLT
 	leaq	-4048(%rbp), %rax
 	movq	%rax, %rsi
-	leaq	.LC38(%rip), %rdi
+	leaq	.LC65(%rip), %rdi
 	movl	$0, %eax
 	call	printf@PLT
 	leaq	-4048(%rbp), %rax
-	leaq	.LC39(%rip), %rsi
+	leaq	.LC66(%rip), %rsi
 	movq	%rax, %rdi
 	call	fopen@PLT
 	movq	%rax, -309192(%rbp)
 	cmpq	$0, -309192(%rbp)
-	jne	.L169
+	jne	.L173
 	movl	$0, %eax
 	call	handle_query_file_error
-.L169:
-	leaq	.LC40(%rip), %rdi
+.L173:
+	leaq	.LC67(%rip), %rdi
 	call	puts@PLT
 	leaq	-3040(%rbp), %rax
 	movl	$1633955630, (%rax)
@@ -2803,19 +3089,19 @@ yyparse:
 	call	opendir@PLT
 	movq	%rax, -309184(%rbp)
 	cmpq	$0, -309184(%rbp)
-	jne	.L170
+	jne	.L174
 	movl	$0, %edi
 	call	handleError
-.L170:
-	leaq	.LC41(%rip), %rdi
+.L174:
+	leaq	.LC68(%rip), %rdi
 	call	puts@PLT
 	movq	$0, -309176(%rbp)
 	movq	$0, -309328(%rbp)
 	movl	$0, -309344(%rbp)
-	jmp	.L171
-.L172:
+	jmp	.L175
+.L176:
 	addl	$1, -309344(%rbp)
-.L171:
+.L175:
 	movq	-309192(%rbp), %rdx
 	leaq	-309320(%rbp), %rcx
 	leaq	-309328(%rbp), %rax
@@ -2824,7 +3110,7 @@ yyparse:
 	call	getline@PLT
 	movq	%rax, -309168(%rbp)
 	cmpq	$-1, -309168(%rbp)
-	jne	.L172
+	jne	.L176
 	movq	-309192(%rbp), %rax
 	movq	%rax, %rdi
 	call	fclose@PLT
@@ -2837,15 +3123,18 @@ yyparse:
 	call	malloc@PLT
 	movq	%rax, schema(%rip)
 	leaq	-4048(%rbp), %rax
-	leaq	.LC39(%rip), %rsi
+	leaq	.LC66(%rip), %rsi
 	movq	%rax, %rdi
 	call	fopen@PLT
 	movq	%rax, -309192(%rbp)
 	movl	$0, -309340(%rbp)
-	jmp	.L173
-.L175:
+	jmp	.L177
+.L179:
 	movq	-309328(%rbp), %rax
-	leaq	.LC42(%rip), %rsi
+	movq	%rax, %rdi
+	call	strip
+	movq	-309328(%rbp), %rax
+	leaq	.LC69(%rip), %rsi
 	movq	%rax, %rdi
 	call	strtok@PLT
 	movq	%rax, -309152(%rbp)
@@ -2859,16 +3148,16 @@ yyparse:
 	movq	%rax, %rsi
 	movq	%rdx, %rdi
 	call	strcpy@PLT
-	leaq	.LC42(%rip), %rsi
+	leaq	.LC69(%rip), %rsi
 	movl	$0, %edi
 	call	strtok@PLT
 	movq	%rax, -309152(%rbp)
 	movq	-309152(%rbp), %rax
-	leaq	.LC43(%rip), %rsi
+	leaq	.LC70(%rip), %rsi
 	movq	%rax, %rdi
 	call	strcmp@PLT
 	testl	%eax, %eax
-	jne	.L174
+	jne	.L178
 	movq	schema(%rip), %rcx
 	movl	-309340(%rbp), %eax
 	leal	1(%rax), %edx
@@ -2877,14 +3166,14 @@ yyparse:
 	imulq	$1004, %rax, %rax
 	addq	%rcx, %rax
 	movl	$1, (%rax)
-	jmp	.L173
-.L174:
+	jmp	.L177
+.L178:
 	movq	-309152(%rbp), %rax
-	leaq	.LC44(%rip), %rsi
+	leaq	.LC71(%rip), %rsi
 	movq	%rax, %rdi
 	call	strcmp@PLT
 	testl	%eax, %eax
-	jne	.L173
+	jne	.L177
 	movq	schema(%rip), %rcx
 	movl	-309340(%rbp), %eax
 	leal	1(%rax), %edx
@@ -2893,7 +3182,7 @@ yyparse:
 	imulq	$1004, %rax, %rax
 	addq	%rcx, %rax
 	movl	$0, (%rax)
-.L173:
+.L177:
 	movq	-309192(%rbp), %rdx
 	leaq	-309320(%rbp), %rcx
 	leaq	-309328(%rbp), %rax
@@ -2902,53 +3191,51 @@ yyparse:
 	call	getline@PLT
 	movq	%rax, -309168(%rbp)
 	cmpq	$-1, -309168(%rbp)
-	jne	.L175
+	jne	.L179
 	movq	-309192(%rbp), %rax
 	movq	%rax, %rdi
 	call	fclose@PLT
 	movl	-309344(%rbp), %eax
 	movl	%eax, %esi
-	leaq	.LC45(%rip), %rdi
+	leaq	.LC72(%rip), %rdi
 	movl	$0, %eax
 	call	printf@PLT
 	movl	$0, -309336(%rbp)
-	jmp	.L176
-.L177:
+	jmp	.L180
+.L181:
 	movq	schema(%rip), %rdx
 	movl	-309336(%rbp), %eax
 	cltq
 	imulq	$1004, %rax, %rax
 	addq	%rdx, %rax
 	addq	$4, %rax
-	movq	%rax, %rsi
-	leaq	.LC46(%rip), %rdi
-	movl	$0, %eax
-	call	printf@PLT
+	movq	%rax, %rdi
+	call	puts@PLT
 	addl	$1, -309336(%rbp)
-.L176:
+.L180:
 	movl	-309336(%rbp), %eax
 	cmpl	-309344(%rbp), %eax
-	jl	.L177
-	movl	$10, %edi
-	call	putchar@PLT
-	jmp	.L178
-.L187:
+	jl	.L181
+	leaq	.LC73(%rip), %rdi
+	call	puts@PLT
+	jmp	.L182
+.L191:
 	movq	-309176(%rbp), %rax
 	movzbl	18(%rax), %eax
 	cmpb	$8, %al
-	je	.L179
-	jmp	.L178
-.L179:
+	je	.L183
+	jmp	.L182
+.L183:
 	movq	-309176(%rbp), %rax
 	leaq	19(%rax), %rcx
 	leaq	-3040(%rbp), %rdx
 	leaq	-2032(%rbp), %rax
-	leaq	.LC17(%rip), %rsi
+	leaq	.LC22(%rip), %rsi
 	movq	%rax, %rdi
 	movl	$0, %eax
 	call	sprintf@PLT
 	leaq	-2032(%rbp), %rax
-	leaq	.LC47(%rip), %rsi
+	leaq	.LC74(%rip), %rsi
 	movq	%rax, %rdi
 	call	fopen@PLT
 	movq	%rax, -309160(%rbp)
@@ -2959,11 +3246,14 @@ yyparse:
 	movq	%rax, %rdi
 	call	getline@PLT
 	movq	%rax, -309168(%rbp)
+	movq	-309328(%rbp), %rax
+	movq	%rax, %rdi
+	call	strip
 	cmpq	$-1, -309168(%rbp)
-	jne	.L180
+	jne	.L184
 	movl	$0, %eax
 	call	handle_query_file_error
-.L180:
+.L184:
 	movl	$0, -309340(%rbp)
 	movq	-309328(%rbp), %rax
 	movq	%rax, %rdi
@@ -2974,30 +3264,30 @@ yyparse:
 	movq	%rax, %rdi
 	call	strcpy@PLT
 	movq	-309328(%rbp), %rax
-	leaq	.LC48(%rip), %rsi
+	leaq	.LC75(%rip), %rsi
 	movq	%rax, %rdi
 	call	strtok@PLT
 	movq	%rax, -309240(%rbp)
-	jmp	.L181
-.L182:
+	jmp	.L185
+.L186:
 	addl	$1, -309340(%rbp)
-	leaq	.LC48(%rip), %rsi
+	leaq	.LC75(%rip), %rsi
 	movl	$0, %edi
 	call	strtok@PLT
 	movq	%rax, -309240(%rbp)
-.L181:
+.L185:
 	cmpq	$0, -309240(%rbp)
-	jne	.L182
+	jne	.L186
 	movl	-309340(%rbp), %eax
 	movl	%eax, -207264(%rbp)
 	movl	$0, -309340(%rbp)
 	leaq	-1024(%rbp), %rax
-	leaq	.LC48(%rip), %rsi
+	leaq	.LC75(%rip), %rsi
 	movq	%rax, %rdi
 	call	strtok@PLT
 	movq	%rax, -309240(%rbp)
-	jmp	.L183
-.L186:
+	jmp	.L187
+.L190:
 	movq	schema(%rip), %rdx
 	movl	-309340(%rbp), %eax
 	cltq
@@ -3019,7 +3309,7 @@ yyparse:
 	subq	$307648, %rax
 	movl	(%rax), %eax
 	testl	%eax, %eax
-	jne	.L184
+	jne	.L188
 	movq	-309240(%rbp), %rax
 	movq	%rax, %rdi
 	call	atoi@PLT
@@ -3031,8 +3321,8 @@ yyparse:
 	addq	%rbx, %rax
 	subq	$307644, %rax
 	movl	%edx, (%rax)
-	jmp	.L185
-.L184:
+	jmp	.L189
+.L188:
 	leaq	-307664(%rbp), %rdx
 	movl	-309340(%rbp), %eax
 	cltq
@@ -3043,15 +3333,15 @@ yyparse:
 	movq	%rax, %rsi
 	movq	%rdx, %rdi
 	call	strcpy@PLT
-.L185:
+.L189:
 	addl	$1, -309340(%rbp)
-	leaq	.LC48(%rip), %rsi
+	leaq	.LC75(%rip), %rsi
 	movl	$0, %edi
 	call	strtok@PLT
 	movq	%rax, -309240(%rbp)
-.L183:
+.L187:
 	cmpq	$0, -309240(%rbp)
-	jne	.L186
+	jne	.L190
 	subq	$8, %rsp
 	subq	$100408, %rsp
 	movq	%rsp, %rax
@@ -3064,13 +3354,13 @@ yyparse:
 	leaq	table_records(%rip), %rdi
 	call	push_back
 	addq	$100416, %rsp
-.L178:
+.L182:
 	movq	-309184(%rbp), %rax
 	movq	%rax, %rdi
 	call	readdir@PLT
 	movq	%rax, -309176(%rbp)
 	cmpq	$0, -309176(%rbp)
-	jne	.L187
+	jne	.L191
 	movq	table_records(%rip), %rax
 	movq	%rax, %rdi
 	call	print_list
@@ -3079,15 +3369,15 @@ yyparse:
 	movq	%rdx, %rsi
 	movq	%rax, %rdi
 	call	strcpy@PLT
-	leaq	.LC49(%rip), %rdi
+	leaq	.LC76(%rip), %rdi
 	call	puts@PLT
 	leaq	-308688(%rbp), %rax
 	movq	%rax, %rdi
 	call	puts@PLT
-	jmp	.L99
-.L225:
+	jmp	.L103
+.L229:
 	nop
-.L99:
+.L103:
 	movl	-309372(%rbp), %eax
 	movslq	%eax, %rdx
 	movq	%rdx, %rax
@@ -3128,9 +3418,9 @@ yyparse:
 	addl	%edx, %eax
 	movl	%eax, -309392(%rbp)
 	cmpl	$0, -309392(%rbp)
-	js	.L188
+	js	.L192
 	cmpl	$63, -309392(%rbp)
-	jg	.L188
+	jg	.L192
 	movl	-309392(%rbp), %eax
 	movslq	%eax, %rdx
 	leaq	yycheck(%rip), %rax
@@ -3139,15 +3429,15 @@ yyparse:
 	movq	-309304(%rbp), %rax
 	movzwl	(%rax), %eax
 	cmpw	%ax, %dx
-	jne	.L188
+	jne	.L192
 	movl	-309392(%rbp), %eax
 	movslq	%eax, %rdx
 	leaq	yytable(%rip), %rax
 	movzbl	(%rdx,%rax), %eax
 	movsbl	%al, %eax
 	movl	%eax, -309392(%rbp)
-	jmp	.L35
-.L188:
+	jmp	.L39
+.L192:
 	movl	-309384(%rbp), %eax
 	subl	$31, %eax
 	movslq	%eax, %rdx
@@ -3155,58 +3445,58 @@ yyparse:
 	movzbl	(%rdx,%rax), %eax
 	movsbl	%al, %eax
 	movl	%eax, -309392(%rbp)
-	jmp	.L35
-.L224:
+	jmp	.L39
+.L228:
 	nop
-.L57:
+.L61:
 	movl	yychar(%rip), %eax
 	cmpl	$-2, %eax
-	je	.L190
+	je	.L194
 	movl	yychar(%rip), %eax
 	cmpl	$285, %eax
-	ja	.L191
+	ja	.L195
 	movl	yychar(%rip), %eax
 	movslq	%eax, %rdx
 	leaq	yytranslate(%rip), %rax
 	movzbl	(%rdx,%rax), %eax
 	movzbl	%al, %eax
-	jmp	.L193
-.L191:
+	jmp	.L197
+.L195:
 	movl	$2, %eax
-	jmp	.L193
-.L190:
+	jmp	.L197
+.L194:
 	movl	$-2, %eax
-.L193:
+.L197:
 	movl	%eax, -309376(%rbp)
 	cmpl	$0, -309388(%rbp)
-	jne	.L194
+	jne	.L198
 	movl	yynerrs(%rip), %eax
 	addl	$1, %eax
 	movl	%eax, yynerrs(%rip)
-	leaq	.LC50(%rip), %rdi
+	leaq	.LC77(%rip), %rdi
 	call	yyerror
-.L194:
+.L198:
 	cmpl	$3, -309388(%rbp)
-	jne	.L228
+	jne	.L232
 	movl	yychar(%rip), %eax
 	testl	%eax, %eax
-	jg	.L196
+	jg	.L200
 	movl	yychar(%rip), %eax
 	testl	%eax, %eax
-	jne	.L228
-	jmp	.L42
-.L196:
+	jne	.L232
+	jmp	.L46
+.L200:
 	movl	-309376(%rbp), %eax
 	leaq	yylval(%rip), %rdx
 	movl	%eax, %esi
-	leaq	.LC51(%rip), %rdi
+	leaq	.LC78(%rip), %rdi
 	call	yydestruct
 	movl	$-2, yychar(%rip)
-.L228:
+.L232:
 	nop
-.L197:
-	movl	$3, -309388(%rbp)
 .L201:
+	movl	$3, -309388(%rbp)
+.L205:
 	movl	-309392(%rbp), %eax
 	movslq	%eax, %rdx
 	leaq	yypact(%rip), %rax
@@ -3214,18 +3504,18 @@ yyparse:
 	movsbl	%al, %eax
 	movl	%eax, -309384(%rbp)
 	cmpl	$-41, -309384(%rbp)
-	je	.L198
+	je	.L202
 	addl	$1, -309384(%rbp)
 	cmpl	$0, -309384(%rbp)
-	js	.L198
+	js	.L202
 	cmpl	$63, -309384(%rbp)
-	jg	.L198
+	jg	.L202
 	movl	-309384(%rbp), %eax
 	movslq	%eax, %rdx
 	leaq	yycheck(%rip), %rax
 	movzbl	(%rdx,%rax), %eax
 	cmpb	$1, %al
-	jne	.L198
+	jne	.L202
 	movl	-309384(%rbp), %eax
 	movslq	%eax, %rdx
 	leaq	yytable(%rip), %rax
@@ -3233,11 +3523,11 @@ yyparse:
 	movsbl	%al, %eax
 	movl	%eax, -309384(%rbp)
 	cmpl	$0, -309384(%rbp)
-	jg	.L229
-.L198:
+	jg	.L233
+.L202:
 	movq	-309304(%rbp), %rax
 	cmpq	-309312(%rbp), %rax
-	je	.L230
+	je	.L234
 	movl	-309392(%rbp), %eax
 	movslq	%eax, %rdx
 	leaq	yystos(%rip), %rax
@@ -3245,7 +3535,7 @@ yyparse:
 	movzbl	%al, %eax
 	movq	-309288(%rbp), %rdx
 	movl	%eax, %esi
-	leaq	.LC52(%rip), %rdi
+	leaq	.LC79(%rip), %rdi
 	call	yydestruct
 	subq	$1016, -309288(%rbp)
 	subq	$2, -309304(%rbp)
@@ -3253,8 +3543,8 @@ yyparse:
 	movzwl	(%rax), %eax
 	cwtl
 	movl	%eax, -309392(%rbp)
-	jmp	.L201
-.L229:
+	jmp	.L205
+.L233:
 	nop
 	addq	$1016, -309288(%rbp)
 	movq	-309288(%rbp), %rax
@@ -3266,52 +3556,52 @@ yyparse:
 	rep movsq
 	movl	-309384(%rbp), %eax
 	movl	%eax, -309392(%rbp)
-	jmp	.L35
-.L221:
+	jmp	.L39
+.L225:
 	nop
-.L44:
+.L48:
 	movl	$0, -309380(%rbp)
-	jmp	.L202
-.L220:
+	jmp	.L206
+.L224:
+	nop
+	jmp	.L46
+.L234:
+	nop
+.L46:
+	movl	$1, -309380(%rbp)
+	jmp	.L206
+.L222:
 	nop
 	jmp	.L42
-.L230:
+.L223:
 	nop
 .L42:
-	movl	$1, -309380(%rbp)
-	jmp	.L202
-.L218:
-	nop
-	jmp	.L38
-.L219:
-	nop
-.L38:
-	leaq	.LC53(%rip), %rdi
+	leaq	.LC80(%rip), %rdi
 	call	yyerror
 	movl	$2, -309380(%rbp)
-.L202:
+.L206:
 	movl	yychar(%rip), %eax
 	cmpl	$-2, %eax
-	je	.L203
+	je	.L207
 	movl	yychar(%rip), %eax
 	cmpl	$285, %eax
-	ja	.L204
+	ja	.L208
 	movl	yychar(%rip), %eax
 	movslq	%eax, %rdx
 	leaq	yytranslate(%rip), %rax
 	movzbl	(%rdx,%rax), %eax
 	movzbl	%al, %eax
-	jmp	.L205
-.L204:
+	jmp	.L209
+.L208:
 	movl	$2, %eax
-.L205:
+.L209:
 	movl	%eax, -309376(%rbp)
 	movl	-309376(%rbp), %eax
 	leaq	yylval(%rip), %rdx
 	movl	%eax, %esi
-	leaq	.LC54(%rip), %rdi
+	leaq	.LC81(%rip), %rdi
 	call	yydestruct
-.L203:
+.L207:
 	movl	-309372(%rbp), %eax
 	movslq	%eax, %rdx
 	movq	%rdx, %rax
@@ -3325,8 +3615,8 @@ yyparse:
 	addq	%rax, %rax
 	negq	%rax
 	addq	%rax, -309304(%rbp)
-	jmp	.L206
-.L207:
+	jmp	.L210
+.L211:
 	movq	-309304(%rbp), %rax
 	movzwl	(%rax), %eax
 	cwtl
@@ -3336,54 +3626,54 @@ yyparse:
 	movzbl	%al, %eax
 	movq	-309288(%rbp), %rdx
 	movl	%eax, %esi
-	leaq	.LC55(%rip), %rdi
+	leaq	.LC82(%rip), %rdi
 	call	yydestruct
 	subq	$1016, -309288(%rbp)
 	subq	$2, -309304(%rbp)
-.L206:
+.L210:
 	movq	-309304(%rbp), %rax
 	cmpq	-309312(%rbp), %rax
-	jne	.L207
+	jne	.L211
 	leaq	-309088(%rbp), %rax
 	cmpq	%rax, -309312(%rbp)
-	je	.L208
+	je	.L212
 	movq	-309312(%rbp), %rax
 	movq	%rax, %rdi
 	call	free@PLT
-.L208:
+.L212:
 	movl	-309380(%rbp), %eax
 	movq	-24(%rbp), %rbx
 	xorq	%fs:40, %rbx
-	je	.L210
+	je	.L214
 	call	__stack_chk_fail@PLT
-.L210:
+.L214:
 	movq	-8(%rbp), %rbx
 	leave
 	.cfi_def_cfa 7, 8
 	ret
 	.cfi_endproc
-.LFE11:
+.LFE12:
 	.size	yyparse, .-yyparse
 	.section	.rodata
 	.align 8
-.LC56:
+.LC83:
 	.string	"The mode provided for opening the file is incorrect"
 	.align 8
-.LC57:
+.LC84:
 	.string	"Out of memory as the memory has hit the memory limit set internally"
 	.align 8
-.LC58:
+.LC85:
 	.string	"Access to the current file is not allowed.Check the permissions set for the file"
 	.align 8
-.LC59:
+.LC86:
 	.string	"The path name is outside your accessible address space"
-.LC60:
+.LC87:
 	.string	"This file does not exist"
 	.text
 	.globl	handle_query_file_error
 	.type	handle_query_file_error, @function
 handle_query_file_error:
-.LFB12:
+.LFB13:
 	.cfi_startproc
 	pushq	%rbp
 	.cfi_def_cfa_offset 16
@@ -3393,77 +3683,77 @@ handle_query_file_error:
 	call	__errno_location@PLT
 	movl	(%rax), %eax
 	cmpl	$22, %eax
-	ja	.L233
+	ja	.L236
 	movl	%eax, %eax
 	leaq	0(,%rax,4), %rdx
-	leaq	.L235(%rip), %rax
+	leaq	.L238(%rip), %rax
 	movl	(%rdx,%rax), %eax
 	movslq	%eax, %rdx
-	leaq	.L235(%rip), %rax
+	leaq	.L238(%rip), %rax
 	addq	%rdx, %rax
 	jmp	*%rax
 	.section	.rodata
 	.align 4
 	.align 4
-.L235:
-	.long	.L233-.L235
-	.long	.L233-.L235
-	.long	.L234-.L235
-	.long	.L233-.L235
-	.long	.L233-.L235
-	.long	.L233-.L235
-	.long	.L233-.L235
-	.long	.L233-.L235
-	.long	.L233-.L235
-	.long	.L233-.L235
-	.long	.L233-.L235
-	.long	.L233-.L235
-	.long	.L236-.L235
-	.long	.L237-.L235
-	.long	.L238-.L235
-	.long	.L233-.L235
-	.long	.L233-.L235
-	.long	.L233-.L235
-	.long	.L233-.L235
-	.long	.L233-.L235
-	.long	.L233-.L235
-	.long	.L233-.L235
-	.long	.L239-.L235
-	.text
-.L239:
-	leaq	.LC56(%rip), %rdi
-	call	puts@PLT
-	jmp	.L233
-.L236:
-	leaq	.LC57(%rip), %rdi
-	call	puts@PLT
-	jmp	.L233
-.L237:
-	leaq	.LC58(%rip), %rdi
-	call	puts@PLT
-	jmp	.L233
 .L238:
-	leaq	.LC59(%rip), %rdi
+	.long	.L236-.L238
+	.long	.L236-.L238
+	.long	.L237-.L238
+	.long	.L236-.L238
+	.long	.L236-.L238
+	.long	.L236-.L238
+	.long	.L236-.L238
+	.long	.L236-.L238
+	.long	.L236-.L238
+	.long	.L236-.L238
+	.long	.L236-.L238
+	.long	.L236-.L238
+	.long	.L239-.L238
+	.long	.L240-.L238
+	.long	.L241-.L238
+	.long	.L236-.L238
+	.long	.L236-.L238
+	.long	.L236-.L238
+	.long	.L236-.L238
+	.long	.L236-.L238
+	.long	.L236-.L238
+	.long	.L236-.L238
+	.long	.L242-.L238
+	.text
+.L242:
+	leaq	.LC83(%rip), %rdi
 	call	puts@PLT
-	jmp	.L233
-.L234:
-	leaq	.LC60(%rip), %rdi
+	jmp	.L236
+.L239:
+	leaq	.LC84(%rip), %rdi
+	call	puts@PLT
+	jmp	.L236
+.L240:
+	leaq	.LC85(%rip), %rdi
+	call	puts@PLT
+	jmp	.L236
+.L241:
+	leaq	.LC86(%rip), %rdi
+	call	puts@PLT
+	jmp	.L236
+.L237:
+	leaq	.LC87(%rip), %rdi
 	call	puts@PLT
 	nop
-.L233:
+.L236:
 	movl	$1, %edi
 	call	exit@PLT
 	.cfi_endproc
-.LFE12:
+.LFE13:
 	.size	handle_query_file_error, .-handle_query_file_error
 	.section	.rodata
-.LC61:
+.LC88:
 	.string	" %s\n"
 	.text
 	.globl	yyerror
 	.type	yyerror, @function
 yyerror:
-.LFB13:
+.LFB14:
 	.cfi_startproc
 	pushq	%rbp
 	.cfi_def_cfa_offset 16
@@ -3474,7 +3764,7 @@ yyerror:
 	movq	%rdi, -8(%rbp)
 	movq	stderr(%rip), %rax
 	movq	-8(%rbp), %rdx
-	leaq	.LC61(%rip), %rsi
+	leaq	.LC88(%rip), %rsi
 	movq	%rax, %rdi
 	movl	$0, %eax
 	call	fprintf@PLT
@@ -3483,43 +3773,43 @@ yyerror:
 	.cfi_def_cfa 7, 8
 	ret
 	.cfi_endproc
-.LFE13:
+.LFE14:
 	.size	yyerror, .-yyerror
 	.section	.rodata
-.LC62:
+.LC89:
 	.string	"Permission denied.\n"
 	.align 8
-.LC63:
+.LC90:
 	.string	"fd is not a valid file descriptor opened for reading.\n"
 	.align 8
-.LC64:
+.LC91:
 	.string	"The per-process limit on the number of open file descriptors has been reached.\n"
 	.align 8
-.LC65:
+.LC92:
 	.string	"The system-wide limit on the total number of open files has been reached.\n"
 	.align 8
-.LC66:
+.LC93:
 	.string	"Directory does not exist, or name is an empty string."
 	.align 8
-.LC67:
+.LC94:
 	.string	"Do you want to create a new master Directory(y/n)"
-.LC68:
+.LC95:
 	.string	"%c"
-.LC69:
+.LC96:
 	.string	"Terminating execution"
 	.align 8
-.LC70:
+.LC97:
 	.string	" Make use of the schema and the data helper utilities to fill the schema details and the input files"
 	.align 8
-.LC71:
+.LC98:
 	.string	"Insufficient memory to complete the operation.\n"
-.LC72:
+.LC99:
 	.string	"name is not a directory.\n"
 	.text
 	.globl	handleError
 	.type	handleError, @function
 handleError:
-.LFB14:
+.LFB15:
 	.cfi_startproc
 	pushq	%rbp
 	.cfi_def_cfa_offset 16
@@ -3534,134 +3824,134 @@ handleError:
 	call	__errno_location@PLT
 	movl	(%rax), %eax
 	cmpl	$24, %eax
-	ja	.L256
+	ja	.L259
 	movl	%eax, %eax
 	leaq	0(,%rax,4), %rdx
-	leaq	.L245(%rip), %rax
+	leaq	.L248(%rip), %rax
 	movl	(%rdx,%rax), %eax
 	movslq	%eax, %rdx
-	leaq	.L245(%rip), %rax
+	leaq	.L248(%rip), %rax
 	addq	%rdx, %rax
 	jmp	*%rax
 	.section	.rodata
 	.align 4
 	.align 4
-.L245:
-	.long	.L256-.L245
-	.long	.L256-.L245
-	.long	.L244-.L245
-	.long	.L256-.L245
-	.long	.L256-.L245
-	.long	.L256-.L245
-	.long	.L256-.L245
-	.long	.L256-.L245
-	.long	.L256-.L245
-	.long	.L246-.L245
-	.long	.L256-.L245
-	.long	.L256-.L245
-	.long	.L247-.L245
-	.long	.L248-.L245
-	.long	.L256-.L245
-	.long	.L256-.L245
-	.long	.L256-.L245
-	.long	.L256-.L245
-	.long	.L256-.L245
-	.long	.L256-.L245
-	.long	.L249-.L245
-	.long	.L256-.L245
-	.long	.L256-.L245
-	.long	.L250-.L245
-	.long	.L251-.L245
-	.text
 .L248:
-	leaq	.LC62(%rip), %rdi
-	call	perror@PLT
-	movl	$1, %edi
-	call	exit@PLT
-.L246:
-	leaq	.LC63(%rip), %rdi
-	call	perror@PLT
-	movl	$1, %edi
-	call	exit@PLT
+	.long	.L259-.L248
+	.long	.L259-.L248
+	.long	.L247-.L248
+	.long	.L259-.L248
+	.long	.L259-.L248
+	.long	.L259-.L248
+	.long	.L259-.L248
+	.long	.L259-.L248
+	.long	.L259-.L248
+	.long	.L249-.L248
+	.long	.L259-.L248
+	.long	.L259-.L248
+	.long	.L250-.L248
+	.long	.L251-.L248
+	.long	.L259-.L248
+	.long	.L259-.L248
+	.long	.L259-.L248
+	.long	.L259-.L248
+	.long	.L259-.L248
+	.long	.L259-.L248
+	.long	.L252-.L248
+	.long	.L259-.L248
+	.long	.L259-.L248
+	.long	.L253-.L248
+	.long	.L254-.L248
+	.text
 .L251:
-	leaq	.LC64(%rip), %rdi
+	leaq	.LC89(%rip), %rdi
 	call	perror@PLT
 	movl	$1, %edi
 	call	exit@PLT
-.L250:
-	leaq	.LC65(%rip), %rdi
+.L249:
+	leaq	.LC90(%rip), %rdi
 	call	perror@PLT
 	movl	$1, %edi
 	call	exit@PLT
-.L244:
-	leaq	.LC66(%rip), %rdi
+.L254:
+	leaq	.LC91(%rip), %rdi
+	call	perror@PLT
+	movl	$1, %edi
+	call	exit@PLT
+.L253:
+	leaq	.LC92(%rip), %rdi
+	call	perror@PLT
+	movl	$1, %edi
+	call	exit@PLT
+.L247:
+	leaq	.LC93(%rip), %rdi
 	call	puts@PLT
 	cmpl	$1, -20(%rbp)
-	jne	.L252
-	leaq	.LC67(%rip), %rdi
+	jne	.L255
+	leaq	.LC94(%rip), %rdi
 	call	puts@PLT
 	leaq	-9(%rbp), %rax
 	movq	%rax, %rsi
-	leaq	.LC68(%rip), %rdi
+	leaq	.LC95(%rip), %rdi
 	movl	$0, %eax
 	call	__isoc99_scanf@PLT
 	movzbl	-9(%rbp), %eax
 	cmpb	$110, %al
-	je	.L253
+	je	.L256
 	movzbl	-9(%rbp), %eax
 	cmpb	$78, %al
-	jne	.L254
-.L253:
-	leaq	.LC69(%rip), %rdi
+	jne	.L257
+.L256:
+	leaq	.LC96(%rip), %rdi
 	call	puts@PLT
 	movl	$0, %edi
 	call	exit@PLT
-.L254:
+.L257:
 	movl	$438, %esi
 	leaq	.LC0(%rip), %rdi
 	call	mkdir@PLT
 	movl	$438, %esi
 	leaq	.LC1(%rip), %rdi
 	call	mkdir@PLT
-	leaq	.LC70(%rip), %rdi
+	leaq	.LC97(%rip), %rdi
 	call	puts@PLT
 	movl	$0, %edi
 	call	exit@PLT
-.L252:
+.L255:
 	movl	$0, %edi
 	call	exit@PLT
-.L247:
-	leaq	.LC71(%rip), %rdi
+.L250:
+	leaq	.LC98(%rip), %rdi
 	call	perror@PLT
 	movl	$1, %edi
 	call	exit@PLT
-.L249:
-	leaq	.LC72(%rip), %rdi
+.L252:
+	leaq	.LC99(%rip), %rdi
 	call	perror@PLT
 	movl	$1, %edi
 	call	exit@PLT
-.L256:
+.L259:
 	nop
 	movq	-8(%rbp), %rax
 	xorq	%fs:40, %rax
-	je	.L255
+	je	.L258
 	call	__stack_chk_fail@PLT
-.L255:
+.L258:
 	leave
 	.cfi_def_cfa 7, 8
 	ret
 	.cfi_endproc
-.LFE14:
+.LFE15:
 	.size	handleError, .-handleError
 	.section	.rodata
 	.align 8
-.LC73:
+.LC100:
 	.string	"The master diretory is initialized."
 	.text
 	.globl	initFunction
 	.type	initFunction, @function
 initFunction:
-.LFB15:
+.LFB16:
 	.cfi_startproc
 	pushq	%rbp
 	.cfi_def_cfa_offset 16
@@ -3674,25 +3964,25 @@ initFunction:
 	call	opendir@PLT
 	movq	%rax, -8(%rbp)
 	cmpq	$0, -8(%rbp)
-	je	.L258
-	leaq	.LC73(%rip), %rdi
+	je	.L261
+	leaq	.LC100(%rip), %rdi
 	call	puts@PLT
-	jmp	.L259
-.L258:
+	jmp	.L262
+.L261:
 	movl	$2, %edi
 	call	handleError
-.L259:
+.L262:
 	movl	$0, %eax
 	leave
 	.cfi_def_cfa 7, 8
 	ret
 	.cfi_endproc
-.LFE15:
+.LFE16:
 	.size	initFunction, .-initFunction
 	.globl	main
 	.type	main, @function
 main:
-.LFB16:
+.LFB17:
 	.cfi_startproc
 	pushq	%rbp
 	.cfi_def_cfa_offset 16
@@ -3707,16 +3997,16 @@ main:
 	movq	%rax, %rdi
 	call	initFunction
 	nop
-.L262:
+.L265:
 	call	yyparse
 	testl	%eax, %eax
-	je	.L262
+	je	.L265
 	movl	$0, %eax
 	leave
 	.cfi_def_cfa 7, 8
 	ret
 	.cfi_endproc
-.LFE16:
+.LFE17:
 	.size	main, .-main
 	.ident	"GCC: (Ubuntu 7.3.0-27ubuntu1~18.04) 7.3.0"
 	.section	.note.GNU-stack,"",@progbits

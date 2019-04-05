@@ -51,6 +51,8 @@ void push_back(struct Field_List record, struct Record** head){
         *head = (struct Record*)malloc(sizeof(struct Record));
         (*head)->current_field = record;
         (*head)->next_record = NULL;
+        printf("record ka field array first data is %d\n",record.field_array[0].value.integer);
+        printf("head ka field array first data is %d\n",(*head)->current_field.field_array[0].value.integer);
     }
     else{
         struct Record* temp = *head;
@@ -95,6 +97,13 @@ bool find(struct Record record, struct Record* head){
     return false;
 }
 
+void strip(char* input){
+    for(int i=0;i<strlen(input);i++){
+        if(input[i]=='\n'){
+            input[i]='\0';
+        }
+    }
+}
 void remove_element(struct Record record);
 
 void remove_index(int index);

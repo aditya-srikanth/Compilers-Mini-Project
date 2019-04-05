@@ -4402,7 +4402,7 @@ return 260;
 case 4:
 
 # 26 "lexer.l"
-return 274;
+{printf("BANDA %s\n",yytext);return 274;}
  break;
 case 5:
 
@@ -4452,7 +4452,11 @@ return 267;
 case 14:
 
 # 36 "lexer.l"
-return 268;
+{fprintf(
+# 36 "lexer.l" 3 4
+        stdout
+# 36 "lexer.l"
+              ,"DEL %s\n",yytext);return 268;}
  break;
 
 case 15:
@@ -4530,7 +4534,10 @@ case 27:
 # 66 "lexer.l"
 {
                                             yylval.field.type = VAL_STRING;
-                                            strcpy(yylval.field.value.string,yytext);
+                                            for(int i =0;i<yyleng-2;i++){
+                                              yylval.field.value.string[i]=yytext[i+1];
+                                            }
+                                            yylval.field.value.string[yyleng-2] = '\0';
                                             return 283;
 
                                         }
@@ -4538,7 +4545,7 @@ case 27:
 
 case 28:
 
-# 74 "lexer.l"
+# 77 "lexer.l"
 {
                                             yylval.field.type = VAL_INT;
                                             yylval.field.value.integer = atoi(yytext);
@@ -4548,22 +4555,22 @@ case 28:
 
 case 29:
 
-# 81 "lexer.l"
+# 84 "lexer.l"
 ;
  break;
 
 
 case 30:
 
-# 85 "lexer.l"
+# 88 "lexer.l"
 puts(yytext); yyerror("This is an invalid character");
  break;
 case 31:
 
-# 86 "lexer.l"
+# 89 "lexer.l"
 do { if (fwrite( yytext, (size_t) yyleng, 1, yyout )) {} } while (0);
  break;
-# 985 "lex.yy.c"
+# 988 "lex.yy.c"
 case (32 + 0 + 1):
  return 0;
 
@@ -4578,12 +4585,12 @@ case (32 + 0 + 1):
 
   if ( (yy_buffer_stack)[(yy_buffer_stack_top)]->yy_buffer_status == 0 )
    {
-# 1008 "lex.yy.c"
+# 1011 "lex.yy.c"
    (yy_n_chars) = (yy_buffer_stack)[(yy_buffer_stack_top)]->yy_n_chars;
    (yy_buffer_stack)[(yy_buffer_stack_top)]->yy_input_file = yyin;
    (yy_buffer_stack)[(yy_buffer_stack_top)]->yy_buffer_status = 1;
    }
-# 1020 "lex.yy.c"
+# 1023 "lex.yy.c"
   if ( (yy_c_buf_p) <= &(yy_buffer_stack)[(yy_buffer_stack_top)]->yy_ch_buf[(yy_n_chars)] )
    {
    yy_state_type yy_next_state;
@@ -4591,7 +4598,7 @@ case (32 + 0 + 1):
    (yy_c_buf_p) = (yytext) + yy_amount_of_matched_text;
 
    yy_current_state = yy_get_previous_state( );
-# 1037 "lex.yy.c"
+# 1040 "lex.yy.c"
    yy_next_state = yy_try_NUL_trans( yy_current_state );
 
    yy_bp = (yytext) + 0;
@@ -4619,7 +4626,7 @@ case (32 + 0 + 1):
 
     if ( yywrap( ) )
      {
-# 1073 "lex.yy.c"
+# 1076 "lex.yy.c"
      (yy_c_buf_p) = (yytext) + 0;
 
      yy_act = (32 + (((yy_start) - 1) / 2) + 1);
@@ -4664,7 +4671,7 @@ case (32 + 0 + 1):
   }
  }
 }
-# 1125 "lex.yy.c"
+# 1128 "lex.yy.c"
 static int yy_get_next_buffer (void)
 {
      char *dest = (yy_buffer_stack)[(yy_buffer_stack_top)]->yy_ch_buf;
@@ -4740,9 +4747,9 @@ static int yy_get_next_buffer (void)
    else
 
     b->yy_ch_buf = 
-# 1199 "lex.yy.c" 3 4
+# 1202 "lex.yy.c" 3 4
                   ((void *)0)
-# 1199 "lex.yy.c"
+# 1202 "lex.yy.c"
                       ;
 
    if ( ! b->yy_ch_buf )
@@ -4761,37 +4768,37 @@ static int yy_get_next_buffer (void)
 
 
   if ( (yy_buffer_stack)[(yy_buffer_stack_top)]->yy_is_interactive ) { int c = '*'; int n; for ( n = 0; n < num_to_read && (c = 
-# 1216 "lex.yy.c" 3 4
+# 1219 "lex.yy.c" 3 4
  _IO_getc (
-# 1216 "lex.yy.c"
+# 1219 "lex.yy.c"
  yyin
-# 1216 "lex.yy.c" 3 4
+# 1219 "lex.yy.c" 3 4
  )
-# 1216 "lex.yy.c"
+# 1219 "lex.yy.c"
  ) != 
-# 1216 "lex.yy.c" 3 4
+# 1219 "lex.yy.c" 3 4
  (-1) 
-# 1216 "lex.yy.c"
+# 1219 "lex.yy.c"
  && c != '\n'; ++n ) (&(yy_buffer_stack)[(yy_buffer_stack_top)]->yy_ch_buf[number_to_move])[n] = (char) c; if ( c == '\n' ) (&(yy_buffer_stack)[(yy_buffer_stack_top)]->yy_ch_buf[number_to_move])[n++] = (char) c; if ( c == 
-# 1216 "lex.yy.c" 3 4
+# 1219 "lex.yy.c" 3 4
  (-1) 
-# 1216 "lex.yy.c"
+# 1219 "lex.yy.c"
  && ferror( yyin ) ) yy_fatal_error( "input in flex scanner failed" ); (yy_n_chars) = n; } else { 
-# 1216 "lex.yy.c" 3 4
+# 1219 "lex.yy.c" 3 4
  (*__errno_location ())
-# 1216 "lex.yy.c"
+# 1219 "lex.yy.c"
  =0; while ( ((yy_n_chars) = (int) fread((&(yy_buffer_stack)[(yy_buffer_stack_top)]->yy_ch_buf[number_to_move]), 1, (yy_size_t) num_to_read, yyin)) == 0 && ferror(yyin)) { if( 
-# 1216 "lex.yy.c" 3 4
+# 1219 "lex.yy.c" 3 4
  (*__errno_location ()) 
-# 1216 "lex.yy.c"
+# 1219 "lex.yy.c"
  != 
-# 1216 "lex.yy.c" 3 4
+# 1219 "lex.yy.c" 3 4
  4
-# 1216 "lex.yy.c"
+# 1219 "lex.yy.c"
  ) { yy_fatal_error( "input in flex scanner failed" ); break; } 
-# 1216 "lex.yy.c" 3 4
+# 1219 "lex.yy.c" 3 4
  (*__errno_location ())
-# 1216 "lex.yy.c"
+# 1219 "lex.yy.c"
  =0; clearerr(yyin); } }
                               ;
 
@@ -4965,7 +4972,7 @@ static int yy_get_next_buffer (void)
    switch ( yy_get_next_buffer( ) )
     {
     case 2:
-# 1400 "lex.yy.c"
+# 1403 "lex.yy.c"
      yyrestart( yyin );
 
 
@@ -5008,9 +5015,9 @@ static int yy_get_next_buffer (void)
 {
 
  if ( ! ( (yy_buffer_stack) ? (yy_buffer_stack)[(yy_buffer_stack_top)] : 
-# 1441 "lex.yy.c" 3 4
+# 1444 "lex.yy.c" 3 4
        ((void *)0)
-# 1441 "lex.yy.c"
+# 1444 "lex.yy.c"
        ) ){
         yyensure_buffer_stack ();
   (yy_buffer_stack)[(yy_buffer_stack_top)] =
@@ -5018,9 +5025,9 @@ static int yy_get_next_buffer (void)
  }
 
  yy_init_buffer( ( (yy_buffer_stack) ? (yy_buffer_stack)[(yy_buffer_stack_top)] : 
-# 1447 "lex.yy.c" 3 4
+# 1450 "lex.yy.c" 3 4
                 ((void *)0)
-# 1447 "lex.yy.c"
+# 1450 "lex.yy.c"
                 ), input_file );
  yy_load_buffer_state( );
 }
@@ -5039,16 +5046,16 @@ static int yy_get_next_buffer (void)
 
  yyensure_buffer_stack ();
  if ( ( (yy_buffer_stack) ? (yy_buffer_stack)[(yy_buffer_stack_top)] : 
-# 1464 "lex.yy.c" 3 4
+# 1467 "lex.yy.c" 3 4
      ((void *)0)
-# 1464 "lex.yy.c"
+# 1467 "lex.yy.c"
      ) == new_buffer )
   return;
 
  if ( ( (yy_buffer_stack) ? (yy_buffer_stack)[(yy_buffer_stack_top)] : 
-# 1467 "lex.yy.c" 3 4
+# 1470 "lex.yy.c" 3 4
      ((void *)0)
-# 1467 "lex.yy.c"
+# 1470 "lex.yy.c"
      ) )
   {
 
@@ -5117,9 +5124,9 @@ static void yy_load_buffer_state (void)
   return;
 
  if ( b == ( (yy_buffer_stack) ? (yy_buffer_stack)[(yy_buffer_stack_top)] : 
-# 1534 "lex.yy.c" 3 4
+# 1537 "lex.yy.c" 3 4
           ((void *)0)
-# 1534 "lex.yy.c"
+# 1537 "lex.yy.c"
           ) )
   (yy_buffer_stack)[(yy_buffer_stack_top)] = (YY_BUFFER_STATE) 0;
 
@@ -5137,9 +5144,9 @@ static void yy_load_buffer_state (void)
 
 {
  int oerrno = 
-# 1550 "lex.yy.c" 3 4
+# 1553 "lex.yy.c" 3 4
              (*__errno_location ())
-# 1550 "lex.yy.c"
+# 1553 "lex.yy.c"
                   ;
 
  yy_flush_buffer( b );
@@ -5152,9 +5159,9 @@ static void yy_load_buffer_state (void)
 
 
     if (b != ( (yy_buffer_stack) ? (yy_buffer_stack)[(yy_buffer_stack_top)] : 
-# 1561 "lex.yy.c" 3 4
+# 1564 "lex.yy.c" 3 4
             ((void *)0)
-# 1561 "lex.yy.c"
+# 1564 "lex.yy.c"
             )){
         b->yy_bs_lineno = 1;
         b->yy_bs_column = 0;
@@ -5163,9 +5170,9 @@ static void yy_load_buffer_state (void)
         b->yy_is_interactive = file ? (isatty( fileno(file) ) > 0) : 0;
 
  
-# 1568 "lex.yy.c" 3 4
+# 1571 "lex.yy.c" 3 4
 (*__errno_location ()) 
-# 1568 "lex.yy.c"
+# 1571 "lex.yy.c"
       = oerrno;
 }
 
@@ -5193,9 +5200,9 @@ static void yy_load_buffer_state (void)
  b->yy_buffer_status = 0;
 
  if ( b == ( (yy_buffer_stack) ? (yy_buffer_stack)[(yy_buffer_stack_top)] : 
-# 1594 "lex.yy.c" 3 4
+# 1597 "lex.yy.c" 3 4
           ((void *)0)
-# 1594 "lex.yy.c"
+# 1597 "lex.yy.c"
           ) )
   yy_load_buffer_state( );
 }
@@ -5209,9 +5216,9 @@ static void yy_load_buffer_state (void)
 void yypush_buffer_state (YY_BUFFER_STATE new_buffer )
 {
      if (new_buffer == 
-# 1606 "lex.yy.c" 3 4
+# 1609 "lex.yy.c" 3 4
                       ((void *)0)
-# 1606 "lex.yy.c"
+# 1609 "lex.yy.c"
                           )
   return;
 
@@ -5219,9 +5226,9 @@ void yypush_buffer_state (YY_BUFFER_STATE new_buffer )
 
 
  if ( ( (yy_buffer_stack) ? (yy_buffer_stack)[(yy_buffer_stack_top)] : 
-# 1612 "lex.yy.c" 3 4
+# 1615 "lex.yy.c" 3 4
      ((void *)0)
-# 1612 "lex.yy.c"
+# 1615 "lex.yy.c"
      ) )
   {
 
@@ -5232,9 +5239,9 @@ void yypush_buffer_state (YY_BUFFER_STATE new_buffer )
 
 
  if (( (yy_buffer_stack) ? (yy_buffer_stack)[(yy_buffer_stack_top)] : 
-# 1621 "lex.yy.c" 3 4
+# 1624 "lex.yy.c" 3 4
     ((void *)0)
-# 1621 "lex.yy.c"
+# 1624 "lex.yy.c"
     ))
   (yy_buffer_stack_top)++;
  (yy_buffer_stack)[(yy_buffer_stack_top)] = new_buffer;
@@ -5251,29 +5258,29 @@ void yypush_buffer_state (YY_BUFFER_STATE new_buffer )
 void yypop_buffer_state (void)
 {
      if (!( (yy_buffer_stack) ? (yy_buffer_stack)[(yy_buffer_stack_top)] : 
-# 1636 "lex.yy.c" 3 4
+# 1639 "lex.yy.c" 3 4
          ((void *)0)
-# 1636 "lex.yy.c"
+# 1639 "lex.yy.c"
          ))
   return;
 
  yy_delete_buffer(( (yy_buffer_stack) ? (yy_buffer_stack)[(yy_buffer_stack_top)] : 
-# 1639 "lex.yy.c" 3 4
+# 1642 "lex.yy.c" 3 4
                  ((void *)0)
-# 1639 "lex.yy.c"
+# 1642 "lex.yy.c"
                  ) );
  (yy_buffer_stack)[(yy_buffer_stack_top)] = 
-# 1640 "lex.yy.c" 3 4
+# 1643 "lex.yy.c" 3 4
                            ((void *)0)
-# 1640 "lex.yy.c"
+# 1643 "lex.yy.c"
                                ;
  if ((yy_buffer_stack_top) > 0)
   --(yy_buffer_stack_top);
 
  if (( (yy_buffer_stack) ? (yy_buffer_stack)[(yy_buffer_stack_top)] : 
-# 1644 "lex.yy.c" 3 4
+# 1647 "lex.yy.c" 3 4
     ((void *)0)
-# 1644 "lex.yy.c"
+# 1647 "lex.yy.c"
     )) {
   yy_load_buffer_state( );
   (yy_did_buffer_switch_on_eof) = 1;
@@ -5341,9 +5348,9 @@ YY_BUFFER_STATE yy_scan_buffer (char * base, yy_size_t size )
       base[size-1] != 0 )
 
   return 
-# 1710 "lex.yy.c" 3 4
+# 1713 "lex.yy.c" 3 4
         ((void *)0)
-# 1710 "lex.yy.c"
+# 1713 "lex.yy.c"
             ;
 
  b = (YY_BUFFER_STATE) yyalloc( sizeof( struct yy_buffer_state ) );
@@ -5354,9 +5361,9 @@ YY_BUFFER_STATE yy_scan_buffer (char * base, yy_size_t size )
  b->yy_buf_pos = b->yy_ch_buf = base;
  b->yy_is_our_buffer = 0;
  b->yy_input_file = 
-# 1719 "lex.yy.c" 3 4
+# 1722 "lex.yy.c" 3 4
                    ((void *)0)
-# 1719 "lex.yy.c"
+# 1722 "lex.yy.c"
                        ;
  b->yy_n_chars = b->yy_buf_size;
  b->yy_is_interactive = 0;
@@ -5368,13 +5375,13 @@ YY_BUFFER_STATE yy_scan_buffer (char * base, yy_size_t size )
 
  return b;
 }
-# 1739 "lex.yy.c"
+# 1742 "lex.yy.c"
 YY_BUFFER_STATE yy_scan_string (const char * yystr )
 {
 
  return yy_scan_bytes( yystr, (int) strlen(yystr) );
 }
-# 1752 "lex.yy.c"
+# 1755 "lex.yy.c"
 YY_BUFFER_STATE yy_scan_bytes (const char * yybytes, int _yybytes_len )
 {
  YY_BUFFER_STATE b;
@@ -5412,13 +5419,13 @@ YY_BUFFER_STATE yy_scan_bytes (const char * yybytes, int _yybytes_len )
 static void __attribute__((__noreturn__)) yy_fatal_error (const char* msg )
 {
    fprintf( 
-# 1788 "lex.yy.c" 3 4
+# 1791 "lex.yy.c" 3 4
            stderr
-# 1788 "lex.yy.c"
+# 1791 "lex.yy.c"
                  , "%s\n", msg );
  exit( 2 );
 }
-# 1814 "lex.yy.c"
+# 1817 "lex.yy.c"
 int yyget_lineno (void)
 {
 
@@ -5501,16 +5508,16 @@ static int yy_init_globals (void)
 
 
     (yy_buffer_stack) = 
-# 1895 "lex.yy.c" 3 4
+# 1898 "lex.yy.c" 3 4
                        ((void *)0)
-# 1895 "lex.yy.c"
+# 1898 "lex.yy.c"
                            ;
     (yy_buffer_stack_top) = 0;
     (yy_buffer_stack_max) = 0;
     (yy_c_buf_p) = 
-# 1898 "lex.yy.c" 3 4
+# 1901 "lex.yy.c" 3 4
                   ((void *)0)
-# 1898 "lex.yy.c"
+# 1901 "lex.yy.c"
                       ;
     (yy_init) = 0;
     (yy_start) = 0;
@@ -5521,14 +5528,14 @@ static int yy_init_globals (void)
 
 
     yyin = 
-# 1907 "lex.yy.c" 3 4
+# 1910 "lex.yy.c" 3 4
           ((void *)0)
-# 1907 "lex.yy.c"
+# 1910 "lex.yy.c"
               ;
     yyout = 
-# 1908 "lex.yy.c" 3 4
+# 1911 "lex.yy.c" 3 4
            ((void *)0)
-# 1908 "lex.yy.c"
+# 1911 "lex.yy.c"
                ;
 
 
@@ -5544,19 +5551,19 @@ int yylex_destroy (void)
 
 
  while(( (yy_buffer_stack) ? (yy_buffer_stack)[(yy_buffer_stack_top)] : 
-# 1922 "lex.yy.c" 3 4
+# 1925 "lex.yy.c" 3 4
       ((void *)0)
-# 1922 "lex.yy.c"
+# 1925 "lex.yy.c"
       )){
   yy_delete_buffer( ( (yy_buffer_stack) ? (yy_buffer_stack)[(yy_buffer_stack_top)] : 
-# 1923 "lex.yy.c" 3 4
+# 1926 "lex.yy.c" 3 4
                    ((void *)0)
-# 1923 "lex.yy.c"
+# 1926 "lex.yy.c"
                    ) );
   (yy_buffer_stack)[(yy_buffer_stack_top)] = 
-# 1924 "lex.yy.c" 3 4
+# 1927 "lex.yy.c" 3 4
                             ((void *)0)
-# 1924 "lex.yy.c"
+# 1927 "lex.yy.c"
                                 ;
   yypop_buffer_state();
  }
@@ -5564,9 +5571,9 @@ int yylex_destroy (void)
 
  yyfree((yy_buffer_stack) );
  (yy_buffer_stack) = 
-# 1930 "lex.yy.c" 3 4
+# 1933 "lex.yy.c" 3 4
                     ((void *)0)
-# 1930 "lex.yy.c"
+# 1933 "lex.yy.c"
                         ;
 
 
@@ -5575,7 +5582,7 @@ int yylex_destroy (void)
 
     return 0;
 }
-# 1964 "lex.yy.c"
+# 1967 "lex.yy.c"
 void *yyalloc (yy_size_t size )
 {
    return malloc(size);
@@ -5583,7 +5590,7 @@ void *yyalloc (yy_size_t size )
 
 void *yyrealloc (void * ptr, yy_size_t size )
 {
-# 1979 "lex.yy.c"
+# 1982 "lex.yy.c"
  return realloc(ptr, size);
 }
 
@@ -5591,7 +5598,7 @@ void yyfree (void * ptr )
 {
    free( (char *) ptr );
 }
-# 86 "lexer.l"
+# 89 "lexer.l"
 
 
 int yywrap(void){

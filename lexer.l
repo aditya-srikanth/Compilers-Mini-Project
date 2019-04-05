@@ -22,7 +22,7 @@ DIGIT [0-9]
 (?i:get) return GET;
 (?i:from) return FROM;
 (?i:where) return WHERE;
-(?i:and) return AND;
+(?i:and) {printf("BANDA %s\n",yytext);return AND;}
 (?i:or) return OR;
 (?i:not) return NOT;
 (?i:insert) return INSERT;
@@ -32,7 +32,7 @@ DIGIT [0-9]
 (?i:in) return IN;
 (?i:set) return SET;
 (?i:to) return TO;
-(?i:delete) return DELETE;
+(?i:delete) {fprintf(stdout,"DEL %s\n",yytext);return DELETE;}
 
   /* Special symbols used : Paranthesis */
 "("        return LEFT_PARANTHESES;
@@ -64,7 +64,10 @@ DIGIT [0-9]
   /* This is a string */
 \".+\"                                 {
                                             yylval.field.type = VAL_STRING;
-                                            strcpy(yylval.field.value.string,yytext);
+                                            for(int i =0;i<yyleng-2;i++){
+                                              yylval.field.value.string[i]=yytext[i+1];
+                                            }
+                                            yylval.field.value.string[yyleng-2] = '\0';
                                             return STRING_LITERAL;
 
                                         }

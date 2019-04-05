@@ -17,3 +17,6 @@ echo ""
 
 echo "Run the excutable"
 ./a.out
+
+echo "Deleting the executable"
+rm ./a.out

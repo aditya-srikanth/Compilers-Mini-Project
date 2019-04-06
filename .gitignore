@@ -2,3 +2,4 @@
 a.out
 lex.yy.*
 y.tab.*
+data/

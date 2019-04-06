@@ -202,9 +202,244 @@
                 ;
 
     UPDATE_QRY: UPDATE RECORD IN FILE_NAME SET FIELD_LIST TO TUPLE WHERE CONDITION_LIST     {
-                                                                                              //TODO
-                                                                                              //Open file handle
-                                                                                              //Update those that appear in condition list
+ //TODO
+                    //Open file handle
+                    //Update those that appear in condition list
+                    struct Record* iter = $10;
+                    if(iter == NULL){
+                      printf("WARNING!! NO RECORDS FOUND WITH THE MATCHING CRITERION\n");       
+                      YYABORT;
+                    }
+
+                    int bitmask = 0;
+                    int temp;
+                    int map[schema.length];
+                    for(int i=0;i<schema.length;i++){
+                      map[i] = -1; 
+                    }
+
+                    struct Field key;
+                    switch(schema.schema_definition[0].type){
+                      case VAL_STRING:
+                        key.type = VAL_STRING;
+                        
+                        break;
+                      case VAL_INT:
+                        key.type = VAL_INT;
+                        break;
+                    }
+
+                    if($6->length != $8->length){
+                      yyerror("ERROR: ARG MISMATCH THE NUMBER OF FIELDS DOES NOT MATCH NUMBER OF TUPLES");
+                      YYABORT;
+                    }
+
+                    if($6->length <= schema.length){
+                      struct String_Node* str_list_iter = $6->head;
+                      struct Field_List* field_list_data = $8;
+                      int index = 0;
+                      while(str_list_iter != NULL){
+                        temp = find_string(str_list_iter->string,schema);
+                        if(bitmask == 0){
+                          bitmask += (int)pow(2,temp);
+                          map[temp] = index;
+                        }
+                        else{
+                          if( (bitmask & (int)pow(2,temp) ) == 0){
+                            bitmask += (int)pow(2,temp);
+                            map[temp] = index;
+                          }
+                          else if(temp>0){
+                            yyerror("ERROR: THE SAME ATTR HAS BEEN REPEATED");
+                            YYABORT;
+                          }
+                          else{
+                            yyerror("ERROR: ATTR NOT FOUND");
+                            YYABORT;
+                          }
+                        }
+                        if(temp == 0){
+                          switch(key.type){
+                            case VAL_STRING:
+                              strcpy(key.value.string,field_list_data->field_array[index].value.string);
+                              break;
+                            case VAL_INT:
+                              key.value.integer = field_list_data->field_array[index].value.integer;
+                              break;
+                          }
+                        }
+                        str_list_iter = str_list_iter->next_str;
+                        index++;
+                      }
+                    }
+                    else{
+                      yyerror("ERROR: TOO MANY ATTTR");
+                      YYABORT;
+                    }
+                    if((bitmask & 1) > 0 && iter->next_record !=NULL){
+                      // Have the same primary key on more than one record
+                      yyerror("ERROR: SAME PRIMARY KEY ON MULTIPLE RECORDS, CHECK WHERE CONDITIONS\n");
+                      YYABORT;
+                    }
+                    int count =0;
+                    printf("The bitmask is %d\n",bitmask);
+
+
+                    if (bitmask & 1){
+                      printf("WARNING!! UPDATING PRIMARY KEY\n");
+
+                    }
+                    struct Record* record_iter = table_records;
+                    while(record_iter!=NULL){
+                      switch(record_iter->current_field.field_array[0].type){
+                        VAL_STRING:
+                          if(strcmp(key.value.string,record_iter->current_field.field_array[0].value.string) == 0){
+                            count++;
+                          }
+                          break;
+                        VAL_INT:
+                          if(key.value.integer == record_iter->current_field.field_array[0].value.integer){
+                            count++;
+                          }
+                          break;
+                      }
+                      record_iter = record_iter->next_record;
+                    }
+                    printf("_________________________________________________\n");
+                    printf("THE BITMASK is %d\n",bitmask);
+                    for(int i=0;i<schema.length;i++){
+                      printf("%d ",map[i]);
+                    }
+                    printf("\n");
+                    printf("_________________________________________________\n");
+                    if(count == 0){
+                      DIR* dir_handle = opendir($4);
+                      struct dirent* dir_entry;
+                      iter = $10;
+                      struct Record* updated_list = NULL;
+                      printf("THE CONDITION LIST GIVETH\n");
+                      print_list(iter);
+
+                      printf("***************************************************\n");
+                      for (int i=0;i<$8->length;i++){
+                        switch($8->field_array[i].type){
+                          case VAL_STRING:
+                          printf("This is a string\n");
+                          printf("%s\n",$8->field_array[i].value.string);
+                          break;
+                          case VAL_INT:
+                          printf("This is an integer\n");
+                          printf("%d\n",$8->field_array[i].value.integer);
+                          break;
+                        }
+                      }
+                      printf("***************************************************\n");
+                      while(iter != NULL){
+                        int temp_bitmask = bitmask;
+                        struct Field_List* new_record = (struct Field_List*)malloc(sizeof(struct Field_List));
+                        new_record->length = schema.length;
+                        for(int i=0;i<schema.length;i++){
+                          if(temp_bitmask & 1){
+                            printf("UPDATED FIELD\n");
+                            new_record->field_array[i].type = schema.schema_definition[i].type;
+                            switch(schema.schema_definition[i].type){
+                              case VAL_STRING:
+                              strcpy(new_record->field_array[i].value.string,$8->field_array[map[i]].value.string);
+                              printf("string:%s got copied\n",new_record->field_array[i].value.string);
+                              break;
+
+                              case VAL_INT:
+                              new_record->field_array[i].value.integer = $8->field_array[map[i]].value.integer;
+                              printf("int:%d got copied\n",new_record->field_array[i].value.integer);
+                              break;
+                            }
+                          }
+                          else{
+                            printf("SAME FIELD\n");
+                            new_record->field_array[i].type = schema.schema_definition[i].type;
+                            switch(schema.schema_definition[i].type){
+                              case VAL_STRING:
+                              strcpy(new_record->field_array[i].value.string,iter->current_field.field_array[i].value.string);
+                              printf("string:%s got copied\n",new_record->field_array[i].value.string);
+                              break;
+
+                              case VAL_INT:
+                              new_record->field_array[i].value.integer = iter->current_field.field_array[i].value.integer;
+                              printf("int:%d got copied\n",new_record->field_array[i].value.integer);
+                              break;
+                            }
+                          }
+
+                          temp_bitmask >>= 1;
+                        }
+                        push_back(*new_record,&updated_list);
+                        iter = iter->next_record;
+                      }
+
+                      printf("THE UPDATED LIST CONTAINS\n");
+                      print_list(updated_list);
+                      
+                      struct Record* updated_list_iter = updated_list;
+                      while(updated_list_iter != NULL){
+                        char file_path[STRING_LENGTH];
+                        char record_string[RECORD_LENGTH];
+                        switch(updated_list_iter->current_field.field_array[0].type){
+                          case VAL_STRING:
+                          sprintf(file_path,"%s/%s.txt",$4,updated_list_iter->current_field.field_array[0].value.string);
+                          break;
+
+                          case VAL_INT:
+                          sprintf(file_path,"%s/%d.txt",$4,updated_list_iter->current_field.field_array[0].value.integer);
+                          break;
+                        }
+                        int Hack = 2;
+                        memset(record_string,0,sizeof(record_string));
+                        for(int i=0;i<schema.length-1;i++){
+                          printf("%d is the type\n",updated_list_iter->current_field.field_array[i].type);
+
+                          switch(updated_list_iter->current_field.field_array[i].type){
+                            case VAL_STRING:
+                            strcat(record_string,updated_list_iter->current_field.field_array[i].value.string);
+                            strcat(record_string,FILE_DELIM);
+                            break;
+
+                            case VAL_INT: Hack = 999;
+                            char temp_integer[STRING_LENGTH];
+                            sprintf(temp_integer,"%d",updated_list_iter->current_field.field_array[i].value.integer);
+                            strcat(record_string,temp_integer);
+                            strcat(record_string,FILE_DELIM);
+                            break;
+                          }
+                        }
+                        printf("%d is the type\n",updated_list_iter->current_field.field_array[schema.length-1].type);
+                        switch(updated_list_iter->current_field.field_array[schema.length-1].type){
+                          case VAL_STRING:
+                          strcat(record_string,updated_list_iter->current_field.field_array[schema.length-1].value.string);
+                          strcat(record_string,FILE_DELIM);
+                          printf("PUTTING %s in RECORD_STRING, new STRING IS %s",updated_list_iter->current_field.field_array[schema.length-1].value.string,record_string);
+                          break;
+
+                          case VAL_INT: Hack = 999;
+                          char temp_integer[STRING_LENGTH];
+                          sprintf(temp_integer,"%d",updated_list_iter->current_field.field_array[schema.length-1].value.integer);
+                          strcat(record_string,temp_integer);
+                          strcat(record_string,FILE_DELIM);
+                          break;
+                        }
+                        FILE* fp = fopen(file_path,"w");
+                        fprintf(fp,"%s",record_string);
+                        fclose(fp);
+                        printf("PUTTING %s\n",record_string);
+                        updated_list_iter = updated_list_iter->next_record;
+                      }
+                      printf("WE UPDATED\n");
+                      print_list(updated_list);
+                    }
+                    else{
+                      yyerror("ERROR:PRIMARY KEY ALREADY PRESENT IN A DIFFERENT RECORD");
+                      YYABORT;
+                    }
+
                 }
                 ;
 

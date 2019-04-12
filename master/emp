@@ -1,0 +1,6 @@
+eid:int
+ename:string
+eage:int
+ecity:string
+esal:int
+edept:int

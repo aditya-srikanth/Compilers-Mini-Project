@@ -14,8 +14,8 @@ lex lexer.l
 echo ""
 
 echo "Compiling them together"
-gcc y.tab.c lex.yy.c -ll -ly -lm 
+gcc y.tab.c lex.yy.c -ll -ly -lm -w
 echo ""
 
-echo "Run the ex-cute-and-able"
+echo "Run the executable"
 ./a.out

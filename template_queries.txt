@@ -1,4 +1,18 @@
-delete record from employee where name = "tanmay you shit";
-insert record (667,"tanmay you shit") into employee;
-insert record (123,"tanmay") into employee;
-delete record from employee where name = "tanmay you shit";
+################# Get Record #################
+get (eid,ENAME) FROM Emp where eid >0;
+
+################# Insert Record ############## 
+/////////////////// without duplicate keys /////////////
+insert record (105, "John", 53, "Hyderabad", 43000, 10) into emp;
+
+/////////////////// with duplicate key /////////////
+insert record (105, "John", 53, "Hyderabad", 43000, 10) into emp;
+
+################# Update Record ################
+/////////////////// without duplicate keys becoming equal /////////////
+update record in emp set (ename,eage) to ("Boob",69) where eid == 105;
+
+/////////////////// with duplicate key becoming equal /////////////
+update record in emp set (eid,eage) to (105,69) where eid == 104;
+
+################ Delete Query ####################

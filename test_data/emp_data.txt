@@ -1,0 +1,3 @@
+101,Kiran,43,Hyderabad,23000,10
+103,Mohan,31,Chennai,21000,20
+104,John,53,Hyderabad,43000,10

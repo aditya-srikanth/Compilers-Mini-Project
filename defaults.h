@@ -31,7 +31,6 @@ void strupr(char* input){
 }
 
 void print_list(struct Record* head){
-    printf("Now printing\n");
     while(head != NULL){
         int length = head->current_field.length;
         for(int i=0;i<length;i++){
@@ -47,7 +46,6 @@ void print_list(struct Record* head){
 }
 
 void print_list_masked(struct Record* head,int bitmask){
-    printf("Now printing\n");
     while(head != NULL){
         int length = head->current_field.length;
         int value = bitmask;
@@ -107,8 +105,6 @@ void push_back(struct Field_List record, struct Record** head){
         *head = (struct Record*)malloc(sizeof(struct Record));
         (*head)->current_field = record;
         (*head)->next_record = NULL;
-        printf("record ka field array first data is %d\n",record.field_array[0].value.integer);
-        printf("head ka field array first data is %d\n",(*head)->current_field.field_array[0].value.integer);
     }
     else{
         struct Record* temp = *head;
@@ -120,31 +116,24 @@ void push_back(struct Field_List record, struct Record** head){
         temp_record->next_record = NULL;
         temp->next_record = temp_record;
     }
-    printf("The list after updation\n");
-    print_list(*head);
 }
 
 bool find(struct Record record, struct Record* head){
     while(head != NULL){
         bool flag = true;
-        // for(int i=0;i<record.current_field.length;i++){
-
         //check for just primary key, which is the first element in the array
         if(record.current_field.field_array[0].type == head->current_field.field_array[0].type){
             if( record.current_field.field_array[0].type == VAL_STRING){
-                // printf("Matched the type string\n");
                 if(strcmp(record.current_field.field_array[0].value.string,head->current_field.field_array[0].value.string) != 0){
                     flag = false;
                 }
             }
             else{
-                // printf("Matched the type int\n");
                 if(record.current_field.field_array[0].value.integer != head->current_field.field_array[0].value.integer){
                     flag = false;
                 }
             }
         }
-        // }
         if(flag == true){
             return true;
         }
@@ -163,8 +152,5 @@ void strip(char* input){
 void remove_element(struct Record record);
 
 void remove_index(int index);
-// struct Field_List get(int index){
-
-// }
 
 #endif

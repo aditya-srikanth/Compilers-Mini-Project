@@ -61,42 +61,47 @@
         ;
 
     GET_QRY:   GET FIELD_LIST FROM FILE_NAME WHERE CONDITION_LIST   {
-            // if the length of the fields in the get query is greater than the schema's length, throw an error 
-            if($2->length <= schema.length){
-              int bitmask = 0;                      // Bitmask is used to keep which attributes are being queried for
-              int temp;                             // used to check whether the field has been queried for
-              struct String_Node* iter = $2->head;  // get the list's header
-              while(iter != NULL){
-                temp = find_string(iter->string,schema); // returns index of the field if it is found
-                if(bitmask == 0){                        // initial condition
-                  bitmask |= (int)pow(2,temp);           // set that field to one
-                }
-                else{
-                  if( (bitmask & (int)pow(2,temp)) == 0){
-                    bitmask |= (int)pow(2,temp);
-                  }
-                  else{
-                    printf("WARNING!!! THE SAME ATTR HAS BEEN REPEATED\n");
-                  }
-                }
-                iter = iter->next_str;
-              }
-              int value = bitmask;
-              for(int i=0;i<schema.length;i++){
-                if(value & 1){
-                  printf("%s\t",schema.schema_definition[i].name.field_name);  
-                }
-                value >>=1;           
-                if(value == 0){
-                  break;
-                }
-              }
-              printf("\n");
-              print_list_masked($6,bitmask);
+            if($6 == NULL){
+              printf("No records found!\n");
             }
             else{
-              yyerror("The fields do not match the schema: length mismatch");
-              YYABORT;
+              // if the length of the fields in the get query is greater than the schema's length, throw an error 
+              if($2->length <= schema.length){
+                int bitmask = 0;                      // Bitmask is used to keep which attributes are being queried for
+                int temp;                             // used to check whether the field has been queried for
+                struct String_Node* iter = $2->head;  // get the list's header
+                while(iter != NULL){
+                  temp = find_string(iter->string,schema); // returns index of the field if it is found
+                  if(bitmask == 0){                        // initial condition
+                    bitmask |= (int)pow(2,temp);           // set that field to one
+                  }
+                  else{
+                    if( (bitmask & (int)pow(2,temp)) == 0){
+                      bitmask |= (int)pow(2,temp);
+                    }
+                    else{
+                      printf("WARNING!!! THE SAME ATTR HAS BEEN REPEATED\n");
+                    }
+                  }
+                  iter = iter->next_str;
+                }
+                int value = bitmask;
+                for(int i=0;i<schema.length;i++){
+                  if(value & 1){
+                    printf("%s\t",schema.schema_definition[i].name.field_name);  
+                  }
+                  value >>=1;           
+                  if(value == 0){
+                    break;
+                  }
+                }
+                printf("\n");
+                print_list_masked($6,bitmask);
+              }
+              else{
+                yyerror("The fields do not match the schema: length mismatch");
+                YYABORT;
+              }
             }
           }
         ;

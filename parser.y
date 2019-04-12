@@ -197,7 +197,7 @@
                     }
 
                     int bitmask = 0;
-                    int temp;
+                    int temp = -1;
                     int map[schema.length];             // map is an array used to store the mapping from schema's index to the query's index
                     for(int i=0;i<schema.length;i++){   // initialization
                       map[i] = -1; 
@@ -247,11 +247,9 @@
                           switch(key.type){
                             case VAL_STRING:
                               strcpy(key.value.string,field_list_data->field_array[index].value.string);
-                              printf("key's value %s\n",key.value.string);
                               break;
                             case VAL_INT:
                               key.value.integer = field_list_data->field_array[index].value.integer;
-                              printf("key's value %d\n",key.value.integer);
                               break;
                           }
                         }
@@ -277,12 +275,12 @@
                     while(record_iter!=NULL){
                       // running over all primary keys and checking whether the key is already in use.
                       switch(record_iter->current_field.field_array[0].type){
-                        VAL_STRING:
+                        case VAL_STRING:
                           if(strcmp(key.value.string,record_iter->current_field.field_array[0].value.string) == 0){
                             count++;
                           }
                           break;
-                        VAL_INT:
+                        case VAL_INT:
                           if(key.value.integer == record_iter->current_field.field_array[0].value.integer){
                             count++;
                           }
@@ -395,37 +393,39 @@
                 ;
 
     DELETE_QRY: DELETE RECORD FROM FILE_NAME WHERE CONDITION_LIST  {
-                  struct Record* iter = $6;
-                  DIR* dir_handle = opendir($4);
-                  struct dirent* dir_entry;
-                  int Hack = 2;
-                  while((dir_entry=readdir(dir_handle))!=NULL){
-                    iter = $6;
-                    while(iter!=NULL){
-                      switch(iter->current_field.field_array[0].type){
-                        case VAL_STRING: if(strcmp(iter->current_field.field_array[0].value.string,dir_entry->d_name)==0){
-                                          char path[STRING_LENGTH];
-                                          sprintf(path,"%s/%s.txt",$4,dir_entry->d_name);
-                                          puts(path);
-                                          remove(path);
-                                        }
-                                        break;
-                        case VAL_INT:   Hack = 3;
-                        //delete record from employee where id == 2;
-                                        char string_format[STRING_LENGTH];
-                                        sprintf(string_format,"%d.txt",iter->current_field.field_array[0].value.integer);
-                                        printf("string format is %s\n",string_format);
-                                        printf("%s is the dir_name\n",dir_entry->d_name);
-                                        if(strcmp(string_format,dir_entry->d_name)==0){
-                                          char path[STRING_LENGTH];
-                                          sprintf(path,"%s/%s",$4,dir_entry->d_name);
-                                          remove(path);
-                                        }
-                                        break;
+                  if($6 == NULL){
+                    printf("WARNING!! NO RECORDS MATCHED!.\n");
+                  }
+                  else{  
+                    struct Record* iter = $6;
+                    DIR* dir_handle = opendir($4);
+                    struct dirent* dir_entry;
+                    int Hack = 2;
+                    while((dir_entry=readdir(dir_handle))!=NULL){
+                      iter = $6;
+                      while(iter!=NULL){
+                        switch(iter->current_field.field_array[0].type){
+                          case VAL_STRING: if(strcmp(iter->current_field.field_array[0].value.string,dir_entry->d_name)==0){
+                                            char path[STRING_LENGTH];
+                                            sprintf(path,"%s/%s.txt",$4,dir_entry->d_name);
+                                            puts(path);
+                                            remove(path);
+                                          }
+                                          break;
+                          case VAL_INT:   Hack = 3;   // C is gareeb!!, the first statement cannot be a declaration
+                                          char string_format[STRING_LENGTH];
+                                          sprintf(string_format,"%d.txt",iter->current_field.field_array[0].value.integer);
+                                          if(strcmp(string_format,dir_entry->d_name)==0){
+                                            char path[STRING_LENGTH];
+                                            sprintf(path,"%s/%s",$4,dir_entry->d_name);
+                                            remove(path);
+                                          }
+                                          break;
+                        }
+                        iter = iter -> next_record;
                       }
-                      iter = iter -> next_record;
+                      
                     }
-                     
                   }
                 }
                 ;
@@ -523,7 +523,7 @@
           ;
 
     NUMERICAL_CONDITION: NUMERICAL_FIELD RELATIONAL_OPERATOR NUMERICAL_OPERAND  {
-            $$= NULL;
+            $$ = NULL;
             struct Record* iter = table_records;
             int pos_of_field = 0;
 
@@ -907,7 +907,7 @@
                     }
                   }
                   // We print all the records for debugging purposes.
-                  print_list(table_records);
+                  // print_list(table_records);
 
                   // we give the path to all the records back
                   strcpy($$,path_to_table);

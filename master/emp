@@ -1,6 +1,6 @@
 eid:int
 ename:string
 eage:int
-ecity:string
+eloc:string
 esal:int
 edept:int

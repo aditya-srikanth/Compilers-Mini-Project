@@ -10,9 +10,16 @@ insert record (105, "John", 53, "Hyderabad", 43000, 10) into emp;
 
 ################# Update Record ################
 /////////////////// without duplicate keys becoming equal /////////////
-update record in emp set (ename,eage) to ("Boob",69) where eid == 105;
+update record in emp set (ename,eage) to ("Bob",69) where eid == 105;
 
 /////////////////// with duplicate key becoming equal /////////////
 update record in emp set (eid,eage) to (105,69) where eid == 104;
+//////////////////// with invalid key ////////////////////////////
+update record in emp set (eid,eage) to (105,69) where eid >200104;
+///////////////////// with multiple matches //////////////////////
+update record in emp set (eid,eage) to (105,69) where eid >= 0;
+///////////////////
 
 ################ Delete Query ####################
+delete record from emp where eid == 105;
+DELETE RECORD FROM FILE_NAME WHERE CONDITION_LIST

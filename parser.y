@@ -51,25 +51,31 @@
 
 %%
 
-  QUERY :   GET_QRY    { printf("Get query\n");}
+  QUERY :   GET_QRY    {
+              printf("\n\nGet query excecuted successfully!!\n\n");
+            }
         |
-        INSERT_QRY  { printf("Insert query\n");}
+        INSERT_QRY  { 
+            printf("\n\nInsert query excecuted successfully\n\n");
+          }
         |
-        UPDATE_QRY  { printf("Update query\n");}
+        UPDATE_QRY  { 
+            printf("\n\nUpdate query executed successfully\n\n");
+          }
         |
-        DELETE_QRY  { printf("Delete query\n");}
+        DELETE_QRY  { 
+          printf("Delete query\n");
+          }
         ;
 
     GET_QRY:   GET FIELD_LIST FROM FILE_NAME WHERE CONDITION_LIST   {
-            //TODO
             //Verfify field list
             //print according to field list
             if($2->length <= schema.length){
+              // bitmask to hold the fields to be displayed
               int bitmask = 0;
               int temp;
-              printf("The input  to the get is \n");
-              print_list($6);
-              // struct String_Node* itr = $2
+              
               struct String_Node* iter = $2->head;
               printf("The values within schema are\n");
               while(iter != NULL){
@@ -489,44 +495,28 @@
                 ;
 
     FIELD_LIST: LEFT_PARANTHESES FIELDS RIGHT_PARANTHESES {
-                  // struct String_List* temp = (struct String_List*)malloc(sizeof(struct String_Node));
-                  // temp->head = $2->head;
-                  // temp->length = $2->length;
-                  // $$ = temp;
+                  
                   $$ = $2;
                 }
                 ;
 
     FIELDS:     FIELD COMMA FIELDS { 
-                  // struct String_List* temp = (struct String_List*)malloc(sizeof(struct String_Node));
-                  // $$->head = $3->head;
-                  // temp->length = $3->length;
+                // Add elements to the linked list.
                   $$ = $3;
                   push_back_string(*$1,&$$);
-                  // $$ = temp;
-                  // struct String_List temp = (struct String_List)malloc(sizeof(struct String_List));
-                  // strcpy(temp->data.string,$1);
-                  // temp->data.string_length = strlen($1); 
-                  // $3->length += 1;
-                  // $$->next_str = temp;
-                  // //TODO ADD API FOR STRING LIST
-                  // push_back_string($1);  
                 }
                 | 
                 FIELD {
+                  // base case only one field.
                   struct String_List* temp = (struct String_List*)malloc(sizeof(struct String_List));
                   
                   push_back_string(*$1,&temp);
                   $$ = temp;
-                  // struct String_List* temp = malloc(sizeof(struct String));
-                  // strcpy(temp->data.string,$1);
-                  // temp->data.string_length = strlen($1); 
-                  // temp->length = 1;
-                  // $$ = temp;
                 }
                 ;
 
     FIELD:     IDENTIFIER {
+                    // This contains a linked list of strings
                     struct String_Node* temp = (struct String_Node*)malloc(sizeof(struct String_Node));
                     strcpy(temp->string,$1);
                     temp->string_length = strlen($1);
@@ -541,7 +531,7 @@
             struct Record * iter = $1;
             if($2 == 1)
             { 
-              printf("Inside AND\n");
+              // handle the and condition
               while(iter != NULL){
                 if( find(*iter,$3)){
                   push_back(iter->current_field,&$$);
@@ -552,6 +542,7 @@
             else{
               $$ = $1;
               iter = $3;
+              // A + B-A = A U B
               while(iter != NULL){
                 if( !find(*iter,$$)){
                   push_back(iter->current_field,&$$);
@@ -559,23 +550,21 @@
                 iter = iter->next_record;
               }
             }
-            printf("output after condition\n\n");
-            print_list($$);
           }
           |
           CONDITION                                                            { $$ = $1; }
           ;
 
-    LOGICAL_OPERATOR: AND                                                      {  printf("GAND\n");
+    LOGICAL_OPERATOR: AND                                                      {  
                                                                                     $$ = 1; 
                                                                                }
                       |                                                       
-                      OR                                                       { printf("GORI\n");
+                      OR                                                       { 
                                                                                   $$ = 0; 
                                                                                 }
           ;
 
-    /* this may fuxk titself   */
+    
     CONDITION : NUMERICAL_CONDITION                                             { $$ = $1; }                                                                                 
                 | 
                 STRING_CONDITION                                                { $$ = $1; }
@@ -583,6 +572,7 @@
                 NOT CONDITION  { 
                   $$ = NULL;
                   struct Record * iter = table_records;
+                  // ignore all the records that are already present.
                   while(iter != NULL){
                     if( find(*iter,$2) == false){
                       push_back(iter->current_field,&$$);
@@ -602,91 +592,83 @@
             struct Record* iter = table_records;
             print_list(table_records);
             int pos_of_field = 0;
+
+            // find the position of the required field in the record.
             for(int i = 0; i < schema.length; i++){
-              printf("schema field name %s \n",$1);
+              
               if(strcmp($1,schema.schema_definition[i].name.field_name) == 0){
                 pos_of_field = i; 
                 break;
               }
             } 
-            printf("table record pointer: %p, first record %d\n",iter,iter->current_field.field_array[pos_of_field].value.integer);
-            printf("comparing %d\n",$3.value.integer);
+            
             while(iter != NULL){
-              printf("values in iter %d\n",iter->current_field.field_array[pos_of_field].value.integer);
-
+              
               struct Record* temp  = (struct Record*)malloc(sizeof(struct Record));
               temp->current_field = iter->current_field;
               
               if( strcmp($2.opertr,"==") == 0){
-                puts("eq");
-                printf("$3 value integer is %d\n",$3.value.integer);
+                
                 if( $3.value.integer == iter->current_field.field_array[pos_of_field].value.integer){
-                  printf("EQ condition matched\n");
                   push_back(temp->current_field,&$$);
-                  print_list($$);
                 }
               }
               if( strcmp($2.opertr,"!=") == 0){
-                puts("neq");
+                
                 if( $3.value.integer != iter->current_field.field_array[pos_of_field].value.integer){
                   push_back(temp->current_field,&$$);
                 }
               }
               if( strcmp($2.opertr,">") == 0){
-                puts("gt");
+                
                 if( $3.value.integer < iter->current_field.field_array[pos_of_field].value.integer){
                   push_back(temp->current_field,&$$);  
                 }
               }
               if( strcmp($2.opertr,"<") == 0){
-                puts("lt");
+                
                 if( $3.value.integer > iter->current_field.field_array[pos_of_field].value.integer){
                   push_back(temp->current_field,&$$);
                 }
               }
               if( strcmp($2.opertr,">=") == 0){
-                puts("geq");
+                
                 if( $3.value.integer <= iter->current_field.field_array[pos_of_field].value.integer){
                   push_back(temp->current_field,&$$);
                 }
               }
               if( strcmp($2.opertr,"<=") == 0){
-                puts("leq");
+                
                 if( $3.value.integer >= iter->current_field.field_array[pos_of_field].value.integer){
                   push_back(temp->current_field,&$$);
                 }
               }    
               iter = iter->next_record;
             }
-            printf("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD\n");
-            print_list($$);
-            printf("DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD\n");
           }
           ;
 
     STRING_CONDITION: STRING_FIELD STRING_RELATIONAL_OPERATOR STRING_OPERAND  {
             $$ = NULL;
             struct Record* iter = table_records;
-            printf("INSIDE STRING COND\n");
+            
             int pos_of_field = 0;
+            // find the position where we can find those kind of fields
             for(int i = 0; i < schema.length; i++){
               if(strcmp($1,schema.schema_definition[i].name.field_name) == 0){
                 pos_of_field = i;
-                printf("%d is POS OF FIELD\n",pos_of_field); 
                 break;
               }
             }
 
-            printf("ITER IS %p\n",iter); 
-            printf("OP IS %s\n",$2.opertr);
-            printf("COMPARinG with %s %d\n",$3.value.string,strlen($3.value.string));
+            
             while(iter != NULL){
               if( strcmp($2.opertr,"=") == 0){
                 char temp[STRING_LENGTH];
+                memset(temp,0,sizeof(temp));
+
                 strcpy(temp,$3.value.string);
-                // strcat(temp,"\n");
-                printf("Length of the iter string %d\n",strlen(iter->current_field.field_array[pos_of_field].value.string));
-                printf("NOW COMPARING %s %d with temp %d\n",iter->current_field.field_array[pos_of_field].value.string,strcmp($3.value.string,iter->current_field.field_array[pos_of_field].value.string),strcmp(temp,iter->current_field.field_array[pos_of_field].value.string));
+                // check if the conditions match the string                
                 if(strcmp($3.value.string,iter->current_field.field_array[pos_of_field].value.string) == 0){
                   struct Record* temp  = (struct Record*)malloc(sizeof(struct Record));
                   temp->current_field = iter->current_field;
@@ -694,23 +676,19 @@
                 }
               }    
               iter = iter->next_record;
-            }
-            printf("DAS STRING CONDITIONES OP IS \n");
-            print_list($$);
-            printf("I AINT GOT NO MONEY\n");   
+            } 
           }
           ;
 
     STRING_OPERAND:   STRING_LITERAL {
-            // $$ -> type = STRING_TYPE;
             strcpy($$.value.string , $1.value.string);
           } 
           ; 
 
     STRING_FIELD:     IDENTIFIER  {
-            // $$.type = INT_TYPE;
             printf("THE STRING FIELD IS ");
             bool flag = false;
+            // check for the validity of the identifier
             for(int i = 0; i < schema.length; i++){
               if(strcmp($1,schema.schema_definition[i].name.field_name) == 0){
                   flag = true; 
@@ -719,20 +697,17 @@
               }
             
             if(flag == false){
-            // terminating coz field not found
-              printf("FIELD NOT FOUND, CHECK QUERY\n");
+            // terminating because field is not found
+              yyerror("FIELD NOT FOUND, CHECK QUERY");
               YYABORT;
             }
-            strcpy($$,$1);
-            printf("%s\n",$$);
-            printf("DDDDDDDDDDDDSSSSSSSSSSSSSSEEEEEEEEEEEEE\n");                                                            
+            strcpy($$,$1);                                                            
           }
           ;
 
     STRING_RELATIONAL_OPERATOR: STRING_COMPARISON {
             $$.type = OPERTR;
             strcpy($$.opertr, "=");
-            printf("RECEIVED OP %s",$$.opertr);
           }
           ;
 
@@ -744,6 +719,7 @@
 
     NUMERICAL_FIELD:   IDENTIFIER {
             bool flag = false;
+            // Loop to check the validity of the identifier
             for(int i = 0; i < schema.length; i++){
               if(strcmp($1,schema.schema_definition[i].name.field_name) == 0){
                   flag = true;
@@ -752,8 +728,8 @@
               }
             
             if(flag == false){
-            // terminating coz field not found
-              printf("FIELD NOT FOUND, CHECK QUERY\n");
+            // terminating becuause the field is not found
+              yyerror("FIELD NOT FOUND, CHECK QUERY");
               YYABORT;
             }
             strcpy($$,$1);  
@@ -805,7 +781,7 @@
                     switch($2.type){
                       case VAL_INT: $$->field_array[$$->length].value.integer = $2.value.integer; break;
                       case VAL_STRING: strcpy($$->field_array[$$->length].value.string, $2.value.string); break;
-                      default: printf("This datatype has not been defined\n"); YYABORT;break;
+                      default: yyerror("This datatype has not been defined"); YYABORT;break;
                     }
                     $$->length = $$->length + 1;
                   }
@@ -814,7 +790,7 @@
 
   DATA_LIST:  COMMA DATA_UNIT DATA_LIST {
                   if($3->length == ARRAY_SIZE){
-                    printf("Need more fields in the definition? contact the developer\n");
+                    yyerror("Need more fields in the definition? contact the developer\n");
                     YYABORT;// end as we cannot continue;
                   }
                   else{
@@ -823,75 +799,80 @@
                     switch($2.type){
                       case VAL_INT:$$ -> field_array[$$->length].value.integer = $2.value.integer; break;
                       case VAL_STRING: strcpy($$->field_array[$$->length].value.string, $2.value.string); break;
-                      default: printf("This datatype has not been defined\n"); YYABORT;break;
+                      default: yyerror("This datatype has not been defined"); YYABORT;break;
                     }
                     $$->length = $$->length + 1;
                   }
                 }
                 |                       
                                         {
+                                          // Constructing an empty data list
                 /* empty */             $$ = (struct Field_List*)calloc(1,sizeof(struct Field_List));
                                         $$->length = 0;          
                                         }
                 ;
 
   DATA_UNIT: STRING_LITERAL  {
+                  // Handling data if they are of string type.
                   $$.type = $1.type;
                   switch($$.type){
-                    case VAL_INT : $$.value.integer = $1.value.integer; break;
                     case VAL_STRING: strcpy($$.value.string,$1.value.string); break;
-                    default: printf("Illegal type stopping execution\n");YYABORT;
+                    default: yyerror("Illegal type stopping execution");YYABORT;
                   }//YYABORT stops execution of parser due to error
                 }
                 | 
                 INTEGER_LITERAL  {
+                  // Handling data if they are of the integer type.
                   $$.type = $1.type;
                   switch($$.type){
-                    case VAL_INT : $$.value.integer = $1.value.integer; break;
-                    case VAL_STRING: strcpy($$.value.string,$1.value.string); break;
-                    default: printf("Illegal type stopping execution\n");YYABORT;
+                    case VAL_INT : $$.value.integer = $1.value.integer; break;                   
+                    default: yyerror("Illegal type stopping execution");YYABORT;
                   }//YYABORT stops execution of parser due to error
                 }
                ;
 
     FILE_NAME: IDENTIFIER   {
-                  // TODO test.c and return qualified file path 
-                  // strcpy($$,/*Address to the folder to which it is to be written*/);
-                  // obtain the path to schema and get the data in the schema
-        
-                  // Refresh the buffer for each time a query is called
+                  // This part of the grammar opens the corresponding file and schema corresponding to the file referred to.
                   table_records = NULL;
                   memset(&schema,0,sizeof(schema));
 
+                  
                   char path_to_schema[STRING_LENGTH];
+                  memset(path_to_schema,0,sizeof(path_to_schema));
                   strcpy($$,$1);
 
+                  // Path to the master table ./master/table_name
                   strcpy(path_to_schema,MASTER_TABLE);
                   strcat(path_to_schema,"/");
                   strcat(path_to_schema,$$);
-                  printf("path to schema is %s\n",path_to_schema);
+                  
+                  // open the handle corresponding to the file.
                   FILE* schema_file_handle = fopen(path_to_schema,"r+");
                   
+                  // if the open failed handle it.
                   if(schema_file_handle==NULL){
                     handle_query_file_error();
                   }
-                  printf("Table Schema found!\n");
-                  // schema_list = (struct Field_List*)calloc(1,sizeof(struct Field_List));
-                  // schema_list -> length = 0;
+                  printf("Table Schema found!!!\n");
+                  
 
                   // obtain the path to the table and get the data in the table
                   char path_to_table[STRING_LENGTH];
-                  // strcpy($$,$1);
+                  memset(path_to_table,0,sizeof(path_to_table));
 
+                  // ./data/employee for example will the path to the folder containing all the records as files.
                   strcpy(path_to_table,DATA_PATH);
                   strcat(path_to_table,"/");
                   strcat(path_to_table,$$);
 
                   DIR* table_file_handle = opendir(path_to_table);
+                  // check if this folder exists
                   if(table_file_handle==NULL){
                     handleError(0);
                   }
-                  printf("The table is found\n");
+                  printf("The table is found!!!\n");
+
+                  
                   struct dirent* file = NULL;
                   char* line = NULL;
                   ssize_t read;
@@ -913,9 +894,11 @@
                   //fill the schema
                   int index = 0;
                   while((read = getline(&line,&len,schema_file_handle)) != -1){
-                      strip(line);
+                      strip(line); // This function gets rid of all trailing whitespaces.
+
                       char* token1 = strtok(line,SCHEMA_DELIM);
                       strcpy(schema.schema_definition[index].name.field_name,token1);
+
                       token1 = strtok(NULL,SCHEMA_DELIM);
                       if(strcmp(token1,STRING) == 0){
                           schema.schema_definition[index++].type = VAL_STRING;
@@ -923,15 +906,17 @@
                       else if(strcmp(token1,INT) == 0){
                           schema.schema_definition[index++].type = VAL_INT;
                       }
-                      // strcpy(schema.schema_definition[index++].type,token1);
                   }
+
                   fclose(schema_file_handle);
+
                   //for debug, print the schema obtained
                   printf("Number of  Attributes: %d\n",number_of_attributes);
                   for(int i=0;i<number_of_attributes;i++){
                       printf("%s\n",schema.schema_definition[i].name.field_name);
                   }
-                  printf("dummy\n");
+                  printf("\n\n");
+
                   //go through the 'records'/txt files inside the data folder and fill the linked list of records
                   while((file=readdir(table_file_handle))!=NULL){
                     if(file->d_type != DT_REG){// If it is not a regular file
@@ -939,21 +924,24 @@
                     }
                     else{
                         struct Field_List record;
-                        char filenames[1000];
+                        char filenames[STRING_LENGTH];
+                        // directory/filename
                         sprintf(filenames,"%s/%s",path_to_table,file->d_name);
+
                         FILE* ffile = fopen(filenames,"r");
                         read = getline(&line,&len,ffile);
                         strip(line);
-                        if(read == -1){
-                          // printf("Line not found\n");
+                        if(read == -1){ // this will give an error if we are unable to read a line from the file.
                           handle_query_file_error();
                         }
                         index = 0;
-                        printf("%s\n",line);
-                        
+
                         char templine[STRING_LENGTH];
-                        strcpy(templine,line);
+                        memset(templine,0,sizeof(templine));
+                        strcpy(templine,line); // we make use of a temporary line as strtok mutates the original line.
+
                         char* token = strtok(line,FILE_DELIM);
+                        // count the number of fields
                         while(token != NULL){
                           index++;
                           token = strtok(NULL,FILE_DELIM);
@@ -961,8 +949,9 @@
                         record.length = index;
                         index = 0;
                         token = strtok(templine,FILE_DELIM);
+                        // Assuming that the records are internally consistant.
                         while(token != NULL){
-                            // struct Field field;
+                           
                             record.field_array[index].type = schema.schema_definition[index].type;
                             if(record.field_array[index].type == VAL_INT){
                                 record.field_array[index].value.integer = atoi(token);
@@ -970,16 +959,20 @@
                             else{
                                 strcpy(record.field_array[index].value.string,token);
                             }
-                            // record.field_array[index++] = field;
+                            
                             index++;
-                            token = strtok(NULL,FILE_DELIM);
+                            token = strtok(NULL,FILE_DELIM); // get the next token for the record
                         }
-                        push_back(record,&table_records);
+                        push_back(record,&table_records); // push the record into the table records global
                         
                     }
                   }
+                  // We print all the records for debugging purposes.
                   print_list(table_records);
+
+                  // we give the path to all the records back
                   strcpy($$,path_to_table);
+
                   puts("THE PATH TO THE TABLE IS");
                   puts($$);
                 }
@@ -987,20 +980,18 @@
 %%
 
 void handle_query_file_error(){
-
+  // Function to handle the errors that occur during file handling.
   switch(errno){
     case EINVAL: printf("The mode provided for opening the file is incorrect\n");break;
     case ENOMEM: printf("Out of memory as the memory has hit the memory limit set internally\n");break;
     case EACCES: printf("Access to the current file is not allowed.Check the permissions set for the file\n");break;
     case EFAULT: printf("The path name is outside your accessible address space\n");break;
     case ENOENT: printf("This file does not exist\n");break;
-    // case EBADNAME: printf("The file name specified is not valied\n");break;
-    // case EIOERROR: printf("A non recoverable IO error occured\n");break;
-    // case EIORECERR: printf("A recoverable IO error occured\n");break;
   }
   exit(EXIT_FAILURE);
 }
 int yyerror(const char* msg){
+  // Function to send error message to the user.
   fprintf(stderr," %s\n",msg);
     return 0;
 }
@@ -1008,7 +999,8 @@ int yyerror(const char* msg){
 
 
 void handleError(int isMaster){
-
+  // If isMaster is true, it gives us the option of creating a new master directory
+  // This function handles all the errors that are associated with directory handling.
     switch(errno){
     case EACCES: perror("Permission denied.\n");exit(EXIT_FAILURE);break;
 
@@ -1018,8 +1010,6 @@ void handleError(int isMaster){
 
 
        case ENFILE: perror("The system-wide limit on the total number of open files has been reached.\n");exit(EXIT_FAILURE);break;
-
-
 
         case ENOENT:    printf("Directory does not exist, or name is an empty string.\n");
                         if(isMaster==1){
@@ -1052,9 +1042,10 @@ void handleError(int isMaster){
 
 
 int initFunction(char *tableName){
+  //try to open the master directory
     DIR* masterDirectory = opendir(MASTER_TABLE);
     if(masterDirectory){
-        printf("The master diretory is initialized.\n");
+        printf("\n\nThe master directory is initialized.\n\n");
     }
     else{
         handleError(ENOENT);
@@ -1063,9 +1054,13 @@ int initFunction(char *tableName){
 }
 
 int main(int argc, char* argv[]){
+  /*
+  * A point that has to be kept in mind is that yyparse finishes only after yylex gives zero
+  */
+    // this is use to initialize the folder that contains all the schemas.
     initFunction(argv[0]);
     while(yyparse()==0){
-     // This will make it run till we get an error
+     // This will make it run till we get an error, for an error yyparse gives 1.
     }
   return 0;
 }

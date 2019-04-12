@@ -51,40 +51,29 @@
 
 %%
 
-  QUERY :   GET_QRY    { printf("Get query\n");}
+  QUERY :   GET_QRY
         |
-        INSERT_QRY  { printf("Insert query\n");}
+            INSERT_QRY
         |
-        UPDATE_QRY  { printf("Update query\n");}
+            UPDATE_QRY
         |
-        DELETE_QRY  { printf("Delete query\n");}
+            DELETE_QRY
         ;
 
     GET_QRY:   GET FIELD_LIST FROM FILE_NAME WHERE CONDITION_LIST   {
-            //TODO
-            //Verfify field list
-            //print according to field list
+            // if the length of the fields in the get query is greater than the schema's length, throw an error 
             if($2->length <= schema.length){
-              int bitmask = 0;
-              int temp;
-              printf("The input  to the get is \n");
-              print_list($6);
-              // struct String_Node* itr = $2
-              struct String_Node* iter = $2->head;
-              printf("The values within schema are\n");
+              int bitmask = 0;                      // Bitmask is used to keep which attributes are being queried for
+              int temp;                             // used to check whether the field has been queried for
+              struct String_Node* iter = $2->head;  // get the list's header
               while(iter != NULL){
-                temp = find_string(iter->string,schema);
-                printf("String:%s\n",iter->string);
-                printf("The position obtained is %d\n",temp);
-                printf("The bitmask up to now is %d\n",bitmask);
-                printf("The value of 2*i is %d\n",(int)pow(2,temp));
-                if(bitmask==0){
-                  bitmask+=(int)pow(2,temp);
+                temp = find_string(iter->string,schema); // returns index of the field if it is found
+                if(bitmask == 0){                        // initial condition
+                  bitmask |= (int)pow(2,temp);           // set that field to one
                 }
                 else{
-                  printf("the bitmask is %d\n",bitmask);
                   if( (bitmask & (int)pow(2,temp)) == 0){
-                    bitmask+=(int)pow(2,temp);
+                    bitmask |= (int)pow(2,temp);
                   }
                   else{
                     printf("WARNING!!! THE SAME ATTR HAS BEEN REPEATED\n");
@@ -92,7 +81,6 @@
                 }
                 iter = iter->next_str;
               }
-              printf("The mask is %d\n",bitmask);
               int value = bitmask;
               for(int i=0;i<schema.length;i++){
                 if(value & 1){
@@ -105,7 +93,6 @@
               }
               printf("\n");
               print_list_masked($6,bitmask);
-              printf("\n\n");
             }
             else{
               yyerror("The fields do not match the schema: length mismatch");
@@ -117,32 +104,32 @@
     INSERT_QRY:  INSERT RECORD TUPLE INTO FILE_NAME                  {
                   
                   
-                  if($3->length != schema.length){
+                  if($3->length != schema.length){            // Check whether the number of attributes matches the schema  
                     yyerror("Input does not match schema: incorrect number of arguments");
                     YYABORT;
                   }
                     
-                  for(int i = $3->length-1; i >= 0; i--){
-                    printf("type of candidate is %d and schema: %d\n",$3->field_array[i].type, schema.schema_definition[$3->length-i-1].type);
+                  for(int i = $3->length-1; i >= 0; i--){     // Check the type of the attribute, if there is a mismatch, throw an error. The type of the attribute is generated in the lexer
                     if($3->field_array[i].type != schema.schema_definition[$3->length-i-1].type){
                       yyerror("Input does not match schema: incorrect type of arguments");
                       YYABORT;
                     }
                   }  
                   DIR* dir_handle = NULL;                                                                        
-                  dir_handle = opendir($5); 
-                  if(dir_handle == NULL){
+                  dir_handle = opendir($5);   // open the table's file 
+                  if(dir_handle == NULL){     // if the table does not exist, throw an error and exit
                     handleError(false);
                   }
                   else{
-                    FILE* file_handle = NULL;
+                    // generate the path to the file
+                    FILE* file_handle = NULL; 
                     char temp[STRING_LENGTH];
                     char path_to_file[STRING_LENGTH];
+                    // each record is a file whose filename is the primary key 
+                    // if the primary key is a digit or a number, they are handled differently
                     switch($3->field_array[$3->length-1].type){
                       case VAL_INT:
-
                         sprintf(temp,"%s/%d.txt",$5,$3->field_array[$3->length-1].value.integer);
-                      
                       break;
                       
                       case VAL_STRING:
@@ -155,14 +142,15 @@
                       YYABORT;
                     }
                     else{
+                      
                       char to_print_record[RECORD_LENGTH];
                       memset(to_print_record,0,sizeof(to_print_record));
+                      // the format of storage of a record: attribute, and tab no linebreaks "\n". In case of confusion, refer defaults.h
+                      // the order is in reverse because of the right recursion for the processing of fields.
                       for(int i = $3->length-1; i > 0; i--){
                         switch($3->field_array[i].type){
                           case VAL_INT:
-
                             sprintf(temp,"%d%s",$3->field_array[i].value.integer,FILE_DELIM);
-                          
                           break;
                           
                           case VAL_STRING:
@@ -171,6 +159,7 @@
                         }
                         strcat(to_print_record,temp);
                       }
+                      // the last record does not require a delimiter.
                       switch($3->field_array[0].type){
                           case VAL_INT:
 
@@ -181,31 +170,26 @@
                           case VAL_STRING:
                             sprintf(temp,"%s",$3->field_array[0].value.string);
                           break;
-                      }
+                      } 
                       strcat(to_print_record,temp);
-                      puts("to print record");
-                      puts(to_print_record);
+                      // open the file
                       file_handle = fopen(path_to_file,"w");
                       if(file_handle == NULL){
                         handle_query_file_error();
                       }
                       else{
-                        printf("ENTERING %s\n",to_print_record);
                         fprintf(file_handle,"%s",to_print_record);
                         printf("RECORD ENTERED SUCCESFULLY\n");
                       }
                       fclose(file_handle);
-                      
                     }
                   }
                 }
                 ;
 
     UPDATE_QRY: UPDATE RECORD IN FILE_NAME SET FIELD_LIST TO TUPLE WHERE CONDITION_LIST     {
- //TODO
-                    //Open file handle
-                    //Update those that appear in condition list
-                    struct Record* iter = $10;
+                    
+                    struct Record* iter = $10; // gets the candidates based on the mentioned conditions
                     if(iter == NULL){
                       printf("WARNING!! NO RECORDS FOUND WITH THE MATCHING CRITERION\n");       
                       YYABORT;
@@ -213,30 +197,30 @@
 
                     int bitmask = 0;
                     int temp;
-                    int map[schema.length];
-                    for(int i=0;i<schema.length;i++){
+                    int map[schema.length];             // map is an array used to store the mapping from schema's index to the query's index
+                    for(int i=0;i<schema.length;i++){   // initialization
                       map[i] = -1; 
                     }
 
-                    struct Field key;
+                    struct Field key;                   // primary key used here.
                     switch(schema.schema_definition[0].type){
                       case VAL_STRING:
                         key.type = VAL_STRING;
-                        
                         break;
+
                       case VAL_INT:
                         key.type = VAL_INT;
                         break;
                     }
 
-                    if($6->length != $8->length){
+                    if($6->length != $8->length){ 
                       yyerror("ERROR: ARG MISMATCH THE NUMBER OF FIELDS DOES NOT MATCH NUMBER OF TUPLES");
                       YYABORT;
                     }
 
                     if($6->length <= schema.length){
                       struct String_Node* str_list_iter = $6->head;
-                      struct Field_List* field_list_data = $8;
+                      struct Field_List* field_list_data = $8;   
                       int index = 0;
                       while(str_list_iter != NULL){
                         temp = find_string(str_list_iter->string,schema);
@@ -444,24 +428,17 @@
                 ;
 
     DELETE_QRY: DELETE RECORD FROM FILE_NAME WHERE CONDITION_LIST  {
-                  // $$ = NULL;
                   struct Record* iter = $6;
-                  printf("DELETE KE ANDAR\n");
-                  print_list(iter);
                   DIR* dir_handle = opendir($4);
                   struct dirent* dir_entry;
                   int Hack = 2;
                   while((dir_entry=readdir(dir_handle))!=NULL){
                     iter = $6;
-                    // printf("the dir handle is %p\n",dir_handle);
                     while(iter!=NULL){
-                      printf("the dir handle 2 is %p\n",iter);
-                      printf("the type is %d, STRING %d INT %d\n ",iter->current_field.field_array[0].type,VAL_STRING,VAL_INT );
                       switch(iter->current_field.field_array[0].type){
                         case VAL_STRING: if(strcmp(iter->current_field.field_array[0].value.string,dir_entry->d_name)==0){
                                           char path[STRING_LENGTH];
                                           sprintf(path,"%s/%s.txt",$4,dir_entry->d_name);
-                                          puts("path to deletion");
                                           puts(path);
                                           remove(path);
                                         }
@@ -475,8 +452,6 @@
                                         if(strcmp(string_format,dir_entry->d_name)==0){
                                           char path[STRING_LENGTH];
                                           sprintf(path,"%s/%s",$4,dir_entry->d_name);
-                                          puts("path to deletion");
-                                          puts(path);
                                           remove(path);
                                         }
                                         break;
@@ -489,28 +464,13 @@
                 ;
 
     FIELD_LIST: LEFT_PARANTHESES FIELDS RIGHT_PARANTHESES {
-                  // struct String_List* temp = (struct String_List*)malloc(sizeof(struct String_Node));
-                  // temp->head = $2->head;
-                  // temp->length = $2->length;
-                  // $$ = temp;
                   $$ = $2;
                 }
                 ;
 
     FIELDS:     FIELD COMMA FIELDS { 
-                  // struct String_List* temp = (struct String_List*)malloc(sizeof(struct String_Node));
-                  // $$->head = $3->head;
-                  // temp->length = $3->length;
                   $$ = $3;
                   push_back_string(*$1,&$$);
-                  // $$ = temp;
-                  // struct String_List temp = (struct String_List)malloc(sizeof(struct String_List));
-                  // strcpy(temp->data.string,$1);
-                  // temp->data.string_length = strlen($1); 
-                  // $3->length += 1;
-                  // $$->next_str = temp;
-                  // //TODO ADD API FOR STRING LIST
-                  // push_back_string($1);  
                 }
                 | 
                 FIELD {
@@ -518,11 +478,6 @@
                   
                   push_back_string(*$1,&temp);
                   $$ = temp;
-                  // struct String_List* temp = malloc(sizeof(struct String));
-                  // strcpy(temp->data.string,$1);
-                  // temp->data.string_length = strlen($1); 
-                  // temp->length = 1;
-                  // $$ = temp;
                 }
                 ;
 
